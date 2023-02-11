@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Application</string>
+
+    <!-- Nav Bar -->
+    <string name="nav_home">Home</string>
+    <string name="nav_schedule">Schedule</string>
+    <string name="nav_equipment">Equipment</string>
+    <string name="nav_help">Help</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
