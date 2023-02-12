@@ -6,29 +6,29 @@
     android:minHeight="64dp">
 
     <ImageView
-        android:id="@+id/rv_equipment_list_item_image"
+        android:id="@+id/equipmentRVItemImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:src="@drawable/baseline_handyman_24"/>
 
     <TextView
-        android:id="@+id/rv_equipment_list_item_text"
+        android:id="@+id/equipmentRVItemText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/rv_equipment_list_item_image"
+        android:layout_toEndOf="@id/equipmentRVItemImage"
         android:paddingTop="16dp"
         android:paddingEnd="16dp"
         android:maxLines="1"
         android:textAppearance="?attr/textAppearanceSubtitle1"/>
 
     <TextView
-        android:id="@+id/rv_equipment_list_item_secondary_text"
+        android:id="@+id/equipmentRVItemSecondaryText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rv_equipment_list_item_text"
+        android:layout_below="@id/equipmentRVItemText"
         android:layout_gravity="center_vertical"
-        android:layout_toEndOf="@id/rv_equipment_list_item_image"
+        android:layout_toEndOf="@id/equipmentRVItemImage"
         android:paddingEnd="16dp"
         android:maxLines="2"
         android:textAppearance="?attr/textAppearanceBody2"/>

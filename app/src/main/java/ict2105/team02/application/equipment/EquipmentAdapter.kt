@@ -14,8 +14,8 @@ class EquipmentAdapter (
 ) : RecyclerView.Adapter<EquipmentAdapter.EquipmentViewHolder>() {
 
     inner class EquipmentViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val nameTextView: TextView = view.findViewById(R.id.rv_equipment_list_item_text)
-        val statusTextView: TextView = view.findViewById(R.id.rv_equipment_list_item_secondary_text)
+        val nameTextView: TextView = view.findViewById(R.id.equipmentRVItemText)
+        val statusTextView: TextView = view.findViewById(R.id.equipmentRVItemSecondaryText)
 
         init {
             view.setOnClickListener {

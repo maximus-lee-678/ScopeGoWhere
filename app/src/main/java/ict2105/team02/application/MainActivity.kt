@@ -1,5 +1,6 @@
 package ict2105.team02.application
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -24,7 +25,12 @@ class MainActivity : AppCompatActivity() {
 //                R.id.nav_help -> navbarNavigate(HomeFragment())
                 else -> { }
             }
-            true
+            return@setOnItemSelectedListener true
+        }
+
+        binding.navbarFab.setOnClickListener {
+            intent = Intent(this, QRScannerActivity::class.java)
+            startActivity(intent)
         }
     }
 

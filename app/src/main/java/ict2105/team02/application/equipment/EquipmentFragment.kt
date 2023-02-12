@@ -18,7 +18,7 @@ class EquipmentFragment : Fragment() {
         binding = FragmentEquipmentBinding.inflate(inflater)
 
         // Setup recyclerview
-        binding.recyclerviewEquipments.apply {
+        binding.equipmentsRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = EquipmentAdapter(requireContext(), equipments)
         }
