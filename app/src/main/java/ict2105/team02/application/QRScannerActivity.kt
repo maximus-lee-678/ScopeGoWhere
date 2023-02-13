@@ -1,8 +1,10 @@
 package ict2105.team02.application
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.SurfaceHolder
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,13 +14,14 @@ import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
-import ict2105.team02.application.databinding.ActivityQrscannerBinding
+import ict2105.team02.application.databinding.ActivityQrScannerBinding
+import ict2105.team02.application.endoscope.ScopeDetailFragment
 import java.io.IOException
 
 private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
 
 class QRScannerActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityQrscannerBinding
+    private lateinit var binding: ActivityQrScannerBinding
 
     private lateinit var cameraSource: CameraSource
     private lateinit var barcodeDetector: BarcodeDetector
@@ -26,8 +29,10 @@ class QRScannerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityQrscannerBinding.inflate(layoutInflater)
+        binding = ActivityQrScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.title = "QR Scanner"
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
@@ -75,16 +80,17 @@ class QRScannerActivity : AppCompatActivity() {
                     .show()
             }
 
+            @SuppressLint("MissingPermission")
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
                 val barcodes = detections.detectedItems
                 if (barcodes.size() == 1) {
                     scannedValue = barcodes.valueAt(0).rawValue
 
-                    // Toast or finishing activity must run on main thread
                     runOnUiThread {
                         cameraSource.stop()
                         Toast.makeText(this@QRScannerActivity, scannedValue, Toast.LENGTH_SHORT).show()
-
+                        val fragment = ScopeDetailFragment()
+                        fragment.show(supportFragmentManager, "scope_detail")
                     }
                 }
             }
@@ -103,6 +109,17 @@ class QRScannerActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(applicationContext, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        // Enable camera only when activity is in focus
+        if (hasFocus) {
+            cameraSource.start(binding.cameraSurfaceView.holder)
+        } else {
+            cameraSource.stop()
         }
     }
 

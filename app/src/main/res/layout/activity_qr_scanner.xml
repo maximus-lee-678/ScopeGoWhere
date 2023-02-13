@@ -15,16 +15,4 @@ tools:context=".QRScannerActivity">
     android:layout_height="match_parent"
     android:src="@drawable/baseline_crop_free_24"/>
 
-<FrameLayout
-    android:id="@+id/scanResultBottomSheet"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" >
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</FrameLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
