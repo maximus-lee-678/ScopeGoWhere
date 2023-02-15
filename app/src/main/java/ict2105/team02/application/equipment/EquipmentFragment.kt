@@ -7,12 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.databinding.FragmentEquipmentBinding
+import ict2105.team02.application.model.Endoscope
+import java.util.*
 
 class EquipmentFragment : Fragment() {
     private lateinit var binding: FragmentEquipmentBinding
 
-    private val equipments = listOf("Cilantro", "Beans", "Cheese", "Oil", "Tomato", "Salt", "Pepper", "Flour",
-        "Corn", "Garlic", "Lime", "Onion", "Rice", "Cabbage", "Avocado").map { Equipment(it) }
+    private val endoscopeSerial = (1..15).map { String.format("%03d", it) }
+    private val endoscopeName = listOf("AAA", "AAB", "AAC", "ABC", "ABD", "ABE")
+
+    private val equipments = endoscopeSerial.mapIndexed { index, serial ->
+        Endoscope(serial, endoscopeName[index % endoscopeName.size], "A", "In circulation", Date().toString(), listOf())}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentEquipmentBinding.inflate(inflater)

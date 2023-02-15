@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
+import ict2105.team02.application.model.Endoscope
 
 class EquipmentAdapter (
     private val context: Context,
-    private val equipments: List<Equipment>
+    private val equipments: List<Endoscope>
 ) : RecyclerView.Adapter<EquipmentAdapter.EquipmentViewHolder>() {
 
     inner class EquipmentViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -31,8 +32,8 @@ class EquipmentAdapter (
     }
 
     override fun onBindViewHolder(holder: EquipmentViewHolder, position: Int) {
-        holder.nameTextView.text = equipments[position].name
-        holder.statusTextView.text = "In circulation"
+        holder.nameTextView.text = equipments[position].serial
+        holder.statusTextView.text = equipments[position].status
     }
 
     override fun getItemCount(): Int {

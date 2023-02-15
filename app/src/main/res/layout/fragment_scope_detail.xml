@@ -34,12 +34,14 @@
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
+                    android:id="@+id/serialTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ABC123"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     />
                 <TextView
+                    android:id="@+id/statusTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -48,6 +50,7 @@
                     android:textColor="?android:attr/textColorSecondary"
                     />
                 <TextView
+                    android:id="@+id/next_sample_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
