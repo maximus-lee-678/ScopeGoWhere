@@ -13,22 +13,23 @@
         tools:context=".ui.ScopeDetailsWashFragment">
 
         <TextView
-            android:id="@+id/scopeDetailsTextView"
+            android:id="@+id/detergentTextView"
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:layout_marginLeft="10sp"
             android:gravity="bottom"
-            android:text="Scope Details"
+            android:text="Detergent"
             android:textSize="25sp" />
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/brand"
+            android:id="@+id/detergentUsed"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:hint="Brand">
+            android:hint="Detergent Used">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -37,14 +38,14 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/model"
+            android:id="@+id/detergentLotNo"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:hint="Model">
+            android:hint="Detergent Lot No">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -54,14 +55,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/serialNo"
+            android:id="@+id/filterChangeDate"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:hint="Serial No.">
+            android:hint="Filter Change Date">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

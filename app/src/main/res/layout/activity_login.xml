@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/ttsh_logo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/scopeWashing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

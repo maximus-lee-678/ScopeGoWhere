@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.databinding.FragmentHomeBinding
 import ict2105.team02.application.logout.LogoutFragment
+import ict2105.team02.application.ui.WashEquipmentFragment
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -18,6 +19,10 @@ class HomeFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
+        binding.button.setOnClickListener{
+            val fragment = WashEquipmentFragment()
+            (activity as MainActivity).navbarNavigate(fragment)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
