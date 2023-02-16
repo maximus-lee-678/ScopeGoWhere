@@ -1,10 +1,8 @@
 package ict2105.team02.application
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.SurfaceHolder
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +13,7 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import ict2105.team02.application.databinding.ActivityQrScannerBinding
-import ict2105.team02.application.endoscope.ScopeDetailFragment
+import ict2105.team02.application.ui.ScopeDetailFragment
 import java.io.IOException
 
 private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
@@ -89,7 +87,7 @@ class QRScannerActivity : AppCompatActivity() {
                     runOnUiThread {
                         cameraSource.stop()
                         Toast.makeText(this@QRScannerActivity, scannedValue, Toast.LENGTH_SHORT).show()
-                        val fragment = ScopeDetailFragment()
+                        val fragment = ScopeDetailFragment.newInstance("001")
                         fragment.show(supportFragmentManager, "scope_detail")
                     }
                 }
@@ -97,11 +95,7 @@ class QRScannerActivity : AppCompatActivity() {
         })
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty()) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
