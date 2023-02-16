@@ -27,6 +27,7 @@ class LoginActivity: AppCompatActivity() {
             if(valid) {
                 intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }else{
                 binding.error.text = "Invalid Staff ID or Password"
             }
