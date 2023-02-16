@@ -3,11 +3,14 @@ package ict2105.team02.application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.databinding.ActivityMainBinding
+import ict2105.team02.application.login.LoginActivity
+import ict2105.team02.application.logout.LogoutFragment
 import ict2105.team02.application.ui.EquipmentFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.navbarFab.setOnClickListener {
-            intent = Intent(this, QRScannerActivity::class.java)
+            val intent = Intent(this, QRScannerActivity::class.java)
             startActivity(intent)
         }
     }
@@ -38,5 +41,13 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout, fragment)
         transaction.commit()
+    }
+
+    override fun onLogout(result: Boolean) {
+        if(result){
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
