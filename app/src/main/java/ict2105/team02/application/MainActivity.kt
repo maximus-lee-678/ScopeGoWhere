@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.equipment.EquipmentFragment
+import ict2105.team02.application.equipment.wash.WashEquipmentFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -21,7 +22,8 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId) {
                 R.id.nav_home -> navbarNavigate(HomeFragment())
 //                R.id.nav_schedule -> navbarNavigate(ScheduleFragment())
-                R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
+//                R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
+                R.id.nav_equipment -> navbarNavigate(WashEquipmentFragment())
 //                R.id.nav_help -> navbarNavigate(HomeFragment())
                 else -> { }
             }
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun navbarNavigate(fragment: Fragment) {
+    public fun navbarNavigate(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout, fragment)
         transaction.commit()
