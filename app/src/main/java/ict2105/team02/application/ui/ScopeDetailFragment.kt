@@ -1,4 +1,4 @@
-package ict2105.team02.application.endoscope
+package ict2105.team02.application.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +19,8 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         binding = FragmentScopeDetailBinding.inflate(inflater)
         viewModel = ViewModelProvider(requireActivity()).get(ScopeDetailViewModel::class.java)
 
+        binding.scopeDetailCard.visibility = View.INVISIBLE
+
         binding.scanAgainButton.setOnClickListener {
             dismiss()
         }
@@ -36,7 +38,12 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val serial = arguments?.getString(KEY_ENDOSCOPE_SERIAL)
         if (serial != null) {
-            viewModel.fetchScopeDetail(serial)
+            viewModel.fetchScopeDetail(serial) {
+                requireActivity().runOnUiThread {
+                    binding.loadScopeProgressIndicator.visibility = View.INVISIBLE
+                    binding.scopeDetailCard.visibility = View.VISIBLE
+                }
+            }
         }
     }
 

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.databinding.ActivityMainBinding
-import ict2105.team02.application.equipment.EquipmentFragment
+import ict2105.team02.application.ui.EquipmentFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

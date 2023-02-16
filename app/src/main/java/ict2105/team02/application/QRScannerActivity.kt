@@ -13,7 +13,7 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import ict2105.team02.application.databinding.ActivityQrScannerBinding
-import ict2105.team02.application.endoscope.ScopeDetailFragment
+import ict2105.team02.application.ui.ScopeDetailFragment
 import java.io.IOException
 
 private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
