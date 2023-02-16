@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonParser
+import ict2105.team02.application.Utils
 import ict2105.team02.application.model.Endoscope
 import okhttp3.*
 import java.io.IOException
@@ -22,9 +23,7 @@ class ScopeDetailViewModel : ViewModel() {
                     if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
                     val json = it.body()!!.string()
-                    val jsonObj = JsonParser.parseString(json).asJsonObject
-                    val jsonData = jsonObj["data"]
-                    val data = Gson().fromJson(jsonData, Endoscope::class.java)
+                    val data = Utils.parseJSONSingleScope(json)
                     scopeDetail.postValue(data)
 
                     if (onFinish != null) {
