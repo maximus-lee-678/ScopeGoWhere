@@ -2,13 +2,10 @@ package ict2105.team02.application.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import com.google.gson.JsonParser
-import com.google.gson.reflect.TypeToken
+import ict2105.team02.application.Utils
 import ict2105.team02.application.model.Endoscope
 import okhttp3.*
 import java.io.IOException
-import java.lang.reflect.Type
 
 class EquipmentListViewModel : ViewModel() {
     val equipments = MutableLiveData<List<Endoscope>>()
@@ -24,10 +21,7 @@ class EquipmentListViewModel : ViewModel() {
                     if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
                     val json = it.body()!!.string()
-                    val jsonObj = JsonParser.parseString(json).asJsonObject
-                    val jsonArray = jsonObj["data"].asJsonArray
-                    val listType: Type = object : TypeToken<List<Endoscope?>?>() {}.type
-                    val data: List<Endoscope> = Gson().fromJson(jsonArray, listType)
+                    val data = Utils.parseJSONAllScope(json)
                     equipments.postValue(data)
 
                     if (onFinish != null) {

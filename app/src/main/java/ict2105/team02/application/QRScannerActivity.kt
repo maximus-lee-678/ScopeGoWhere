@@ -25,6 +25,8 @@ class QRScannerActivity : AppCompatActivity() {
     private lateinit var barcodeDetector: BarcodeDetector
     private var scannedValue = ""
 
+    private var toast: Toast? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQrScannerBinding.inflate(layoutInflater)
@@ -84,11 +86,18 @@ class QRScannerActivity : AppCompatActivity() {
                 if (barcodes.size() == 1) {
                     scannedValue = barcodes.valueAt(0).rawValue
 
-                    runOnUiThread {
-                        cameraSource.stop()
-                        Toast.makeText(this@QRScannerActivity, scannedValue, Toast.LENGTH_SHORT).show()
-                        val fragment = ScopeDetailFragment.newInstance("001")
-                        fragment.show(supportFragmentManager, "scope_detail")
+                    val serial = validateQRCodeEndoscope(scannedValue)
+                    if (serial.isNotEmpty()) {
+                        runOnUiThread {
+                            cameraSource.stop()
+                            val fragment = ScopeDetailFragment.newInstance(serial)
+                            fragment.show(supportFragmentManager, "scope_detail")
+                            // showToast(scannedValue)
+                        }
+                    } else {
+                        runOnUiThread {
+                            showToast("Invalid QR code")
+                        }
                     }
                 }
             }
@@ -120,5 +129,25 @@ class QRScannerActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         cameraSource.stop()
+    }
+
+    // Validate QR code data for endoscopes.
+    // The format is "endoscope:{serial}". E.g. endoscope:001
+    // Returns serial if valid, otherwise returns empty string
+    fun validateQRCodeEndoscope(value: String) : String {
+        val qrData = value.split(":")
+        if (qrData.size == 2 && qrData[0] == "endoscope") {
+            val serial = qrData[1]
+            if (serial.toIntOrNull() != null) {
+                return serial
+            }
+        }
+        return ""
+    }
+
+    fun showToast(message: String) {
+        toast?.cancel()
+        toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+        toast!!.show()
     }
 }
