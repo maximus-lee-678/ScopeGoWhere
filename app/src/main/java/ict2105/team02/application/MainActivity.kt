@@ -3,9 +3,9 @@ package ict2105.team02.application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.databinding.ActivityMainBinding
+import ict2105.team02.application.ui.WashEquipmentFragment
 import ict2105.team02.application.login.LoginActivity
 import ict2105.team02.application.logout.LogoutFragment
 import ict2105.team02.application.ui.EquipmentFragment
@@ -18,13 +18,14 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navbarNavigate(HomeFragment())
+        navbarNavigate(WashEquipmentFragment())
 
         binding.bottomNavbar.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.nav_home -> navbarNavigate(HomeFragment())
 //                R.id.nav_schedule -> navbarNavigate(ScheduleFragment())
                 R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
+//                R.id.nav_home -> navbarNavigate(WashEquipmentFragment())
 //                R.id.nav_help -> navbarNavigate(HomeFragment())
                 else -> { }
             }
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
         }
     }
 
-    private fun navbarNavigate(fragment: Fragment) {
+    public fun navbarNavigate(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout, fragment)
         transaction.commit()
