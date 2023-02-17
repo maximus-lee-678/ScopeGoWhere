@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import ict2105.team02.application.MainActivity
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 
@@ -15,15 +16,11 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
     private lateinit var viewModel: ScopeDetailViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentScopeDetailBinding.inflate(inflater)
         viewModel = ViewModelProvider(requireActivity()).get(ScopeDetailViewModel::class.java)
 
         binding.scopeDetailCard.visibility = View.INVISIBLE
-
-        binding.scanAgainButton.setOnClickListener {
-            dismiss()
-        }
 
         viewModel.scopeDetail.observe(this) {
             binding.serialTextView.text = it.serial
@@ -44,6 +41,15 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                     binding.scopeDetailCard.visibility = View.VISIBLE
                 }
             }
+        }
+        binding.washButton.setOnClickListener{
+            val fragment = WashEquipmentFragment()
+            (activity as MainActivity).navbarNavigate(fragment)
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentToRemove = this // replace R.id.fragment_container with your container id
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.remove(fragmentToRemove)
+            fragmentTransaction.commit()
         }
     }
 

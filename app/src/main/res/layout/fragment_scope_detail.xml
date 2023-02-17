@@ -76,14 +76,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
-                    android:text="View Detail"
-                    style="?attr/borderlessButtonStyle" />
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/scanAgainButton"
+                    android:text="View Detail"/>
+
+                <Button
+                    android:id="@+id/washButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:text="Scan Again" />
+                    android:text="Wash" />/>
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
