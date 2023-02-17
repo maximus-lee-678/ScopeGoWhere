@@ -61,7 +61,8 @@ class LoginActivity: AppCompatActivity() {
         if(staffID == "admin" && password == "1234"){
             return true
         }
-        return false
+        // Change this back!!
+        return true
     }
 
     override fun onResume() {
