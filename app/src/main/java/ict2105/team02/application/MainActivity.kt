@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.databinding.ActivityMainBinding
+import ict2105.team02.application.schedule.CalendarFragment
 import ict2105.team02.application.login.LoginActivity
 import ict2105.team02.application.logout.LogoutFragment
 import ict2105.team02.application.ui.EquipmentFragment
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
         binding.bottomNavbar.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.nav_home -> navbarNavigate(TodaySchedule())
-//                R.id.nav_schedule -> navbarNavigate(ScheduleFragment())
+                R.id.nav_schedule -> navbarNavigate(CalendarFragment())
                 R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
 //                R.id.nav_help -> navbarNavigate(HelpFragment())
                 else -> { }
