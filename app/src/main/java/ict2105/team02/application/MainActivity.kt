@@ -8,6 +8,7 @@ import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.login.LoginActivity
 import ict2105.team02.application.logout.LogoutFragment
 import ict2105.team02.application.ui.EquipmentFragment
+import ict2105.team02.application.ui.TodaySchedule
 
 class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
     private lateinit var binding: ActivityMainBinding
@@ -17,11 +18,11 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navbarNavigate(HomeFragment())
+        navbarNavigate(TodaySchedule())
 
         binding.bottomNavbar.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.nav_home -> navbarNavigate(HomeFragment())
+                R.id.nav_home -> navbarNavigate(TodaySchedule())
 //                R.id.nav_schedule -> navbarNavigate(ScheduleFragment())
                 R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
 //                R.id.nav_help -> navbarNavigate(HelpFragment())

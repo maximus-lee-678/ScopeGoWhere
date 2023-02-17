@@ -14,7 +14,6 @@ import ict2105.team02.application.viewmodel.EquipmentListViewModel
 class EquipmentFragment : Fragment() {
     private lateinit var binding: FragmentEquipmentBinding
     private lateinit var viewModel: EquipmentListViewModel
-
     private lateinit var eqAdapter: EquipmentAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
