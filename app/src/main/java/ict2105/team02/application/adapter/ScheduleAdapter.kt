@@ -1,17 +1,17 @@
-package ict2105.team02.application.Adaptor
+package ict2105.team02.application.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckedTextView
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.Schedule
 
-class ScheduleAdapter(private val scheduleList : ArrayList<Schedule> , private val dataset: List<Schedule>)
+class ScheduleAdapter(private val dataset: List<Schedule>?)
     : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
 
     class ScheduleViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
@@ -28,13 +28,17 @@ class ScheduleAdapter(private val scheduleList : ArrayList<Schedule> , private v
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-        val item = dataset[position]
-        holder.ScopeName.text = item.ScopeName;
-//        holder.imageButton.setOnClickListener{}
+        val item = dataset?.get(position)
+        if (item != null) {
+            holder.ScopeName.text = item.ScopeName
+        };
+        holder.imageButton.setOnClickListener{
+            Log.d("Schedule" , "Button Test")
+        }
     }
 
     override fun getItemCount(): Int {
-        return dataset.size
+        return dataset?.size ?: 0
     }
 
 

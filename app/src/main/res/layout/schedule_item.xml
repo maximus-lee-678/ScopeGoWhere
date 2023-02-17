@@ -3,17 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="90dp">
 
 
     <ImageButton
         android:id="@+id/ScopeImageButton"
-        android:layout_width="255dp"
+        android:layout_width="match_parent"
         android:layout_height="69dp"
         android:layout_gravity="center"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:background="#FFFFFF"
+        android:background="#FFFBFF"
+        android:outlineAmbientShadowColor="@color/black"
         android:scaleType="fitStart"
         android:src="@drawable/common_google_signin_btn_icon_light" />
 

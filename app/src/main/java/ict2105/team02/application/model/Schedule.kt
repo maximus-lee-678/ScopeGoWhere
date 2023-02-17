@@ -1,4 +1,8 @@
 package ict2105.team02.application.model
 
-class Schedule {
-}
+import java.util.Date
+
+data class Schedule (
+    val date: Date,
+    val ScopeName: String
+)

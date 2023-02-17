@@ -1,75 +1,35 @@
 package ict2105.team02.application.repo
 import androidx.lifecycle.MutableLiveData
+import ict2105.team02.application.model.Schedule
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 object ScheduleProducer {
-    private val dataSet: ArrayList<NicePlace> = ArrayList<NicePlace>()
+    private val dataSet = ArrayList<Schedule>()
 
-    fun getInstance(): com.codingwithmitch.mvvmrecyclerview.repositories.NicePlaceRepository? {
-        if (instance == null) {
-            instance = com.codingwithmitch.mvvmrecyclerview.repositories.NicePlaceRepository()
-        }
-        return instance
-    }
+    fun getInstance(): ScheduleProducer = this
 
+    val dateString = "2023-02-17"
+    val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val date = format.parse(dateString)
 
     // Pretend to get data from a webservice or online source
-    fun getNicePlaces(): MutableLiveData<List<NicePlace>>? {
-        setNicePlaces()
-        val data: MutableLiveData<List<NicePlace>> = MutableLiveData()
-        data.setValue(dataSet)
+    fun getSchedules(): MutableLiveData<List<Schedule>> {
+        setSchedules()
+        val data = MutableLiveData<List<Schedule>>()
+        data.value = dataSet
         return data
     }
-
-    private fun setNicePlaces() {
-        dataSet.add(
-            NicePlace(
-                "https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
-                "Havasu Falls"
-            )
-        )
-        dataSet.add(
-            NicePlace(
-                "https://i.redd.it/tpsnoz5bzo501.jpg",
-                "Trondheim"
-            )
-        )
-        dataSet.add(
-            NicePlace(
-                "https://i.redd.it/qn7f9oqu7o501.jpg",
-                "Portugal"
-            )
-        )
-        dataSet.add(
-            NicePlace(
-                "https://i.redd.it/j6myfqglup501.jpg",
-                "Rocky Mountain National Park"
-            )
-        )
-        dataSet.add(
-            NicePlace(
-                "https://i.redd.it/0h2gm1ix6p501.jpg",
-                "Havasu Falls"
-            )
-        )
-        dataSet.add(
-            NicePlace(
-                "https://i.redd.it/k98uzl68eh501.jpg",
-                "Mahahual"
-            )
-        )
-        dataSet.add(
-            NicePlace(
-                "https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg",
-                "Frozen Lake"
-            )
-        )
-        dataSet.add(
-            NicePlace(
-                "https://i.redd.it/obx4zydshg601.jpg",
-                "Austrailia"
-            )
-        )
+    fun setSchedules(){
+        dataSet.add(Schedule(date,"Scope ABC"))
+        dataSet.add(Schedule(date,"Scope EFG"))
+        dataSet.add(Schedule(date,"Scope ASD"))
+        dataSet.add(Schedule(date,"Scope QWE"))
+        dataSet.add(Schedule(date,"Scope ABC"))
+        dataSet.add(Schedule(date,"Scope EFG"))
+        dataSet.add(Schedule(date,"Scope ASD"))
+        dataSet.add(Schedule(date,"Scope QWE"))
     }
+
 }
