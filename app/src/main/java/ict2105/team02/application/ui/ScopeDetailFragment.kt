@@ -15,15 +15,11 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
     private lateinit var viewModel: ScopeDetailViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentScopeDetailBinding.inflate(inflater)
         viewModel = ViewModelProvider(requireActivity()).get(ScopeDetailViewModel::class.java)
 
         binding.scopeDetailCard.visibility = View.INVISIBLE
-
-        binding.scanAgainButton.setOnClickListener {
-            dismiss()
-        }
 
         viewModel.scopeDetail.observe(this) {
             binding.serialTextView.text = it.serial

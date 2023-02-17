@@ -6,7 +6,10 @@
     <string name="nav_schedule">Schedule</string>
     <string name="nav_equipment">Equipment</string>
     <string name="nav_help">Help</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hello_again">Hello again, you\'ve been missed !</string>>
+
+    <!-- Login -->
+    <string name="hello_again">Hello again, you\'ve been missed !</string>
+
+    <!-- Equipment List -->
+    <string name="getting_equipments">Getting equipments</string>>
 </resources>
