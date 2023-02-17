@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.databinding.ActivityMainBinding
-import ict2105.team02.application.equipment.EquipmentFragment
+import ict2105.team02.application.ui.WashEquipmentFragment
+import ict2105.team02.application.login.LoginActivity
+import ict2105.team02.application.logout.LogoutFragment
+import ict2105.team02.application.ui.EquipmentFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,13 +18,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navbarNavigate(HomeFragment())
+        navbarNavigate(WashEquipmentFragment())
 
         binding.bottomNavbar.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.nav_home -> navbarNavigate(HomeFragment())
 //                R.id.nav_schedule -> navbarNavigate(ScheduleFragment())
                 R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
+//                R.id.nav_home -> navbarNavigate(WashEquipmentFragment())
 //                R.id.nav_help -> navbarNavigate(HomeFragment())
                 else -> { }
             }
@@ -29,14 +33,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.navbarFab.setOnClickListener {
-            intent = Intent(this, QRScannerActivity::class.java)
+            val intent = Intent(this, QRScannerActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun navbarNavigate(fragment: Fragment) {
+    public fun navbarNavigate(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frameLayout, fragment)
         transaction.commit()
+    }
+
+    override fun onLogout(result: Boolean) {
+        if(result){
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
