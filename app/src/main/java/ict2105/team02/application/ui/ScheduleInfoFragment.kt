@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScheduleInfoBinding
+import ict2105.team02.application.recyclerview.ScheduleAdapter
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
-import ict2105.team02.application.adapter.ScheduleAdapter
 
 class ScheduleInfoFragment : Fragment() {
     private lateinit var adapter: ScheduleAdapter
@@ -30,12 +31,19 @@ class ScheduleInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(context)
+        // Find recycler view
         recyclerView = view.findViewById(R.id.scheduleRecycle)
+        // Set layout
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        val data = viewModel.getSchedule()?.getValue()
-        adapter = ScheduleAdapter(data)
+        adapter = ScheduleAdapter(ArrayList())
         recyclerView.adapter = adapter
+        viewModel.getSchedule()?.observe(viewLifecycleOwner) {
+            val data = viewModel.getSchedule()?.getValue()
+            adapter.submitList(data)
+            adapter.notifyDataSetChanged()
+        }
+
     }
 
 }

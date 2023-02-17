@@ -1,4 +1,4 @@
-package ict2105.team02.application.adapter
+package ict2105.team02.application.recyclerview
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -6,15 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.Schedule
 
-class ScheduleAdapter(private val dataset: List<Schedule>?)
-    : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+class ScheduleAdapter(private val dataset: ArrayList<Schedule>?)
+    : ListAdapter<Schedule, ScheduleAdapter.ScheduleViewHolder>(ScheduleDiffCallBack()) {
 
-    class ScheduleViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
+        class ScheduleViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
         val ScopeName : TextView = view.findViewById(R.id.ScopeName)
         val imageButton : ImageButton = view.findViewById(R.id.ScopeImageButton)
     }
@@ -28,7 +29,7 @@ class ScheduleAdapter(private val dataset: List<Schedule>?)
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-        val item = dataset?.get(position)
+        val item = dataset?.getOrNull(position)
         if (item != null) {
             holder.ScopeName.text = item.ScopeName
         };
@@ -37,9 +38,15 @@ class ScheduleAdapter(private val dataset: List<Schedule>?)
         }
     }
 
-    override fun getItemCount(): Int {
-        return dataset?.size ?: 0
+
+}
+class ScheduleDiffCallBack : DiffUtil.ItemCallback<Schedule>(){
+    override fun areItemsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
+        return oldItem.date == newItem.date
     }
 
+    override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
+        return areItemsTheSame(oldItem,newItem)
+    }
 
 }

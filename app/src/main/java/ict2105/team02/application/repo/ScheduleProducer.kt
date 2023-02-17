@@ -1,4 +1,5 @@
 package ict2105.team02.application.repo
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import ict2105.team02.application.model.Schedule
 import java.text.SimpleDateFormat
@@ -10,26 +11,31 @@ object ScheduleProducer {
 
     fun getInstance(): ScheduleProducer = this
 
-    val dateString = "2023-02-17"
+    val dateString = "2023-02-18"
     val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     val date = format.parse(dateString)
 
+    val dateString1 = "2023-02-19"
+    val format1 = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val date1 = format.parse(dateString1)
+
     // Pretend to get data from a webservice or online source
-    fun getSchedules(): MutableLiveData<List<Schedule>> {
+    fun getSchedules(): List<Schedule> {
         setSchedules()
-        val data = MutableLiveData<List<Schedule>>()
-        data.value = dataSet
-        return data
+//        val data = MutableLiveData<List<Schedule>>()
+//        data.value = dataSet
+        return dataSet
     }
     fun setSchedules(){
         dataSet.add(Schedule(date,"Scope ABC"))
         dataSet.add(Schedule(date,"Scope EFG"))
         dataSet.add(Schedule(date,"Scope ASD"))
-        dataSet.add(Schedule(date,"Scope QWE"))
-        dataSet.add(Schedule(date,"Scope ABC"))
-        dataSet.add(Schedule(date,"Scope EFG"))
-        dataSet.add(Schedule(date,"Scope ASD"))
-        dataSet.add(Schedule(date,"Scope QWE"))
+        dataSet.add(Schedule(date,"Scope qwe"))
+        dataSet.add(Schedule(date1,"Scope 456"))
+        dataSet.add(Schedule(date1,"Scope 789"))
+        dataSet.add(Schedule(date1,"Scope 111"))
+        dataSet.add(Schedule(date1,"Scope 111"))
+        Log.d("ScheduleProducer", " The input date is $date")
     }
 
 }
