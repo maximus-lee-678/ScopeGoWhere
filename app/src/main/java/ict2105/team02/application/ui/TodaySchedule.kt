@@ -39,6 +39,10 @@ class TodaySchedule : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        eadapter.onItemClick = {
+            val fragment = ScopeDetailFragment.newInstance(it.serial)
+            fragment.show(requireActivity().supportFragmentManager, "scope_detail")
+        }
         viewModel.fetchTodaySchedules {
             activity?.runOnUiThread {
                 binding.loadEquipmentProgressIndicator.visibility = View.INVISIBLE
