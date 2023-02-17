@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import ict2105.team02.application.MainActivity
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 
@@ -40,6 +41,15 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                     binding.scopeDetailCard.visibility = View.VISIBLE
                 }
             }
+        }
+        binding.washButton.setOnClickListener{
+            val fragment = WashEquipmentFragment()
+            (activity as MainActivity).navbarNavigate(fragment)
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentToRemove = this // replace R.id.fragment_container with your container id
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.remove(fragmentToRemove)
+            fragmentTransaction.commit()
         }
     }
 

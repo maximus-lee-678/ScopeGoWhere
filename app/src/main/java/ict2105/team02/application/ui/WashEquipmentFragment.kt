@@ -60,7 +60,7 @@ class WashEquipmentFragment : Fragment() {
             (activity as MainActivity).navbarNavigate(fragment)
         }
         binding.button3.setOnClickListener{
-            val fragment = HomeFragment()
+            val fragment = TodaySchedule()
             (activity as MainActivity).navbarNavigate(fragment)
             viewModel.isDryingCabinetDone.value = false
             viewModel.isWasherDone.value = false
