@@ -25,7 +25,7 @@
         android:layout_gravity="center_vertical|start"
         android:layout_marginLeft="170dp"
         android:layout_marginBottom="9dp"
-        android:text="Scope gggFA"
+        android:text=""
         android:textSize="18dp" />
 
 </FrameLayout>

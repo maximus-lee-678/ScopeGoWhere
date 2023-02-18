@@ -1,5 +1,6 @@
 package ict2105.team02.application.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,9 +19,12 @@ class ScheduleInfoViewModel : ViewModel() {
         }else{
             mRepo = ScheduleProducer.getInstance()
             allSchedule = mRepo!!.getSchedules()
+            mListSchedule = MutableLiveData<List<Schedule>>()
+            mListSchedule?.postValue(allSchedule)
+
         }
     }
-    fun getScheduleByDate(inputDate : Date) {
+    fun setScheduleByDate(inputDate : Date) {
 //        mRepo = ScheduleProducer.getInstance()
         var filteredSchedule: ArrayList<Schedule> = ArrayList()
         for(schedule in allSchedule)
@@ -31,7 +35,9 @@ class ScheduleInfoViewModel : ViewModel() {
         }
         val data = MutableLiveData<List<Schedule>>()
         data.value = filteredSchedule
-        mListSchedule = data
+//        mListSchedule = data
+        mListSchedule?.postValue(filteredSchedule)
+        Log.d("Model State", filteredSchedule.toString())
     }
     fun getSchedule(): LiveData<List<Schedule>>?{
         return mListSchedule

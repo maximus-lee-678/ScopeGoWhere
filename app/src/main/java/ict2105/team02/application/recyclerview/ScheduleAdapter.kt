@@ -16,9 +16,9 @@ class ScheduleAdapter(private val dataset: ArrayList<Schedule>?)
     : ListAdapter<Schedule, ScheduleAdapter.ScheduleViewHolder>(ScheduleDiffCallBack()) {
 
         class ScheduleViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
-        val ScopeName : TextView = view.findViewById(R.id.ScopeName)
-        val imageButton : ImageButton = view.findViewById(R.id.ScopeImageButton)
-    }
+            val ScopeName : TextView = view.findViewById(R.id.ScopeName)
+            val imageButton : ImageButton = view.findViewById(R.id.ScopeImageButton)
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
         // Get Context From Parents
@@ -29,10 +29,8 @@ class ScheduleAdapter(private val dataset: ArrayList<Schedule>?)
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-        val item = dataset?.getOrNull(position)
-        if (item != null) {
-            holder.ScopeName.text = item.ScopeName
-        };
+        val currentItem = getItem(position)
+        holder.ScopeName.text = currentItem.ScopeName
         holder.imageButton.setOnClickListener{
             Log.d("Schedule" , "Button Test")
         }
@@ -42,7 +40,7 @@ class ScheduleAdapter(private val dataset: ArrayList<Schedule>?)
 }
 class ScheduleDiffCallBack : DiffUtil.ItemCallback<Schedule>(){
     override fun areItemsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-        return oldItem.date == newItem.date
+        return oldItem.ScopeName == newItem.ScopeName
     }
 
     override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {

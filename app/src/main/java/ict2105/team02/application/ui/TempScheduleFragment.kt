@@ -33,12 +33,12 @@ class TempScheduleFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(ScheduleInfoViewModel::class.java)
         binding = FragmentTempScheduleBinding.inflate(layoutInflater)
         val mCalendar = binding.calendarView
-        viewModel.getScheduleByDate(Date(mCalendar.date))
+        viewModel.setScheduleByDate(Date(mCalendar.date))
         mCalendar.setOnDateChangeListener(){ calView, year, month, day ->
             val calendar = Calendar.getInstance()
             calendar.set(year, month, day)
             val date = calendar.time
-            viewModel.getScheduleByDate(date)
+            viewModel.setScheduleByDate(date)
             Log.d("Test", "Selected date is $date")
         }
 

@@ -35,14 +35,13 @@ class ScheduleInfoFragment : Fragment() {
         recyclerView = view.findViewById(R.id.scheduleRecycle)
         // Set layout
         recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(false)
         adapter = ScheduleAdapter(ArrayList())
         recyclerView.adapter = adapter
         viewModel.getSchedule()?.observe(viewLifecycleOwner) {
-            val data = viewModel.getSchedule()?.getValue()
-            adapter.submitList(data)
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it)
         }
+
 
     }
 

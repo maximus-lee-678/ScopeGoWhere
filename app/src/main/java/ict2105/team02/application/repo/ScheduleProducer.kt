@@ -1,5 +1,6 @@
 package ict2105.team02.application.repo
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ict2105.team02.application.model.Schedule
 import java.text.SimpleDateFormat
@@ -26,7 +27,21 @@ object ScheduleProducer {
 //        data.value = dataSet
         return dataSet
     }
+    fun getLiveSchedules(): MutableLiveData<List<Schedule>> {
+        setSchedules()
+        val data = MutableLiveData<List<Schedule>>()
+        data.value = dataSet
+        return data
+    }
     fun setSchedules(){
+        dataSet.add(Schedule(date,"Scope ABC"))
+        dataSet.add(Schedule(date,"Scope EFG"))
+        dataSet.add(Schedule(date,"Scope ASD"))
+        dataSet.add(Schedule(date,"Scope qwe"))
+        dataSet.add(Schedule(date1,"Scope 456"))
+        dataSet.add(Schedule(date1,"Scope 789"))
+        dataSet.add(Schedule(date1,"Scope 111"))
+        dataSet.add(Schedule(date1,"Scope 111"))
         dataSet.add(Schedule(date,"Scope ABC"))
         dataSet.add(Schedule(date,"Scope EFG"))
         dataSet.add(Schedule(date,"Scope ASD"))
