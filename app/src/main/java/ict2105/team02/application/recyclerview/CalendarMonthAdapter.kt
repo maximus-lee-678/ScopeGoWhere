@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.schedule.DateDetails
 
-class CalendarAdapter(
+class CalendarMonthAdapter(
     private var dateDetails: DateDetails
-) : RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>() {
-    var selectedPos: Int = dateDetails.day + dateDetails.firstDayOfMonth - 1
+) : RecyclerView.Adapter<CalendarMonthAdapter.ItemViewHolder>() {
+    var selectedPos: Int = dateDetails.day!! + dateDetails.firstDayOfMonth!! - 1
     var selectedMonthOffset : Int = 0
 
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.textViewCalendarItem)
+        val textView: TextView = view.findViewById(R.id.textViewCalendarMonthItem)
 
         init {
             textView.setOnClickListener {
@@ -43,11 +43,11 @@ class CalendarAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CalendarAdapter.ItemViewHolder {
+    ): CalendarMonthAdapter.ItemViewHolder {
         // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recyclerview_calendar_item, parent, false)
-        adapterLayout.layoutParams.height = (parent.height * 0.1).toInt()
+            .inflate(R.layout.recyclerview_calendar_month_item, parent, false)
+        adapterLayout.layoutParams.height = (parent.height * 0.08).toInt()
 
         return ItemViewHolder(adapterLayout)
     }
@@ -55,20 +55,19 @@ class CalendarAdapter(
     /**
      * Replace the contents of a view (invoked by the layout manager)
      */
-    override fun onBindViewHolder(holder: CalendarAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CalendarMonthAdapter.ItemViewHolder, position: Int) {
         // Grid item must be equal to larger than starting day and less than number of days + start day
         // Position is 0 terminated, must +1 when displaying
-        if (position >= dateDetails.firstDayOfMonth && position < dateDetails.firstDayOfMonth + dateDetails.daysInMonth) {
-            holder.textView.text = String.format("%d", position + 1 - dateDetails.firstDayOfMonth)
+        if (position >= dateDetails.firstDayOfMonth!! && position < dateDetails.firstDayOfMonth!! + dateDetails.daysInMonth!!) {
+            holder.textView.text = String.format("%d", position + 1 - dateDetails.firstDayOfMonth!!)
         }
 
         if (selectedPos == position && selectedMonthOffset == 0) {
-            holder.itemView.setBackgroundColor(0xFF00FF00.toInt())
+            holder.itemView.setBackgroundColor(0x7F00FF00.toInt())
         } else {
-            holder.itemView.setBackgroundColor(0xFFFFFFFF.toInt())
+            holder.itemView.setBackgroundColor(0x00FFFFFF.toInt())
         }
     }
-
 
     /**
      * Return the size of your dataset (invoked by the layout manager)

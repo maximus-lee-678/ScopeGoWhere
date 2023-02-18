@@ -8,7 +8,11 @@
     <string name="nav_help">Help</string>
 
     <!-- Login -->
-    <string name="hello_again">Hello again, you\'ve been missed !</string>
+    <string name="hello_again">Hello again, you\'ve been missed!</string>
+
+    <!-- Schedule -->
+    <string name="layout_type_switch_left">Weekly View</string>
+    <string name="layout_type_switch_right">Monthly View</string>
 
     <!-- Equipment List -->
     <string name="getting_equipments">Getting equipments</string>
