@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import ict2105.team02.application.databinding.FragmentScheduleBinding
+import ict2105.team02.application.databinding.FragmentScheduleMainBinding
 import ict2105.team02.application.schedule.CalendarFragment
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
 import java.util.*
@@ -23,14 +24,14 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ScheduleFragment : Fragment() {
-    private lateinit var binding: FragmentScheduleBinding
+    private lateinit var binding: FragmentScheduleMainBinding
     private lateinit var viewModel: ScheduleInfoViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProvider(requireActivity()).get(ScheduleInfoViewModel::class.java)
-        binding = FragmentScheduleBinding.inflate(layoutInflater)
+        binding = FragmentScheduleMainBinding.inflate(layoutInflater)
 //        val mCalendar = binding.calendarView
 //        viewModel.setScheduleByDate(DateDetails(Date(mCalendar.date)))
 //        mCalendar.setOnDateChangeListener(){ calView, year, month, day ->

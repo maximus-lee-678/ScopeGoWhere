@@ -172,14 +172,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
-<<<<<<<< HEAD:app/src/main/res/layout/fragment_schedule.xml
-        android:layout_marginRight="20dp">
-    </androidx.recyclerview.widget.RecyclerView>
-========
         android:layout_marginRight="20dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="7"></androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
->>>>>>>> 622e24c (Beta version of Completed [5]):app/src/main/res/layout/fragment_calendar.xml
-
 </FrameLayout>
