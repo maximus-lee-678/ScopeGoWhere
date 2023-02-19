@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ict2105.team02.application.model.Schedule
 import ict2105.team02.application.repo.ScheduleProducer
+import ict2105.team02.application.schedule.DateDetails
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -14,6 +15,7 @@ class ScheduleInfoViewModel : ViewModel() {
     private var mRepo: ScheduleProducer? = null
     private var mListSchedule: MutableLiveData<List<Schedule>>? = null
     private lateinit var allSchedule : List<Schedule>;
+
     init {
         if (mListSchedule != null) {
         }else{
@@ -24,7 +26,7 @@ class ScheduleInfoViewModel : ViewModel() {
 
         }
     }
-    fun setScheduleByDate(inputDate : Date) {
+    fun setScheduleByDate(inputDate : DateDetails) {
 //        mRepo = ScheduleProducer.getInstance()
         var filteredSchedule: ArrayList<Schedule> = ArrayList()
         for(schedule in allSchedule)
@@ -42,13 +44,9 @@ class ScheduleInfoViewModel : ViewModel() {
     fun getSchedule(): LiveData<List<Schedule>>?{
         return mListSchedule
     }
-    fun areDatesEqualIgnoringTime(date1: Date, date2: Date): Boolean {
-        val calendar1 = Calendar.getInstance()
-        calendar1.time = date1
-        val calendar2 = Calendar.getInstance()
-        calendar2.time = date2
-        return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
-                calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
-                calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)
+    fun areDatesEqualIgnoringTime(date1: DateDetails, date2: DateDetails): Boolean {
+        return date1.year == date2.year &&
+                date1.month == date2.month &&
+                date1.day == date2.day
     }
 }

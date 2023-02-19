@@ -3,6 +3,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ict2105.team02.application.model.Schedule
+import ict2105.team02.application.schedule.DateDetails
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,11 +15,11 @@ object ScheduleProducer {
 
     val dateString = "2023-02-18"
     val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val date = format.parse(dateString)
+    val date = DateDetails(format.parse(dateString))
 
     val dateString1 = "2023-02-19"
     val format1 = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val date1 = format.parse(dateString1)
+    val date1 = DateDetails(format.parse(dateString1))
 
     // Pretend to get data from a webservice or online source
     fun getSchedules(): List<Schedule> {
