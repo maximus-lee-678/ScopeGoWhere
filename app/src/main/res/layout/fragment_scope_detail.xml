@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".QRScannerActivity">
 
@@ -13,78 +13,135 @@
         android:layout_height="wrap_content"
         android:indeterminate="true" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/scopeDetailCard"
+    <FrameLayout
+        android:id="@+id/equipmentBannerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:background="?android:attr/colorPrimary">
+        <TextView
+            android:id="@+id/equipmentNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAppearance="?attr/textAppearanceHeadline3"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:text="ABC123"
+            />
+    </FrameLayout>
 
+    <LinearLayout
+        android:id="@+id/scopeDetailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/modelTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="24sp"
+                    android:text="MODEL VALUE"
+                    android:textColor="?android:attr/colorPrimary"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MODEL"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/serialTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="24sp"
+                    android:text="SERIAL VALUE"
+                    android:textColor="?android:attr/colorPrimary"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SERIAL"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/typeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="24sp"
+                    android:text="TYPE VALUE"
+                    android:textColor="?android:attr/colorPrimary"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TYPE"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.chip.Chip
+                android:id="@+id/statusChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STATUS"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/nextSampleChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipIcon="@drawable/baseline_calendar_month_24"
+                android:text="NEXT SAMPLE"/>
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Media -->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="194dp"
-                android:src="@drawable/baseline_handyman_24"
-                android:scaleType="fitCenter"
-                />
-
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:text="View Detail"/>
 
-                <!-- Title, secondary and supporting text -->
-                <TextView
-                    android:id="@+id/serialTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ABC123"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    />
-                <TextView
-                    android:id="@+id/statusTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="In circulation"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary"
-                    />
-                <TextView
-                    android:id="@+id/next_sample_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Last sampled on xx/xx/xx by Abc."
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary"
-                    />
-
-            </LinearLayout>
-
-            <!-- Buttons -->
-            <LinearLayout
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/washButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:text="View Detail"/>
-
-                <Button
-                    android:id="@+id/washButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Wash" />/>
-            </LinearLayout>
+                android:text="Wash" />
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
 </LinearLayout>
