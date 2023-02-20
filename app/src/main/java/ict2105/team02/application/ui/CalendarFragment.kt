@@ -193,6 +193,7 @@ class CalendarFragment : Fragment() {
             selectedDate[2] = onItemClick[2]
 
             calendar.set(onItemClick[2], onItemClick[1] - 1, onItemClick[0])
+            updateModel(String.format("%d-%d-%d",selectedDate[0], selectedDate[1], selectedDate[2]))
             refreshCalendar(hardRefresh = false)
 
             Log.d(TAG, String.format("%s: date>%d-%d-%d", object {}.javaClass.enclosingMethod.name, selectedDate[0], selectedDate[1], selectedDate[2]))
