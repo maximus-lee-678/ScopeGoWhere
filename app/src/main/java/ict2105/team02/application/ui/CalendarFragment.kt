@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import ict2105.team02.application.databinding.FragmentScheduleBinding
 import ict2105.team02.application.recyclerview.CalendarMonthAdapter
 import ict2105.team02.application.recyclerview.CalendarWeekAdapter
 import ict2105.team02.application.storage.UserPreferencesRepository
+import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -32,6 +34,7 @@ class CalendarFragment : Fragment() {
     private var calendarWeekAdapter: CalendarWeekAdapter = CalendarWeekAdapter(dateDetails)
     private var selectedDate: IntArray = intArrayOf(dateDetails.day!!, dateDetails.month!!, dateDetails.year!!)
 
+    private lateinit var viewModel : ScheduleInfoViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +47,7 @@ class CalendarFragment : Fragment() {
             setTheScene(scheduleLayoutType!!)       // Sets recyclerview layout
             createListenersRecycler()               // Recyclerview listeners creation
         }
+        viewModel = ViewModelProvider(requireActivity()).get(ScheduleInfoViewModel::class.java)
         Log.d(TAG, String.format("%s: date>%d-%d-%d", object {}.javaClass.enclosingMethod.name, selectedDate[0], selectedDate[1], selectedDate[2]))
         return binding.root
     }
@@ -53,7 +57,14 @@ class CalendarFragment : Fragment() {
 
         createListenersFragment()                   // Fragment listeners creation
     }
-
+    fun updateModel(input : String){
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+        val date = dateFormat.parse(input)
+        val dateDetails = DateDetails(date)
+        // Update view Model.
+        viewModel.setScheduleByDate((dateDetails))
+        Log.d("CalandarAdaptor", "Cal")
+    }
     /**
      * Updates selected month and year.
      * Based on hardRefresh value:
@@ -170,6 +181,7 @@ class CalendarFragment : Fragment() {
             selectedDate[2] = onItemClick[2]
 
             calendar.set(onItemClick[2], onItemClick[1] - 1, onItemClick[0])
+            updateModel(String.format("%d-%d-%d",selectedDate[0], selectedDate[1], selectedDate[2]))
             refreshCalendar(hardRefresh = false)
 
             Log.d(TAG, String.format("%s: date>%d-%d-%d", object {}.javaClass.enclosingMethod.name, selectedDate[0], selectedDate[1], selectedDate[2]))
@@ -181,6 +193,7 @@ class CalendarFragment : Fragment() {
             selectedDate[2] = onItemClick[2]
 
             calendar.set(onItemClick[2], onItemClick[1] - 1, onItemClick[0])
+            updateModel(String.format("%d-%d-%d",selectedDate[0], selectedDate[1], selectedDate[2]))
             refreshCalendar(hardRefresh = false)
 
             Log.d(TAG, String.format("%s: date>%d-%d-%d", object {}.javaClass.enclosingMethod.name, selectedDate[0], selectedDate[1], selectedDate[2]))
