@@ -22,6 +22,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         binding = FragmentScopeDetailBinding.inflate(inflater)
         viewModel = ViewModelProvider(requireActivity()).get(ScopeDetailViewModel::class.java)
 
+        binding.equipmentBannerLayout.visibility = View.GONE
         binding.scopeDetailLayout.visibility = View.INVISIBLE
 
         viewModel.scopeDetail.observe(this) {
@@ -52,6 +53,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             viewModel.fetchScopeDetail(serial) {
                 requireActivity().runOnUiThread {
                     binding.loadScopeProgressIndicator.visibility = View.GONE
+                    binding.equipmentBannerLayout.visibility = View.VISIBLE
                     binding.scopeDetailLayout.visibility = View.VISIBLE
                 }
             }

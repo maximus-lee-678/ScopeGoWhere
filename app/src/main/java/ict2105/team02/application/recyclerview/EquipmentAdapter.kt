@@ -42,7 +42,7 @@ class EquipmentAdapter () : ListAdapter<Endoscope, EquipmentAdapter.EquipmentVie
 
     override fun onBindViewHolder(holder: EquipmentViewHolder, position: Int) {
         val item = getItem(position)
-        holder.nameTextView.text = item.serial
+        holder.nameTextView.text = item.model + item.serial
         holder.statusTextView.text = item.status
     }
 }
