@@ -1,6 +1,5 @@
 package ict2105.team02.application.recyclerview
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.Endoscope
 
-class EquipmentAdapter ()
-    : ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHolder>(EndoscopeComparator()) {
+class EquipmentAdapter () : ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHolder>(EndoscopeComparator()) {
+    var onItemClick: ((Endoscope) -> Unit)? = null
 
     inner class EquipmentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameTextView: TextView = view.findViewById(R.id.equipmentRVItemText)
@@ -20,7 +19,7 @@ class EquipmentAdapter ()
 
         init {
             view.setOnClickListener {
-                // Probably redirect to view endoscope detail activity
+                onItemClick?.invoke(getItem(adapterPosition))
             }
         }
     }
@@ -43,7 +42,7 @@ class EquipmentAdapter ()
 
     override fun onBindViewHolder(holder: EquipmentViewHolder, position: Int) {
         val item = getItem(position)
-        holder.nameTextView.text = item.serial
+        holder.nameTextView.text = item.model + item.serial
         holder.statusTextView.text = item.status
     }
 }

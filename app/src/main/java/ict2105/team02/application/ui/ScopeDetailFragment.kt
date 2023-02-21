@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import ict2105.team02.application.MainActivity
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
+import java.text.SimpleDateFormat
 
 private const val KEY_ENDOSCOPE_SERIAL = "SN"
 
@@ -15,20 +18,29 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
     private lateinit var viewModel: ScopeDetailViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentScopeDetailBinding.inflate(inflater)
         viewModel = ViewModelProvider(requireActivity()).get(ScopeDetailViewModel::class.java)
 
-        binding.scopeDetailCard.visibility = View.INVISIBLE
-
-        binding.scanAgainButton.setOnClickListener {
-            dismiss()
-        }
+        binding.equipmentBannerLayout.visibility = View.GONE
+        binding.scopeDetailLayout.visibility = View.INVISIBLE
 
         viewModel.scopeDetail.observe(this) {
+            binding.equipmentNameTextView.text = it.model + it.serial
+            binding.modelTextView.text = it.model
+            binding.typeTextView.text = it.type
             binding.serialTextView.text = it.serial
-            binding.statusTextView.text = it.status
-            binding.nextSampleTextView.text = it.nextSample.toString()
+            binding.statusChip.text = it.status
+            binding.nextSampleChip.text = "Next sample: ${SimpleDateFormat("dd/MM/yyyy").format(it.nextSample)}"
+
+            when(it.status) {
+                "In storage" -> {
+                    binding.statusChip.setChipIconResource(R.drawable.outline_inventory_2_24)
+                }
+                "Out for sampling" -> {
+                    binding.statusChip.setChipIconResource(R.drawable.outline_access_time_24)
+                }
+            }
         }
 
         return binding.root
@@ -40,10 +52,20 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         if (serial != null) {
             viewModel.fetchScopeDetail(serial) {
                 requireActivity().runOnUiThread {
-                    binding.loadScopeProgressIndicator.visibility = View.INVISIBLE
-                    binding.scopeDetailCard.visibility = View.VISIBLE
+                    binding.loadScopeProgressIndicator.visibility = View.GONE
+                    binding.equipmentBannerLayout.visibility = View.VISIBLE
+                    binding.scopeDetailLayout.visibility = View.VISIBLE
                 }
             }
+        }
+        binding.washButton.setOnClickListener{
+            val fragment = WashEquipmentFragment()
+            (activity as MainActivity).navbarNavigate(fragment)
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentToRemove = this // replace R.id.fragment_container with your container id
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.remove(fragmentToRemove)
+            fragmentTransaction.commit()
         }
     }
 

@@ -26,26 +26,27 @@ class LoginActivity: AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        if (nfcAdapter == null) {
-            // NFC is not supported on this device
-            return
+        if (nfcAdapter != null) {
+            // NFC is supported on this device
+            val intentNfc = Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            pendingIntent = PendingIntent.getActivity(this,0,intentNfc, PendingIntent.FLAG_IMMUTABLE)
+            val intentFilter = IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
+            try{
+                intentFilter.addDataType("*/*")
+                intentFilters = arrayOf(intentFilter)
+            } catch (e: Exception){
+                Log.e("Login Activity","Error creating intent filter", e)
+            }
         }
-        val intentNfc = Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        pendingIntent = PendingIntent.getActivity(this,0,intentNfc, PendingIntent.FLAG_IMMUTABLE)
-        val intentFilter = IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
-        try{
-            intentFilter.addDataType("*/*")
-            intentFilters = arrayOf(intentFilter)
-        } catch (e: Exception){
-            Log.e("Login Activity","Error creating intent filter", e)
-        }
+
         //login button validate (staffId == admin // password == 1234)
         binding.loginButton.setOnClickListener {
             var staffID = binding.userName.editText?.text.toString()
             var password = binding.password.editText?.text.toString()
             var valid: Boolean = validateLogin(staffID, password)
-            if(valid) {
+            if(valid || true) {
                 intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -61,7 +62,8 @@ class LoginActivity: AppCompatActivity() {
         if(staffID == "admin" && password == "1234"){
             return true
         }
-        return false
+        // Change this back!!
+        return true
     }
 
     override fun onResume() {

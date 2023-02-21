@@ -65,7 +65,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:backgroundTint="#A58EFF"
+        android:backgroundTint="?android:attr/colorPrimary"
         android:text="LOGIN" />
 
     <TextView
@@ -102,9 +102,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent"
-        android:drawableRight="@drawable/nfc"
+        android:drawableEnd="@drawable/nfc"
         android:gravity="center_vertical"
         android:text="Staff Card"
-        android:textColor="#000000" />
+        android:textColor="?android:attr/textColorPrimary" />
 
 </LinearLayout>
