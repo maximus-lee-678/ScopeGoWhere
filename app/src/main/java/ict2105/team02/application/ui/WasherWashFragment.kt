@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import ict2105.team02.application.MainActivity
 import ict2105.team02.application.R
+import ict2105.team02.application.WashActivity
 import ict2105.team02.application.databinding.FragmentScopeDetailsWashBinding
 import ict2105.team02.application.databinding.FragmentWasherWashBinding
 import ict2105.team02.application.viewmodel.WashViewModel
@@ -25,6 +26,7 @@ class WasherWashFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        getActivity()?.setTitle("Wash Equipment(2/5)")
         super.onViewCreated(view, savedInstanceState)
 
         val button: Button = view.findViewById(R.id.button) as Button
@@ -33,10 +35,12 @@ class WasherWashFragment : Fragment() {
 
             // if true set it to true
             viewModel.isWasherDone.value = true
+            viewModel.aerModel.value = binding.aerModel.toString()
+            viewModel.aerSerial.value = binding.aerSerialNo.toString()
 
             // replace with last fragment
-            val fragment = WashEquipmentFragment()
-            (activity as MainActivity).navbarNavigate(fragment)
+            val fragment = DetergentWashFragment()
+            (activity as WashActivity).navbarNavigate(fragment)
         }
     }
 

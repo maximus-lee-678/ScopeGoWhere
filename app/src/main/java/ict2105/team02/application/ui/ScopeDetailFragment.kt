@@ -1,5 +1,6 @@
 package ict2105.team02.application.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.MainActivity
 import ict2105.team02.application.R
+import ict2105.team02.application.WashActivity
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import java.text.SimpleDateFormat
@@ -59,13 +61,15 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             }
         }
         binding.washButton.setOnClickListener{
-            val fragment = WashEquipmentFragment()
-            (activity as MainActivity).navbarNavigate(fragment)
-            val fragmentManager = requireActivity().supportFragmentManager
-            val fragmentToRemove = this // replace R.id.fragment_container with your container id
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.remove(fragmentToRemove)
-            fragmentTransaction.commit()
+//            val fragment = WashEquipmentFragment()
+//            (activity as MainActivity).navbarNavigate(fragment)
+//            val fragmentManager = requireActivity().supportFragmentManager
+//            val fragmentToRemove = this // replace R.id.fragment_container with your container id
+//            val fragmentTransaction = fragmentManager.beginTransaction()
+//            fragmentTransaction.remove(fragmentToRemove)
+//            fragmentTransaction.commit()
+            val intent = Intent (getActivity(), WashActivity::class.java)
+            getActivity()?.startActivity(intent)
         }
     }
 
