@@ -3,6 +3,8 @@ package ict2105.team02.application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.schedule.CalendarFragment
@@ -50,6 +52,22 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.options_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logoutFragment -> {
+                val myDialog = LogoutFragment()
+                myDialog.show(supportFragmentManager, "MyDialog")
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 }
