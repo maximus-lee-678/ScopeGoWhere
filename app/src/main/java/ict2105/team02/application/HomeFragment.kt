@@ -16,23 +16,23 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.options_menu, menu)
-        binding.button.setOnClickListener{
-            val fragment = WashEquipmentFragment()
-            (activity as MainActivity).navbarNavigate(fragment)
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
-            R.id.logoutFragment->{
-                val myDialog = LogoutFragment()
-                myDialog.show(childFragmentManager, "MyDialog")
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        inflater.inflate(R.menu.options_menu, menu)
+//        binding.button.setOnClickListener{
+//            val fragment = WashEquipmentFragment()
+//            (activity as MainActivity).navbarNavigate(fragment)
+//        }
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId){
+//            R.id.logoutFragment->{
+//                val myDialog = LogoutFragment()
+//                myDialog.show(childFragmentManager, "MyDialog")
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
 }
