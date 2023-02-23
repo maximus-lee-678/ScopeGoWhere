@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.databinding.FragmentEquipmentBinding
 import ict2105.team02.application.recyclerview.EquipmentAdapter
@@ -14,12 +14,12 @@ import ict2105.team02.application.viewmodel.EquipmentListViewModel
 
 class EquipmentFragment : Fragment() {
     private lateinit var binding: FragmentEquipmentBinding
-    private lateinit var viewModel: EquipmentListViewModel
     private lateinit var eqAdapter: EquipmentAdapter
+
+    private val viewModel by viewModels<EquipmentListViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentEquipmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this).get(EquipmentListViewModel::class.java)
 
         // Setup recyclerview
         eqAdapter = EquipmentAdapter()
