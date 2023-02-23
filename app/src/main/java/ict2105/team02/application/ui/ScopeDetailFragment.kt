@@ -32,15 +32,15 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             binding.modelTextView.text = it.model
             binding.typeTextView.text = it.type
             binding.serialTextView.text = it.serial
-            binding.statusChip.text = it.status
-            binding.nextSampleChip.text = "Next sample: ${SimpleDateFormat("dd/MM/yyyy").format(it.nextSample)}"
+            binding.statusTextView.text = it.status
+            binding.nextSampleTextView.text = SimpleDateFormat("dd/MM/yyyy").format(it.nextSample)
 
             when(it.status) {
                 "In storage" -> {
-                    binding.statusChip.setChipIconResource(R.drawable.outline_inventory_2_24)
+                    binding.statusIconImageView.setImageResource(R.drawable.outline_inventory_2_24)
                 }
                 "Out for sampling" -> {
-                    binding.statusChip.setChipIconResource(R.drawable.outline_access_time_24)
+                    binding.statusIconImageView.setImageResource(R.drawable.outline_access_time_24)
                 }
             }
         }

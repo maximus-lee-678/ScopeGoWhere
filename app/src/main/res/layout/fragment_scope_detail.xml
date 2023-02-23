@@ -26,6 +26,7 @@
             android:textAppearance="?attr/textAppearanceHeadline3"
             android:textColor="?android:attr/textColorPrimaryInverse"
             android:text="ABC123"
+            android:paddingVertical="10dp"
             />
     </FrameLayout>
 
@@ -104,22 +105,88 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.google.android.material.chip.ChipGroup
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.chip.Chip
-                android:id="@+id/statusChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="STATUS"/>
+            android:layout_height="wrap_content" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/nextSampleChip"
-                android:layout_width="wrap_content"
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:chipIcon="@drawable/baseline_calendar_month_24"
-                android:text="NEXT SAMPLE"/>
-        </com.google.android.material.chip.ChipGroup>
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/statusIconImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/outline_inventory_2_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Equipment Status"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/statusIconImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/statusTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXX"
+                    android:textColor="?attr/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/nextSampleIconImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/baseline_calendar_month_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next Sample Date"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/nextSampleIconImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/nextSampleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="dd/MM/yyyy"
+                    android:textColor="?attr/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -129,18 +196,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/viewLogsButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View Detail"/>
+                android:text="View Logs"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/washButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wash" />
+                android:text="Wash"/>
         </LinearLayout>
     </LinearLayout>
 
