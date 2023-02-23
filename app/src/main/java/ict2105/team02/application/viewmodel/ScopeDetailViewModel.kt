@@ -2,8 +2,6 @@ package ict2105.team02.application.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import com.google.gson.JsonParser
 import ict2105.team02.application.Utils
 import ict2105.team02.application.model.Endoscope
 import okhttp3.*
