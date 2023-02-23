@@ -9,8 +9,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import ict2105.team02.application.MainActivity
+import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.databinding.ActivityLoginBinding
+import ict2105.team02.application.viewmodel.loginViewModel
 
 class LoginActivity: AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -18,6 +22,8 @@ class LoginActivity: AppCompatActivity() {
     private var pendingIntent: PendingIntent? = null
     private var intentFilters: Array<IntentFilter>? = null
     private val techList = arrayOf(arrayOf(NfcB::class.java.name))
+    private lateinit var viewModel: loginViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,6 +33,10 @@ class LoginActivity: AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // connecting to view model
+        viewModel = ViewModelProvider(this).get(loginViewModel::class.java)
+
+        // nfc adapter
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter != null) {
             // NFC is supported on this device
@@ -41,29 +51,28 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
-        //login button validate (staffId == admin // password == 1234)
+        //login button validate
         binding.loginButton.setOnClickListener {
-            var staffID = binding.userName.editText?.text.toString()
+            var staffEmail = binding.userName.editText?.text.toString()
             var password = binding.password.editText?.text.toString()
-            var valid: Boolean = validateLogin(staffID, password)
-            if(valid || true) {
-                intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }else{
-                binding.error.text = "Invalid Staff ID or Password"
-            }
+            viewModel.login(staffEmail, password)
         }
-    }
 
-    //validate login
-    //to be validate using database
-    private fun validateLogin (staffID: String, password: String): Boolean {
-        if(staffID == "admin" && password == "1234"){
-            return true
-        }
-        // Change this back!!
-        return true
+        viewModel.loginStatus.observe(this, Observer {
+            when(it){
+                is UiState.Loading -> {
+                    // nothing to do
+                }
+                is UiState.Success -> {
+                    intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                is UiState.Error -> {
+                    binding.error.text = it.message
+                }
+            }
+        })
     }
 
     override fun onResume() {
