@@ -1,4 +1,4 @@
-package ict2105.team02.application.logout
+package ict2105.team02.application.ui.login
 
 import android.app.Dialog
 import android.content.Context

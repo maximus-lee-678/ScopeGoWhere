@@ -4,13 +4,13 @@
     <data>
         <variable
             name="viewmodel"
-            type="ict2105.team02.application.ui.ScopeDetailsWashFragment" />
+            type="ict2105.team02.application.ui.wash.ScopeDetailsWashFragment" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.ScopeDetailsWashFragment">
+        tools:context=".ui.wash.ScopeDetailsWashFragment">
 
         <TextView
             android:id="@+id/washerTextView"

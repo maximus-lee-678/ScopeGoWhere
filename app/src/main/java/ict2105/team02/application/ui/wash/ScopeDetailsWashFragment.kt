@@ -1,4 +1,4 @@
-package ict2105.team02.application.ui
+package ict2105.team02.application.ui.wash
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import ict2105.team02.application.MainActivity
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScopeDetailsWashBinding
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import ict2105.team02.application.WashActivity
 import ict2105.team02.application.viewmodel.WashViewModel
 
 

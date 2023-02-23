@@ -1,4 +1,4 @@
-package ict2105.team02.application
+package ict2105.team02.application.utils
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser

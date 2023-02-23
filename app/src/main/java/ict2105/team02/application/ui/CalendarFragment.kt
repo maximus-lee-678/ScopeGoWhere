@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.databinding.FragmentScheduleBinding
 import ict2105.team02.application.recyclerview.CalendarMonthAdapter
 import ict2105.team02.application.recyclerview.CalendarWeekAdapter
-import ict2105.team02.application.storage.UserPreferencesRepository
+import ict2105.team02.application.repo.UserPreferencesRepository
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch

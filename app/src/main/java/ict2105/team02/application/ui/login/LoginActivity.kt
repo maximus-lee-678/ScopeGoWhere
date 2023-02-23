@@ -1,4 +1,4 @@
-package ict2105.team02.application.login
+package ict2105.team02.application.ui.login
 
 import android.app.PendingIntent
 import android.content.Intent
@@ -11,10 +11,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import ict2105.team02.application.MainActivity
+import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.databinding.ActivityLoginBinding
-import ict2105.team02.application.viewmodel.loginViewModel
+import ict2105.team02.application.viewmodel.LoginViewModel
 
 class LoginActivity: AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -22,7 +22,7 @@ class LoginActivity: AppCompatActivity() {
     private var pendingIntent: PendingIntent? = null
     private var intentFilters: Array<IntentFilter>? = null
     private val techList = arrayOf(arrayOf(NfcB::class.java.name))
-    private lateinit var viewModel: loginViewModel
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class LoginActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         // connecting to view model
-        viewModel = ViewModelProvider(this).get(loginViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         // nfc adapter
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)

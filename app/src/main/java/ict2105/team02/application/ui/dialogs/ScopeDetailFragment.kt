@@ -1,4 +1,4 @@
-package ict2105.team02.application.ui
+package ict2105.team02.application.ui.dialogs
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import ict2105.team02.application.MainActivity
 import ict2105.team02.application.R
-import ict2105.team02.application.WashActivity
+import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import java.text.SimpleDateFormat

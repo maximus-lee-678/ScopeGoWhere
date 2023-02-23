@@ -1,4 +1,4 @@
-package ict2105.team02.application.ui
+package ict2105.team02.application.ui.wash
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ict2105.team02.application.HomeFragment
-import ict2105.team02.application.MainActivity
+import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.databinding.ActivityWashEquipmentBinding
+import ict2105.team02.application.ui.main.HomeFragment
 import ict2105.team02.application.viewmodel.WashViewModel
 
 class WashEquipmentFragment : Fragment() {
@@ -60,7 +60,7 @@ class WashEquipmentFragment : Fragment() {
             (activity as MainActivity).navbarNavigate(fragment)
         }
         binding.button3.setOnClickListener{
-            val fragment = TodaySchedule()
+            val fragment = HomeFragment()
             (activity as MainActivity).navbarNavigate(fragment)
             viewModel.isDryingCabinetDone.value = false
             viewModel.isWasherDone.value = false

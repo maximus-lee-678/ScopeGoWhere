@@ -1,4 +1,4 @@
-package ict2105.team02.application.ui
+package ict2105.team02.application.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.databinding.FragmentEquipmentBinding
 import ict2105.team02.application.recyclerview.EquipmentAdapter
+import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
 import ict2105.team02.application.viewmodel.EquipmentListViewModel
 
 class EquipmentFragment : Fragment() {

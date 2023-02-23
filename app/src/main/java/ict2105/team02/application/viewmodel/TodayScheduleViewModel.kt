@@ -2,7 +2,7 @@ package ict2105.team02.application.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ict2105.team02.application.Utils
+import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.model.Endoscope
 import okhttp3.*
 import java.io.IOException

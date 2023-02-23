@@ -1,4 +1,4 @@
-package ict2105.team02.application
+package ict2105.team02.application.ui.main
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -13,7 +13,7 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import ict2105.team02.application.databinding.ActivityQrScannerBinding
-import ict2105.team02.application.ui.ScopeDetailFragment
+import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
 import java.io.IOException
 
 private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
