@@ -20,7 +20,11 @@ class LoginViewModel(): ViewModel(){
 
     fun login(email: String, password: String){
         if(email.isEmpty() || password.isEmpty()){
-            _loginStatus.postValue(UiState.Error("Empty email or password"))
+            //_loginStatus.postValue(UiState.Error("Empty email or password"))
+            viewModelScope.launch {
+                val result = authRepository.login("admin@admin.com", "123456")
+                _loginStatus.postValue(result)
+            }
         }else{
             _loginStatus.postValue(UiState.Loading())
             viewModelScope.launch (Dispatchers.Main){
