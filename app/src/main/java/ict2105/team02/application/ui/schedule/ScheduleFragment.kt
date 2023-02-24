@@ -1,4 +1,4 @@
-package ict2105.team02.application.ui.main
+package ict2105.team02.application.ui.schedule
 
 import android.os.Bundle
 import android.util.Log
@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ict2105.team02.application.databinding.FragmentScheduleMainBinding
-import ict2105.team02.application.schedule.CalendarFragment
-import ict2105.team02.application.ui.ScheduleInfoFragment
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
 
 /**

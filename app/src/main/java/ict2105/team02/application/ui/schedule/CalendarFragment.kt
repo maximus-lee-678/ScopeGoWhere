@@ -1,4 +1,4 @@
-package ict2105.team02.application.schedule
+package ict2105.team02.application.ui.schedule
 
 import android.content.Context
 import android.os.Bundle
@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat
 
 class CalendarFragment : Fragment() {
     private lateinit var binding: FragmentScheduleBinding
-    private val TAG: String = CalendarFragment::class.simpleName!!
+    private val TAG: String = this::class.simpleName!!
     private val daysInWeek: Int = 7
 
     private val calendarViewModel: CalendarViewModel by viewModels {
@@ -33,76 +33,34 @@ class CalendarFragment : Fragment() {
             (activity?.application as MainApplication)
         )
     }
+    private lateinit var scheduleInfoViewModel: ScheduleInfoViewModel
     private lateinit var calendarMonthAdapter: CalendarMonthAdapter
     private lateinit var calendarWeekAdapter: CalendarWeekAdapter
-    private lateinit var scheduleInfoViewModel: ScheduleInfoViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        calendarMonthAdapter = CalendarMonthAdapter(calendarViewModel.dateDetails.value!!)
-        calendarWeekAdapter = CalendarWeekAdapter(calendarViewModel.dateDetails.value!!)
+        // Spawn adapters, contents nullified
+        calendarMonthAdapter = CalendarMonthAdapter(activity as Context)
+        calendarWeekAdapter = CalendarWeekAdapter(activity as Context)
 
         binding = FragmentScheduleBinding.inflate(inflater)
 
-        createListenersRecycler()               // Recyclerview listeners creation
-        createListenersFragment()                   // Fragment listeners creation
+        createListenersRecycler()   // Recyclerview listeners creation
+        createListenersFragment()   // Fragment listeners creation
+        createObservers()           // Data observers creation
 
         scheduleInfoViewModel =
             ViewModelProvider(requireActivity()).get(ScheduleInfoViewModel::class.java)
 
-        // Add an observer on the LiveData returned by selectedDate
-        calendarViewModel.selectedDate.observe(viewLifecycleOwner) { date ->
-            // Update the cached copy of the words in the adapter.
-            date.let {
-                calendarMonthAdapter.forceUpdateDate(date)
-                calendarWeekAdapter.forceUpdateDate(date)
-                updateModel(String.format("%d-%d-%d", it[0], it[1], it[2]))
-            }
-
-            Log.d(
-                TAG,
-                String.format(
-                    "%s: date>%d-%d-%d",
-                    object {}.javaClass.enclosingMethod.name,
-                    date[0],
-                    date[1],
-                    date[2]
-                )
-            )
-        }
-
-        // Add an observer on the LiveData returned by selectedDate
-        calendarViewModel.dateDetails.observe(viewLifecycleOwner) { dateDetails ->
-            // Update the cached copy of the dates in the adapter.
-
-            dateDetails.let {
-                binding.monthText.text = dateDetails.monthEnglish
-                binding.yearText.text = dateDetails.year.toString()
-
-                calendarMonthAdapter.updateRecyclerContent(dateDetails)
-                calendarWeekAdapter.updateRecyclerContent(dateDetails)
-            }
-
-            Log.d(
-                TAG, "dateDetails: " + dateDetails.toString()
-            )
-        }
-
-        // Add an observer on the LiveData returned by selectedDate
-        calendarViewModel.scheduleLayoutType.observe(viewLifecycleOwner) { layoutType ->
-            // Update the cached copy of the dates in the adapter.
-            Log.d("fish", layoutType.toString())
-            layoutType.let {
-                setTheScene(it)
-            }
-        }
-
         return binding.root
     }
 
-    fun updateModel(input: String) {
+    /**
+     * Updates scheduleInfoViewModel.
+     */
+    private fun updateModel(input: String) {
         val dateFormat = SimpleDateFormat("dd-MM-yyyy")
         val date = dateFormat.parse(input)
         val dateDetails = DateDetails(date)
@@ -118,14 +76,16 @@ class CalendarFragment : Fragment() {
      */
     private fun setTheScene(scheduleLayoutType: Boolean) {
         binding.switchScheduleViewType.isChecked = scheduleLayoutType!!
-        Log.d("fish", scheduleLayoutType.toString())
+        // month
         if (scheduleLayoutType) {
             binding.linearLayoutWeekDays.visibility = View.GONE
             binding.linearLayoutMonthDays.visibility = View.VISIBLE
             binding.recyclerViewCalendarDay.adapter = calendarMonthAdapter
             binding.recyclerViewCalendarDay.layoutManager =
                 GridLayoutManager(activity as Context, daysInWeek)
-        } else {
+        }
+        // week
+        else {
             binding.linearLayoutWeekDays.visibility = View.VISIBLE
             binding.linearLayoutMonthDays.visibility = View.GONE
             binding.recyclerViewCalendarDay.adapter = calendarWeekAdapter
@@ -135,13 +95,78 @@ class CalendarFragment : Fragment() {
     }
 
     /**
+     * Creates observers.
+     */
+    private fun createObservers() {
+        // Add an observer on the LiveData returned by selectedDate
+        calendarViewModel.selectedDate.observe(viewLifecycleOwner) { selectedDate ->
+            // Update selectedDate in the adapter
+            calendarMonthAdapter.forceUpdateDate(selectedDate)
+            calendarWeekAdapter.forceUpdateDate(selectedDate)
+
+            // Update scheduleInfoViewModel
+            updateModel(
+                String.format(
+                    "%d-%d-%d",
+                    selectedDate[0],
+                    selectedDate[1],
+                    selectedDate[2]
+                )
+            )
+
+            Log.d(
+                TAG, String.format(
+                    "[%s] selectedDate: %2d-%2d-%4d",
+                    object {}.javaClass.enclosingMethod!!.name,
+                    selectedDate[0],
+                    selectedDate[1],
+                    selectedDate[2]
+                )
+            )
+        }
+
+        // Add an observer on the LiveData returned by dateDetails
+        calendarViewModel.dateDetails.observe(viewLifecycleOwner) { dateDetails ->
+            // Update header of fragment
+            binding.monthText.text = dateDetails.monthEnglish
+            binding.yearText.text = dateDetails.year.toString()
+
+            // Update recyclerView contents, forces reload of layout
+            calendarMonthAdapter.updateRecyclerContent(dateDetails)
+            calendarWeekAdapter.updateRecyclerContent(dateDetails)
+
+            Log.d(
+                TAG,
+                String.format(
+                    "[%s] dateDetails: %s",
+                    object {}.javaClass.enclosingMethod!!.name,
+                    dateDetails.toString()
+                )
+            )
+        }
+
+        // Add an observer on the LiveData returned by scheduleLayoutType
+        calendarViewModel.scheduleLayoutType.observe(viewLifecycleOwner) { layoutType ->
+            // Update layout
+            setTheScene(layoutType)
+
+            Log.d(
+                TAG,
+                String.format(
+                    "[%s] layoutType: %s",
+                    object {}.javaClass.enclosingMethod!!.name,
+                    layoutType.toString()
+                )
+            )
+        }
+    }
+
+    /**
      * Creates listeners for previous, next buttons and mode switch.
      */
     private fun createListenersFragment() {
         // Previous button: Update month or week, indicate page offset changed, refresh layout
         binding.buttonSchedulePrevious.setOnClickListener { view ->
-            Log.d(TAG, "buttonSchedulePrevious")
-
             if (calendarViewModel.scheduleLayoutType.value!!) {
                 calendarViewModel.updateSelectedPeriodStep("month", -1)
             } else {
@@ -150,13 +175,15 @@ class CalendarFragment : Fragment() {
 
             Log.d(
                 TAG,
-                String.format("%s: clicked>%s", object {}.javaClass.enclosingMethod.name, "prev")
+                String.format(
+                    "[%s] buttonSchedulePrevious",
+                    object {}.javaClass.enclosingMethod!!.name
+                )
             )
         }
 
         // Next button: Update month or week, indicate page offset changed, refresh layout
         binding.buttonScheduleNext.setOnClickListener { view ->
-            Log.d(TAG, "buttonScheduleNext")
             if (calendarViewModel.scheduleLayoutType.value!!) {
                 calendarViewModel.updateSelectedPeriodStep("month", 1)
             } else {
@@ -165,7 +192,10 @@ class CalendarFragment : Fragment() {
 
             Log.d(
                 TAG,
-                String.format("%s: clicked>%s", object {}.javaClass.enclosingMethod.name, "next")
+                String.format(
+                    "[%s] buttonScheduleNext",
+                    object {}.javaClass.enclosingMethod!!.name
+                )
             )
         }
 
@@ -180,8 +210,8 @@ class CalendarFragment : Fragment() {
             Log.d(
                 TAG,
                 String.format(
-                    "%s: stored and switched to>%s",
-                    object {}.javaClass.enclosingMethod.name,
+                    "[%s] switchScheduleViewType: %s",
+                    object {}.javaClass.enclosingMethod!!.name,
                     switch.isChecked
                 )
             )
@@ -190,7 +220,7 @@ class CalendarFragment : Fragment() {
 
     /**
      * Creates listeners that react to items being clicked in recyclerview.
-     * Stores clicked date in selectedDate.
+     * Updates selectedDate in ViewModel.
      */
     private fun createListenersRecycler() {
         calendarWeekAdapter.onItemClick = { onItemClick ->

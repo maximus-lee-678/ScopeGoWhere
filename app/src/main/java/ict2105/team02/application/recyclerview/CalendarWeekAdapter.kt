@@ -1,26 +1,28 @@
 package ict2105.team02.application.recyclerview
 
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.DateDetails
-import ict2105.team02.application.schedule.CalendarFragment
 
-class CalendarWeekAdapter(
-    private var dateDetails: DateDetails
-) : RecyclerView.Adapter<CalendarWeekAdapter.ItemViewHolder>() {
-    private val TAG: String = CalendarFragment::class.simpleName!!
+class CalendarWeekAdapter(private val context: Context) :
+    RecyclerView.Adapter<CalendarWeekAdapter.ItemViewHolder>() {
+    private val TAG: String = this::class.simpleName!!
     private val daysInWeek: Int = 7
-    private val deselectedHex: Int = 0x0F0000FF
-    private val selectedHex: Int = 0x7F00FF00
+    private val deselectedHex: Int =
+        ResourcesCompat.getColor(context.resources, R.color.schedule_unselected, null)
+    private val selectedHex: Int =
+        ResourcesCompat.getColor(context.resources, R.color.schedule_selected, null)
 
-    var selectedDate: IntArray =
-        intArrayOf(dateDetails.day!!, dateDetails.month!!, dateDetails.year!!)
-    var selectedPos: Int = dateDetails.day!! - dateDetails.weekArray[0][0]
+    // initially uninitialised, observer will call updateRecyclerContent to load it
+    private var dateDetails: DateDetails? = null
+    private var selectedDate: IntArray = intArrayOf()
+    private var selectedPos: Int = 0
     var onItemClick: ((IntArray) -> Unit)? = null
 
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -45,13 +47,19 @@ class CalendarWeekAdapter(
      * Replace the contents of a view (invoked by the layout manager)
      */
     override fun onBindViewHolder(holder: CalendarWeekAdapter.ItemViewHolder, position: Int) {
+        // If called before initialisation, render nothing
+        if (dateDetails == null) {
+            return
+        }
+
         holder.textView.text = String.format(
-            "%d-%d-%d",
-            dateDetails.weekArray[position][0],
-            dateDetails.weekArray[position][1],
-            dateDetails.weekArray[position][2]
+            "%02d/%02d/%04d",
+            dateDetails!!.weekArray[position][0],
+            dateDetails!!.weekArray[position][1],
+            dateDetails!!.weekArray[position][2]
         )
 
+        // Only highlight day when the user is on the original month
         if (selectedPos >= 0 && selectedPos == position) {
             holder.itemView.setBackgroundColor(selectedHex)
         } else {
@@ -60,7 +68,7 @@ class CalendarWeekAdapter(
 
         // Attach listener that returns date to Fragment and updates selection
         holder.textView.setOnClickListener {
-            selectedDate = dateDetails.weekArray[holder.adapterPosition]
+            selectedDate = dateDetails!!.weekArray[holder.adapterPosition]
 
             onItemClick?.invoke(selectedDate)
         }
@@ -71,8 +79,11 @@ class CalendarWeekAdapter(
      */
     override fun getItemCount() = daysInWeek
 
-    fun getSelectedPosition(dateDetails: DateDetails): Boolean {
-
+    /**
+     * Helper function that computes and updates selectedPos.
+     * Computes -1 if selected date is off screen, and corresponding position otherwise.
+     */
+    private fun getSelectedPosition(dateDetails: DateDetails): Boolean {
         // if matching date is found in week array, selected position is on screen
         for (i in 0..6) {
             if (dateDetails.weekArray[i][0] == selectedDate[0] && dateDetails.weekArray[i][1] == selectedDate[1] && dateDetails.weekArray[i][2] == selectedDate[2]) {
@@ -86,15 +97,18 @@ class CalendarWeekAdapter(
         return true
     }
 
-    // After the user has moved off the original page, the selectedDate is not updated.
-    // This function is called to force an update of selectedDate upon selection.
+    /**
+     * After the user has moved off the original page, the selectedDate is not updated.
+     * This function is called to force an update of selectedDate upon selection.
+     * Called by observer when a new selected date is detected.
+     */
     fun forceUpdateDate(newSelectedDate: IntArray) {
         selectedDate = intArrayOf(newSelectedDate[0], newSelectedDate[1], newSelectedDate[2])
     }
 
     /**
-     * Updates stored date details and selected position,
-     * then resets the whole thing.
+     * Updates stored date details, then prompts the recyclerView to regenerate as necessary.
+     * Called by observer when a new dateDetails object is detected.
      */
     fun updateRecyclerContent(dateDetails: DateDetails) {
         // Update dateDetails

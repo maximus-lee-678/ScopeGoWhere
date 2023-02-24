@@ -15,10 +15,9 @@ class CalendarViewModel(
 ) : AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
 
+    // Initialise following to today
     private val calendar: Calendar = Calendar.getInstance()
-
     var dateDetails: MutableLiveData<DateDetails> = MutableLiveData(DateDetails(calendar.time))
-
     var selectedDate: MutableLiveData<IntArray> =
         MutableLiveData(
             intArrayOf(
@@ -28,6 +27,7 @@ class CalendarViewModel(
             )
         )
 
+    // Layout type of Schedule, retrieved from UserPreferencesRepository.
     var scheduleLayoutType: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
@@ -36,6 +36,10 @@ class CalendarViewModel(
         }
     }
 
+    /**
+     * Writes new layout type to repository.
+     * Called by listener in fragment. (layout switch)
+     */
     fun updateLayoutType(layoutType: Boolean) {
         scheduleLayoutType.postValue(layoutType)
         viewModelScope.launch {
@@ -43,10 +47,27 @@ class CalendarViewModel(
         }
     }
 
-    fun refreshDateDetails() {
+    /**
+     * Realigns calendar and dateDetails values based on new selected date.
+     * Called by listener in fragment. (layout switch)
+     */
+    fun forceAlignCalendar() {
+        calendar.set(selectedDate.value!![2], selectedDate.value!![1] - 1, selectedDate.value!![0])
+
+        refreshDateDetails()
+    }
+
+    /**
+     * Helper function that updates dateDetails based on current calendar value.
+     */
+    private fun refreshDateDetails() {
         dateDetails.value = DateDetails(calendar.time)
     }
 
+    /**
+     * Changes calendar and dateDetails values.
+     * Called by listener in fragment. (previous or next button)
+     */
     fun updateSelectedPeriodStep(type: String, magnitude: Int) {
         when (type) {
             "week" -> calendar.add(Calendar.WEEK_OF_MONTH, magnitude)
@@ -56,17 +77,15 @@ class CalendarViewModel(
         refreshDateDetails()
     }
 
+    /**
+     * Changes calendar, dateDetails and selectedDate values.
+     * Called by listener in fragment. (recyclerview cell)
+     */
     fun updateSelectedDateExplicit(newSelectedDate: IntArray) {
         calendar.set(newSelectedDate[2], newSelectedDate[1] - 1, newSelectedDate[0])
 
         refreshDateDetails()
         selectedDate.value = newSelectedDate
-    }
-
-    fun forceAlignCalendar() {
-        calendar.set(selectedDate.value!![2], selectedDate.value!![1] - 1, selectedDate.value!![0])
-
-        refreshDateDetails()
     }
 }
 

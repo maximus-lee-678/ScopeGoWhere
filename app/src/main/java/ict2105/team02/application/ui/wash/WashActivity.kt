@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.ui.main.EquipmentFragment
-import ict2105.team02.application.ui.main.ScheduleFragment
+import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.ui.main.HomeFragment
 import ict2105.team02.application.ui.main.QRScannerActivity
 
