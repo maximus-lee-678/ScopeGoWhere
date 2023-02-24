@@ -1,7 +1,7 @@
 package ict2105.team02.application.model
 
-import ict2105.team02.application.schedule.DateDetails
 import java.util.Date
+import ict2105.team02.application.model.DateDetails
 
 data class Schedule (
     val date: DateDetails,

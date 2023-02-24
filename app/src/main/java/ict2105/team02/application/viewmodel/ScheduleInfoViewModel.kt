@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ict2105.team02.application.model.DateDetails
 import ict2105.team02.application.model.Schedule
 import ict2105.team02.application.repo.ScheduleProducer
-import ict2105.team02.application.schedule.DateDetails
 import java.util.*
 import kotlin.collections.ArrayList
 

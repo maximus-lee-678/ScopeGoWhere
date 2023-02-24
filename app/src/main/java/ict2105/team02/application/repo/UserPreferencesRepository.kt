@@ -54,7 +54,7 @@ class UserPreferencesRepository(context: Context) {
 
     // updates layout type to boolean provided
     suspend fun updateLayoutType(layoutType: Boolean, context: Context) {
-        Log.d(TAG, object {}.javaClass.enclosingMethod.name)
+        Log.d(TAG, object {}.javaClass.enclosingMethod.name + ": " + layoutType.toString())
         context.dataStore.edit { preferences ->
             preferences[PreferencesKeys.scheduleLayoutType] = layoutType
         }

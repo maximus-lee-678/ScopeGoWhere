@@ -21,7 +21,7 @@ private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
 class QRScannerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQrScannerBinding
 
-    private lateinit var cameraSource: CameraSource
+    private var cameraSource: CameraSource? = null
     private lateinit var barcodeDetector: BarcodeDetector
     private var scannedValue = ""
 
@@ -54,7 +54,7 @@ class QRScannerActivity : AppCompatActivity() {
             override fun surfaceCreated(holder: SurfaceHolder) {
                 try {
                     //Start preview after 1s delay
-                    cameraSource.start(holder)
+                    cameraSource!!.start(holder)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -63,14 +63,14 @@ class QRScannerActivity : AppCompatActivity() {
             @SuppressLint("MissingPermission")
             override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
                 try {
-                    cameraSource.start(holder)
+                    cameraSource!!.start(holder)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
             }
 
             override fun surfaceDestroyed(holder: SurfaceHolder) {
-                cameraSource.stop()
+                cameraSource!!.stop()
             }
         })
 
@@ -89,7 +89,7 @@ class QRScannerActivity : AppCompatActivity() {
                     val serial = validateQRCodeEndoscope(scannedValue)
                     if (serial.isNotEmpty()) {
                         runOnUiThread {
-                            cameraSource.stop()
+                            cameraSource!!.stop()
                             val fragment = ScopeDetailFragment.newInstance(serial)
                             fragment.show(supportFragmentManager, "scope_detail")
                             // showToast(scannedValue)
@@ -120,15 +120,15 @@ class QRScannerActivity : AppCompatActivity() {
         super.onWindowFocusChanged(hasFocus)
         // Enable camera only when activity is in focus
         if (hasFocus) {
-            cameraSource.start(binding.cameraSurfaceView.holder)
-        } else {
-            cameraSource.stop()
+            cameraSource!!.start(binding.cameraSurfaceView.holder)
+        } else if (cameraSource != null) {
+            cameraSource!!.stop()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        cameraSource.stop()
+        cameraSource!!.stop()
     }
 
     // Validate QR code data for endoscopes.
