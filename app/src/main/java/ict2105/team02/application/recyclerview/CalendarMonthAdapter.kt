@@ -1,6 +1,5 @@
 package ict2105.team02.application.recyclerview
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
