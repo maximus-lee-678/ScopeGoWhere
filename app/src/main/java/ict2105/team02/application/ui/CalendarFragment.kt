@@ -120,12 +120,14 @@ class CalendarFragment : Fragment() {
         binding.switchScheduleViewType.isChecked = scheduleLayoutType!!
         Log.d("fish", scheduleLayoutType.toString())
         if (scheduleLayoutType) {
-            binding.linearLayoutWeekDays.visibility = View.VISIBLE
+            binding.linearLayoutWeekDays.visibility = View.GONE
+            binding.linearLayoutMonthDays.visibility = View.VISIBLE
             binding.recyclerViewCalendarDay.adapter = calendarMonthAdapter
             binding.recyclerViewCalendarDay.layoutManager =
                 GridLayoutManager(activity as Context, daysInWeek)
         } else {
-            binding.linearLayoutWeekDays.visibility = View.GONE
+            binding.linearLayoutWeekDays.visibility = View.VISIBLE
+            binding.linearLayoutMonthDays.visibility = View.GONE
             binding.recyclerViewCalendarDay.adapter = calendarWeekAdapter
             binding.recyclerViewCalendarDay.layoutManager =
                 LinearLayoutManager(activity as Context, LinearLayoutManager.VERTICAL, false)

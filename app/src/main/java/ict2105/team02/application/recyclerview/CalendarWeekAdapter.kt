@@ -46,8 +46,7 @@ class CalendarWeekAdapter(
      */
     override fun onBindViewHolder(holder: CalendarWeekAdapter.ItemViewHolder, position: Int) {
         holder.textView.text = String.format(
-            "[pos%d] %d-%d-%d",
-            position,
+            "%d-%d-%d",
             dateDetails.weekArray[position][0],
             dateDetails.weekArray[position][1],
             dateDetails.weekArray[position][2]
@@ -76,7 +75,7 @@ class CalendarWeekAdapter(
 
         // if matching date is found in week array, selected position is on screen
         for (i in 0..6) {
-           if (dateDetails.weekArray[i][0] == selectedDate[0] && dateDetails.weekArray[i][1] == selectedDate[1] && dateDetails.weekArray[i][2] == selectedDate[2]) {
+            if (dateDetails.weekArray[i][0] == selectedDate[0] && dateDetails.weekArray[i][1] == selectedDate[1] && dateDetails.weekArray[i][2] == selectedDate[2]) {
                 selectedPos = i
                 return false
             }
@@ -89,7 +88,7 @@ class CalendarWeekAdapter(
 
     // After the user has moved off the original page, the selectedDate is not updated.
     // This function is called to force an update of selectedDate upon selection.
-    fun forceUpdateDate(newSelectedDate: IntArray){
+    fun forceUpdateDate(newSelectedDate: IntArray) {
         selectedDate = intArrayOf(newSelectedDate[0], newSelectedDate[1], newSelectedDate[2])
     }
 

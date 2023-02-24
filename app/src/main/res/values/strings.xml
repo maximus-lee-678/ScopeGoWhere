@@ -11,8 +11,15 @@
     <string name="hello_again">Hello again, you\'ve been missed!</string>
 
     <!-- Schedule -->
-    <string name="layout_type_switch_left">Weekly View</string>
-    <string name="layout_type_switch_right">Monthly View</string>
+    <string name="schedule_layout_type_switch_left">Weekly View</string>
+    <string name="schedule_layout_type_switch_right">Monthly View</string>
+    <string name="schedule_monday">MON</string>
+    <string name="schedule_tuesday">TUE</string>
+    <string name="schedule_wednesday">WED</string>
+    <string name="schedule_thursday">THU</string>
+    <string name="schedule_friday">FRI</string>
+    <string name="schedule_saturday">SAT</string>
+    <string name="schedule_sunday">SUN</string>
 
     <!-- Equipment List -->
     <string name="getting_equipments">Getting equipments</string>

@@ -1,6 +1,7 @@
 package ict2105.team02.application.storage
 
 import android.app.Application
+import ict2105.team02.application.repo.UserPreferencesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 

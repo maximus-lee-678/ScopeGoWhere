@@ -38,7 +38,7 @@ class CalendarMonthAdapter(
         // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.recyclerview_calendar_month_item, parent, false)
-        adapterLayout.layoutParams.height = (parent.height * 0.07).toInt()
+        adapterLayout.layoutParams.height = (parent.height * 0.075).toInt()
 
         return ItemViewHolder(adapterLayout)
     }
@@ -80,7 +80,16 @@ class CalendarMonthAdapter(
     override fun getItemCount() = maxGridCount
 
     fun getSelectedPosition(dateDetails: DateDetails): Boolean {
-        Log.d(TAG, String.format("monthpos: %d=%d %d=%d", dateDetails.month!! , selectedDate[1] , dateDetails.year!! , selectedDate[2]))
+        Log.d(
+            TAG,
+            String.format(
+                "monthpos: %d=%d %d=%d",
+                dateDetails.month!!,
+                selectedDate[1],
+                dateDetails.year!!,
+                selectedDate[2]
+            )
+        )
         // if month & year dont match, page has changed, selected position is off screen
         if (dateDetails.month!! != selectedDate[1] || dateDetails.year!! != selectedDate[2]) {
             selectedPos = -1
@@ -94,7 +103,7 @@ class CalendarMonthAdapter(
 
     // After the user has moved off the original page, the selectedDate is not updated.
     // This function is called to force an update of selectedDate upon selection.
-    fun forceUpdateDate(newSelectedDate: IntArray){
+    fun forceUpdateDate(newSelectedDate: IntArray) {
         selectedDate = intArrayOf(newSelectedDate[0], newSelectedDate[1], newSelectedDate[2])
     }
 

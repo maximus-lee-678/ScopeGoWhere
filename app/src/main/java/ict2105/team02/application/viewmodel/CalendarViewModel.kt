@@ -5,7 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import ict2105.team02.application.model.DateDetails
-import ict2105.team02.application.storage.UserPreferencesRepository
+import ict2105.team02.application.repo.UserPreferencesRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.*
