@@ -10,7 +10,7 @@ import ict2105.team02.application.repo.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoginViewModel(): ViewModel(){
+class LoginViewModel: ViewModel(){
     private val authRepository = AuthRepository()
 
     // make login status to be editable inside View Model and readable to outside

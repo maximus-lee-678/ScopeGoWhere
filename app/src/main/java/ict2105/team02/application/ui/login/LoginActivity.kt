@@ -1,12 +1,9 @@
 package ict2105.team02.application.ui.login
 
-import android.app.PendingIntent
 import android.content.Intent
-import android.content.IntentFilter
 import android.nfc.NfcAdapter
-import android.nfc.tech.NfcB
+import android.nfc.Tag
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -15,14 +12,12 @@ import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.databinding.ActivityLoginBinding
 import ict2105.team02.application.viewmodel.LoginViewModel
+import ict2105.team02.application.viewmodel.NFCViewModel
 
-class LoginActivity: AppCompatActivity() {
+class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
     private lateinit var binding: ActivityLoginBinding
-    private var nfcAdapter: NfcAdapter? = null
-    private var pendingIntent: PendingIntent? = null
-    private var intentFilters: Array<IntentFilter>? = null
-    private val techList = arrayOf(arrayOf(NfcB::class.java.name))
-    private lateinit var viewModel: LoginViewModel
+    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var nfcViewModel: NFCViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,39 +29,37 @@ class LoginActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         // connecting to view model
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        nfcViewModel = ViewModelProvider(this)[NFCViewModel::class.java]
 
-        // nfc adapter
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        if (nfcAdapter != null) {
-            // NFC is supported on this device
-            val intentNfc = Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            pendingIntent = PendingIntent.getActivity(this,0,intentNfc, PendingIntent.FLAG_IMMUTABLE)
-            val intentFilter = IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
-            try{
-                intentFilter.addDataType("*/*")
-                intentFilters = arrayOf(intentFilter)
-            } catch (e: Exception){
-                Log.e("Login Activity","Error creating intent filter", e)
+        // enable NFC Reader
+        if(nfcViewModel.checkEnabled(this@LoginActivity)) {
+            nfcViewModel.enableReaderMode(this@LoginActivity, this@LoginActivity, this@LoginActivity)
+            nfcViewModel.observeTag().observe(this) {
+                if (it) {
+                    nfcViewModel.disableReaderMode(this@LoginActivity, this@LoginActivity)
+                    goToHome()
+                } else{
+                    binding.error.text = "Incorrect login"
+                }
             }
+        } else {
+            Toast.makeText(this, "NFC is not enabled/unavailable", Toast.LENGTH_LONG).show()
         }
-
         //login button validate
         binding.loginButton.setOnClickListener {
             var staffEmail = binding.userName.editText?.text.toString()
             var password = binding.password.editText?.text.toString()
-            viewModel.login(staffEmail, password)
+            loginViewModel.login(staffEmail, password)
         }
 
-        viewModel.loginStatus.observe(this, Observer {
+        loginViewModel.loginStatus.observe(this, Observer {
             when(it){
                 is UiState.Loading -> {
                     // nothing to do
                 }
                 is UiState.Success -> {
-                    intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    goToHome()
                 }
                 is UiState.Error -> {
                     binding.error.text = it.message
@@ -75,25 +68,13 @@ class LoginActivity: AppCompatActivity() {
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        nfcAdapter?.let {
-            it.enableForegroundDispatch(this, pendingIntent, intentFilters, techList)
-        }
+    override fun onTagDiscovered(tag: Tag) {
+        nfcViewModel.readTag(tag)
     }
 
-    override fun onPause() {
-        if (this.isFinishing){
-            nfcAdapter?.disableForegroundDispatch(this)
-        }
-        super.onPause()
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        Toast.makeText(this, "Read a NFC", Toast.LENGTH_LONG).show()
-        var homeIntent = Intent(this, MainActivity::class.java)
-        startActivity(homeIntent)
+    private fun goToHome(){
+        intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
         finish()
     }
 }
