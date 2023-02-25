@@ -1,25 +1,28 @@
 package ict2105.team02.application.recyclerview
 
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
-import ict2105.team02.application.schedule.CalendarFragment
-import ict2105.team02.application.schedule.DateDetails
+import ict2105.team02.application.model.DateDetails
 
-class CalendarWeekAdapter(
-    private var dateDetails: DateDetails
-) : RecyclerView.Adapter<CalendarWeekAdapter.ItemViewHolder>() {
-    private val TAG: String = CalendarFragment::class.simpleName!!
+class CalendarWeekAdapter(private val context: Context) :
+    RecyclerView.Adapter<CalendarWeekAdapter.ItemViewHolder>() {
+    private val TAG: String = this::class.simpleName!!
     private val daysInWeek: Int = 7
-    private val deselectedHex: Int = 0x0F0000FF
-    private val selectedHex: Int = 0x7F00FF00
+    private val deselectedHex: Int =
+        ResourcesCompat.getColor(context.resources, R.color.schedule_unselected, null)
+    private val selectedHex: Int =
+        ResourcesCompat.getColor(context.resources, R.color.schedule_selected, null)
 
-    var selectedPos: Int = dateDetails.day!! - dateDetails.weekArray[0][0]
-    var selectedWeekOffset: Int = 0
+    // initially uninitialised, observer will call updateRecyclerContent to load it
+    private var dateDetails: DateDetails? = null
+    private var selectedDate: IntArray = intArrayOf()
+    private var selectedPos: Int = 0
     var onItemClick: ((IntArray) -> Unit)? = null
 
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -44,15 +47,20 @@ class CalendarWeekAdapter(
      * Replace the contents of a view (invoked by the layout manager)
      */
     override fun onBindViewHolder(holder: CalendarWeekAdapter.ItemViewHolder, position: Int) {
+        // If called before initialisation, render nothing
+        if (dateDetails == null) {
+            return
+        }
+
         holder.textView.text = String.format(
-            "[pos%d] %d-%d-%d",
-            position,
-            dateDetails.weekArray[position][0],
-            dateDetails.weekArray[position][1],
-            dateDetails.weekArray[position][2]
+            "%02d/%02d/%04d",
+            dateDetails!!.weekArray[position][0],
+            dateDetails!!.weekArray[position][1],
+            dateDetails!!.weekArray[position][2]
         )
 
-        if (selectedPos == position && selectedWeekOffset == 0) {
+        // Only highlight day when the user is on the original month
+        if (selectedPos >= 0 && selectedPos == position) {
             holder.itemView.setBackgroundColor(selectedHex)
         } else {
             holder.itemView.setBackgroundColor(deselectedHex)
@@ -60,12 +68,9 @@ class CalendarWeekAdapter(
 
         // Attach listener that returns date to Fragment and updates selection
         holder.textView.setOnClickListener {
-            onItemClick?.invoke(dateDetails.weekArray[holder.adapterPosition])
+            selectedDate = dateDetails!!.weekArray[holder.adapterPosition]
 
-            selectedWeekOffset = 0  // reset, user clicked so current week is now active week
-            notifyItemChanged(selectedPos)
-            selectedPos = holder.adapterPosition
-            notifyItemChanged(selectedPos)
+            onItemClick?.invoke(selectedDate)
         }
     }
 
@@ -75,26 +80,65 @@ class CalendarWeekAdapter(
     override fun getItemCount() = daysInWeek
 
     /**
-     * Updates stored date details and selected position,
-     * then resets the whole thing.
+     * Helper function that computes and updates selectedPos.
+     * Computes -1 if selected date is off screen, and corresponding position otherwise.
      */
-    fun update(dateDetails: DateDetails) {
-        this.dateDetails = dateDetails
-
-        // Generate new selected position
-        // First day is in this month: Generate position relative to it
-        // First day is in prev month: Cycle through array find matching day position
-        if (dateDetails.weekArray[0][0]!! < dateDetails.day!!) {
-            selectedPos = dateDetails.day!! - dateDetails.weekArray[0][0]
-        } else {
-            for (i in 0..6) {
-                if (dateDetails.weekArray[i][0] == dateDetails.day!!) {
-                    selectedPos = i
-                    break
-                }
+    private fun getSelectedPosition(dateDetails: DateDetails): Boolean {
+        // if matching date is found in week array, selected position is on screen
+        for (i in 0..6) {
+            if (dateDetails.weekArray[i][0] == selectedDate[0] && dateDetails.weekArray[i][1] == selectedDate[1] && dateDetails.weekArray[i][2] == selectedDate[2]) {
+                selectedPos = i
+                return false
             }
         }
 
-        notifyDataSetChanged()
+        // no match found, selected position is off screen
+        selectedPos = -1
+        return true
+    }
+
+    /**
+     * After the user has moved off the original page, the selectedDate is not updated.
+     * This function is called to force an update of selectedDate upon selection.
+     * Called by observer when a new selected date is detected.
+     */
+    fun forceUpdateDate(newSelectedDate: IntArray) {
+        selectedDate = intArrayOf(newSelectedDate[0], newSelectedDate[1], newSelectedDate[2])
+    }
+
+    /**
+     * Updates stored date details, then prompts the recyclerView to regenerate as necessary.
+     * Called by observer when a new dateDetails object is detected.
+     */
+    fun updateRecyclerContent(dateDetails: DateDetails) {
+        // Update dateDetails
+        this.dateDetails = dateDetails
+
+        val originalPosition: Int = selectedPos
+
+        // Generate new position
+        val didPageChange: Boolean = getSelectedPosition(dateDetails)
+        // User is returning to original page, selected pos goes from negative to positive
+        // Refresh whole set
+        if (!didPageChange && originalPosition == -1) {
+            notifyDataSetChanged()
+            return
+        }
+
+        // User is clicking on another date on original page
+        // Refresh only 2 items
+        if (!didPageChange) {
+            notifyItemChanged(originalPosition)
+            notifyItemChanged(selectedPos)
+            return
+        }
+
+        // User is leaving original page
+        // Refresh whole set
+        if (selectedPos == -1) {
+            notifyDataSetChanged()
+            return
+        }
+
     }
 }

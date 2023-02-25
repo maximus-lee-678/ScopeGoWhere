@@ -2,8 +2,8 @@ package ict2105.team02.application.repo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ict2105.team02.application.model.DateDetails
 import ict2105.team02.application.model.Schedule
-import ict2105.team02.application.schedule.DateDetails
 import java.text.SimpleDateFormat
 import java.util.*
 
