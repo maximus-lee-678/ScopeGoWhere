@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.Endoscope
 
-class EquipmentAdapter () : ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHolder>(EndoscopeComparator()) {
+class EquipmentAdapter: ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHolder>(EndoscopeComparator()) {
     var onItemClick: ((Endoscope) -> Unit)? = null
 
     inner class EquipmentViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.ui.login.LoginActivity
-import ict2105.team02.application.ui.login.LogoutFragment
 import ict2105.team02.application.ui.schedule.ScheduleFragment
+import ict2105.team02.application.ui.dialogs.LogoutFragment
 
 class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
     private lateinit var binding: ActivityMainBinding
