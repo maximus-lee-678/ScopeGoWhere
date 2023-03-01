@@ -13,19 +13,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
         android:text="text view"
         app:layout_constraintBottom_toTopOf="@+id/doneByTextView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/doneByTextView"
+        app:layout_constraintStart_toEndOf="@+id/doneByTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/doneByTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:text="XXX"
-        android:layout_marginTop="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/transactiontextView"
-        app:layout_constraintStart_toStartOf="@+id/dateTextView"
+        app:layout_constraintBottom_toTopOf="@+id/transactionTextView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
 
     <TextView
@@ -34,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="11dp"
         android:text="transaction"
-        android:layout_marginTop="3dp"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/doneByTextView"
         app:layout_constraintTop_toBottomOf="@+id/doneByTextView" />
