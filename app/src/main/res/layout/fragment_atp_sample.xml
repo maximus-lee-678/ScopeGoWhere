@@ -4,32 +4,31 @@
     <data>
         <variable
             name="viewmodel"
-            type="ict2105.team02.application.ui.wash.ScopeDetailsWashFragment" />
+            type="ict2105.team02.application.ui.sample.AtpSampleFragment" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.wash.ScopeDetailsWashFragment">
+        tools:context=".ui.sample.AtpSampleFragment">
 
         <TextView
-            android:id="@+id/dryingCabinetTextView"
+            android:id="@+id/atpResultTextView"
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:layout_marginLeft="10sp"
             android:gravity="bottom"
-            android:text="Drying Cabinet"
+            android:text="ATP Results"
             android:textSize="25sp" />
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/scopeDryer"
+            android:id="@+id/atpWaterRLUInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:hint="Scope Dryer">
+            android:hint="ATP Water RLU">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -38,31 +37,14 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dryerLevel"
+            android:id="@+id/atpSwabRLUInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:hint="Dryer Level">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/remarks"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:hint="Remarks">
+            android:hint="ATP Swab RLU">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

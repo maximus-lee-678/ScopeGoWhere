@@ -37,10 +37,10 @@ class DisinfectantWashFragment : Fragment() {
             // validate the input
 
             // if true set it to true
-            viewModel.isDisinfectantDone.value = true
-            viewModel.disinfectantUsed.value = binding.disinfectantUsed.toString()
-            viewModel.disinfectantLotNo.value = binding.disinfectantLotNo.toString()
-            viewModel.disinfectantChanged.value = binding.disinfectantChanged.toString()
+            viewModel.washData.postValue(viewModel.washData.value?.copy(
+                disinfectantUsed = binding.disinfectantUsed.editText?.text.toString(),
+                disinfectantLotNo = binding.disinfectantLotNo.editText?.text.toString(),
+                disinfectantChanged = binding.disinfectantChanged.editText?.text.toString()))
 
             // replace with last fragment
             val fragment = DryingCabinetWashFragment()

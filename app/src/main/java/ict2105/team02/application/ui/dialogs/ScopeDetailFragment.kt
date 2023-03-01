@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
+import ict2105.team02.application.ui.sample.SampleActivity
 import ict2105.team02.application.ui.equipment.EquipLogFragment
 import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
@@ -24,7 +25,11 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
     private val viewModel by viewModels<ScopeDetailViewModel>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentScopeDetailBinding.inflate(inflater)
 
         binding.equipmentBannerLayout.visibility = View.GONE
@@ -38,7 +43,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             binding.statusTextView.text = it.status
             binding.nextSampleTextView.text = SimpleDateFormat("dd/MM/yyyy").format(it.nextSample)
 
-            when(it.status) {
+            when (it.status) {
                 "In storage" -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_inventory_2_24)
                 }
@@ -63,7 +68,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                 }
             }
         }
-        binding.washButton.setOnClickListener{
+        binding.washButton.setOnClickListener {
 //            val fragment = WashEquipmentFragment()
 //            (activity as MainActivity).navbarNavigate(fragment)
 //            val fragmentManager = requireActivity().supportFragmentManager
@@ -71,27 +76,31 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 //            val fragmentTransaction = fragmentManager.beginTransaction()
 //            fragmentTransaction.remove(fragmentToRemove)
 //            fragmentTransaction.commit()
-            val intent = Intent (getActivity(), WashActivity::class.java)
+            val intent = Intent(getActivity(), WashActivity::class.java)
+            getActivity()?.startActivity(intent)
+        }
+        binding.sampleButton.setOnClickListener {
+            val intent = Intent(getActivity(), SampleActivity::class.java)
             getActivity()?.startActivity(intent)
         }
 
-        binding.viewLogsButton.setOnClickListener{
-            // replace with last fragment
-            var serial = viewModel.scopeDetail.value!!.serial
-            var model = viewModel.scopeDetail.value!!.model
-            var status = viewModel.scopeDetail.value!!.status
+            binding.viewLogsButton.setOnClickListener {
+                // replace with last fragment
+                var serial = viewModel.scopeDetail.value!!.serial
+                var model = viewModel.scopeDetail.value!!.model
+                var status = viewModel.scopeDetail.value!!.status
 
-            val fragment = EquipLogFragment.newInstance(serial,model,status)
-            (activity as MainActivity).navbarNavigate(fragment)
+                val fragment = EquipLogFragment.newInstance(serial, model, status)
+                (activity as MainActivity).navbarNavigate(fragment)
+            }
         }
-    }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(serialNo: String) = ScopeDetailFragment().apply {
-            arguments = Bundle().apply {
-                putString(KEY_ENDOSCOPE_SERIAL, serialNo)
+        companion object {
+            @JvmStatic
+            fun newInstance(serialNo: String) = ScopeDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putString(KEY_ENDOSCOPE_SERIAL, serialNo)
+                }
             }
         }
     }
-}

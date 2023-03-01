@@ -1,6 +1,7 @@
 package ict2105.team02.application.ui.wash
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Button
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScopeDetailsWashBinding
 import androidx.lifecycle.ViewModelProvider
+import ict2105.team02.application.model.WashData
 import ict2105.team02.application.viewmodel.WashViewModel
 
 
@@ -32,15 +34,19 @@ class ScopeDetailsWashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         getActivity()?.setTitle("Wash Equipment(1/5)")
         super.onViewCreated(view, savedInstanceState)
-
+//        viewModel.washData.value = WashData("","","","","","","","","",)
         val button: Button = view.findViewById(R.id.button) as Button
         button.setOnClickListener{
             // validate the input
 
             // if true set it to true
-            viewModel.scopeBrand.value = binding.brand.toString()
-            viewModel.scopeModel.value = binding.model.toString()
-            viewModel.scopeSerial.value = binding.serialNo.toString()
+
+            viewModel.washData.postValue(viewModel.washData.value?.copy(
+                scopeBrand = binding.brand.editText?.text.toString(),
+                scopeModel = binding.model.editText?.text.toString(),
+                scopeSerial = binding.serialNo.editText?.text.toString()))
+//            viewModel.scopeModel.value = binding.model.editText?.text.toString()
+//            viewModel.scopeSerial.value = binding.serialNo.editText?.text.toString()
             // replace with last fragment
             val fragment = WasherWashFragment()
             (activity as WashActivity).navbarNavigate(fragment)
