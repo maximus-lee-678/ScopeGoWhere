@@ -34,9 +34,10 @@ class RepeatOfMsSampleFragment : Fragment() {
             // validate the input
 
             // if true set it to true
-//            viewModel.scopeBrand.value = binding.brand.toString()
-//            viewModel.scopeModel.value = binding.model.toString()
-//            viewModel.scopeSerial.value = binding.serialNo.toString()
+            viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
+                quarantinePeriod = binding.quarantineRequiredDropDown.editText?.text.toString(),
+                repeatDateMS = binding.repeatDate.editText?.text.toString(),
+                borescope = binding.borescopeDropdown.editText?.text.toString()))
             // replace with last fragment
             val fragment = AtpSampleFragment()
             (activity as SampleActivity).navbarNavigate(fragment)

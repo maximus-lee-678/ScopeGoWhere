@@ -42,7 +42,7 @@ class ReviewWashFragment : Fragment() {
             binding.detergentUsed.editText?.setText(it?.detergentUsed)
             binding.detergentLotNo.editText?.setText(it?.detergentLotNo)
             binding.filterChangeDate.editText?.setText(it?.filterChangeDate)
-            binding.disinfectantChanged.editText?.setText(it?.disinfectantUsed)
+            binding.disinfectantUsed.editText?.setText(it?.disinfectantUsed)
             binding.disinfectantLotNo.editText?.setText(it?.disinfectantLotNo)
             binding.disinfectantChanged.editText?.setText(it?.disinfectantChanged)
             binding.scopeDryer.editText?.setText(it?.scopeDryer)
@@ -55,9 +55,6 @@ class ReviewWashFragment : Fragment() {
             // validate the input
 
             // if true set it to true
-//            viewModel.scopeBrand.value = binding.brand.toString()
-//            viewModel.scopeModel.value = binding.model.toString()
-//            viewModel.scopeSerial.value = binding.serialNo.toString()
             // replace with last fragment
             val intent = Intent (getActivity(), MainActivity::class.java)
             getActivity()?.startActivity(intent)

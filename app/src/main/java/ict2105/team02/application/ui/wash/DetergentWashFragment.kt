@@ -36,12 +36,6 @@ class DetergentWashFragment : Fragment() {
             // validate the input
 
             // if true set it to true
-//            viewModel.isDetergentDone.value = true
-//            viewModel.washData.
-
-//            viewModel.detergentUsed.value = binding.detergentUsed.editText?.text.toString()
-//            viewModel.detergentLotNo.value = binding.detergentLotNo.editText?.text.toString()
-//            viewModel.filterChangeDate.value = binding.filterChangeDate.editText?.text.toString()
             viewModel.washData.postValue(viewModel.washData.value?.copy(
                 detergentUsed = binding.detergentUsed.editText?.text.toString(),
                 detergentLotNo = binding.detergentLotNo.editText?.text.toString(),

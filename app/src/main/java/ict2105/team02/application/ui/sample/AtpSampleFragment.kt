@@ -37,12 +37,12 @@ class AtpSampleFragment : Fragment() {
             // validate the input
 
             // if true set it to true
-//            viewModel.scopeBrand.value = binding.brand.toString()
-//            viewModel.scopeModel.value = binding.model.toString()
-//            viewModel.scopeSerial.value = binding.serialNo.toString()
+            viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
+                atpWaterRLU = binding.atpWaterRLUInput.editText?.text.toString(),
+                atpSwapRLU = binding.atpSwabRLUInput.editText?.text.toString()))
             // replace with last fragment
-            val intent = Intent (getActivity(), MainActivity::class.java)
-            getActivity()?.startActivity(intent)
+            val fragment = ReviewSampleFragment()
+            (activity as SampleActivity).navbarNavigate(fragment)
         }
     }
 }

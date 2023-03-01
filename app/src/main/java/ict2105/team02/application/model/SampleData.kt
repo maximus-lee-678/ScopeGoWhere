@@ -2,7 +2,7 @@ package ict2105.team02.application.model
 
 import androidx.lifecycle.MutableLiveData
 
-class SampleData (
+data class SampleData (
     var dateOfFluidResult : String,
     var fluidResult : String,
     var actionFluid : String,

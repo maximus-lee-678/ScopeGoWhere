@@ -38,6 +38,11 @@ class SwabResultSampleFragment : Fragment() {
 //            viewModel.scopeBrand.value = binding.brand.toString()
 //            viewModel.scopeModel.value = binding.model.toString()
 //            viewModel.scopeSerial.value = binding.serialNo.toString()
+            viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
+                dateOfSwabResult = binding.dateOfResultInput.editText?.text.toString(),
+                swabResult = binding.swabResultInput.editText?.text.toString(),
+                actionSwab = binding.actionInput.editText?.text.toString(),
+                cultureCommentSwab = binding.cultureCommentInput.editText?.text.toString()))
             // replace with last fragment
             val fragment = RepeatOfMsSampleFragment()
             (activity as SampleActivity).navbarNavigate(fragment)

@@ -37,10 +37,6 @@ class DisinfectantWashFragment : Fragment() {
             // validate the input
 
             // if true set it to true
-//            viewModel.isDisinfectantDone.value = true
-//            viewModel.disinfectantUsed.value = binding.disinfectantUsed.editText?.text.toString()
-//            viewModel.disinfectantLotNo.value = binding.disinfectantLotNo.editText?.text.toString()
-//            viewModel.disinfectantChanged.value = binding.disinfectantChanged.editText?.text.toString()
             viewModel.washData.postValue(viewModel.washData.value?.copy(
                 disinfectantUsed = binding.disinfectantUsed.editText?.text.toString(),
                 disinfectantLotNo = binding.disinfectantLotNo.editText?.text.toString(),

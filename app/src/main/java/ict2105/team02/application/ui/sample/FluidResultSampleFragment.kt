@@ -39,6 +39,11 @@ class FluidResultSampleFragment : Fragment() {
             //viewModel.fluidResult = binding
             //viewModel.action = binding
             //viewModel.cultureComment = binding
+            viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
+                dateOfFluidResult = binding.dateOfResultInput.editText?.text.toString(),
+                fluidResult = binding.fluidResultInput.editText?.text.toString(),
+                actionFluid = binding.actionInput.editText?.text.toString(),
+                cultureCommentFluid = binding.cultureCommentInput.editText?.text.toString()))
 
             val fragment = SwabResultSampleFragment()
             (activity as SampleActivity).navbarNavigate(fragment)

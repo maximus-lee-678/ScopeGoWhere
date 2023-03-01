@@ -31,10 +31,10 @@ class WasherWashFragment : Fragment() {
             // validate the input
 
             // if true set it to true
-//            viewModel.isWasherDone.value = true
             viewModel.washData.postValue(viewModel.washData.value?.copy(
                 aerModel = binding.aerModel.editText?.text.toString(),
                 aerSerial = binding.aerSerialNo.editText?.text.toString()))
+
 
             // replace with last fragment
             val fragment = DetergentWashFragment()
