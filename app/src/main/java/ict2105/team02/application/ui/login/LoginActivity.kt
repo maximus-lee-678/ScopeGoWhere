@@ -46,6 +46,7 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
         } else {
             Toast.makeText(this, "NFC is not enabled/unavailable", Toast.LENGTH_LONG).show()
         }
+
         //login button validate
         binding.loginButton.setOnClickListener {
             var staffEmail = binding.userName.editText?.text.toString()
