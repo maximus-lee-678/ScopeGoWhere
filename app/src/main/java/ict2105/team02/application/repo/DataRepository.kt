@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import ict2105.team02.application.model.Endoscope
+import ict2105.team02.application.model.EndoscopeTransaction
 import ict2105.team02.application.utils.Utils
 
 private const val COLLECTION_ENDOSCOPES = "endoscopes"
@@ -17,6 +18,7 @@ class DataRepository {
             .addOnSuccessListener {
                 onSuccess(it.toObjects(Endoscope::class.java))
             }
+
     }
 
     fun getAllEndoscopes(onSuccess: (List<Endoscope>) -> Unit) {
@@ -33,4 +35,6 @@ class DataRepository {
                 onSuccess(it.toObject(Endoscope::class.java))
             }
     }
+
+
 }
