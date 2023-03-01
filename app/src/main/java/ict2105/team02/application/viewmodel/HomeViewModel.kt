@@ -7,15 +7,15 @@ import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.repo.DataRepository
 import kotlinx.coroutines.launch
 
-class EquipmentListViewModel : ViewModel() {
-    val equipments = MutableLiveData<List<Endoscope>>()
+class HomeViewModel : ViewModel(){
+    val todaySchedule = MutableLiveData<List<Endoscope>>()
 
     private val repo = DataRepository()
 
-    fun fetchEquipments(onFinish: (() -> Unit)? = null) {
+    fun fetchTodayScheduledScope(onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
-            repo.getAllEndoscopes {
-                equipments.postValue(it)
+            repo.getTodayScheduledEndoscopes {
+                todaySchedule.postValue(it)
                 onFinish?.invoke()
             }
         }

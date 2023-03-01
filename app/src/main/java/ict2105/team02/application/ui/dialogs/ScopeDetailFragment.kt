@@ -5,27 +5,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
-import ict2105.team02.application.model.Endoscope
+import ict2105.team02.application.ui.equipment.EquipLogFragment
 import ict2105.team02.application.ui.main.MainActivity
-import ict2105.team02.application.ui.wash.DetergentWashFragment
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import java.text.SimpleDateFormat
 
-private const val KEY_ENDOSCOPE_SERIAL = "SN"
+const val KEY_ENDOSCOPE_SERIAL = "SN"
+const val KEY_ENDOSCOPE_MODEL = "MODEL"
+const val KEY_ENDOSCOPE_STATUS = "STATUS"
 
 class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
-    private lateinit var viewModel: ScopeDetailViewModel
-    private lateinit var equip: Endoscope
+
+    private val viewModel by viewModels<ScopeDetailViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentScopeDetailBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity()).get(ScopeDetailViewModel::class.java)
 
         binding.equipmentBannerLayout.visibility = View.GONE
         binding.scopeDetailLayout.visibility = View.INVISIBLE
@@ -77,17 +77,20 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
         binding.viewLogsButton.setOnClickListener{
             // replace with last fragment
+            var serial = viewModel.scopeDetail.value!!.serial
+            var model = viewModel.scopeDetail.value!!.model
+            var status = viewModel.scopeDetail.value!!.status
 
-            val fragment = EquipLogFragment()
+            val fragment = EquipLogFragment.newInstance(serial,model,status)
             (activity as MainActivity).navbarNavigate(fragment)
         }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(endoscopeSerialNo: String) = ScopeDetailFragment().apply {
+        fun newInstance(serialNo: String) = ScopeDetailFragment().apply {
             arguments = Bundle().apply {
-                putString(KEY_ENDOSCOPE_SERIAL, endoscopeSerialNo)
+                putString(KEY_ENDOSCOPE_SERIAL, serialNo)
             }
         }
     }
