@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
@@ -17,11 +18,11 @@ private const val KEY_ENDOSCOPE_SERIAL = "SN"
 
 class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
-    private lateinit var viewModel: ScopeDetailViewModel
+
+    private val viewModel by viewModels<ScopeDetailViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentScopeDetailBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity()).get(ScopeDetailViewModel::class.java)
 
         binding.equipmentBannerLayout.visibility = View.GONE
         binding.scopeDetailLayout.visibility = View.INVISIBLE

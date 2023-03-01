@@ -7,15 +7,15 @@ import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.repo.DataRepository
 import kotlinx.coroutines.launch
 
-class ScopeDetailViewModel : ViewModel() {
-    val scopeDetail = MutableLiveData<Endoscope>()
+class HomeViewModel : ViewModel(){
+    val todaySchedule = MutableLiveData<List<Endoscope>>()
 
     private val repo = DataRepository()
 
-    fun fetchScopeDetail(serial: String, onFinish: (() -> Unit)? = null) {
+    fun fetchTodayScheduledScope(onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
-            repo.getEndoscope(serial) {
-                scopeDetail.postValue(it)
+            repo.getTodayScheduledEndoscopes {
+                todaySchedule.postValue(it)
                 onFinish?.invoke()
             }
         }

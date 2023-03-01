@@ -5,23 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.databinding.FragmentTodayScheduleBinding
 import ict2105.team02.application.recyclerview.EquipmentAdapter
 import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
-import ict2105.team02.application.viewmodel.TodayScheduleViewModel
+import ict2105.team02.application.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentTodayScheduleBinding
-    private lateinit var viewModel : TodayScheduleViewModel
     private lateinit var eadapter: EquipmentAdapter
+
+    private val viewModel by viewModels<HomeViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTodayScheduleBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this).get(TodayScheduleViewModel::class.java)
 
         eadapter = EquipmentAdapter()
         binding.todayScheduleView.apply {
@@ -29,7 +30,7 @@ class HomeFragment : Fragment() {
             adapter = eadapter
         }
 
-        viewModel.equipments.observe(viewLifecycleOwner){
+        viewModel.todaySchedule.observe(viewLifecycleOwner){
             eadapter.submitList(it)
         }
 
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
             val fragment = ScopeDetailFragment.newInstance(it.serial)
             fragment.show(requireActivity().supportFragmentManager, "scope_detail")
         }
-        viewModel.fetchTodaySchedules {
+        viewModel.fetchTodayScheduledScope {
             activity?.runOnUiThread {
                 binding.loadEquipmentProgressIndicator.visibility = View.INVISIBLE
             }
