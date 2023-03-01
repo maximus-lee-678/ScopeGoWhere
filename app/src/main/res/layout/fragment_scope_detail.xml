@@ -209,7 +209,14 @@
                 android:id="@+id/washButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wash"/>
+                android:text="Wash" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sampleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sample" />
+
         </LinearLayout>
     </LinearLayout>
 

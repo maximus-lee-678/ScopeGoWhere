@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
+import ict2105.team02.application.ui.sample.SampleActivity
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import java.text.SimpleDateFormat
 
@@ -68,6 +69,10 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 //            fragmentTransaction.remove(fragmentToRemove)
 //            fragmentTransaction.commit()
             val intent = Intent (getActivity(), WashActivity::class.java)
+            getActivity()?.startActivity(intent)
+        }
+        binding.sampleButton.setOnClickListener{
+            val intent = Intent (getActivity(), SampleActivity::class.java)
             getActivity()?.startActivity(intent)
         }
     }

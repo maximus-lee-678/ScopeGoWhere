@@ -17,23 +17,23 @@ class WashEquipmentFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = ActivityWashEquipmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity()).get(WashViewModel::class.java)
-
-        viewModel.isScopeDetailsDone.observe(viewLifecycleOwner) {
-                binding.scopeDetaislCheckedTextView.isChecked = it
-        }
-        viewModel.isWasherDone.observe(viewLifecycleOwner) {
-            binding.washerCheckedTextView.isChecked = it
-        }
-        viewModel.isDisinfectantDone.observe(viewLifecycleOwner) {
-            binding.disinfectantCheckedTextView.isChecked = it
-        }
-        viewModel.isDetergentDone.observe(viewLifecycleOwner) {
-            binding.detergentCheckedTextView.isChecked = it
-        }
-        viewModel.isDryingCabinetDone.observe(viewLifecycleOwner) {
-            binding.dryingCabinetCheckedTextView.isChecked = it
-        }
+//        viewModel = ViewModelProvider(requireActivity()).get(WashViewModel::class.java)
+//
+//        viewModel.isScopeDetailsDone.observe(viewLifecycleOwner) {
+//                binding.scopeDetaislCheckedTextView.isChecked = it
+//        }
+//        viewModel.isWasherDone.observe(viewLifecycleOwner) {
+//            binding.washerCheckedTextView.isChecked = it
+//        }
+//        viewModel.isDisinfectantDone.observe(viewLifecycleOwner) {
+//            binding.disinfectantCheckedTextView.isChecked = it
+//        }
+//        viewModel.isDetergentDone.observe(viewLifecycleOwner) {
+//            binding.detergentCheckedTextView.isChecked = it
+//        }
+//        viewModel.isDryingCabinetDone.observe(viewLifecycleOwner) {
+//            binding.dryingCabinetCheckedTextView.isChecked = it
+//        }
         return binding.root
     }
 
@@ -62,11 +62,11 @@ class WashEquipmentFragment : Fragment() {
         binding.button3.setOnClickListener{
             val fragment = HomeFragment()
             (activity as MainActivity).navbarNavigate(fragment)
-            viewModel.isDryingCabinetDone.value = false
-            viewModel.isWasherDone.value = false
-            viewModel.isDetergentDone.value = false
-            viewModel.isScopeDetailsDone.value = false
-            viewModel.isDisinfectantDone.value = false
+//            viewModel.isDryingCabinetDone.value = false
+//            viewModel.isWasherDone.value = false
+//            viewModel.isDetergentDone.value = false
+//            viewModel.isScopeDetailsDone.value = false
+//            viewModel.isDisinfectantDone.value = false
         }
     }
 }
