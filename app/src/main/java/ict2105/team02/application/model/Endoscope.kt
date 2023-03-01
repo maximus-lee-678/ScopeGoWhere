@@ -8,5 +8,5 @@ data class Endoscope (
     val type: String,
     val status: String,
     val nextSample: Date,
-    val history: List<EndoscopeTransaction>,
+    val history: List<EndoscopeTransaction>?,
 )

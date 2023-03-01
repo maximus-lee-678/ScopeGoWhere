@@ -1,5 +1,6 @@
 package ict2105.team02.application.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ict2105.team02.application.utils.Utils
@@ -8,7 +9,8 @@ import okhttp3.*
 import java.io.IOException
 
 class ScopeDetailViewModel : ViewModel() {
-    val scopeDetail = MutableLiveData<Endoscope>()
+    val _scopeDetail = MutableLiveData<Endoscope>()
+    val scopeDetail:LiveData<Endoscope> = _scopeDetail
 
     private val client = OkHttpClient()
 
@@ -22,7 +24,7 @@ class ScopeDetailViewModel : ViewModel() {
 
                     val json = it.body()!!.string()
                     val data = Utils.parseJSONSingleScope(json)
-                    scopeDetail.postValue(data)
+                    _scopeDetail.postValue(data)
 
                     if (onFinish != null) {
                         onFinish()

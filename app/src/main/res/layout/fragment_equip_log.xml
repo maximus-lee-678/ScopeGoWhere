@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <TextView
+            android:id="@+id/modelSerialTextView"
+            android:layout_width="206dp"
+            android:layout_height="wrap_content" />
+
+        <Space
+            android:layout_width="138dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:background="@color/purple_200"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/nextSampleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <TextView
+        android:id="@+id/logTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sample History"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/equipHistoryList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/recyclerview_log_view_item"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+</LinearLayout>

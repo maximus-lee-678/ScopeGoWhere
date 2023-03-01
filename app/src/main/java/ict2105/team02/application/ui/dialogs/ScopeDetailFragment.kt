@@ -10,6 +10,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
+import ict2105.team02.application.model.Endoscope
+import ict2105.team02.application.ui.main.MainActivity
+import ict2105.team02.application.ui.wash.DetergentWashFragment
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import java.text.SimpleDateFormat
 
@@ -18,6 +21,7 @@ private const val KEY_ENDOSCOPE_SERIAL = "SN"
 class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
     private lateinit var viewModel: ScopeDetailViewModel
+    private lateinit var equip: Endoscope
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentScopeDetailBinding.inflate(inflater)
@@ -69,6 +73,13 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 //            fragmentTransaction.commit()
             val intent = Intent (getActivity(), WashActivity::class.java)
             getActivity()?.startActivity(intent)
+        }
+
+        binding.viewLogsButton.setOnClickListener{
+            // replace with last fragment
+
+            val fragment = EquipLogFragment()
+            (activity as MainActivity).navbarNavigate(fragment)
         }
     }
 
