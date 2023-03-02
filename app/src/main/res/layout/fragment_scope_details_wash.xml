@@ -20,9 +20,10 @@
             android:gravity="bottom"
             android:text="Scope Details"
             android:textSize="25sp" />
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/brand"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/brand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -31,6 +32,7 @@
             android:hint="Brand">
 
             <com.google.android.material.textfield.TextInputEditText
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />

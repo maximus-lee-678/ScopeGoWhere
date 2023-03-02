@@ -36,12 +36,11 @@ class DetergentWashFragment : Fragment() {
             // validate the input
 
             // if true set it to true
-            viewModel.isDetergentDone.value = true
-            viewModel.detergentUsed.value = binding.detergentUsed.toString()
-            viewModel.detergentLotNo.value = binding.detergentLotNo.toString()
-            viewModel.filterChangeDate.value = binding.detergentTextView.toString()
-
-
+            viewModel.washData.postValue(viewModel.washData.value?.copy(
+                detergentUsed = binding.detergentUsed.editText?.text.toString(),
+                detergentLotNo = binding.detergentLotNo.editText?.text.toString().toInt()
+//                filterChangeDate = binding.filterChangeDate.editText?.text.toString().toDate()
+            ))
             // replace with last fragment
             val fragment = DisinfectantWashFragment()
             (activity as WashActivity).navbarNavigate(fragment)

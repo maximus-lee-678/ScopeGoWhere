@@ -39,14 +39,18 @@ class DryingCabinetWashFragment : Fragment() {
             // validate the input
 
             // if true set it to true
-            viewModel.isDryingCabinetDone.value = true
-            viewModel.scopeDryer.value = binding.scopeDryer.toString()
-            viewModel.scopeLevel.value = binding.dryerLevel.toString()
-            viewModel.remarks.value = binding.remarks.toString()
+//            viewModel.isDryingCabinetDone.value = true
+//            viewModel.scopeDryer.value = binding.scopeDryer.editText?.text.toString()
+//            viewModel.scopeLevel.value = binding.dryerLevel.editText?.text.toString()
+//            viewModel.remarks.value = binding.remarks.editText?.text.toString()
+            viewModel.washData.postValue(viewModel.washData.value?.copy(
+                scopeDryer = binding.scopeDryer.editText?.text.toString().toInt(),
+                dryerLevel = binding.dryerLevel.editText?.text.toString().toInt(),
+                remarks = binding.remarks.editText?.text.toString()))
 
             // replace with last fragment
-            val intent = Intent (getActivity(), MainActivity::class.java)
-            getActivity()?.startActivity(intent)
+            val fragment = ReviewWashFragment()
+            (activity as WashActivity).navbarNavigate(fragment)
         }
     }
 }
