@@ -1,7 +1,6 @@
 package ict2105.team02.application.ui.equipment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +13,7 @@ import ict2105.team02.application.recyclerview.EquipLogAdapter
 import ict2105.team02.application.ui.dialogs.KEY_ENDOSCOPE_MODEL
 import ict2105.team02.application.ui.dialogs.KEY_ENDOSCOPE_SERIAL
 import ict2105.team02.application.ui.dialogs.KEY_ENDOSCOPE_STATUS
-import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
-import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -36,7 +33,7 @@ class EquipLogFragment : Fragment() {
 //        adapter = EquipLogAdapter()
 //        recyclerView.adapter = adapter
 
-        binding.modelSerialTextView.text = arguments?.getString(KEY_ENDOSCOPE_MODEL)+arguments?.getString(KEY_ENDOSCOPE_SERIAL)
+        binding.modelSerialTextView.text = arguments?.getString(KEY_ENDOSCOPE_MODEL)+arguments?.getInt(KEY_ENDOSCOPE_SERIAL).toString()
         binding.statusTextView.text = arguments?.getString(KEY_ENDOSCOPE_STATUS)
 
         return binding.root
@@ -50,9 +47,9 @@ class EquipLogFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(serialNo: String, modelNo: String, status: String) = EquipLogFragment().apply {
+        fun newInstance(serialNo: Int, modelNo: String, status: String) = EquipLogFragment().apply {
             arguments = Bundle().apply {
-                putString(KEY_ENDOSCOPE_SERIAL, serialNo)
+                putInt(KEY_ENDOSCOPE_SERIAL, serialNo)
                 putString(KEY_ENDOSCOPE_MODEL, modelNo)
                 putString(KEY_ENDOSCOPE_STATUS, status)
             }

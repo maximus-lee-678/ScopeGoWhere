@@ -33,7 +33,7 @@ class WasherWashFragment : Fragment() {
             // if true set it to true
             viewModel.washData.postValue(viewModel.washData.value?.copy(
                 aerModel = binding.aerModel.editText?.text.toString(),
-                aerSerial = binding.aerSerialNo.editText?.text.toString()))
+                aerSerial = binding.aerSerialNo.editText?.text.toString().toInt()))
 
 
             // replace with last fragment

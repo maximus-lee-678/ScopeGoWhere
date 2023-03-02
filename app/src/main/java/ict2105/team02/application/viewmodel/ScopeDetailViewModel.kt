@@ -15,9 +15,9 @@ class ScopeDetailViewModel : ViewModel() {
 
     private val repo = DataRepository()
 
-    fun fetchScopeDetail(serial: String, onFinish: (() -> Unit)? = null) {
+    fun fetchScopeDetail(serial: Int, onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
-            repo.getEndoscope(serial) {
+            repo.getEndoscope(serial.toString()) {
                 _scopeDetail.postValue(it)
                 onFinish?.invoke()
             }

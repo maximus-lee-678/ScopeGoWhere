@@ -1,20 +1,19 @@
 package ict2105.team02.application.model
 
-import androidx.lifecycle.MutableLiveData
+import java.util.*
 
-data class WashData(
-    var scopeBrand :String,
-    var scopeModel :String,
-    var scopeSerial :String,
-    var aerModel :String,
-    var aerSerial :String,
-    var detergentUsed:String,
-    var detergentLotNo :String,
-    var filterChangeDate :String,
-    var disinfectantUsed :String,
-    var disinfectantLotNo :String,
-    var disinfectantChanged :String,
-    var scopeDryer :String,
-    var scopeLevel:String,
-    var remarks:String
-)
+data class WashData (
+    val aerModel: String?,
+    val aerSerial: Int?,
+    val detergentUsed: String?,
+    val detergentLotNo: Int?,
+    val filterChangeDate: Date?,
+    val disinfectantUsed: String?,
+    val disinfectantLotNo: Int?,
+    val disinfectantChangedDate: Date?,
+    val scopeDryer: Int?,
+    val doneBy: String?,
+    val remarks: String?,
+    val dryerLevel: Int?,
+    val washDate: Date?,
+        )

@@ -46,7 +46,7 @@ class EquipLogAdapter:
 
     override fun onBindViewHolder(holder: EndoscopeTransactionViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.date, current.doneBy, current.transaction)
+//        holder.bind(current.date, current.doneBy, current.transaction)
     }
 
     class EndoscopeTransactionComparator: DiffUtil.ItemCallback<EndoscopeTransaction>() {

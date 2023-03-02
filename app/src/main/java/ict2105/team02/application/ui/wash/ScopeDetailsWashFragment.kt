@@ -42,9 +42,10 @@ class ScopeDetailsWashFragment : Fragment() {
             // if true set it to true
 
             viewModel.washData.postValue(viewModel.washData.value?.copy(
-                scopeBrand = binding.brand.editText?.text.toString(),
-                scopeModel = binding.model.editText?.text.toString(),
-                scopeSerial = binding.serialNo.editText?.text.toString()))
+//                scopeBrand = binding.brand.editText?.text.toString(),
+//                scopeModel = binding.model.editText?.text.toString(),
+//                scopeSerial = binding.serialNo.editText?.text.toString()))
+            ))
 //            viewModel.scopeModel.value = binding.model.editText?.text.toString()
 //            viewModel.scopeSerial.value = binding.serialNo.editText?.text.toString()
             // replace with last fragment
