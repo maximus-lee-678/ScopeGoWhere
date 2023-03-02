@@ -90,7 +90,7 @@ class QRScannerActivity : AppCompatActivity() {
                     if (serial.isNotEmpty()) {
                         runOnUiThread {
                             cameraSource!!.stop()
-                            val fragment = ScopeDetailFragment.newInstance(serial)
+                            val fragment = ScopeDetailFragment.newInstance(serial.toInt())
                             fragment.show(supportFragmentManager, "scope_detail")
                             // showToast(scannedValue)
                         }

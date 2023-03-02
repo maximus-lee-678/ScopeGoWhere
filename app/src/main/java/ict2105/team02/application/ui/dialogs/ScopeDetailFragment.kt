@@ -31,14 +31,14 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         binding.scopeDetailLayout.visibility = View.INVISIBLE
 
         viewModel.scopeDetail.observe(this) {
-            binding.equipmentNameTextView.text = it.model + it.serial
-            binding.modelTextView.text = it.model
-            binding.typeTextView.text = it.type
-            binding.serialTextView.text = it.serial
-            binding.statusTextView.text = it.status
-            binding.nextSampleTextView.text = SimpleDateFormat("dd/MM/yyyy").format(it.nextSample)
+            binding.equipmentNameTextView.text = it.ScopeModel + it.ScopeSerial
+            binding.modelTextView.text = it.ScopeModel
+            binding.typeTextView.text = it.ScopeType
+            binding.serialTextView.text = it.ScopeSerial.toString()
+            binding.statusTextView.text = it.ScopeStatus
+            binding.nextSampleTextView.text = SimpleDateFormat("dd/MM/yyyy").format(it.NextSampleDate)
 
-            when(it.status) {
+            when(it.ScopeStatus) {
                 "In storage" -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_inventory_2_24)
                 }
@@ -53,7 +53,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val serial = arguments?.getString(KEY_ENDOSCOPE_SERIAL)
+        val serial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL)
         if (serial != null) {
             viewModel.fetchScopeDetail(serial) {
                 requireActivity().runOnUiThread {
@@ -77,9 +77,9 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
         binding.viewLogsButton.setOnClickListener{
             // replace with last fragment
-            var serial = viewModel.scopeDetail.value!!.serial
-            var model = viewModel.scopeDetail.value!!.model
-            var status = viewModel.scopeDetail.value!!.status
+            var serial = viewModel.scopeDetail.value!!.ScopeSerial
+            var model = viewModel.scopeDetail.value!!.ScopeModel
+            var status = viewModel.scopeDetail.value!!.ScopeStatus
 
             val fragment = EquipLogFragment.newInstance(serial,model,status)
             (activity as MainActivity).navbarNavigate(fragment)
@@ -88,9 +88,9 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(serialNo: String) = ScopeDetailFragment().apply {
+        fun newInstance(serialNo: Int) = ScopeDetailFragment().apply {
             arguments = Bundle().apply {
-                putString(KEY_ENDOSCOPE_SERIAL, serialNo)
+                putInt(KEY_ENDOSCOPE_SERIAL, serialNo)
             }
         }
     }
