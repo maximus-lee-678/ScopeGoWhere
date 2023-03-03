@@ -14,7 +14,7 @@ data class ResultData (
     val repeatDateMS: Date?,
     val borescope: Boolean?,
     val waterATPRLU: Int?,
-    val swapATPRLU: Int?,
+    val swabATPRLU: Int?,
     val resultDate: Date?,
     val swabDate: Date?,
         )

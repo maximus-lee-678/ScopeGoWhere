@@ -39,7 +39,7 @@ class AtpSampleFragment : Fragment() {
             // if true set it to true
             viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
                 atpWaterRLU = binding.atpWaterRLUInput.editText?.text.toString(),
-                atpSwapRLU = binding.atpSwabRLUInput.editText?.text.toString()))
+                atpSwabRLU = binding.atpSwabRLUInput.editText?.text.toString()))
             // replace with last fragment
             val fragment = ReviewSampleFragment()
             (activity as SampleActivity).navbarNavigate(fragment)

@@ -40,7 +40,7 @@ class EquipmentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         eqAdapter.onItemClick = {
-            val fragment = ScopeDetailFragment.newInstance(it.ScopeSerial)
+            val fragment = ScopeDetailFragment.newInstance(it.scopeSerial)
             fragment.show(requireActivity().supportFragmentManager, "scope_detail")
         }
 

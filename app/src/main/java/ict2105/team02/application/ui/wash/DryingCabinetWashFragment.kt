@@ -44,9 +44,9 @@ class DryingCabinetWashFragment : Fragment() {
 //            viewModel.scopeLevel.value = binding.dryerLevel.editText?.text.toString()
 //            viewModel.remarks.value = binding.remarks.editText?.text.toString()
             viewModel.washData.postValue(viewModel.washData.value?.copy(
-                scopeDryer = binding.scopeDryer.editText?.text.toString().toInt(),
-                dryerLevel = binding.dryerLevel.editText?.text.toString().toInt(),
-                remarks = binding.remarks.editText?.text.toString()))
+                ScopeDryer = binding.scopeDryer.editText?.text.toString().toInt(),
+                DryerLevel = binding.dryerLevel.editText?.text.toString().toInt(),
+                Remarks = binding.remarks.editText?.text.toString()))
 
             // replace with last fragment
             val fragment = ReviewWashFragment()

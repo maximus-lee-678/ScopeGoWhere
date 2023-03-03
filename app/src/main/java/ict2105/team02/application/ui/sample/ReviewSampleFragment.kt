@@ -46,7 +46,7 @@ class ReviewSampleFragment : Fragment() {
             binding.repeatDateMsInput.editText?.setText(it?.repeatDateMS)
             binding.borescopeDropdown.editText?.setText(it?.borescope)
             binding.atpWaterRluInput.editText?.setText(it?.atpWaterRLU)
-            binding.atpSwapRluInput.editText?.setText(it?.atpSwapRLU)
+            binding.atpSwapRluInput.editText?.setText(it?.atpSwabRLU)
         }
 
         val button: Button = view.findViewById(R.id.button) as Button

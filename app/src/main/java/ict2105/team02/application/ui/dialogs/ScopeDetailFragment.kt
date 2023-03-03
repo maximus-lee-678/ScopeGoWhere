@@ -36,14 +36,15 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         binding.scopeDetailLayout.visibility = View.INVISIBLE
 
         viewModel.scopeDetail.observe(this) {
-            binding.equipmentNameTextView.text = it.ScopeModel + it.ScopeSerial
-            binding.modelTextView.text = it.ScopeModel
-            binding.typeTextView.text = it.ScopeType
-            binding.serialTextView.text = it.ScopeSerial.toString()
-            binding.statusTextView.text = it.ScopeStatus
-            binding.nextSampleTextView.text = SimpleDateFormat("dd/MM/yyyy").format(it.NextSampleDate)
+            binding.equipmentNameTextView.text = it.scopeModel + it.scopeSerial
+            binding.modelTextView.text = it.scopeModel
+            binding.typeTextView.text = it.scopeType
+            binding.serialTextView.text = it.scopeSerial.toString()
+            binding.statusTextView.text = it.scopeStatus
+            binding.nextSampleTextView.text = it.nextSampleDate.toString()
+            binding.nextSampleTextView.text = SimpleDateFormat("dd/MM/yyyy").format(it.nextSampleDate)
 
-            when(it.ScopeStatus) {
+            when(it.scopeStatus) {
                 "In storage" -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_inventory_2_24)
                 }
@@ -86,9 +87,9 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
         binding.viewLogsButton.setOnClickListener{
             // replace with last fragment
-            var serial = viewModel.scopeDetail.value!!.ScopeSerial
-            var model = viewModel.scopeDetail.value!!.ScopeModel
-            var status = viewModel.scopeDetail.value!!.ScopeStatus
+            var serial = viewModel.scopeDetail.value!!.scopeSerial
+            var model = viewModel.scopeDetail.value!!.scopeModel
+            var status = viewModel.scopeDetail.value!!.scopeStatus
 
             val fragment = EquipLogFragment.newInstance(serial,model,status)
             (activity as MainActivity).navbarNavigate(fragment)

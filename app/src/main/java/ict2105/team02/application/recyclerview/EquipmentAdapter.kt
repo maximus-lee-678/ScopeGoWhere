@@ -30,7 +30,7 @@ class EquipmentAdapter: ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHol
         }
 
         override fun areContentsTheSame(oldItem: Endoscope, newItem: Endoscope): Boolean {
-            return oldItem.ScopeSerial == newItem.ScopeSerial
+            return oldItem.scopeSerial == newItem.scopeSerial
         }
     }
 
@@ -42,7 +42,7 @@ class EquipmentAdapter: ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHol
 
     override fun onBindViewHolder(holder: EquipmentViewHolder, position: Int) {
         val item = getItem(position)
-        holder.nameTextView.text = item.ScopeModel + item.ScopeSerial
-        holder.statusTextView.text = item.ScopeStatus
+        holder.nameTextView.text = item.scopeModel + item.scopeSerial
+        holder.statusTextView.text = item.scopeStatus
     }
 }

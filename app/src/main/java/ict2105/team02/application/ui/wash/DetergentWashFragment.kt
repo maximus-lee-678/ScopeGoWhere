@@ -37,8 +37,8 @@ class DetergentWashFragment : Fragment() {
 
             // if true set it to true
             viewModel.washData.postValue(viewModel.washData.value?.copy(
-                detergentUsed = binding.detergentUsed.editText?.text.toString(),
-                detergentLotNo = binding.detergentLotNo.editText?.text.toString().toInt()
+                DetergentUsed = binding.detergentUsed.editText?.text.toString(),
+                DetergentLotNo = binding.detergentLotNo.editText?.text.toString().toInt()
 //                filterChangeDate = binding.filterChangeDate.editText?.text.toString().toDate()
             ))
             // replace with last fragment

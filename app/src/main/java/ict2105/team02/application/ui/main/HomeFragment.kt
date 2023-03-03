@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         eadapter.onItemClick = {
-            val fragment = ScopeDetailFragment.newInstance(it.ScopeSerial)
+            val fragment = ScopeDetailFragment.newInstance(it.scopeSerial)
             fragment.show(requireActivity().supportFragmentManager, "scope_detail")
         }
         viewModel.fetchTodayScheduledScope {
