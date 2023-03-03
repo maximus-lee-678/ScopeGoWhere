@@ -2,6 +2,8 @@ package ict2105.team02.application.ui.sample
 
 
 import android.content.Intent
+import android.nfc.NfcAdapter
+import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,9 +13,12 @@ import ict2105.team02.application.ui.main.EquipmentFragment
 import ict2105.team02.application.ui.main.HomeFragment
 import ict2105.team02.application.ui.main.QRScannerActivity
 import ict2105.team02.application.ui.schedule.ScheduleFragment
+import ict2105.team02.application.viewmodel.NFCViewModel
 
-class SampleActivity : AppCompatActivity() {
+class SampleActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var nfcViewModel: NFCViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,5 +48,9 @@ class SampleActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentFrameLayout, fragment)
         transaction.commit()
+    }
+
+    override fun onTagDiscovered(tag: Tag) {
+        nfcViewModel.readTag(tag)
     }
 }
