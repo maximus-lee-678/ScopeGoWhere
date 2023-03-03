@@ -27,7 +27,7 @@ class EquipmentListViewModel : ViewModel() {
         val filtered = if (status.lowercase() == "all") {
             allEquipments // return all equpiment
         } else {
-            allEquipments.filter { it.status.equals(status, ignoreCase = true) }
+            allEquipments.filter { it.scopeStatus.equals(status, ignoreCase = true) }
         }
         filteredEquipment.postValue(filtered)
     }

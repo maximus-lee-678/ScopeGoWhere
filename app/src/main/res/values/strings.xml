@@ -27,8 +27,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>>
     <string-array name="equipmentSpinner">
         <item>All</item>
-        <item>In Storage</item>
-        <item>Out for sampling</item>
+        <item>Circulation</item>
         <item>Washing</item>
+        <item>Sampling</item>
     </string-array>
 </resources>
