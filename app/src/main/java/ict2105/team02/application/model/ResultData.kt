@@ -3,7 +3,7 @@ package ict2105.team02.application.model
 import java.util.*
 
 data class ResultData (
-    val fluidResult: String?,
+    val fluidResult: Boolean?,
     val fluidAction: String?,
     val fluidComment: String?,
     val quarantineRequired: Boolean?,

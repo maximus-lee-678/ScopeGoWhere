@@ -62,7 +62,6 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val serial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL)
         if (serial != null) {
-            viewModel.fetchScopeHistory(serial)
             viewModel.fetchScopeDetail(serial) {
                 requireActivity().runOnUiThread {
                     binding.loadScopeProgressIndicator.visibility = View.GONE
