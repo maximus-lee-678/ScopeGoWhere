@@ -63,9 +63,8 @@ class CalendarFragment : Fragment() {
     private fun updateModel(input: String) {
         val dateFormat = SimpleDateFormat("dd-MM-yyyy")
         val date = dateFormat.parse(input)
-        val dateDetails = DateDetails(date)
         // Update view Model.
-        scheduleInfoViewModel.setScheduleByDate((dateDetails))
+        scheduleInfoViewModel.setScheduleByDate((date))
     }
 
     /**

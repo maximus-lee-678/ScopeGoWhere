@@ -27,7 +27,7 @@ class ScheduleInfoViewModel : ViewModel() {
         }
     }
 
-    fun setScheduleByDate(inputDate: DateDetails) {
+    fun setScheduleByDate(inputDate: Date) {
 //        mRepo = ScheduleProducer.getInstance()
         var filteredSchedule: ArrayList<Schedule> = ArrayList()
         for (schedule in allSchedule) {
@@ -46,7 +46,7 @@ class ScheduleInfoViewModel : ViewModel() {
         return mListSchedule
     }
 
-    fun areDatesEqualIgnoringTime(date1: DateDetails, date2: DateDetails): Boolean {
+    fun areDatesEqualIgnoringTime(date1: Date, date2: Date): Boolean {
         return date1.year == date2.year &&
                 date1.month == date2.month &&
                 date1.day == date2.day
