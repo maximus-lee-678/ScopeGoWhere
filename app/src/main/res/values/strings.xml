@@ -28,7 +28,7 @@
     <string-array name="equipmentSpinner">
         <item>All</item>
         <item>Circulation</item>
-        <item>Washing</item>
         <item>Sampling</item>
+        <item>Washing</item>
     </string-array>
 </resources>
