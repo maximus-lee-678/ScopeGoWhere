@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="schedule_unselected">#0F0000FF</color>
     <color name="schedule_selected">#7F00FF00</color>
+    <color name="colorWhite">#00000000</color>
+    <color name="colorDarkGrey">#80808080</color>
 </resources>

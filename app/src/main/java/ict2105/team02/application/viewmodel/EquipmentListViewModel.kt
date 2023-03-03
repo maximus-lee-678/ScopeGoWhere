@@ -9,15 +9,26 @@ import kotlinx.coroutines.launch
 
 class EquipmentListViewModel : ViewModel() {
     val equipments = MutableLiveData<List<Endoscope>>()
-
+    val filteredEquipment = MutableLiveData<List<Endoscope>>()
     private val repo = DataRepository()
 
     fun fetchEquipments(onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
             repo.getAllEndoscopes {
                 equipments.postValue(it)
+                filteredEquipment.postValue(it)
                 onFinish?.invoke()
             }
         }
+
+    }
+    fun filterEquipment(status: String) {
+        val allEquipments = equipments.value ?: emptyList()
+        val filtered = if (status.lowercase() == "all") {
+            allEquipments // return all equpiment
+        } else {
+            allEquipments.filter { it.status.equals(status, ignoreCase = true) }
+        }
+        filteredEquipment.postValue(filtered)
     }
 }

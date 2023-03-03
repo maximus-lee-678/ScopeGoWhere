@@ -30,6 +30,16 @@
             android:indeterminate="true"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <Spinner
+        android:id="@+id/equipmentSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@android:style/Widget.Holo.Light.Spinner" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/equipmentsRecyclerView"
@@ -38,6 +48,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
