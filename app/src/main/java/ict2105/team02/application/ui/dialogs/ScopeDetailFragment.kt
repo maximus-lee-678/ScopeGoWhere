@@ -62,6 +62,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val serial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL)
         if (serial != null) {
+            viewModel.fetchScopeHistory(serial)
             viewModel.fetchScopeDetail(serial) {
                 requireActivity().runOnUiThread {
                     binding.loadScopeProgressIndicator.visibility = View.GONE
@@ -71,15 +72,16 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             }
         }
         binding.washButton.setOnClickListener {
-//            val fragment = WashEquipmentFragment()
-//            (activity as MainActivity).navbarNavigate(fragment)
-//            val fragmentManager = requireActivity().supportFragmentManager
-//            val fragmentToRemove = this // replace R.id.fragment_container with your container id
-//            val fragmentTransaction = fragmentManager.beginTransaction()
-//            fragmentTransaction.remove(fragmentToRemove)
-//            fragmentTransaction.commit()
-            val intent = Intent(getActivity(), WashActivity::class.java)
-            getActivity()?.startActivity(intent)
+            val intent = Intent(activity, WashActivity::class.java)
+            if(serial != null){
+                val scopeHashMap = HashMap<String, Any>()
+                scopeHashMap["scopeSerial"] = viewModel.scopeDetail.value!!.scopeSerial
+                scopeHashMap["scopeModel"] = viewModel.scopeDetail.value!!.scopeModel
+                scopeHashMap["scopeBrand"] = viewModel.scopeDetail.value!!.scopeBrand
+                intent.putExtra("scopeDetails", scopeHashMap)
+            }
+            activity?.startActivity(intent)
+            activity?.finish()
         }
         binding.sampleButton.setOnClickListener {
 //            val intent = Intent(getActivity(), SampleActivity::class.java)

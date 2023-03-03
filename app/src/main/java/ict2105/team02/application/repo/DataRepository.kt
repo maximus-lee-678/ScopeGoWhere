@@ -22,7 +22,6 @@ class DataRepository {
             .addOnSuccessListener {
                 onSuccess(it.toObjects(Endoscope::class.java))
             }
-
     }
 
     fun getAllEndoscopes(onSuccess: (List<Endoscope>) -> Unit) {
@@ -43,20 +42,32 @@ class DataRepository {
                     onSuccess(it.toObject(Endoscope::class.java))
                     testScope = it.toObject(Endoscope::class.java)!!
                     Log.d("Test Endoscope", testScope.toString())
-//                    Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document("4").set(testScope)
                 }
         } catch (ex: Exception){
             Log.d("TAG", ex.toString())
         }
-
-
     }
 
-    fun getEndoscopeHistory(serial:String, result: (EndoscopeTransaction?) -> Unit){
-        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).get()
+    fun getEndoscopeHistory(serial:String, onSuccess: (List<History>) -> Unit){
+        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History").get()
             .addOnSuccessListener {
-                val data = it.data
+                for (logs in it){
+                    Log.d("History", logs.data.toString())
+                }
+                onSuccess(it.toObjects(History::class.java))
             }
     }
 
+    fun insertWashData(serial: String, docName: String, washData:HashMap<String, Any?>){
+        val data = hashMapOf(
+            "washData" to washData
+        )
+        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History").document(docName)
+            .set(data).addOnSuccessListener {
+                Log.d("Insert", "Success")
+            }
+            .addOnFailureListener {
+                Log.d("Insert", "Fail")
+            }
+    }
 }
