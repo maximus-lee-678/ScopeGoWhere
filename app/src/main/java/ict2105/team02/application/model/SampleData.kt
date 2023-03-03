@@ -21,5 +21,5 @@ data class SampleData (
 
     // ATP
     var atpWaterRLU : String,
-    var atpSwapRLU : String,
+    var atpSwabRLU : String,
 )
