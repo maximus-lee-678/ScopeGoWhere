@@ -13,6 +13,7 @@ import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.ui.sample.SampleActivity
 import ict2105.team02.application.ui.equipment.EquipLogFragment
 import ict2105.team02.application.ui.main.MainActivity
+import ict2105.team02.application.ui.sample.ScanDialogFragment
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import java.text.SimpleDateFormat
 
@@ -83,8 +84,9 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             activity?.finish()
         }
         binding.sampleButton.setOnClickListener {
-            val intent = Intent(activity, SampleActivity::class.java)
-            activity?.startActivity(intent)
+//            val intent = Intent(getActivity(), SampleActivity::class.java)
+//            getActivity()?.startActivity(intent)
+            ScanDialogFragment().show(childFragmentManager,"")
         }
 
         binding.viewLogsButton.setOnClickListener{
