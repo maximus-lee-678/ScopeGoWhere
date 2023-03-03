@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.EndoscopeTransaction
+import ict2105.team02.application.model.History
 import ict2105.team02.application.repo.DataRepository
 import ict2105.team02.application.utils.UiState
 import kotlinx.coroutines.launch
@@ -28,7 +29,6 @@ class ScopeDetailViewModel : ViewModel() {
             }
         }
     }
-
 
     // TO BE IMPLEMENTED
     fun fetchLogDetail(serial: Int?){

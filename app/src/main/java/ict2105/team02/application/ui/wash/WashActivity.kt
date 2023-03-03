@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityMainBinding
+import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
 import ict2105.team02.application.ui.main.EquipmentFragment
 import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.ui.main.HomeFragment
@@ -13,13 +14,19 @@ import ict2105.team02.application.ui.main.QRScannerActivity
 
 class WashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        navbarNavigate(ScopeDetailsWashFragment())
+        val fragment = ScopeDetailsWashFragment()
+        val bundle = Bundle()
+        var scopeDetailsMap = HashMap<String, Any>()
+        if (intent.extras != null){
+            scopeDetailsMap = intent.getSerializableExtra("scopeDetails") as HashMap<String, Any>
+            bundle.putSerializable("scopeDetails", scopeDetailsMap)
+        }
+        fragment.arguments = bundle
+        navbarNavigate(fragment)
 
         binding.bottomNavbar.setOnItemSelectedListener {
             when(it.itemId) {
@@ -43,5 +50,4 @@ class WashActivity : AppCompatActivity() {
         transaction.replace(R.id.fragmentFrameLayout, fragment)
         transaction.commit()
     }
-
 }

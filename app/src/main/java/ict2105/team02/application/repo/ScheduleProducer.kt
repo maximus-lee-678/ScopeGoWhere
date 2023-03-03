@@ -15,11 +15,11 @@ object ScheduleProducer {
 
     val dateString = "2023-02-18"
     val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val date = DateDetails(format.parse(dateString))
+    val date = (format.parse(dateString))
 
     val dateString1 = "2023-02-19"
     val format1 = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val date1 = DateDetails(format.parse(dateString1))
+    val date1 = (format.parse(dateString1))
 
     // Pretend to get data from a webservice or online source
     fun getSchedules(): List<Schedule> {

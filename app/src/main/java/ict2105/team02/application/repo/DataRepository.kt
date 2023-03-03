@@ -22,7 +22,6 @@ class DataRepository {
             .addOnSuccessListener {
                 onSuccess(it.toObjects(Endoscope::class.java))
             }
-
     }
 
     fun getAllEndoscopes(onSuccess: (List<Endoscope>) -> Unit) {
@@ -31,7 +30,13 @@ class DataRepository {
                 onSuccess(it.toObjects(Endoscope::class.java))
             }
     }
-
+//    Implement if and only if recyclerView doesn't have to be to Equipment
+//    fun getAllEndoscopesSchedule(onSuccess: (List<Schedule>) -> Unit) {
+//        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).get()
+//            .addOnSuccessListener {
+//                onSuccess(it.toObjects(Schedule::class.java))
+//            }
+//    }
     fun getEndoscope(serial: String, onSuccess: (Endoscope?) -> Unit) {
         Log.d("GET ENDOSCOPE", serial)
         lateinit var testScope:Endoscope
@@ -43,7 +48,6 @@ class DataRepository {
                     onSuccess(it.toObject(Endoscope::class.java))
                     testScope = it.toObject(Endoscope::class.java)!!
                     Log.d("Test Endoscope", testScope.toString())
-//                    Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document("4").set(testScope)
                 }
         } catch (ex: Exception){
             Log.d("TAG", ex.toString())
@@ -148,4 +152,16 @@ class DataRepository {
         }
     }
 
+    fun insertWashData(serial: String, docName: String, washData:HashMap<String, Any?>){
+        val data = hashMapOf(
+            "washData" to washData
+        )
+        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History").document(docName)
+            .set(data).addOnSuccessListener {
+                Log.d("Insert", "Success")
+            }
+            .addOnFailureListener {
+                Log.d("Insert", "Fail")
+            }
+    }
 }

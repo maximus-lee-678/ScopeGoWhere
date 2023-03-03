@@ -13,6 +13,7 @@ import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.ui.sample.SampleActivity
 import ict2105.team02.application.ui.equipment.EquipLogFragment
 import ict2105.team02.application.ui.main.MainActivity
+import ict2105.team02.application.ui.sample.ScanDialogFragment
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import java.text.SimpleDateFormat
 
@@ -70,19 +71,21 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             }
         }
         binding.washButton.setOnClickListener {
-//            val fragment = WashEquipmentFragment()
-//            (activity as MainActivity).navbarNavigate(fragment)
-//            val fragmentManager = requireActivity().supportFragmentManager
-//            val fragmentToRemove = this // replace R.id.fragment_container with your container id
-//            val fragmentTransaction = fragmentManager.beginTransaction()
-//            fragmentTransaction.remove(fragmentToRemove)
-//            fragmentTransaction.commit()
-            val intent = Intent(getActivity(), WashActivity::class.java)
-            getActivity()?.startActivity(intent)
+            val intent = Intent(activity, WashActivity::class.java)
+            if(serial != null){
+                val scopeHashMap = HashMap<String, Any>()
+                scopeHashMap["scopeSerial"] = viewModel.scopeDetail.value!!.scopeSerial
+                scopeHashMap["scopeModel"] = viewModel.scopeDetail.value!!.scopeModel
+                scopeHashMap["scopeBrand"] = viewModel.scopeDetail.value!!.scopeBrand
+                intent.putExtra("scopeDetails", scopeHashMap)
+            }
+            activity?.startActivity(intent)
+            activity?.finish()
         }
         binding.sampleButton.setOnClickListener {
-            val intent = Intent(getActivity(), SampleActivity::class.java)
-            getActivity()?.startActivity(intent)
+//            val intent = Intent(getActivity(), SampleActivity::class.java)
+//            getActivity()?.startActivity(intent)
+            ScanDialogFragment().show(childFragmentManager,"")
         }
 
         binding.viewLogsButton.setOnClickListener{
