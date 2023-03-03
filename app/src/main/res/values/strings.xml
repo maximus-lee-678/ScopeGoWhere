@@ -31,4 +31,7 @@
         <item>Sampling</item>
         <item>Washing</item>
     </string-array>
+    <string name="search_hint">Enter Scope Name:</string>
+    <string name="search_button">Search</string>
+    <string name="clear_button">Clear</string>
 </resources>
