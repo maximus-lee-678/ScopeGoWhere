@@ -5,10 +5,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import ict2105.team02.application.model.Endoscope
-import ict2105.team02.application.model.EndoscopeTransaction
-import ict2105.team02.application.model.History
-import ict2105.team02.application.model.WashData
+import ict2105.team02.application.model.*
 import ict2105.team02.application.utils.Utils
 
 private const val COLLECTION_ENDOSCOPES = "endoscopes"
@@ -30,7 +27,13 @@ class DataRepository {
                 onSuccess(it.toObjects(Endoscope::class.java))
             }
     }
-
+//    Implement if and only if recyclerView doesn't have to be to Equipment
+//    fun getAllEndoscopesSchedule(onSuccess: (List<Schedule>) -> Unit) {
+//        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).get()
+//            .addOnSuccessListener {
+//                onSuccess(it.toObjects(Schedule::class.java))
+//            }
+//    }
     fun getEndoscope(serial: String, onSuccess: (Endoscope?) -> Unit) {
         Log.d("GET ENDOSCOPE", serial)
         lateinit var testScope:Endoscope

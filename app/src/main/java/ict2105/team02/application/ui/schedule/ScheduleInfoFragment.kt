@@ -29,6 +29,12 @@ class ScheduleInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchAllScheduledScope() {
+            activity?.runOnUiThread {
+                binding.loadEquipmentProgressIndicator.visibility = View.INVISIBLE
+            }
+        }
+
         val layoutManager = LinearLayoutManager(context)
         // Find recycler view
         recyclerView = view.findViewById(R.id.scheduleRecycle)

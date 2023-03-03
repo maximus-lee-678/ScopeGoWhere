@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
+import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.Schedule
 
-class ScheduleAdapter(private val dataset: ArrayList<Schedule>?)
+class ScheduleAdapter(private val dataset: ArrayList<Endoscope>?)
     : ListAdapter<Schedule, ScheduleAdapter.ScheduleViewHolder>(ScheduleDiffCallBack()) {
 
         class ScheduleViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
@@ -30,7 +31,7 @@ class ScheduleAdapter(private val dataset: ArrayList<Schedule>?)
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         val currentItem = getItem(position)
-        holder.ScopeName.text = currentItem.ScopeName
+        holder.ScopeName.text = currentItem.scopeSerial
         holder.imageButton.setOnClickListener{
             Log.d("Schedule" , "Button Test")
         }
@@ -40,7 +41,7 @@ class ScheduleAdapter(private val dataset: ArrayList<Schedule>?)
 }
 class ScheduleDiffCallBack : DiffUtil.ItemCallback<Schedule>(){
     override fun areItemsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-        return oldItem.ScopeName == newItem.ScopeName
+        return oldItem.scopeSerial == newItem.scopeSerial
     }
 
     override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {

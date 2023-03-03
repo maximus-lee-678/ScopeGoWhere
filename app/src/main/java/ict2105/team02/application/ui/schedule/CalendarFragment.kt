@@ -21,6 +21,7 @@ import ict2105.team02.application.viewmodel.CalendarViewModel
 import ict2105.team02.application.viewmodel.CalendarViewModelFactory
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
 import java.text.SimpleDateFormat
+import java.util.*
 
 class CalendarFragment : Fragment() {
     private lateinit var binding: FragmentScheduleBinding
@@ -53,7 +54,10 @@ class CalendarFragment : Fragment() {
 
         scheduleInfoViewModel =
             ViewModelProvider(requireActivity()).get(ScheduleInfoViewModel::class.java)
-
+        scheduleInfoViewModel.fetchAllScheduledScope {
+            val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+            updateModel(currentDate)
+        }
         return binding.root
     }
 
