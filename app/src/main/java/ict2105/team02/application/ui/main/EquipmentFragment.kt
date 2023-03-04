@@ -58,8 +58,13 @@ class EquipmentFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
+                    // Don't load if still retrieving equipment (very scuffed)
+                    if (binding.loadEquipmentProgressIndicator.visibility == View.VISIBLE) {
+                        return
+                    }
+
                     val selectedStatus = parent?.getItemAtPosition(position).toString()
-                    viewModel.filterEquipmentStatus(selectedStatus)
+                    makeToastIfZero(viewModel.filterEquipmentStatus(selectedStatus))
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -69,10 +74,8 @@ class EquipmentFragment : Fragment() {
         }
 
         // Bind view to view model
-        viewModel.filteredEquipment.observe(viewLifecycleOwner){ filtered ->
+        viewModel.filteredEquipment.observe(viewLifecycleOwner) { filtered ->
             eqAdapter.submitList(filtered)
-
-//            if (filtered.isEmpty()) Toast.makeText(activity, getString(R.string.error_360_no_scopes), Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
@@ -87,12 +90,17 @@ class EquipmentFragment : Fragment() {
         }
 
         binding.buttonSearch.setOnClickListener {
-            viewModel.filterEquipmentSerial(binding.equipmentSpinner.selectedItem.toString(), binding.editTextSearch.text.toString())
+            makeToastIfZero(
+                viewModel.filterEquipmentSerial(
+                    binding.equipmentSpinner.selectedItem.toString(),
+                    binding.editTextSearch.text.toString()
+                )
+            )
         }
 
         binding.buttonClear.setOnClickListener {
             binding.editTextSearch.text.clear()
-            viewModel.filterEquipmentStatus(binding.equipmentSpinner.selectedItem.toString())
+            makeToastIfZero(viewModel.filterEquipmentStatus(binding.equipmentSpinner.selectedItem.toString()))
         }
 
         viewModel.fetchEquipments {
@@ -100,5 +108,17 @@ class EquipmentFragment : Fragment() {
                 binding.loadEquipmentProgressIndicator.visibility = View.INVISIBLE
             }
         }
+    }
+
+    /**
+     * Helper function that creates a piece of toast if it receives a 0.
+     * Called on equipment searches, notifies users if no scopes were found.
+     */
+    fun makeToastIfZero(itemCount: Int) {
+        if (itemCount == 0) Toast.makeText(
+            activity,
+            getString(R.string.error_360_no_scopes),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

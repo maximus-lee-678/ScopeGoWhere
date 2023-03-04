@@ -113,9 +113,9 @@ class CalendarViewModel(
 
                 samplingDates.postValue(workingHashmap)
 
-                for ((key, value) in workingHashmap) {
-                    Log.d("fish", "$key = $value")
-                }
+//                for ((key, value) in workingHashmap) {
+//                    Log.d("fish", "$key = $value")
+//                }
 
 //                onFinish?.invoke()
             }

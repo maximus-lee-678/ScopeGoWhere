@@ -168,6 +168,7 @@ class CalendarFragment : Fragment() {
         calendarViewModel.samplingDates.observe(viewLifecycleOwner) { layoutType ->
             // Update samplingDates
             calendarMonthAdapter.updateSamplingDates(layoutType)
+            calendarWeekAdapter.updateSamplingDates(layoutType)
         }
     }
 
