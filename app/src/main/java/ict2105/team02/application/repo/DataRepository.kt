@@ -71,20 +71,11 @@ class DataRepository {
 //            }
 //    }
     fun getEndoscope(serial: String, onSuccess: (Endoscope?) -> Unit) {
-        Log.d("GET ENDOSCOPE", serial)
-        lateinit var testScope:Endoscope
-        try {
-            Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial)
-                .get()
-                .addOnSuccessListener {
-                    Log.d("TAG", it.toString())
-                    onSuccess(it.toObject(Endoscope::class.java))
-                    testScope = it.toObject(Endoscope::class.java)!!
-                    Log.d("Test Endoscope", testScope.toString())
-                }
-        } catch (ex: Exception){
-            Log.d("TAG", ex.toString())
-        }
+        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial)
+            .get()
+            .addOnSuccessListener {
+                onSuccess(it.toObject(Endoscope::class.java))
+            }
     }
 
     suspend fun getEndoscopeHistory(serial:String): UiState<List<EndoscopeTransaction>>{

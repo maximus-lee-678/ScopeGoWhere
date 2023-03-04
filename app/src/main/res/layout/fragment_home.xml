@@ -7,76 +7,93 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="12dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageViewUserAvatar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/outline_person_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewUserName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="12dp">
+            android:layout_marginStart="16dp"
+            android:text="NAME"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintStart_toEndOf="@+id/imageViewUserAvatar"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/outline_person_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textViewUserStaffId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Staff ID: STAFF ID"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintStart_toEndOf="@+id/imageViewUserAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/textViewUserName" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/textViewUserDept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Dept: Endoscopy"
+            android:textAppearance="?attr/textAppearanceBody2"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintStart_toEndOf="@+id/imageViewUserAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/textViewUserStaffId" />
 
-                <!-- Title, secondary and supporting text -->
-                <TextView
-                    android:id="@+id/textViewUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="NAME"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imageViewUserAvatar"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
 
-                <TextView
-                    android:id="@+id/textViewUserStaffId"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Staff ID: STAFF ID"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
+<!--            <TextView-->
+<!--                android:id="@+id/textViewUserName"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                android:text="NAME"-->
+<!--                android:textAppearance="?attr/textAppearanceHeadline6" />-->
 
-                <TextView
-                    android:id="@+id/textViewUserDept"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dept: Endoscopy"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
-            </LinearLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/textViewUserStaffId"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Staff ID: STAFF ID"-->
+<!--                android:textAppearance="?attr/textAppearanceBody2"-->
+<!--                android:textColor="?android:attr/textColorSecondary" />-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/textViewUserDept"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Dept: Endoscopy"-->
+<!--                android:textAppearance="?attr/textAppearanceBody2"-->
+<!--                android:textColor="?android:attr/textColorSecondary" />-->
+<!--        </LinearLayout>-->
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="20dp" />
-
-    <TextView
-        android:id="@+id/textViewEndoscopeStat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Endoscope Statistics"
-        android:textStyle="bold"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/linearLayoutPendingSample"
@@ -87,7 +104,6 @@
         android:focusable="true"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="@color/home_pending_sample"
-        android:clipToOutline="true"
         android:paddingHorizontal="16dp"
         android:paddingVertical="16dp" >
 
@@ -105,7 +121,8 @@
             android:textSize="24sp"
             android:textColor="?android:attr/textColorPrimaryInverse"
             android:gravity="end"
-            android:text="XX"/>
+            android:text="XX"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -144,7 +161,8 @@
                 android:textSize="24sp"
                 android:textColor="?android:attr/textColorPrimaryInverse"
                 android:gravity="end"
-                android:text="XX"/>
+                android:text="XX"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -180,7 +198,8 @@
                 android:textSize="24sp"
                 android:textColor="?android:attr/textColorPrimaryInverse"
                 android:gravity="end"
-                android:text="XX"/>
+                android:text="XX"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>
@@ -220,7 +239,8 @@
                 android:textSize="24sp"
                 android:textColor="?android:attr/textColorPrimaryInverse"
                 android:gravity="end"
-                android:text="XX"/>
+                android:text="XX"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -256,7 +276,8 @@
                 android:textSize="24sp"
                 android:textColor="?android:attr/textColorPrimaryInverse"
                 android:gravity="end"
-                android:text="XX"/>
+                android:text="XX"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>
