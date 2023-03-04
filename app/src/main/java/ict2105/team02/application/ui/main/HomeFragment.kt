@@ -6,32 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import ict2105.team02.application.databinding.FragmentTodayScheduleBinding
-import ict2105.team02.application.recyclerview.EquipmentAdapter
-import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
+import ict2105.team02.application.databinding.FragmentHomeBinding
 import ict2105.team02.application.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
-    private lateinit var binding : FragmentTodayScheduleBinding
-    private lateinit var eadapter: EquipmentAdapter
+    private lateinit var binding : FragmentHomeBinding
 
     private val viewModel by viewModels<HomeViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentTodayScheduleBinding.inflate(inflater)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentHomeBinding.inflate(inflater)
 
-        eadapter = EquipmentAdapter()
-        binding.todayScheduleView.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = eadapter
+        val owner = requireActivity()
+
+        viewModel.user.observe(owner) {
+            binding.textViewUserName.text = it.name
+            binding.textViewUserStaffId.text = "Staff ID: ${it.staffId.toString()}"
+            binding.textViewUserDept.text = "Dept: ${it.department}"
         }
 
-        viewModel.todaySchedule.observe(viewLifecycleOwner){
-            eadapter.submitList(it)
+        viewModel.endoscopeStat.observe(owner) {
+            binding.textViewPendingSampleCount.text = it.pendingSample.toString()
+            binding.textViewTotalEndoscopeCount.text = it.totalEndoscope.toString()
+            binding.textViewInCirculationCount.text = it.inCirculation.toString()
+            binding.textViewWashingCount.text = it.washing.toString()
+            binding.textViewSamplingCount.text = it.sampling.toString()
         }
 
         return binding.root
@@ -39,15 +38,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        eadapter.onItemClick = {
-            val fragment = ScopeDetailFragment.newInstance(it.scopeSerial)
-            fragment.show(requireActivity().supportFragmentManager, "scope_detail")
-        }
-        viewModel.fetchTodayScheduledScope {
-            activity?.runOnUiThread {
-                binding.loadEquipmentProgressIndicator.visibility = View.INVISIBLE
-            }
-        }
+
+        viewModel.fetchUserData()
+        viewModel.fetchEndoscopeStats()
     }
 
 }

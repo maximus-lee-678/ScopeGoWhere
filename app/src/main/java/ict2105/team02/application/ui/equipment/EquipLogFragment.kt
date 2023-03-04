@@ -29,9 +29,6 @@ class EquipLogFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: EquipLogAdapter
     private val scopeDetailViewModel by viewModels<ScopeDetailViewModel>()
-    private lateinit var model: String
-    private var serial: Int? = 0
-    private lateinit var status: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentEquipLogBinding.inflate(inflater)
@@ -39,19 +36,22 @@ class EquipLogFragment : Fragment() {
         adapter = EquipLogAdapter()
         recyclerView.adapter = adapter
 
-        model = arguments?.getString(KEY_ENDOSCOPE_MODEL).toString()
-        serial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL)
-        status = arguments?.getString(KEY_ENDOSCOPE_STATUS).toString()
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val model = arguments?.getString(KEY_ENDOSCOPE_MODEL).toString()
+        val serial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL)
+        val status = arguments?.getString(KEY_ENDOSCOPE_STATUS).toString()
+
         binding.modelSerialTextView.text = model + serial.toString()
         binding.statusTextView.text = status
-        scopeDetailViewModel.fetchLogDetail(serial)
+
+        if (serial != null) {
+            scopeDetailViewModel.fetchLogDetail(serial)
+        }
 
         scopeDetailViewModel.scopeLogDetail.observe(requireActivity(), Observer {
             when(it){
