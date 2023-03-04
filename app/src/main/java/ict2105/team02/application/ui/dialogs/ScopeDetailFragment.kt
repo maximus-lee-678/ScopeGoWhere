@@ -79,12 +79,14 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         viewModel.scopeDetail.observe(this) {
             when(it.scopeStatus) {
                 "Circulation" -> {
+                    //comment out for easier of testing
+//                    binding.sampleButton.visibility = View.GONE
                 }
                 "Sampling" -> {
                     binding.washButton.visibility = View.GONE
                 }
                 "Washing" -> {
-                    binding.sampleButton.visibility = View.GONE
+                    binding.washButton.visibility = View.GONE
                 }
             }
         }
