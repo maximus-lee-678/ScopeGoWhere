@@ -46,17 +46,22 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             binding.nextSampleTextView.text = SimpleDateFormat("dd/MM/yyyy").format(it.nextSampleDate)
 
             when(it.scopeStatus) {
-                "In storage" -> {
+                "Circulation" -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_inventory_2_24)
                 }
-                "Out for sampling" -> {
+                "Sampling" -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_access_time_24)
+                }
+                "Washing" -> {
                 }
             }
         }
 
         return binding.root
     }
+
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,6 +75,22 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                 }
             }
         }
+
+        viewModel.scopeDetail.observe(this) {
+            when(it.scopeStatus) {
+                "Circulation" -> {
+                    //comment out for easier of testing
+//                    binding.sampleButton.visibility = View.GONE
+                }
+                "Sampling" -> {
+                    binding.washButton.visibility = View.GONE
+                }
+                "Washing" -> {
+                    binding.washButton.visibility = View.GONE
+                }
+            }
+        }
+
         binding.washButton.setOnClickListener {
             val intent = Intent(activity, WashActivity::class.java)
             if(serial != null){
