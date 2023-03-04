@@ -177,9 +177,9 @@ class CalendarMonthAdapter(private val context: Context) :
         // User is clicking on another date on original page
         // Refresh only 2 items (currently causing weird phantoms, disabled)
         if (!didPageChange) {
-            notifyItemChanged(originalPosition)
-            notifyItemChanged(selectedPos)
-//            notifyDataSetChanged()
+//            notifyItemChanged(originalPosition)
+//            notifyItemChanged(selectedPos)
+            notifyDataSetChanged()
             return
         }
 

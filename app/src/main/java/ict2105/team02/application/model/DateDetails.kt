@@ -40,8 +40,13 @@ data class DateDetails(val todayDate: Date) {
 
         // Update calendar to current day, then first day of that week
         // Get monday's int value(negated if last month)
+        // i have no idea why on god's green earth does calendarObject require an operation on it
+        // before it works properly, if calendarObject.time is commented, weekArray[0] will always
+        // display the previously selected day
+        // so it is important that line is not deleted
+        // maybe some computer science fella can explain it to me
         calendarObject = GregorianCalendar(year!!, month!! - 1, day!!)
-        Log.d(TAG, String.format("This log is important don't delete: accessed>%s", calendarObject.time.toString()))
+        calendarObject.time
 
         for (i in 0..6) {
             calendarObject.set(Calendar.DAY_OF_WEEK, if (i + 2 <= 7) i + 2 else i + 2 - 7)
