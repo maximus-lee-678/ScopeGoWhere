@@ -20,26 +20,28 @@ class EquipmentListViewModel : ViewModel() {
                 onFinish?.invoke()
             }
         }
-
     }
 
     private fun updateFilteredEquipment(filteredEquipment: List<Endoscope>) =
         this.filteredEquipment.postValue(filteredEquipment)
 
-    fun filterEquipmentStatus(status: String) =
-        updateFilteredEquipment(
-            getFilteredEquipmentStatusList(
-                status,
-                equipments.value ?: emptyList()
-            )
-        )
+    fun filterEquipmentStatus(status: String): Int {
+        val filteredList = getFilteredEquipmentStatusList(status, equipments.value ?: emptyList())
+        updateFilteredEquipment(filteredList)
 
-    fun filterEquipmentSerial(status: String, serial: String) = updateFilteredEquipment(
-        getFilteredEquipmentSerialList(
+        return filteredList.size
+    }
+
+
+    fun filterEquipmentSerial(status: String, serial: String): Int {
+        val filteredList = getFilteredEquipmentSerialList(
             serial,
             getFilteredEquipmentStatusList(status, equipments.value ?: emptyList())
         )
-    )
+        updateFilteredEquipment(filteredList)
+
+        return filteredList.size
+    }
 
     private fun getFilteredEquipmentStatusList(
         status: String,

@@ -63,6 +63,7 @@ class DataRepository {
                 onSuccess(it.toObjects(Endoscope::class.java))
             }
     }
+
 //    Implement if and only if recyclerView doesn't have to be to Equipment
 //    fun getAllEndoscopesSchedule(onSuccess: (List<Schedule>) -> Unit) {
 //        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).get()
@@ -70,6 +71,7 @@ class DataRepository {
 //                onSuccess(it.toObjects(Schedule::class.java))
 //            }
 //    }
+
     fun getEndoscope(serial: String, onSuccess: (Endoscope?) -> Unit) {
         Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial)
             .get()

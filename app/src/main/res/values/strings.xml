@@ -20,11 +20,13 @@
     <string name="schedule_friday">FRI</string>
     <string name="schedule_saturday">SAT</string>
     <string name="schedule_sunday">SUN</string>
+    <string name="servicing_icon">⬤</string>
 
     <!-- Equipment List -->
     <string name="getting_equipments">Getting equipments</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>>
+    <string name="error_360_no_scopes">No Scopes Found!</string>
     <string-array name="equipmentSpinner">
         <item>All</item>
         <item>Circulation</item>
