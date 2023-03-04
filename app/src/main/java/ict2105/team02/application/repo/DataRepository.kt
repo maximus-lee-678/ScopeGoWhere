@@ -1,19 +1,52 @@
 package ict2105.team02.application.repo
 
 import android.util.Log
-import com.google.android.gms.common.util.ArrayUtils
-import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import ict2105.team02.application.model.*
 import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.utils.Utils
 import kotlinx.coroutines.tasks.await
 
+private const val COLLECTION_USERS = "users"
 private const val COLLECTION_ENDOSCOPES = "endoscopes"
 
 class DataRepository {
+    fun getAuthenticatedUserData(onSuccess: (User) -> Unit) {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            Firebase.firestore.collection(COLLECTION_USERS)
+                .document(user.uid)
+                .get()
+                .addOnSuccessListener {
+                    onSuccess(it.toObject(User::class.java)!!.also {u ->
+                        u.email = user.email ?: ""
+                    })
+                }
+        }
+    }
+
+    fun getEndoscopeStatistics(onSuccess: (EndoscopeStatistics) -> Unit?) {
+        getAllEndoscopes { endoscopes ->
+            onSuccess(EndoscopeStatistics(
+                endoscopes.filter {
+                    it.nextSampleDate >= Utils.getTodayStartDate() && it.nextSampleDate < Utils.getTodayEndDate()
+                }.size,
+                endoscopes.size,
+                endoscopes.filter {
+                    it.scopeStatus == "Circulation"
+                }.size,
+                endoscopes.filter {
+                    it.scopeStatus == "Washing"
+                }.size,
+                endoscopes.filter {
+                    it.scopeStatus == "Sampling"
+                }.size,
+            ))
+        }
+    }
+
     fun getTodayScheduledEndoscopes(onSuccess: (List<Endoscope>) -> Unit) {
         Firebase.firestore.collection(COLLECTION_ENDOSCOPES)
             .whereGreaterThan("NextSampleDate", Utils.getTodayStartDate())
