@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -25,11 +26,14 @@ class CalendarMonthAdapter(private val context: Context) :
     private var dateDetails: DateDetails? = null
     private var selectedDate: IntArray = intArrayOf()
     private var selectedPos: Int = 0
+    private var samplingDates: HashMap<String, Int>? = null
 
     var onItemClick: ((IntArray) -> Unit)? = null
 
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.textViewCalendarMonthItem)
+        val linearLayoutItem: LinearLayout = view.findViewById(R.id.textViewCalendarMonthItem)
+        val textViewDay: TextView = view.findViewById(R.id.textViewCalendarMonthDay)
+        val textViewSampleCount: TextView = view.findViewById(R.id.textViewCalendarMonthSampleCount)
     }
 
     /**
@@ -53,17 +57,31 @@ class CalendarMonthAdapter(private val context: Context) :
      */
     override fun onBindViewHolder(holder: CalendarMonthAdapter.ItemViewHolder, position: Int) {
         // If called before initialisation, render nothing
-        if (dateDetails == null) {
+        if (dateDetails == null || samplingDates == null) {
             return
         }
 
         // Grid item must be equal to larger than starting day and less than number of days + start day
         // Position is 0 terminated, must +1 when displaying
         if (position >= dateDetails!!.firstDayOfMonth!! && position < dateDetails!!.firstDayOfMonth!! + dateDetails!!.daysInMonth!!) {
-            holder.textView.text =
+            holder.textViewDay.text =
                 String.format("%d", position + 1 - dateDetails!!.firstDayOfMonth!!)
         } else {
             return
+        }
+
+        // Displaying number of samples on the day by looking up key in hashmap
+        val sampleCount: Int? = samplingDates!!.get(
+            String.format(
+                "%02d-%02d-%04d",
+                position + 1 - dateDetails!!.firstDayOfMonth!!,
+                dateDetails!!.month!!,
+                dateDetails!!.year!!
+            )
+        )
+        if (sampleCount != null) {
+            holder.textViewSampleCount.text = "•".repeat(sampleCount)
+            Log.d("fish", "•".repeat(sampleCount) + " " + (position).toString())
         }
 
         // Only highlight day when the user is on the original month
@@ -74,9 +92,9 @@ class CalendarMonthAdapter(private val context: Context) :
         }
 
         // Attach listener that returns date to Fragment and updates selection
-        holder.textView.setOnClickListener {
+        holder.linearLayoutItem.setOnClickListener {
             selectedDate = intArrayOf(
-                holder.textView.text.toString().toInt(),
+                position + 1 - dateDetails!!.firstDayOfMonth!!,
                 dateDetails!!.month!!,
                 dateDetails!!.year!!
             )
@@ -136,8 +154,9 @@ class CalendarMonthAdapter(private val context: Context) :
         // User is clicking on another date on original page
         // Refresh only 2 items
         if (!didPageChange) {
-            notifyItemChanged(originalPosition)
-            notifyItemChanged(selectedPos)
+//            notifyItemChanged(originalPosition)
+//            notifyItemChanged(selectedPos)
+            notifyDataSetChanged()
             return
         }
 
@@ -147,5 +166,10 @@ class CalendarMonthAdapter(private val context: Context) :
             notifyDataSetChanged()
             return
         }
+    }
+
+    fun updateSamplingDates(samplingDates: HashMap<String, Int>) {
+        this.samplingDates = samplingDates
+        notifyDataSetChanged()
     }
 }

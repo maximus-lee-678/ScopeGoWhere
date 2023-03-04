@@ -1,17 +1,21 @@
 package ict2105.team02.application.viewmodel
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import ict2105.team02.application.model.DateDetails
+import ict2105.team02.application.repo.DataRepository
 import ict2105.team02.application.repo.UserPreferencesRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 class CalendarViewModel(
-    private val repository: UserPreferencesRepository, application: Application
+    private val userPreferencesRepository: UserPreferencesRepository,
+    private val dataRepository: DataRepository,
+    application: Application
 ) : AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
 
@@ -32,9 +36,14 @@ class CalendarViewModel(
 
     init {
         viewModelScope.launch {
-            scheduleLayoutType.postValue(repository.userPreferencesFlow.first().scheduleLayoutType)
+            scheduleLayoutType.postValue(userPreferencesRepository.userPreferencesFlow.first().scheduleLayoutType)
         }
+
+        fetchEquipments()
     }
+
+    // Hashmap containing service dates and number of services on day
+    var samplingDates: MutableLiveData<HashMap<String, Int>> = MutableLiveData()
 
     /**
      * Writes new layout type to repository.
@@ -43,12 +52,12 @@ class CalendarViewModel(
     fun updateLayoutType(layoutType: Boolean) {
         scheduleLayoutType.postValue(layoutType)
         viewModelScope.launch {
-            repository.updateLayoutType(layoutType, context)
+            userPreferencesRepository.updateLayoutType(layoutType, context)
         }
     }
 
     /**
-     * Realigns calendar and dateDetails values based on new selected date.
+     * Realigns calendar and dateDetails values based on existing selected date.
      * Called by listener in fragment. (layout switch)
      */
     fun forceAlignCalendar() {
@@ -87,17 +96,43 @@ class CalendarViewModel(
         refreshDateDetails()
         selectedDate.value = newSelectedDate
     }
+
+    fun fetchEquipments(onFinish: (() -> Unit)? = null) {
+        var workingHashmap: HashMap<String, Int> = HashMap()
+
+        viewModelScope.launch {
+            dataRepository.getAllEndoscopes {
+                for (endoscope in it) {
+                    val dateFormat = SimpleDateFormat("dd-MM-yyyy").format(endoscope.nextSampleDate)
+                    if (!workingHashmap.containsKey(dateFormat)) {
+                        workingHashmap[dateFormat] = 1
+                    } else {
+                        workingHashmap[dateFormat] = workingHashmap[dateFormat]!! + 1
+                    }
+                }
+
+                samplingDates.postValue(workingHashmap)
+
+                for ((key, value) in workingHashmap) {
+                    Log.d("fish", "$key = $value")
+                }
+
+//                onFinish?.invoke()
+            }
+        }
+    }
 }
 
 class CalendarViewModelFactory(
-    private val repository: UserPreferencesRepository,
+    private val userPreferencesRepository: UserPreferencesRepository,
+    private val dataRepository: DataRepository,
     private val application: Application
 ) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CalendarViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return CalendarViewModel(repository, application) as T
+            return CalendarViewModel(userPreferencesRepository, dataRepository, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

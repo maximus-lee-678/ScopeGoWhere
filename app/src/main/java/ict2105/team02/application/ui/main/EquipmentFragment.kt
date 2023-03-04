@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,6 +71,8 @@ class EquipmentFragment : Fragment() {
         // Bind view to view model
         viewModel.filteredEquipment.observe(viewLifecycleOwner){ filtered ->
             eqAdapter.submitList(filtered)
+
+//            if (filtered.isEmpty()) Toast.makeText(activity, getString(R.string.error_360_no_scopes), Toast.LENGTH_SHORT).show()
         }
 
         return binding.root

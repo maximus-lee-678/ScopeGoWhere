@@ -13,10 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.databinding.FragmentScheduleBinding
-import ict2105.team02.application.model.DateDetails
 import ict2105.team02.application.recyclerview.CalendarMonthAdapter
 import ict2105.team02.application.recyclerview.CalendarWeekAdapter
-import ict2105.team02.application.storage.MainApplication
+import ict2105.team02.application.repo.DataRepository
+import ict2105.team02.application.repo.MainApplication
 import ict2105.team02.application.viewmodel.CalendarViewModel
 import ict2105.team02.application.viewmodel.CalendarViewModelFactory
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
@@ -31,6 +31,7 @@ class CalendarFragment : Fragment() {
     private val calendarViewModel: CalendarViewModel by viewModels {
         CalendarViewModelFactory(
             (activity?.application as MainApplication).repository,
+            DataRepository(),
             (activity?.application as MainApplication)
         )
     }
@@ -68,7 +69,7 @@ class CalendarFragment : Fragment() {
         val dateFormat = SimpleDateFormat("dd-MM-yyyy")
         val date = dateFormat.parse(input)
         // Update view Model.
-        scheduleInfoViewModel.setScheduleByDate((date))
+        scheduleInfoViewModel.setScheduleByDate(date)
     }
 
     /**
@@ -161,6 +162,12 @@ class CalendarFragment : Fragment() {
                     layoutType.toString()
                 )
             )
+        }
+
+        // Add an observer on the LiveData returned by samplingDates
+        calendarViewModel.samplingDates.observe(viewLifecycleOwner) { layoutType ->
+            // Update samplingDates
+            calendarMonthAdapter.updateSamplingDates(layoutType)
         }
     }
 

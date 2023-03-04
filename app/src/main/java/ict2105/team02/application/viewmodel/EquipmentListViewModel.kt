@@ -20,7 +20,6 @@ class EquipmentListViewModel : ViewModel() {
                 onFinish?.invoke()
             }
         }
-
     }
 
     private fun updateFilteredEquipment(filteredEquipment: List<Endoscope>) =

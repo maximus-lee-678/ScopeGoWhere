@@ -20,13 +20,12 @@ class ScheduleInfoViewModel : ViewModel() {
     private val xRepo: DataRepository = DataRepository()
     private var mListSchedule: MutableLiveData<List<Schedule>>? = null
     private lateinit var allSchedule: List<Schedule>
-    private var allEndoscope : List<Endoscope> = emptyList()
+    private var allEndoscope: List<Endoscope> = emptyList()
 
 
     init {
         if (mListSchedule != null) {
         } else {
-
             mRepo = ScheduleProducer.getInstance()
             allSchedule = mRepo!!.getSchedules()
             mListSchedule = MutableLiveData<List<Schedule>>()
@@ -38,13 +37,14 @@ class ScheduleInfoViewModel : ViewModel() {
     fun setScheduleByDate(inputDate: Date) {
 //        mRepo = ScheduleProducer.getInstance()
         var filteredSchedule: ArrayList<Schedule> = ArrayList()
-        if(allEndoscope == null)
+        if (allEndoscope == null)
             return
         for (endoscope in allEndoscope) {
 
             if (endoscope.nextSampleDate != null &&
-                areDatesEqualIgnoringTime(endoscope.nextSampleDate, inputDate)) {
-                var schedule = Schedule(endoscope.nextSampleDate,endoscope.scopeSerial.toString())
+                areDatesEqualIgnoringTime(endoscope.nextSampleDate, inputDate)
+            ) {
+                var schedule = Schedule(endoscope.nextSampleDate, endoscope.scopeSerial.toString())
                 filteredSchedule.add(schedule)
 
             }
@@ -68,6 +68,7 @@ class ScheduleInfoViewModel : ViewModel() {
                 cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
                 cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH)
     }
+
     fun fetchAllScheduledScope(onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
             xRepo?.getAllEndoscopes {
