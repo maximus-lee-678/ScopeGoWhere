@@ -17,7 +17,9 @@
         <TextView
             android:id="@+id/modelSerialTextView"
             android:layout_width="206dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
 
         <Space
             android:layout_width="138dp"
@@ -42,7 +44,8 @@
         android:text="Sample History"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" />
+        android:layout_marginRight="15dp"
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/uiStateTextView"
