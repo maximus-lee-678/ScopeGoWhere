@@ -1,13 +1,11 @@
 package ict2105.team02.application.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.EndoscopeTransaction
-import ict2105.team02.application.model.History
 import ict2105.team02.application.repo.DataRepository
 import ict2105.team02.application.utils.UiState
 import kotlinx.coroutines.launch

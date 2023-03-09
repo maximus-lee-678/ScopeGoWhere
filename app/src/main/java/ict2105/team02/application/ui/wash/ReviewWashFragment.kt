@@ -41,7 +41,7 @@ class ReviewWashFragment : Fragment() {
             binding.aerSerialNo.editText?.setText(it.AERSerial?.toString())
             binding.detergentUsed.editText?.setText(it?.DetergentUsed)
             binding.detergentLotNo.editText?.setText(it?.DetergentLotNo!!.toString())
-//            binding.filterChangeDate.editText?.setText(it?.FilterChangeDate.toString())
+            binding.filterChangeDate.editText?.setText(it?.FilterChangeDate.toString())
             binding.disinfectantUsed.editText?.setText(it?.DisinfectantUsed)
             binding.disinfectantLotNo.editText?.setText(it?.DisinfectantLotNo!!.toString())
 //            binding.disinfectantChanged.editText?.setText(it?.DisinfectantChangedDate.toString())
@@ -56,7 +56,7 @@ class ReviewWashFragment : Fragment() {
             Log.d("TestHash",viewModel.convertWashDataToMap().toString())
             // if true set it to true
             // replace with last fragment
-            viewModel.insertIntoDB("2")
+            viewModel.insertIntoDB(viewModel.ScopeSerial)
             val intent = Intent (activity, MainActivity::class.java)
             activity?.startActivity(intent)
             activity?.finish()

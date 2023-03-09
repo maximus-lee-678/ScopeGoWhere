@@ -1,5 +1,6 @@
 package ict2105.team02.application.model
 
+import com.google.firebase.Timestamp
 import java.util.*
 
 data class WashData (

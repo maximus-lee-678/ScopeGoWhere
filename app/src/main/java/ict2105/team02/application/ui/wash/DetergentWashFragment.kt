@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.Timestamp
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentDetergentWashBinding
 import ict2105.team02.application.viewmodel.WashViewModel
+import java.text.SimpleDateFormat
 
 /**
  * A simple [Fragment] subclass.
@@ -34,12 +36,14 @@ class DetergentWashFragment : Fragment() {
         val button: Button = view.findViewById(R.id.button) as Button
         button.setOnClickListener{
             // validate the input
-
+            var filterDate = binding.filterChangeDate.editText?.text.toString()
+            val sdf = SimpleDateFormat("dd-MM-yyyy")
+            val dateForFB = sdf.parse(filterDate)
             // if true set it to true
             viewModel.washData.postValue(viewModel.washData.value?.copy(
                 DetergentUsed = binding.detergentUsed.editText?.text.toString(),
-                DetergentLotNo = binding.detergentLotNo.editText?.text.toString().toInt()
-//                filterChangeDate = binding.filterChangeDate.editText?.text.toString().toDate()
+                DetergentLotNo = binding.detergentLotNo.editText?.text.toString().toInt(),
+//                FilterChangeDate = Timestamp(dateForFB)
             ))
             // replace with last fragment
             val fragment = DisinfectantWashFragment()

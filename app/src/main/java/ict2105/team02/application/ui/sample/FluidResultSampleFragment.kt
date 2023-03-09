@@ -22,12 +22,12 @@ class FluidResultSampleFragment : Fragment() {
         savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
         binding = FragmentFluidResultSampleBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity()).get(SampleViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[SampleViewModel::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        activity?.setTitle("Update Result(1/4)")
+        activity?.title = "Update Result(1/4)"
         super.onViewCreated(view, savedInstanceState)
 
 //        val button: Button = view.findViewById(R.id.button) as Button

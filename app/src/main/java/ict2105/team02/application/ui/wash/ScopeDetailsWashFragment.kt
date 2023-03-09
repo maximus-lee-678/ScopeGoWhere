@@ -44,7 +44,7 @@ class ScopeDetailsWashFragment : Fragment() {
         val button: Button = view.findViewById(R.id.button) as Button
         button.setOnClickListener{
             // validate the input
-
+            viewModel.ScopeSerial = scopeDetailsMap["scopeSerial"].toString()
             // if true set it to true
 
             // replace with last fragment

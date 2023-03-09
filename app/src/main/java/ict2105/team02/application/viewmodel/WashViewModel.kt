@@ -15,7 +15,7 @@ class WashViewModel() : ViewModel() {
     var washData = MutableLiveData<WashData>()
     var washDataMap = HashMap<String, Any?>()
     private val repo = DataRepository()
-
+    lateinit var ScopeSerial: String
     // init empty data here
     init{
         washData.value = WashData(
