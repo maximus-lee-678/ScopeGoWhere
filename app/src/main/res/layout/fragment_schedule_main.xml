@@ -5,17 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.schedule.ScheduleFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <FrameLayout
         android:id="@+id/frameLayoutCalendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top" />
+
     <FrameLayout
         android:id="@+id/frameLayoutScheduleInfo"
         android:layout_width="match_parent"
         android:layout_height="290dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="50dp">
-    </FrameLayout>
+        android:layout_marginBottom="50dp" />
 </FrameLayout>

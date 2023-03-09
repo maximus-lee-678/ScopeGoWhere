@@ -8,18 +8,43 @@
     tools:context=".ui.main.QRScannerActivity">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/loadScopeProgressIndicator"
+        android:id="@+id/progressIndicatorLoadScopeDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true" />
 
+    <LinearLayout
+        android:id="@+id/textViewScopeDetailError"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16sp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Failed to load endoscope details."/>
+
+        <TextView
+            android:id="@+id/textViewScopeDetailErrorSerial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
     <FrameLayout
-        android:id="@+id/equipmentBannerLayout"
+        android:id="@+id/frameLayoutScopeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/colorPrimary">
         <TextView
-            android:id="@+id/equipmentNameTextView"
+            android:id="@+id/textViewEquipmentName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -31,7 +56,7 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/scopeDetailLayout"
+        android:id="@+id/linearLayoutScopeDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

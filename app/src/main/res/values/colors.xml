@@ -7,9 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#FFFF0000</color>
+    <color name="red_rose">#FFE3242B</color>
     <color name="schedule_unselected">#0F0000FF</color>
     <color name="schedule_selected">#7F00FF00</color>
-    <color name="colorWhite">#00000000</color>
-    <color name="colorDarkGrey">#80808080</color>
+
+    <color name="home_pending_sample">#FFFF8C93</color>
+    <color name="home_total_endoscope">@color/black</color>
+    <color name="home_in_circulation">#FF3AAB59</color>
+    <color name="home_washing">#FF0057FF</color>
+    <color name="home_sampling">#FF0057FF</color>
 </resources>

@@ -1,7 +1,11 @@
 package ict2105.team02.application.recyclerview
 
 import android.content.Context
-import android.util.Log
+import android.text.SpannableString
+import android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE
+import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +14,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.DateDetails
+
 
 class CalendarMonthAdapter(private val context: Context) :
     RecyclerView.Adapter<CalendarMonthAdapter.ItemViewHolder>() {
@@ -20,11 +25,15 @@ class CalendarMonthAdapter(private val context: Context) :
         ResourcesCompat.getColor(context.resources, R.color.schedule_unselected, null)
     private val selectedHex: Int =
         ResourcesCompat.getColor(context.resources, R.color.schedule_selected, null)
+    private val servicingIcon: String = context.getString(R.string.servicing_icon)
+    private val servicingHex: Int =
+        ResourcesCompat.getColor(context.resources, R.color.purple_500, null)
 
     // initially uninitialised, observer will call updateRecyclerContent to load it
     private var dateDetails: DateDetails? = null
     private var selectedDate: IntArray = intArrayOf()
     private var selectedPos: Int = 0
+    private var samplingDates: HashMap<String, Int>? = null
 
     var onItemClick: ((IntArray) -> Unit)? = null
 
@@ -53,18 +62,50 @@ class CalendarMonthAdapter(private val context: Context) :
      */
     override fun onBindViewHolder(holder: CalendarMonthAdapter.ItemViewHolder, position: Int) {
         // If called before initialisation, render nothing
-        if (dateDetails == null) {
+        if (dateDetails == null || samplingDates == null) {
             return
         }
 
         // Grid item must be equal to larger than starting day and less than number of days + start day
-        // Position is 0 terminated, must +1 when displaying
-        if (position >= dateDetails!!.firstDayOfMonth!! && position < dateDetails!!.firstDayOfMonth!! + dateDetails!!.daysInMonth!!) {
-            holder.textView.text =
-                String.format("%d", position + 1 - dateDetails!!.firstDayOfMonth!!)
-        } else {
+        // Position is 0 terminated, must +1 when calculating
+        if (position + 1 <= dateDetails!!.firstDayOfMonth!! || position + 1 > dateDetails!!.firstDayOfMonth!! + dateDetails!!.daysInMonth!!) {
             return
         }
+
+        // Getting number of samples on the day by looking up key in hashmap
+        val sampleCount: Int? = samplingDates!!.get(
+            String.format(
+                "%02d-%02d-%04d",
+                position + 1 - dateDetails!!.firstDayOfMonth!!,
+                dateDetails!!.month!!,
+                dateDetails!!.year!!
+            )
+        )
+
+        // Set Text
+        val dateText: String =
+            (position + 1 - dateDetails!!.firstDayOfMonth!!).toString()  // Day number
+        val dateTextSpan = SpannableString(dateText)
+        dateTextSpan.setSpan(RelativeSizeSpan(1f), 0, dateText.length, SPAN_INCLUSIVE_INCLUSIVE)
+
+        val servicingText: String = servicingIcon.repeat(
+            sampleCount ?: 0
+        )  // Servicing Count, maximum displayable: 4 before funky looking
+        val servicingTextSpan = SpannableString(servicingText)
+        servicingTextSpan.setSpan(
+            RelativeSizeSpan(1f),
+            0,
+            servicingText.length,
+            SPAN_INCLUSIVE_INCLUSIVE
+        )   // Set size
+        servicingTextSpan.setSpan(
+            ForegroundColorSpan(servicingHex),
+            0,
+            servicingText.length,
+            SPAN_INCLUSIVE_INCLUSIVE
+        )   // Set colour
+
+        holder.textView.text = TextUtils.concat(dateTextSpan, "\n", servicingTextSpan)
 
         // Only highlight day when the user is on the original month
         if (selectedPos >= 0 && selectedPos == position) {
@@ -76,7 +117,7 @@ class CalendarMonthAdapter(private val context: Context) :
         // Attach listener that returns date to Fragment and updates selection
         holder.textView.setOnClickListener {
             selectedDate = intArrayOf(
-                holder.textView.text.toString().toInt(),
+                position + 1 - dateDetails!!.firstDayOfMonth!!,
                 dateDetails!!.month!!,
                 dateDetails!!.year!!
             )
@@ -134,10 +175,11 @@ class CalendarMonthAdapter(private val context: Context) :
         }
 
         // User is clicking on another date on original page
-        // Refresh only 2 items
+        // Refresh only 2 items (currently causing weird phantoms, disabled)
         if (!didPageChange) {
-            notifyItemChanged(originalPosition)
-            notifyItemChanged(selectedPos)
+//            notifyItemChanged(originalPosition)
+//            notifyItemChanged(selectedPos)
+            notifyDataSetChanged()
             return
         }
 
@@ -147,5 +189,14 @@ class CalendarMonthAdapter(private val context: Context) :
             notifyDataSetChanged()
             return
         }
+    }
+
+    /**
+     * Updates stored sampling dates, then prompts the recyclerView to regenerate.
+     * Called by observer when a new samplingDetails hashmap is detected.
+     */
+    fun updateSamplingDates(samplingDates: HashMap<String, Int>) {
+        this.samplingDates = samplingDates
+        notifyDataSetChanged()
     }
 }

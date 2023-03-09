@@ -1,6 +1,12 @@
 package ict2105.team02.application.recyclerview
 
 import android.content.Context
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +24,16 @@ class CalendarWeekAdapter(private val context: Context) :
         ResourcesCompat.getColor(context.resources, R.color.schedule_unselected, null)
     private val selectedHex: Int =
         ResourcesCompat.getColor(context.resources, R.color.schedule_selected, null)
+    private val servicingIcon: String = context.getString(R.string.servicing_icon)
+    private val servicingHex: Int =
+        ResourcesCompat.getColor(context.resources, R.color.purple_500, null)
 
     // initially uninitialised, observer will call updateRecyclerContent to load it
     private var dateDetails: DateDetails? = null
     private var selectedDate: IntArray = intArrayOf()
     private var selectedPos: Int = 0
+    private var samplingDates: HashMap<String, Int>? = null
+
     var onItemClick: ((IntArray) -> Unit)? = null
 
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -48,16 +59,52 @@ class CalendarWeekAdapter(private val context: Context) :
      */
     override fun onBindViewHolder(holder: CalendarWeekAdapter.ItemViewHolder, position: Int) {
         // If called before initialisation, render nothing
-        if (dateDetails == null) {
+        if (dateDetails == null || samplingDates == null) {
             return
         }
 
-        holder.textView.text = String.format(
-            "%02d/%02d/%04d",
-            dateDetails!!.weekArray[position][0],
-            dateDetails!!.weekArray[position][1],
-            dateDetails!!.weekArray[position][2]
+        // Getting number of samples on the day by looking up key in hashmap
+        val sampleCount: Int? = samplingDates!!.get(
+            String.format(
+                "%02d-%02d-%04d",
+                dateDetails!!.weekArray[position][0],
+                dateDetails!!.weekArray[position][1],
+                dateDetails!!.weekArray[position][2]
+            )
         )
+
+        // Set Text
+        val dateText: String =
+            String.format(
+                "%02d/%02d/%04d",
+                dateDetails!!.weekArray[position][0],
+                dateDetails!!.weekArray[position][1],
+                dateDetails!!.weekArray[position][2]
+            )  // Date
+        val dateTextSpan = SpannableString(dateText)
+        dateTextSpan.setSpan(
+            RelativeSizeSpan(1f), 0, dateText.length,
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
+        )
+
+        val servicingText: String = servicingIcon.repeat(
+            sampleCount ?: 0
+        )  // Servicing Count
+        val servicingTextSpan = SpannableString(servicingText)
+        servicingTextSpan.setSpan(
+            RelativeSizeSpan(1f),
+            0,
+            servicingText.length,
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
+        )   // Set size
+        servicingTextSpan.setSpan(
+            ForegroundColorSpan(servicingHex),
+            0,
+            servicingText.length,
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
+        )   // Set colour
+
+        holder.textView.text = TextUtils.concat(dateTextSpan, "   ", servicingTextSpan)
 
         // Only highlight day when the user is on the original month
         if (selectedPos >= 0 && selectedPos == position) {
@@ -139,6 +186,14 @@ class CalendarWeekAdapter(private val context: Context) :
             notifyDataSetChanged()
             return
         }
+    }
 
+    /**
+     * Updates stored sampling dates, then prompts the recyclerView to regenerate.
+     * Called by observer when a new samplingDetails hashmap is detected.
+     */
+    fun updateSamplingDates(samplingDates: HashMap<String, Int>) {
+        this.samplingDates = samplingDates
+        notifyDataSetChanged()
     }
 }

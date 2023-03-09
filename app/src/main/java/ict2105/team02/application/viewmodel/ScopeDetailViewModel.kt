@@ -19,24 +19,18 @@ class ScopeDetailViewModel : ViewModel() {
 
     private val repo = DataRepository()
 
-    fun fetchScopeDetail(serial: Int, onFinish: (() -> Unit)? = null) {
+    fun fetchScopeDetail(serial: Int) {
         viewModelScope.launch {
             repo.getEndoscope(serial.toString()) {
                 _scopeDetail.postValue(it)
-                onFinish?.invoke()
             }
         }
     }
 
-    // TO BE IMPLEMENTED
-    fun fetchLogDetail(serial: Int?){
-        if(serial == null){
-            _scopeLogDetail.postValue(UiState.Error("Scope Serial might be empty"))
-        }else{
-            viewModelScope.launch {
-                val result = repo.getEndoscopeHistory(serial.toString())
-                _scopeLogDetail.postValue(result)
-            }
+    fun fetchLogDetail(serial: Int) {
+        viewModelScope.launch {
+            val result = repo.getEndoscopeHistory(serial.toString())
+            _scopeLogDetail.postValue(result)
         }
     }
 }
