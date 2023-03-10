@@ -1,5 +1,6 @@
 package ict2105.team02.application.ui.scopeStore
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import ict2105.team02.application.databinding.FragmentAddScopeBinding
+import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.viewmodel.NewScopeViewModel
 import kotlinx.coroutines.launch
@@ -39,6 +41,9 @@ class AddScopeFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.insertScope(brand,model,serial,type,nextSample)
             }
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
         }
     }
 }
