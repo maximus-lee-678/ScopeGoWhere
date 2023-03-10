@@ -1,9 +1,13 @@
 package ict2105.team02.application.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.Timestamp
+import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.WashData
 import ict2105.team02.application.repo.DataRepository
 import kotlinx.coroutines.launch
@@ -14,8 +18,15 @@ import kotlin.collections.HashMap
 class WashViewModel() : ViewModel() {
     var washData = MutableLiveData<WashData>()
     var washDataMap = HashMap<String, Any?>()
+    var scopeData = MutableLiveData<Endoscope>()
     private val repo = DataRepository()
+    private val constraintsBuilder =
+        CalendarConstraints.Builder()
+            .setValidator(DateValidatorPointForward.now())
 
+    val datePicker = MaterialDatePicker.Builder.datePicker()
+        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+        .setCalendarConstraints(constraintsBuilder.build())
     // init empty data here
     init{
         washData.value = WashData(
@@ -31,7 +42,7 @@ class WashViewModel() : ViewModel() {
         "",
         "",
         0,
-        null,
+        Date(),
         )
     }
     fun convertWashDataToMap(){
@@ -60,5 +71,13 @@ class WashViewModel() : ViewModel() {
             convertWashDataToMap()
             repo.insertWashData(serial, docuName,washDataMap)
         }
+    }
+
+    fun makeScope(brand: String, model: String, serial: Int){
+        scopeData.value = Endoscope(scopeBrand = brand, scopeModel = model, scopeSerial = serial)
+    }
+
+    fun getScopeSerial(): String{
+        return scopeData.value?.scopeSerial.toString()
     }
 }

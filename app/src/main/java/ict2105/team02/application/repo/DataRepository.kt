@@ -155,14 +155,11 @@ class DataRepository {
                                     recordedBy = recordedBy, repeatDateMS = repeatChangeDateMS, resultDate = resultChangeDate,
                                     swabAction = swabAction, swabCultureComment = swabCultureComment, swabDate = swabChangeDate,
                                     swabResult = swabResult, swabATPRLU = swapATPRLU, waterATPRLU = waterATPRLU)
-
                                 Log.d("TAG", "finish fetching result data")
                             }
-
                             var combineDetails = EndoscopeTransaction(washData = washDataDetail, resultData = resultDataDetail)
                             scopeLogMutableList?.add(combineDetails)
                         }
-
                     }
                 if (scopeLogMutableList?.isEmpty() == false) {
                     var scopeLogList = scopeLogMutableList.toList()
@@ -186,8 +183,19 @@ class DataRepository {
             .set(data).addOnSuccessListener {
                 Log.d("Insert", "Success")
             }
-            .addOnFailureListener {
-                Log.d("Insert", "Fail")
+            .addOnFailureListener {e->
+                Log.d("Insert", "Fail due to $e")
+            }
+    }
+
+    suspend fun insertNewScope(newScope:Endoscope){
+        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(newScope.scopeSerial.toString())
+            .set(newScope)
+            .addOnSuccessListener {
+                Log.d("Insert New", "Success")
+            }
+            .addOnFailureListener {e ->
+                Log.d("Insert New", "Fail due to $e")
             }
     }
 }

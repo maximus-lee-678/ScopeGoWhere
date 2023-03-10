@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
@@ -11,21 +12,22 @@ import ict2105.team02.application.ui.main.EquipmentFragment
 import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.ui.main.HomeFragment
 import ict2105.team02.application.ui.main.QRScannerActivity
+import ict2105.team02.application.viewmodel.WashViewModel
 
 class WashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: WashViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this)[WashViewModel::class.java]
         val fragment = ScopeDetailsWashFragment()
-        val bundle = Bundle()
         var scopeDetailsMap = HashMap<String, Any>()
         if (intent.extras != null){
             scopeDetailsMap = intent.getSerializableExtra("scopeDetails") as HashMap<String, Any>
-            bundle.putSerializable("scopeDetails", scopeDetailsMap)
+            viewModel.makeScope(scopeDetailsMap["scopeBrand"].toString(), scopeDetailsMap["scopeModel"].toString(), scopeDetailsMap["scopeSerial"]as Int)
         }
-        fragment.arguments = bundle
         navbarNavigate(fragment)
 
         binding.bottomNavbar.setOnItemSelectedListener {

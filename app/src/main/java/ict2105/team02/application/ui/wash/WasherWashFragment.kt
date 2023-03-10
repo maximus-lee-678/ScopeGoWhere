@@ -18,7 +18,7 @@ class WasherWashFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentWasherWashBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity()).get(WashViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[WashViewModel::class.java]
         return binding.root
     }
 

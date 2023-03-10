@@ -1,5 +1,6 @@
 package ict2105.team02.application.utils
 
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
@@ -21,6 +22,11 @@ class Utils {
             calendar.set(Calendar.SECOND, 59)
             calendar.set(Calendar.MILLISECOND, 999)
             return calendar.time
+        }
+
+        fun strToDate(dateStr: String):Date{
+            val formatter = SimpleDateFormat("dd/MM/yyyy")
+            return formatter.parse(dateStr)
         }
     }
 }

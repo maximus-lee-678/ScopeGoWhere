@@ -5,4 +5,7 @@
     <item
         android:id="@+id/logoutFragment"
         android:title="Logout" />
+    <item
+        android:id="@+id/addScope"
+        android:title="Add Scope" />
 </menu>

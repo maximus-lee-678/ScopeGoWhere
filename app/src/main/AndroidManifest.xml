@@ -55,6 +55,7 @@
         <activity
             android:name=".ui.wash.WashActivity"
             android:exported="false" />
+
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.ui.login.LoginActivity
 import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.ui.dialogs.LogoutFragment
+import ict2105.team02.application.ui.scopeStore.AddScopeFragment
 
 class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
     private lateinit var binding: ActivityMainBinding
@@ -63,6 +64,10 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
             R.id.logoutFragment -> {
                 val myDialog = LogoutFragment()
                 myDialog.show(supportFragmentManager, "MyDialog")
+                return true
+            }
+            R.id.addScope-> {
+                navbarNavigate(AddScopeFragment())
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

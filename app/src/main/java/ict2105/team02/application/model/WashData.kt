@@ -1,5 +1,6 @@
 package ict2105.team02.application.model
 
+import com.google.firebase.Timestamp
 import java.util.*
 
 data class WashData (
@@ -15,5 +16,5 @@ data class WashData (
     val DoneBy: String?,
     val Remarks: String?,
     val DryerLevel: Int?,
-    val WashDate: Date?,
+    val WashDate: Date?
         )
