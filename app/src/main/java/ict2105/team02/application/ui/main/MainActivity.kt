@@ -12,6 +12,7 @@ import ict2105.team02.application.ui.login.LoginActivity
 import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.ui.dialogs.LogoutFragment
 import ict2105.team02.application.ui.scopeStore.AddScopeFragment
+import ict2105.team02.application.ui.help.HelpFragment
 
 class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
     private lateinit var binding: ActivityMainBinding
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
                 R.id.nav_home -> navbarNavigate(HomeFragment())
                 R.id.nav_schedule -> navbarNavigate(ScheduleFragment())
                 R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
-//                R.id.nav_help -> navbarNavigate(HelpFragment())
+                R.id.nav_help -> navbarNavigate(HelpFragment())
                 else -> { }
             }
             return@setOnItemSelectedListener true
