@@ -225,10 +225,16 @@
             android:gravity="center_horizontal">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/editScopeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit " />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/viewLogsButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View Logs"/>
+                android:text="View Logs" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/washButton"

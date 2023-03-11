@@ -198,4 +198,14 @@ class DataRepository {
                 Log.d("Insert New", "Fail due to $e")
             }
     }
+    suspend fun updateScope(scope: Endoscope){
+        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(scope.scopeSerial.toString())
+            .set(scope)
+            .addOnSuccessListener {
+                Log.d("Update Details", "Success")
+            }
+            .addOnFailureListener {e ->
+                Log.d("Update Details", "Fail due to $e")
+            }
+    }
 }
