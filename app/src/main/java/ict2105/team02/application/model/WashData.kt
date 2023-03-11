@@ -17,4 +17,4 @@ data class WashData (
     val Remarks: String?,
     val DryerLevel: Int?,
     val WashDate: Date?
-        )
+    )

@@ -37,9 +37,6 @@ class ScopeDetailsWashFragment : Fragment() {
         binding.serialNo.editText?.setText(viewModel.scopeData.value?.scopeSerial.toString(), TextView.BufferType.EDITABLE)
         val button: Button = view.findViewById(R.id.button) as Button
         button.setOnClickListener{
-            // validate the input
-
-            // if true set it to true
 
             // replace with last fragment
             val fragment = WasherWashFragment()

@@ -44,6 +44,15 @@ class WashViewModel() : ViewModel() {
         0,
         Date(),
         )
+
+        scopeData.value = Endoscope(
+            Date(),
+            "",
+            "",
+            0,
+            "",
+            "",
+        )
     }
     fun convertWashDataToMap(){
         val washData = washData.value ?: return // Get the value of the MutableLiveData or return empty HashMap if null
