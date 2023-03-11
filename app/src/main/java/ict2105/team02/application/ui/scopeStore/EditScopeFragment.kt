@@ -2,6 +2,7 @@ package ict2105.team02.application.ui.scopeStore
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +28,6 @@ const val KEY_ENDOSCOPE_MODEL = "MODEL"
 const val KEY_ENDOSCOPE_TYPE = "TYPE"
 const val KEY_ENDOSCOPE_DATE = "DATE"
 const val KEY_ENDOSCOPE_STATUS = "STATUS"
-
 
 class EditScopeFragment : Fragment() {
     private val viewModel by viewModels<ScopeUpdateViewModel>()
@@ -78,19 +78,26 @@ class EditScopeFragment : Fragment() {
 
         binding.buttonUpdateScope.setOnClickListener{
             // update the details into the database
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.updateScope(
-                    binding.scopeBrand.editText?.text.toString(),
-                    binding.scopeModel.editText?.text.toString(),
-                    binding.scopeSerial.editText?.text.toString().toInt(),
-                    binding.scopeType.editText?.text.toString(),
-                    Utils.strToDate(binding.nextSampleDate.editText?.text.toString()),
-                    arguments?.getString(KEY_ENDOSCOPE_STATUS).toString()
-                )
+            if(TextUtils.isEmpty(binding.scopeBrand.editText?.text.toString())||
+                TextUtils.isEmpty(binding.scopeModel.editText?.text.toString()) ||
+                TextUtils.isEmpty(binding.scopeType.editText?.text.toString()) ||
+                TextUtils.isEmpty(binding.nextSampleDate.editText?.text.toString())){
+                    binding.errorMsg.text = "Please fill in all the fields"
+            }else {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewModel.updateScope(
+                        binding.scopeBrand.editText?.text.toString(),
+                        binding.scopeModel.editText?.text.toString(),
+                        binding.scopeSerial.editText?.text.toString().toInt(),
+                        binding.scopeType.editText?.text.toString(),
+                        Utils.strToDate(binding.nextSampleDate.editText?.text.toString()),
+                        arguments?.getString(KEY_ENDOSCOPE_STATUS).toString()
+                    )
+                }
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
             }
-            val intent = Intent(requireActivity(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
         }
     }
     companion object {
