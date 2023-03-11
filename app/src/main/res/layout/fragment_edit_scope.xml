@@ -54,7 +54,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Scope Serial Number">
+        android:hint="Scope Serial Number"
+        android:enabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -87,12 +88,17 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Next Sample Date">
+        android:hint="Next Sample Date"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -9,18 +9,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import ict2105.team02.application.R
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import ict2105.team02.application.databinding.FragmentEditScopeBinding
-import ict2105.team02.application.databinding.FragmentHomeBinding
-import ict2105.team02.application.ui.equipment.EquipLogFragment
-import ict2105.team02.application.ui.main.HomeFragment
 import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.utils.Utils
-import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import ict2105.team02.application.viewmodel.ScopeUpdateViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 const val KEY_ENDOSCOPE_BRAND = "BRAND"
 const val KEY_ENDOSCOPE_SERIAL = "SN"
@@ -49,6 +48,31 @@ class EditScopeFragment : Fragment() {
         binding.scopeSerial.editText?.setText(arguments?.getInt(KEY_ENDOSCOPE_SERIAL).toString(), TextView.BufferType.EDITABLE)
         binding.scopeType.editText?.setText(arguments?.getString(KEY_ENDOSCOPE_TYPE), TextView.BufferType.EDITABLE)
         binding.nextSampleDate.editText?.setText(arguments?.getString(KEY_ENDOSCOPE_DATE), TextView.BufferType.EDITABLE)
+
+        binding.nextSampleDate.editText?.setOnClickListener{
+            val currentDate = Calendar.getInstance()
+            val builder =
+                MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Select date")
+            val constraintsBuilder = CalendarConstraints.Builder()
+            constraintsBuilder.setStart(currentDate.timeInMillis)
+            constraintsBuilder.setEnd(currentDate.timeInMillis + TimeUnit.DAYS.toMillis(365))
+
+            val validator = DateValidatorPointForward.from(currentDate.timeInMillis)
+            constraintsBuilder.setValidator(validator)
+
+            val constraints = constraintsBuilder.build()
+            builder.setCalendarConstraints(constraints)
+            val datePicker = builder.build()
+
+            datePicker.show(childFragmentManager,"DatePicker")
+            datePicker.addOnPositiveButtonClickListener {
+                val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+                calendar.timeInMillis = it
+                val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.time)
+                binding.nextSampleDate.editText?.setText(formattedDate)
+            }
+        }
 
         binding.buttonUpdateScope.setOnClickListener{
             // update the details into the database
