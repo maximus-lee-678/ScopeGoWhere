@@ -13,6 +13,7 @@ import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.ui.equipment.EquipLogFragment
 import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.ui.sample.ScanDialogFragment
+import ict2105.team02.application.ui.scopeStore.EditScopeFragment
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import java.text.SimpleDateFormat
@@ -83,6 +84,18 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                     binding.washButton.visibility = View.GONE
                 }
             }
+        }
+
+        binding.editScopeButton.setOnClickListener{
+            // may need to pass in parameter for the fragment to display the information
+            val fragment = EditScopeFragment.
+                            newInstance(viewModel.scopeDetail.value!!.scopeBrand,
+                                viewModel.scopeDetail.value!!.scopeSerial,
+                                viewModel.scopeDetail.value!!.scopeModel,
+                                viewModel.scopeDetail.value!!.scopeType,
+                                SimpleDateFormat("dd/MM/yyyy").format(viewModel.scopeDetail.value!!.nextSampleDate),
+                                viewModel.scopeDetail.value!!.scopeStatus)
+            (activity as MainActivity).navbarNavigate(fragment)
         }
 
         binding.washButton.setOnClickListener {
