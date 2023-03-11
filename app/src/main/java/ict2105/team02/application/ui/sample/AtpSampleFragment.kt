@@ -2,6 +2,7 @@ package ict2105.team02.application.ui.sample
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,15 +35,21 @@ class AtpSampleFragment : Fragment() {
 
         val button: Button = view.findViewById(R.id.button) as Button
         button.setOnClickListener{
-            // validate the input
+            if(TextUtils.isEmpty(binding.atpWaterRLUInput.editText?.text) ||
+                TextUtils.isEmpty(binding.atpSwabRLUInput.editText?.text)){
+                binding.errorMsgAtp.text = "Please fill in all the fields"
+            }
+            else{
+                // validate the input
+                // if true set it to true
+                viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
+                    atpWaterRLU = binding.atpWaterRLUInput.editText?.text.toString(),
+                    atpSwabRLU = binding.atpSwabRLUInput.editText?.text.toString()))
+                // replace with last fragment
+                val fragment = ReviewSampleFragment()
+                (activity as SampleActivity).navbarNavigate(fragment)
+            }
 
-            // if true set it to true
-            viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
-                atpWaterRLU = binding.atpWaterRLUInput.editText?.text.toString(),
-                atpSwabRLU = binding.atpSwabRLUInput.editText?.text.toString()))
-            // replace with last fragment
-            val fragment = ReviewSampleFragment()
-            (activity as SampleActivity).navbarNavigate(fragment)
         }
     }
 }

@@ -14,6 +14,7 @@ import ict2105.team02.application.databinding.FragmentReviewWashBinding
 import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.viewmodel.SampleViewModel
 import ict2105.team02.application.viewmodel.WashViewModel
+import java.text.SimpleDateFormat
 
 class ReviewSampleFragment : Fragment() {
     private lateinit var binding: FragmentReviewSampleBinding
@@ -34,16 +35,17 @@ class ReviewSampleFragment : Fragment() {
 //        binding.brand.editText?.setText(viewModel.scopeBrand.toString())
 
         viewModel.sampleData.observe(viewLifecycleOwner){
-            binding.dateOfFluidResult.editText?.setText(it?.dateOfFluidResult)
+            binding.dateOfFluidResult.editText?.setText(
+                SimpleDateFormat("dd/MM/yyyy").format(it?.dateOfFluidResult))
             binding.fluidResult.editText?.setText(it?.fluidResult)
             binding.actionFluid.editText?.setText(it?.actionFluid)
             binding.cultureCommentFluid.editText?.setText(it?.cultureCommentFluid)
-            binding.dateOfSwabResult.editText?.setText(it?.dateOfSwabResult)
+            binding.dateOfSwabResult.editText?.setText(SimpleDateFormat("dd/MM/yyyy").format(it?.dateOfSwabResult))
             binding.swabResult.editText?.setText(it?.swabResult)
             binding.actionSwab.editText?.setText(it?.actionSwab)
             binding.cultureCommentSwab.editText?.setText(it?.cultureCommentSwab)
             binding.quarantinePeriodInput.editText?.setText(it?.quarantinePeriod)
-            binding.repeatDateMsInput.editText?.setText(it?.repeatDateMS)
+            binding.repeatDateMsInput.editText?.setText(SimpleDateFormat("dd/MM/yyyy").format(it?.repeatDateMS))
             binding.borescopeDropdown.editText?.setText(it?.borescope)
             binding.atpWaterRluInput.editText?.setText(it?.atpWaterRLU)
             binding.atpSwapRluInput.editText?.setText(it?.atpSwabRLU)
@@ -52,10 +54,11 @@ class ReviewSampleFragment : Fragment() {
         val button: Button = view.findViewById(R.id.button) as Button
         button.setOnClickListener{
             // validate the input
-
             // if true set it to true
             val intent = Intent (getActivity(), MainActivity::class.java)
             getActivity()?.startActivity(intent)
+
+
         }
     }
 }
