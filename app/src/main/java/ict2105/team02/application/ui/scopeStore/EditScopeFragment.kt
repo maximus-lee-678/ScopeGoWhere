@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
@@ -96,7 +97,9 @@ class EditScopeFragment : Fragment() {
                 }
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 startActivity(intent)
+                Toast.makeText(requireContext(), "Scope Updated Successfully!", Toast.LENGTH_LONG).show()
                 requireActivity().finish()
+
             }
         }
     }
