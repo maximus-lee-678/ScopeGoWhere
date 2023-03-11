@@ -26,6 +26,8 @@ const val KEY_ENDOSCOPE_SERIAL = "SN"
 const val KEY_ENDOSCOPE_MODEL = "MODEL"
 const val KEY_ENDOSCOPE_TYPE = "TYPE"
 const val KEY_ENDOSCOPE_DATE = "DATE"
+const val KEY_ENDOSCOPE_STATUS = "STATUS"
+
 
 class EditScopeFragment : Fragment() {
     private val viewModel by viewModels<ScopeUpdateViewModel>()
@@ -82,7 +84,8 @@ class EditScopeFragment : Fragment() {
                     binding.scopeModel.editText?.text.toString(),
                     binding.scopeSerial.editText?.text.toString().toInt(),
                     binding.scopeType.editText?.text.toString(),
-                    Utils.strToDate(binding.nextSampleDate.editText?.text.toString())
+                    Utils.strToDate(binding.nextSampleDate.editText?.text.toString()),
+                    arguments?.getString(KEY_ENDOSCOPE_STATUS).toString()
                 )
             }
             val intent = Intent(requireActivity(), MainActivity::class.java)
@@ -92,13 +95,14 @@ class EditScopeFragment : Fragment() {
     }
     companion object {
         @JvmStatic
-        fun newInstance(brand: String,serialNo: Int, modelNo: String, type: String, date: String) = EditScopeFragment().apply {
+        fun newInstance(brand: String,serialNo: Int, modelNo: String, type: String, date: String, status: String) = EditScopeFragment().apply {
             arguments = Bundle().apply {
                 putString(KEY_ENDOSCOPE_BRAND, brand)
                 putString(KEY_ENDOSCOPE_MODEL, modelNo)
                 putInt(KEY_ENDOSCOPE_SERIAL, serialNo)
                 putString(KEY_ENDOSCOPE_TYPE, type)
                 putString(KEY_ENDOSCOPE_DATE, date)
+                putString(KEY_ENDOSCOPE_STATUS, status)
             }
         }
     }

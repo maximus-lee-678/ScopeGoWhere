@@ -8,9 +8,8 @@ import java.util.*
 class ScopeUpdateViewModel: ViewModel() {
     private var repo = DataRepository()
 
-    suspend fun updateScope(brand: String, model:String, serial:Int, type:String, nextSample: Date){
-        var newScope = Endoscope(nextSample, brand, model, serial, "Circulation",type)
+    suspend fun updateScope(brand: String, model:String, serial:Int, type:String, nextSample: Date, status:String){
+        var newScope = Endoscope(nextSample, brand, model, serial, status, type)
         repo.updateScope(newScope)
     }
-
 }

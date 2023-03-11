@@ -93,7 +93,8 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                                 viewModel.scopeDetail.value!!.scopeSerial,
                                 viewModel.scopeDetail.value!!.scopeModel,
                                 viewModel.scopeDetail.value!!.scopeType,
-                                SimpleDateFormat("dd/MM/yyyy").format(viewModel.scopeDetail.value!!.nextSampleDate))
+                                SimpleDateFormat("dd/MM/yyyy").format(viewModel.scopeDetail.value!!.nextSampleDate),
+                                viewModel.scopeDetail.value!!.scopeStatus)
             (activity as MainActivity).navbarNavigate(fragment)
         }
 
