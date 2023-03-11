@@ -1,6 +1,7 @@
 package ict2105.team02.application.ui.wash
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.Timestamp
 import ict2105.team02.application.R
@@ -37,8 +39,6 @@ class DetergentWashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         activity?.title = "Wash Equipment(3/5)"
         super.onViewCreated(view, savedInstanceState)
-
-        val button: Button = view.findViewById(R.id.button) as Button
         val dateSelector = binding.filterChangeDate.editText
         dateSelector!!.setOnClickListener {
             val datePicker = viewModel.datePicker
@@ -52,19 +52,30 @@ class DetergentWashFragment : Fragment() {
                 Log.d("DatePicker", date.toString())
             }
         }
-        button.setOnClickListener{
-            // validate the input
-            var filterDate = binding.filterChangeDate.editText?.text.toString()
-            val dateForFB = Utils.strToDate(filterDate)
-            // if true set it to true
-            viewModel.washData.postValue(viewModel.washData.value?.copy(
-                DetergentUsed = binding.detergentUsed.editText?.text.toString(),
-                DetergentLotNo = binding.detergentLotNo.editText?.text.toString().toInt(),
-                FilterChangeDate = dateForFB
-            ))
-            // replace with last fragment
-            val fragment = DisinfectantWashFragment()
-            (activity as WashActivity).navbarNavigate(fragment)
+
+        binding.button.setOnClickListener{
+            if(TextUtils.isEmpty(binding.detergentUsed.editText?.text) ||
+                TextUtils.isEmpty(binding.detergentLotNo.editText?.text)||
+                TextUtils.isEmpty(binding.filterChangeDate.editText?.text)){
+                binding.errMsg.text = "Please fill in all the fields"
+            }
+            else if(!binding.detergentLotNo.editText?.text.toString().isDigitsOnly()){
+                binding.errMsg.text = "Detergent Lot No. must only contain numbers"
+            }
+            else{
+                // validate the input
+                var filterDate = binding.filterChangeDate.editText?.text.toString()
+                val dateForFB = Utils.strToDate(filterDate)
+                // if true set it to true
+                viewModel.washData.postValue(viewModel.washData.value?.copy(
+                    DetergentUsed = binding.detergentUsed.editText?.text.toString(),
+                    DetergentLotNo = binding.detergentLotNo.editText?.text.toString().toInt(),
+                    FilterChangeDate = dateForFB
+                ))
+                // replace with last fragment
+                val fragment = DisinfectantWashFragment()
+                (activity as WashActivity).navbarNavigate(fragment)
+            }
         }
     }
 }

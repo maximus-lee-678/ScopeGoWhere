@@ -61,5 +61,12 @@
             android:layout_margin="20sp"
             android:text="Next" />
 
+        <TextView
+            android:id="@+id/errorMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#FF2B2B" />
+
     </LinearLayout>
 </layout>

@@ -45,13 +45,20 @@ class ReviewWashFragment : Fragment() {
                 aerSerialNo.editText?.setText(it.AERSerial?.toString())
                 detergentUsed.editText?.setText(it?.DetergentUsed)
                 detergentLotNo.editText?.setText(it?.DetergentLotNo!!.toString())
-                filterChangeDate.editText?.setText(it.FilterChangeDate!!.toString())
+                filterChangeDate.editText?.setText(SimpleDateFormat("dd/MM/yyyy").format(it.FilterChangeDate))
                 disinfectantUsed.editText?.setText(it?.DisinfectantUsed)
                 disinfectantLotNo.editText?.setText(it?.DisinfectantLotNo!!.toString())
-                disinfectantChanged.editText?.setText(it.DisinfectantChangedDate!!.toString())
+                disinfectantChanged.editText?.setText(SimpleDateFormat("dd/MM/yyyy").format(it.DisinfectantChangedDate))
                 scopeDryer.editText?.setText(it?.ScopeDryer!!.toString())
                 dryerLevel.editText?.setText(it?.DryerLevel!!.toString())
                 remarks.editText?.setText(it?.Remarks)
+            }
+        }
+        viewModel.scopeData.observe(viewLifecycleOwner){
+            binding.apply {
+                brand.editText?.setText(it.scopeBrand,TextView.BufferType.EDITABLE)
+                model.editText?.setText(it.scopeModel,TextView.BufferType.EDITABLE)
+                serialNo.editText?.setText(it.scopeSerial.toString(),TextView.BufferType.EDITABLE)
             }
         }
 

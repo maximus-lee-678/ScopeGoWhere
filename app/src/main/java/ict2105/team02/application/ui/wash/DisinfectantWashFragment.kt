@@ -1,16 +1,19 @@
 package ict2105.team02.application.ui.wash
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.Timestamp
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentDisinfectantWashBinding
+import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.viewmodel.WashViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,19 +54,29 @@ class DisinfectantWashFragment : Fragment() {
             }
         }
         button.setOnClickListener{
-            // validate the input
-            var filterDate = binding.disinfectantChanged.editText?.text.toString()
-            val sdf = SimpleDateFormat("dd/MM/yyyy")
-            val dateForFB = sdf.parse(filterDate)
-            // if true set it to true
-            viewModel.washData.postValue(viewModel.washData.value?.copy(
-                DisinfectantUsed = binding.disinfectantUsed.editText?.text.toString(),
-                DisinfectantLotNo = binding.disinfectantLotNo.editText?.text.toString().toInt(),
-                DisinfectantChangedDate = dateForFB
-            ))
-            // replace with last fragment
-            val fragment = DryingCabinetWashFragment()
-            (activity as WashActivity).navbarNavigate(fragment)
+            if(TextUtils.isEmpty(binding.disinfectantUsed.editText?.text) ||
+                TextUtils.isEmpty(binding.disinfectantLotNo.editText?.text)||
+                TextUtils.isEmpty(binding.disinfectantChanged.editText?.text)){
+                binding.errMsgDisinfectant.text = "Please fill in all the fields"
+            }
+            else if(!binding.disinfectantLotNo.editText?.text.toString().isDigitsOnly()){
+                binding.errMsgDisinfectant.text = "Disinfectant Lot No. must only contain numbers"
+            }
+            else{
+                // validate the input
+                var filterDate = binding.disinfectantChanged.editText?.text.toString()
+                val sdf = SimpleDateFormat("dd/MM/yyyy")
+                val dateForFB = sdf.parse(filterDate)
+                // if true set it to true
+                viewModel.washData.postValue(viewModel.washData.value?.copy(
+                    DisinfectantUsed = binding.disinfectantUsed.editText?.text.toString(),
+                    DisinfectantLotNo = binding.disinfectantLotNo.editText?.text.toString().toInt(),
+                    DisinfectantChangedDate = dateForFB
+                ))
+                // replace with last fragment
+                val fragment = DryingCabinetWashFragment()
+                (activity as WashActivity).navbarNavigate(fragment)
+            }
         }
     }
 }

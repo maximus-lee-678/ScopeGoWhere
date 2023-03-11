@@ -78,5 +78,12 @@
             android:layout_margin="20sp"
             android:text="Review" />
 
+        <TextView
+            android:id="@+id/errorMsgDCabinet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#FF2323" />
+
     </LinearLayout>
 </layout>

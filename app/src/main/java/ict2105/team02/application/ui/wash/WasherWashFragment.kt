@@ -2,11 +2,13 @@ package ict2105.team02.application.ui.wash
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.text.isDigitsOnly
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentWasherWashBinding
 import ict2105.team02.application.viewmodel.WashViewModel
@@ -29,16 +31,22 @@ class WasherWashFragment : Fragment() {
         val button: Button = view.findViewById(R.id.button) as Button
         button.setOnClickListener{
             // validate the input
+            if(TextUtils.isEmpty(binding.aerModel.editText?.text) ||
+                TextUtils.isEmpty(binding.aerSerialNo.editText?.text)){
+                binding.errorMsg.text = "Please fill in all the fields"
+            }
+            else if(!binding.aerSerialNo.editText?.text.toString().isDigitsOnly()){
+                binding.errorMsg.text = "AER Serial No. must only contain numbers"
+            }
+            else{
+                viewModel.washData.postValue(viewModel.washData.value?.copy(
+                    AERModel = binding.aerModel.editText?.text.toString(),
+                    AERSerial = binding.aerSerialNo.editText?.text.toString().toInt()))
 
-            // if true set it to true
-            viewModel.washData.postValue(viewModel.washData.value?.copy(
-                AERModel = binding.aerModel.editText?.text.toString(),
-                AERSerial = binding.aerSerialNo.editText?.text.toString().toInt()))
-
-
-            // replace with last fragment
-            val fragment = DetergentWashFragment()
-            (activity as WashActivity).navbarNavigate(fragment)
+                // replace with last fragment
+                val fragment = DetergentWashFragment()
+                (activity as WashActivity).navbarNavigate(fragment)
+            }
         }
     }
 
