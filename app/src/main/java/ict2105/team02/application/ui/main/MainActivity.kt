@@ -8,13 +8,13 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityMainBinding
+import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.ui.login.LoginActivity
 import ict2105.team02.application.ui.schedule.ScheduleFragment
-import ict2105.team02.application.ui.dialogs.LogoutFragment
 import ict2105.team02.application.ui.scopeStore.AddScopeFragment
 import ict2105.team02.application.ui.help.HelpFragment
 
-class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val TAG_FRAGMENT = "HomeFragment"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,31 +63,27 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
         transaction.commit()
     }
 
-    override fun onLogout(result: Boolean) {
-        if(result){
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+        when (item.itemId) {
             R.id.logoutFragment -> {
-                val myDialog = LogoutFragment()
-                myDialog.show(supportFragmentManager, "MyDialog")
+                val confirmationDialog = ConfirmationDialogFragment("Logout?") {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                confirmationDialog.show(supportFragmentManager, "ConfirmationDialog")
                 return true
             }
-            R.id.addScope-> {
+            R.id.addScope -> {
                 navbarNavigate(AddScopeFragment())
                 return true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> return true
         }
     }
 }

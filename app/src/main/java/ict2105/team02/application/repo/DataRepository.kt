@@ -188,7 +188,7 @@ class DataRepository {
             }
     }
 
-    suspend fun insertNewScope(newScope:Endoscope){
+    fun insertNewScope(newScope:Endoscope){
         Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(newScope.scopeSerial.toString())
             .set(newScope)
             .addOnSuccessListener {
@@ -198,7 +198,7 @@ class DataRepository {
                 Log.d("Insert New", "Fail due to $e")
             }
     }
-    suspend fun updateScope(scope: Endoscope){
+    fun updateScope(scope: Endoscope){
         Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(scope.scopeSerial.toString())
             .set(scope)
             .addOnSuccessListener {
@@ -206,6 +206,17 @@ class DataRepository {
             }
             .addOnFailureListener {e ->
                 Log.d("Update Details", "Fail due to $e")
+            }
+    }
+
+    fun deleteScope(serial: Int) {
+        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial.toString())
+            .delete()
+            .addOnSuccessListener {
+                Log.d("Delete Scope", "Success")
+            }
+            .addOnFailureListener {e ->
+                Log.d("Delete Scope", "Fail due to $e")
             }
     }
 }

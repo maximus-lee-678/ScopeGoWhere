@@ -15,12 +15,9 @@ import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.ui.sample.ScanDialogFragment
 import ict2105.team02.application.ui.scopeStore.EditScopeFragment
 import ict2105.team02.application.ui.wash.WashActivity
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_SERIAL
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 import java.text.SimpleDateFormat
-
-const val KEY_ENDOSCOPE_SERIAL = "SN"
-const val KEY_ENDOSCOPE_MODEL = "MODEL"
-const val KEY_ENDOSCOPE_STATUS = "STATUS"
 
 class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
@@ -119,11 +116,11 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
         binding.viewLogsButton.setOnClickListener{
             // replace with last fragment
-            var serial = viewModel.scopeDetail.value!!.scopeSerial
-            var model = viewModel.scopeDetail.value!!.scopeModel
-            var status = viewModel.scopeDetail.value!!.scopeStatus
+            val scopeSerial = viewModel.scopeDetail.value!!.scopeSerial
+            val scopeModel = viewModel.scopeDetail.value!!.scopeModel
+            val scopeStatus = viewModel.scopeDetail.value!!.scopeStatus
 
-            val fragment = EquipLogFragment.newInstance(serial, model, status)
+            val fragment = EquipLogFragment.newInstance(scopeSerial, scopeModel, scopeStatus)
             (activity as MainActivity).navbarNavigate(fragment)
         }
 
