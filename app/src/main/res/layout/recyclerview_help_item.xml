@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="90dp">
+
+
+    <ImageButton
+        android:id="@+id/HelpImageButton"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="#FFFBFF"
+        android:outlineAmbientShadowColor="@color/black"
+        android:scaleType="fitStart"
+        android:src="@drawable/question_mark" />
+
+    <TextView
+        android:id="@+id/HelpTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginLeft="170dp"
+        android:layout_marginBottom="9dp"
+        android:text="How to use the app"
+        android:textSize="18dp" />
+
+</FrameLayout>

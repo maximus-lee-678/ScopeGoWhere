@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityMainBinding
@@ -17,7 +18,7 @@ import ict2105.team02.application.ui.help.YoutubeFragment
 
 class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
     private lateinit var binding: ActivityMainBinding
-
+    private val TAG_FRAGMENT = "HomeFragment"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -26,15 +27,30 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
         navbarNavigate(HomeFragment())
 
         binding.bottomNavbar.setOnItemSelectedListener {
-            when(it.itemId) {
+
+            when (it.itemId) {
                 R.id.nav_home -> navbarNavigate(HomeFragment())
                 R.id.nav_schedule -> navbarNavigate(ScheduleFragment())
                 R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
-                R.id.nav_help -> navbarNavigate(YoutubeFragment())
-                else -> { }
+                R.id.nav_help -> navbarNavigate(HelpFragment())
+                else -> {}
             }
             return@setOnItemSelectedListener true
         }
+//        var callback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                if (supportFragmentManager.backStackEntryCount == 0) {
+//                    // If we are on the home fragment, exit the app
+//                    finish()
+//                } else {
+//                    // Otherwise, navigate back to the previous fragment
+//                    supportFragmentManager.popBackStack()
+//                }
+//            }
+//        }
+//
+//        // Add the callback to the activity's OnBackPressedDispatcher
+//        onBackPressedDispatcher.addCallback(this, callback)
 
         binding.navbarFab.setOnClickListener {
             val intent = Intent(this, QRScannerActivity::class.java)
@@ -44,7 +60,8 @@ class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
 
     fun navbarNavigate(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentFrameLayout, fragment)
+        transaction.replace(R.id.fragmentFrameLayout, fragment,TAG_FRAGMENT)
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 

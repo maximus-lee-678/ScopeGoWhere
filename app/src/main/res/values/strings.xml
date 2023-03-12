@@ -36,4 +36,25 @@
     <string name="search_hint">Enter Scope Name:</string>
     <string name="search_button">Search</string>
     <string name="clear_button">Clear</string>
+
+    <!-- Tutorial for using endoscope -->
+    <string name="endoscope_cleaning_instructions">Endoscope Cleaning Instructions</string>
+    <string name="endoscope_cleaning_instructions_precleaning">Pre-cleaning: After using the endoscope, it should be rinsed thoroughly with warm water to remove any debris or organic material that might be present. The water should be flushed through all the channels of the endoscope, and the valves should be opened to ensure that all the surfaces are cleaned. This step should be done as soon as possible to avoid drying of any organic debris or contamination.</string>
+    <string name="endoscope_cleaning_instructions_leak_testing">Leak Testing: After pre-cleaning, the endoscope should undergo leak testing to check if there is any damage or leakage that might affect its performance. The leak test is done by immersing the endoscope in water and applying positive and negative pressure to it. Any leaks or damage should be repaired before proceeding to the next step.</string>
+    <string name="endoscope_cleaning_instructions_manual_cleaning">Manual Cleaning: The endoscope should be cleaned manually with a <b>soft brush</b>, <b>sponge</b>, or <b>cloth</b>. Special attention should be given to the channels, valves, and all the hard-to-reach areas where contamination may be hiding. Use only approved detergents and enzymatic cleaners to clean the endoscope.</string>
+    <string name="endoscope_cleaning_instructions_rinse_1">Rinse: The endoscope should be rinsed thoroughly with <i>warm water</i> to remove any detergent residue. This step should be repeated at least three times.</string>
+    <string name="endoscope_cleaning_instructions_disinfection">Disinfection: The endoscope should undergo <b>high-level disinfection</b> using a solution that contains glutaraldehyde or other approved disinfectants. The disinfection time should be according to the manufacturer instructions.</string>
+    <string name="endoscope_cleaning_instructions_rinse_2">Rinse: The endoscope should be rinsed thoroughly with <i>sterile water</i> to remove any disinfectant residue. This step should be repeated at least three times.</string>
+    <string name="endoscope_cleaning_instructions_drying_and_storage">Drying and Storage: The endoscope should be <b>dried</b> with a lint-free cloth and stored in a <b>dry</b>, <b>clean</b>, and <b>well-ventilated area</b>. The valves and channels should be kept open during storage to allow air circulation and prevent any growth of bacteria or mold.</string>
+
+
+    <!-- App instructions -->
+    <string name="app_instructions_title">How to Use the App</string>
+    <string name="app_instructions_step_1">Step 1: Login to your account to access the app features.</string>
+    <string name="app_instructions_step_2">Step 2: Use the navigation bar at the bottom to access different sections of the app, including the home screen, schedule, equipment, and help.</string>
+    <string name="app_instructions_step_3">Step 3: Tap on the floating action button in the navigation bar to scan a QR code and add new equipment to your inventory.</string>
+    <string name="app_instructions_step_4">Step 4: Tap on the options menu in the top right corner to access additional app settings, including the ability to log out of your account and add a new scope of work.</string>
+    <string name="app_instructions_step_5">Step 5: Use the back button to navigate back to previous screens, or exit the app if you are on the home screen.</string>
+    <string name="app_instructions_summary">Congratulations! You are now ready to use the app to manage your equipment inventory and schedule.</string>
+
 </resources>

@@ -1,6 +1,7 @@
 package ict2105.team02.application.ui.help
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import ict2105.team02.application.databinding.FragmentYoutubeBinding
 
 class YoutubeFragment : Fragment() {
@@ -17,6 +19,7 @@ class YoutubeFragment : Fragment() {
     private lateinit var mywebView: WebView
     private var currentVideoId : String = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val TAG = this.javaClass.simpleName
         binding = FragmentYoutubeBinding.inflate(inflater)
         mywebView = binding.WebView
 
@@ -36,15 +39,29 @@ class YoutubeFragment : Fragment() {
                 return true
             }
         }
-        updateVideo("SxBjCvnXIeo")
+        parentFragmentManager.setFragmentResultListener("helpPage",this)
+        { requestKey, bundle ->
+            // We use a String here, but any type that can be put in a Bundle is supported
+            val videoId = bundle.getString("videoId")
+            if (videoId != null) {
+                Log.d(TAG,videoId)
+                this.currentVideoId = videoId
+                updateVideo(currentVideoId)
+            }
+        }
         return binding.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        mywebView.removeAllViews()
         mywebView.destroy()
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mywebView.removeAllViews()
+        mywebView.destroy()
+    }
     private fun updateVideo(videoId: String) {
         currentVideoId = videoId
         val html = """
@@ -72,6 +89,5 @@ class YoutubeFragment : Fragment() {
         mywebView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
     }
 
-    // ... other code ...
-
+    // ... other code ...\
 }
