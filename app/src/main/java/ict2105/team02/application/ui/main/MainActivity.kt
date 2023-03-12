@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityMainBinding
@@ -14,7 +13,6 @@ import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.ui.dialogs.LogoutFragment
 import ict2105.team02.application.ui.scopeStore.AddScopeFragment
 import ict2105.team02.application.ui.help.HelpFragment
-import ict2105.team02.application.ui.help.YoutubeFragment
 
 class MainActivity : AppCompatActivity(), LogoutFragment.LogoutListener {
     private lateinit var binding: ActivityMainBinding

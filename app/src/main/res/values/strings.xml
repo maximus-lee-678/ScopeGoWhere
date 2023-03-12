@@ -57,4 +57,33 @@
     <string name="app_instructions_step_5">Step 5: Use the back button to navigate back to previous screens, or exit the app if you are on the home screen.</string>
     <string name="app_instructions_summary">Congratulations! You are now ready to use the app to manage your equipment inventory and schedule.</string>
 
+    <!-- Drying instructions -->
+    <string name="endoscope_drying_instructions">Endoscope Drying Instructions</string>
+    <string name="endoscope_drying_instructions_step_1">Step 1: After rinsing the endoscope with sterile water, shake off any excess water and wipe the exterior with a lint-free cloth.</string>
+    <string name="endoscope_drying_instructions_step_2">Step 2: Connect the air and water channels to the endoscope and purge the channels with compressed air to remove any remaining water.</string>
+    <string name="endoscope_drying_instructions_step_3">Step 3: Hang the endoscope vertically in a well-ventilated area and allow it to air dry completely.</string>
+    <string name="endoscope_drying_instructions_step_4">Step 4: Once dry, inspect the endoscope for any signs of damage or wear before storing it.</string>
+    <string name="endoscope_drying_instructions_step_5">Step 5: Store the endoscope in a dry, clean, and well-ventilated area with the valves and channels open.</string>
+
+    <!-- Sampling  -->
+    <string name="sampling_title"> Endoscope Sampling Instructions </string>
+    <string name="sampling_process">Before beginning the sampling process, ensure that the endoscope has been properly cleaned and disinfected following the manufacturer instructions.</string>
+
+    <string name="ppe">Wear appropriate personal protective equipment (PPE) such as gloves, gown, and mask to prevent contamination during the sampling process.</string>
+
+    <string name="prepare_equipment">Prepare the sampling equipment, such as swabs or sponges, according to the manufacturer instructions.</string>
+
+    <string name="insert_equipment">Insert the sampling equipment into the channels and valves of the endoscope, making sure to sample all areas thoroughly.</string>
+
+    <string name="rotate_equipment">Rotate the sampling equipment to ensure that all surfaces are sampled, especially in hard-to-reach areas.</string>
+
+    <string name="remove_equipment">After sampling, remove the sampling equipment and place it in a sterile container for transport to the laboratory.</string>
+
+    <string name="label_container">Label the container with the endoscope details, sampling date, and other relevant information.</string>
+
+    <string name="store_container">Store the container appropriately and transport it to the laboratory for analysis as soon as possible.</string>
+
+    <string name="results">Once the results are available, take appropriate action based on the findings and ensure that the endoscope is properly cleaned and disinfected before further use.</string>
+
+
 </resources>

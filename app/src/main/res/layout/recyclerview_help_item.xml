@@ -15,8 +15,7 @@
         android:layout_marginTop="4dp"
         android:background="#FFFBFF"
         android:outlineAmbientShadowColor="@color/black"
-        android:scaleType="fitStart"
-        android:src="@drawable/question_mark" />
+        android:scaleType="fitStart" />
 
     <TextView
         android:id="@+id/HelpTitle"

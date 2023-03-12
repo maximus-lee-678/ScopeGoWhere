@@ -10,19 +10,19 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
-import ict2105.team02.application.databinding.FragmentYoutubeBinding
+import ict2105.team02.application.databinding.FragmentHelpHowToUseAppBinding
 
-class YoutubeFragment : Fragment() {
+class HowToUseAppFragment : Fragment() {
 
-    private lateinit var binding: FragmentYoutubeBinding
+    private lateinit var binding: FragmentHelpHowToUseAppBinding
     private lateinit var mywebView: WebView
     private var currentVideoId : String = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val TAG = this.javaClass.simpleName
-        binding = FragmentYoutubeBinding.inflate(inflater)
-        mywebView = binding.WebView
+        binding = FragmentHelpHowToUseAppBinding.inflate(layoutInflater, container, false)
 
+        mywebView = binding.WebView
+        mywebView.isLongClickable = false
         val webSettings: WebSettings = mywebView.settings
         webSettings.javaScriptEnabled = true
         webSettings.mediaPlaybackRequiresUserGesture = false

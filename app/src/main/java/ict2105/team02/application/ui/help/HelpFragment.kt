@@ -19,9 +19,9 @@ class HelpFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     val helpDataList = listOf(
         HelpData("How to use App", "DKvU-5yJo0s"),
-        HelpData("EndoscopeCleaning", "SxBjCvnXIeo"),
-        HelpData("EndoscopeDrying", "Sd5xafHAydU"),
-        HelpData("Report Bug", "Sd5xafHAydU")
+        HelpData("Endoscope Cleaning", "SxBjCvnXIeo"),
+        HelpData("Endoscope Drying", "Sd5xafHAydU"),
+        HelpData("Endoscope Sampling", "XyGhlNorlfE")
     )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

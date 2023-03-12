@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.help.YoutubeFragment">
+    tools:context=".ui.help.HowToUseAppFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,74 +14,54 @@
         android:layout_weight="1">
 
         <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:padding="16dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/endoscope_cleaning_instructions"
+                android:text="@string/endoscope_drying_instructions"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:padding="16dp"
-                android:background="@color/teal_200"/>
+                android:paddingBottom="16dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/endoscope_cleaning_instructions_precleaning"
+                android:text="@string/endoscope_drying_instructions_step_1"
                 android:textSize="16sp"
-                android:padding="16dp"
-                android:textColor="@color/gray_700"/>
+                android:paddingBottom="8dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/endoscope_cleaning_instructions_leak_testing"
+                android:text="@string/endoscope_drying_instructions_step_2"
                 android:textSize="16sp"
-                android:padding="16dp"
-                android:textColor="@color/gray_700"/>
+                android:paddingBottom="8dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/endoscope_cleaning_instructions_manual_cleaning"
+                android:text="@string/endoscope_drying_instructions_step_3"
                 android:textSize="16sp"
-                android:padding="16dp"
-                android:textColor="@color/gray_700"/>
+                android:paddingBottom="8dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/endoscope_cleaning_instructions_rinse_1"
+                android:text="@string/endoscope_drying_instructions_step_4"
                 android:textSize="16sp"
-                android:padding="16dp"
-                android:textColor="@color/gray_700"/>
+                android:paddingBottom="8dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/endoscope_cleaning_instructions_disinfection"
+                android:text="@string/endoscope_drying_instructions_step_5"
                 android:textSize="16sp"
-                android:padding="16dp"
-                android:textColor="@color/gray_700"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/endoscope_cleaning_instructions_rinse_2"
-                android:textSize="16sp"
-                android:padding="16dp"
-                android:textColor="@color/gray_700"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/endoscope_cleaning_instructions_drying_and_storage"
-                android:textSize="16sp"
-                android:padding="16dp"
-                android:textColor="@color/gray_700"/>
+                android:paddingBottom="8dp"/>
 
             <WebView
                 android:id="@+id/WebView"
@@ -90,5 +70,6 @@
                 android:layout_marginTop="100dp" />
 
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>
