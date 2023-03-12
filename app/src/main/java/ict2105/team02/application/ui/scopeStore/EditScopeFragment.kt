@@ -15,7 +15,14 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import ict2105.team02.application.databinding.FragmentEditScopeBinding
+import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.ui.main.MainActivity
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_BRAND
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_DATE
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_SERIAL
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_TYPE
 import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.viewmodel.ScopeUpdateViewModel
 import kotlinx.coroutines.launch
@@ -23,12 +30,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-const val KEY_ENDOSCOPE_BRAND = "BRAND"
-const val KEY_ENDOSCOPE_SERIAL = "SN"
-const val KEY_ENDOSCOPE_MODEL = "MODEL"
-const val KEY_ENDOSCOPE_TYPE = "TYPE"
-const val KEY_ENDOSCOPE_DATE = "DATE"
-const val KEY_ENDOSCOPE_STATUS = "STATUS"
 
 class EditScopeFragment : Fragment() {
     private val viewModel by viewModels<ScopeUpdateViewModel>()
@@ -78,6 +79,7 @@ class EditScopeFragment : Fragment() {
         }
 
         binding.buttonUpdateScope.setOnClickListener{
+
             // update the details into the database
             if(TextUtils.isEmpty(binding.scopeBrand.editText?.text.toString())||
                 TextUtils.isEmpty(binding.scopeModel.editText?.text.toString()) ||
@@ -85,22 +87,40 @@ class EditScopeFragment : Fragment() {
                 TextUtils.isEmpty(binding.nextSampleDate.editText?.text.toString())){
                     binding.errorMsg.text = "Please fill in all the fields"
             }else {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    viewModel.updateScope(
-                        binding.scopeBrand.editText?.text.toString(),
-                        binding.scopeModel.editText?.text.toString(),
-                        binding.scopeSerial.editText?.text.toString().toInt(),
-                        binding.scopeType.editText?.text.toString(),
-                        Utils.strToDate(binding.nextSampleDate.editText?.text.toString()),
-                        arguments?.getString(KEY_ENDOSCOPE_STATUS).toString()
-                    )
+                val confirmationDialog = ConfirmationDialogFragment("Update endoscope?") {
+                    // User clicked confirm
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        viewModel.updateScope(
+                            binding.scopeBrand.editText?.text.toString(),
+                            binding.scopeModel.editText?.text.toString(),
+                            binding.scopeSerial.editText?.text.toString().toInt(),
+                            binding.scopeType.editText?.text.toString(),
+                            Utils.strToDate(binding.nextSampleDate.editText?.text.toString()),
+                            arguments?.getString(KEY_ENDOSCOPE_STATUS).toString()
+                        )
+                    }
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(requireContext(), "Scope Updated Successfully!", Toast.LENGTH_LONG).show()
+                    requireActivity().finish()
                 }
-                val intent = Intent(requireActivity(), MainActivity::class.java)
-                startActivity(intent)
-                Toast.makeText(requireContext(), "Scope Updated Successfully!", Toast.LENGTH_LONG).show()
-                requireActivity().finish()
-
+                confirmationDialog.show(parentFragmentManager, "ConfirmationDialog")
             }
+        }
+
+        binding.buttonDeleteScope.setOnClickListener {
+            val confirmationDialog = ConfirmationDialogFragment("Are you sure you want to delete this endoscope?") {
+                // User clicked confirm
+                val serial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL)
+                if (serial != null) {
+                    viewModel.deleteScope(serial)
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(requireContext(), "Scope Deleted Successfully!", Toast.LENGTH_LONG).show()
+                    requireActivity().finish()
+                }
+            }
+            confirmationDialog.show(parentFragmentManager, "ConfirmationDialog")
         }
     }
     companion object {

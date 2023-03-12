@@ -1,29 +1,21 @@
 package ict2105.team02.application.ui.equipment
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.databinding.FragmentEquipLogBinding
-import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.recyclerview.EquipLogAdapter
-import ict2105.team02.application.ui.dialogs.KEY_ENDOSCOPE_MODEL
-import ict2105.team02.application.ui.dialogs.KEY_ENDOSCOPE_SERIAL
-import ict2105.team02.application.ui.dialogs.KEY_ENDOSCOPE_STATUS
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_SERIAL
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS
 import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 
-/**
- * A simple [Fragment] subclass.
- * Use the [EquipLogFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class EquipLogFragment : Fragment() {
     private lateinit var binding: FragmentEquipLogBinding
     private lateinit var recyclerView: RecyclerView
