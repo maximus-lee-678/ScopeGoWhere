@@ -44,7 +44,7 @@ class ScheduleInfoViewModel : ViewModel() {
             if (endoscope.nextSampleDate != null &&
                 areDatesEqualIgnoringTime(endoscope.nextSampleDate, inputDate)
             ) {
-                var schedule = Schedule(endoscope.nextSampleDate, endoscope.scopeSerial.toString())
+                var schedule = Schedule(endoscope.nextSampleDate, endoscope.scopeSerial.toString(), endoscope.scopeStatus, endoscope.scopeModel)
                 filteredSchedule.add(schedule)
 
             }

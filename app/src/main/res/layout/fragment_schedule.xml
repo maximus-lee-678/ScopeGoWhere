@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:outlineProvider="background"
     tools:context=".ui.schedule.CalendarFragment">
 
     <LinearLayout
@@ -17,9 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="4dp"
             android:orientation="horizontal">
 
             <View
@@ -50,15 +50,27 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
+
+            <!--                android:background="@drawable/ic_baseline_arrow_back_24" />-->
 
             <Button
                 android:id="@+id/buttonSchedulePrevious"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_baseline_arrow_back_24" />
+                android:backgroundTint="#FFFFFF"
+                android:drawableTop="@drawable/ic_baseline_navigate_before_24"
+                android:elevation="10dp"
+                android:paddingLeft="13dp"
+                android:paddingTop="8dp"
+                android:text=""
+                app:cornerRadius="10dp"
+                app:strokeColor="#CED3DE"
+                app:strokeWidth="1dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -83,7 +95,8 @@
                         android:id="@+id/monthText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp" />
+                        android:textColor="#222B45"
+                        android:textSize="24sp" />
                 </LinearLayout>
 
                 <TextView
@@ -91,15 +104,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="20sp" />
+                    android:textColor="#8F9BB3"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/buttonScheduleNext"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_baseline_arrow_forward_24" />
+                android:backgroundTint="#FFFFFF"
+                android:drawableTop="@drawable/ic_baseline_navigate_next_24"
+                android:paddingTop="8dp"
+                android:paddingRight="13dp"
+                android:elevation="10dp"
+                android:text=""
+                app:cornerRadius="10dp"
+                app:strokeColor="#CED3DE"
+                app:strokeWidth="1dp" />
 
         </LinearLayout>
 
@@ -108,9 +130,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="4dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -120,7 +141,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/schedule_sunday"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#8F9BB3" />
 
             <TextView
                 android:id="@+id/textViewMonthMonday"
@@ -128,7 +150,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/schedule_monday"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#8F9BB3" />
 
             <TextView
                 android:id="@+id/textViewMonthTuesday"
@@ -136,7 +159,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/schedule_tuesday"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#8F9BB3" />
 
             <TextView
                 android:id="@+id/textViewMonthWednesday"
@@ -144,7 +168,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/schedule_wednesday"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#8F9BB3" />
 
             <TextView
                 android:id="@+id/textViewMonthThursday"
@@ -152,7 +177,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/schedule_thursday"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#8F9BB3" />
 
             <TextView
                 android:id="@+id/textViewMonthFriday"
@@ -160,7 +186,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/schedule_friday"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#8F9BB3" />
 
             <TextView
                 android:id="@+id/textViewMonthSaturday"
@@ -168,7 +195,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/schedule_saturday"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="#8F9BB3" />
         </LinearLayout>
 
         <LinearLayout
@@ -182,7 +210,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:paddingLeft="20dp">
 
                 <TextView
                     android:id="@+id/textViewWeekMonday"
@@ -191,7 +220,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_monday"
                     android:textAlignment="viewStart"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#8F9BB3" />
 
                 <TextView
                     android:id="@+id/textViewWeekTuesday"
@@ -200,7 +230,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_tuesday"
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#8F9BB3" />
 
                 <TextView
                     android:id="@+id/textViewWeekWednesday"
@@ -209,7 +240,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_wednesday"
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#8F9BB3" />
 
                 <TextView
                     android:id="@+id/textViewWeekThursday"
@@ -218,7 +250,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_thursday"
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#8F9BB3" />
 
                 <TextView
                     android:id="@+id/textViewWeekFriday"
@@ -227,7 +260,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_friday"
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#8F9BB3" />
 
                 <TextView
                     android:id="@+id/textViewWeekSaturday"
@@ -236,7 +270,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_saturday"
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#8F9BB3" />
 
                 <TextView
                     android:id="@+id/textViewWeekSunday"
@@ -245,7 +280,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_sunday"
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="#8F9BB3" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -254,8 +290,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:spanCount="7">
-            </androidx.recyclerview.widget.RecyclerView>
+                app:spanCount="7"></androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>
     </LinearLayout>

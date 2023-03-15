@@ -5,13 +5,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".ui.main.MainActivity" >
+    tools:context=".ui.main.MainActivity"
+    android:background="@color/background">
 
     <FrameLayout
         android:id="@+id/fragmentFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:background="@color/background"></FrameLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -20,19 +21,24 @@
         android:layout_gravity="bottom"
         app:fabCradleMargin="10dp"
         app:fabCradleVerticalOffset="10dp"
-        app:contentInsetStart="0dp" >
+        app:contentInsetStart="0dp">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/bottom_navbar" />
+            app:itemIconTint="@drawable/bottom_nav_color"
+            app:itemTextColor="@drawable/bottom_nav_color"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_navbar"
+            android:background="@color/background"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/navbarFab"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_qr_code_scanner_24"
-        app:layout_anchor="@id/bottomAppBar" />
+        android:layout_height="69dp"
+        android:backgroundTint="?android:attr/colorPrimary"
+        android:src="@drawable/scan_icon"
+        app:layout_anchor="@id/bottomAppBar"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

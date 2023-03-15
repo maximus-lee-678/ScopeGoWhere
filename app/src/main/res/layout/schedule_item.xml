@@ -5,27 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="90dp">
 
-
-    <ImageButton
-        android:id="@+id/ScopeImageButton"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="69dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#FFFBFF"
-        android:outlineAmbientShadowColor="@color/black"
-        android:scaleType="fitStart"
-        android:src="@drawable/common_google_signin_btn_icon_light" />
-
-    <TextView
-        android:id="@+id/ScopeName"
-        android:layout_width="116dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
-        android:layout_marginLeft="170dp"
-        android:layout_marginBottom="9dp"
-        android:text=""
-        android:textSize="18dp" />
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="1dp"
+        app:cardMaxElevation="1dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <ImageButton
+            android:id="@+id/ScopeImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:scaleType="fitStart"
+            android:layout_margin="10dp"
+            android:src="@drawable/common_google_signin_btn_icon_light" />
+
+        <LinearLayout
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ScopeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#313131"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/ScopeStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#BEBEBE"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>
