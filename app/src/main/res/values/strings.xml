@@ -20,7 +20,7 @@
     <string name="schedule_friday">FRI</string>
     <string name="schedule_saturday">SAT</string>
     <string name="schedule_sunday">SUN</string>
-    <string name="servicing_icon">⬤</string>
+    <string name="servicing_icon">•</string>
 
     <!-- Equipment List -->
     <string name="getting_equipments">Getting equipments</string>

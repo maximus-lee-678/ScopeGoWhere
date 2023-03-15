@@ -9,12 +9,14 @@
         android:id="@+id/frameLayoutCalendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="top" />
+        android:layout_gravity="top" >
 
-    <FrameLayout
-        android:id="@+id/frameLayoutScheduleInfo"
-        android:layout_width="match_parent"
-        android:layout_height="290dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="50dp" />
+        <FrameLayout
+            android:id="@+id/frameLayoutScheduleInfo"
+            android:layout_width="match_parent"
+            android:layout_height="289dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="50dp" />
+    </FrameLayout>
+
 </FrameLayout>

@@ -1,19 +1,28 @@
 package ict2105.team02.application.recyclerview
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.text.SpannableString
 import android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.DateDetails
+import java.io.ByteArrayOutputStream
+
 
 
 class CalendarMonthAdapter(private val context: Context) :
@@ -26,8 +35,9 @@ class CalendarMonthAdapter(private val context: Context) :
     private val selectedHex: Int =
         ResourcesCompat.getColor(context.resources, R.color.schedule_selected, null)
     private val servicingIcon: String = context.getString(R.string.servicing_icon)
+
     private val servicingHex: Int =
-        ResourcesCompat.getColor(context.resources, R.color.purple_500, null)
+        ResourcesCompat.getColor(context.resources, R.color.schedule_event_dot, null)
 
     // initially uninitialised, observer will call updateRecyclerContent to load it
     private var dateDetails: DateDetails? = null

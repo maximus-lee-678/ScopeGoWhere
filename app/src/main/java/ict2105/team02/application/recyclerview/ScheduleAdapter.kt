@@ -18,6 +18,7 @@ class ScheduleAdapter(private val dataset: ArrayList<Endoscope>?)
 
         class ScheduleViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
             val ScopeName : TextView = view.findViewById(R.id.ScopeName)
+            val ScopeStatus : TextView = view.findViewById(R.id.ScopeStatus)
             val imageButton : ImageButton = view.findViewById(R.id.ScopeImageButton)
         }
 
@@ -31,7 +32,8 @@ class ScheduleAdapter(private val dataset: ArrayList<Endoscope>?)
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         val currentItem = getItem(position)
-        holder.ScopeName.text = currentItem.scopeSerial
+        holder.ScopeName.text = currentItem.scopeModel + " " + currentItem.scopeSerial
+        holder.ScopeStatus.text = currentItem.scopeStatus
         holder.imageButton.setOnClickListener{
             Log.d("Schedule" , "Button Test")
         }

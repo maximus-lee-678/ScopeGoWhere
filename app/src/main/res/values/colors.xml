@@ -9,12 +9,20 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red_rose">#FFE3242B</color>
-    <color name="schedule_unselected">#0F0000FF</color>
-    <color name="schedule_selected">#7F00FF00</color>
 
-    <color name="home_pending_sample">#FFFF8C93</color>
-    <color name="home_total_endoscope">@color/black</color>
+    <color name="background">#FFFCFCFC</color>
+
+    <color name="bottom_nav_selected_icon_color">#FF3E474F</color>
+    <color name="bottom_nav_unselected_icon_color">#FFC1C7CD</color>
+
+    <color name="schedule_unselected">#FFFCFCFC</color>
+    <color name="schedule_selected">#FFE9E9E9</color>
+
+    <color name="home_pending_sample">#FFCF6679</color>
+    <color name="home_total_endoscope">#FF121212</color>
     <color name="home_in_circulation">#FF3AAB59</color>
     <color name="home_washing">#FF0057FF</color>
     <color name="home_sampling">#FF0057FF</color>
+
+    <color name="schedule_event_dot">#0095FF</color>
 </resources>

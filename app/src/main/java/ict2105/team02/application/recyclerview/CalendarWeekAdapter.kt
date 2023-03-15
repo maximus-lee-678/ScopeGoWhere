@@ -26,7 +26,7 @@ class CalendarWeekAdapter(private val context: Context) :
         ResourcesCompat.getColor(context.resources, R.color.schedule_selected, null)
     private val servicingIcon: String = context.getString(R.string.servicing_icon)
     private val servicingHex: Int =
-        ResourcesCompat.getColor(context.resources, R.color.purple_500, null)
+        ResourcesCompat.getColor(context.resources, R.color.schedule_event_dot, null)
 
     // initially uninitialised, observer will call updateRecyclerContent to load it
     private var dateDetails: DateDetails? = null

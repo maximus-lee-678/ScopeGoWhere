@@ -5,5 +5,7 @@ import ict2105.team02.application.model.DateDetails
 
 data class Schedule (
     val nextSampleDate: Date? = null,
-    var scopeSerial: String = ""
+    var scopeSerial: String = "",
+    var scopeStatus: String?,
+    var scopeModel: String?
 )
