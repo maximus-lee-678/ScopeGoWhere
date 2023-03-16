@@ -56,7 +56,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                 binding.frameLayoutScopeName.visibility = View.GONE
                 binding.linearLayoutScopeDetail.visibility = View.GONE
                 binding.textViewScopeDetailError.visibility = View.VISIBLE
-                binding.textViewScopeDetailErrorSerial.text = "Serial: $argSerial"
+                binding.textViewScopeDetailErrorSerial.text = getString(R.string.endoscope_serial, argSerial.toString())
                 return@observe
             }
 
@@ -64,7 +64,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             binding.linearLayoutScopeDetail.visibility = View.VISIBLE
             binding.textViewScopeDetailError.visibility = View.GONE
 
-            binding.textViewEquipmentName.text = it.scopeModel + it.scopeSerial
+            binding.textViewEquipmentName.text = getString(R.string.endoscope_name, it.scopeModel, it.scopeSerial.toString())
             binding.modelTextView.text = it.scopeModel
             binding.typeTextView.text = it.scopeType
             binding.serialTextView.text = it.scopeSerial.toString()
@@ -77,11 +77,12 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_inventory_2_24)
                     binding.sampleButton.visibility = View.GONE
                 }
-                "Sampling" -> {
+                "Washing" -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_access_time_24)
                     binding.washButton.visibility = View.GONE
                 }
-                "Washing" -> {
+                "Sampling" -> {
+                    binding.statusIconImageView.setImageResource(R.drawable.outline_access_time_24)
                     binding.washButton.visibility = View.GONE
                 }
             }
@@ -114,9 +115,8 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                 scopeHashMap["scopeModel"] = viewModel.scopeDetail.value!!.scopeModel
                 scopeHashMap["scopeBrand"] = viewModel.scopeDetail.value!!.scopeBrand
                 intent.putExtra("scopeDetails", scopeHashMap)
+                startActivity(intent)
             }
-            activity?.startActivity(intent)
-            activity?.finish()
         }
 
         binding.sampleButton.setOnClickListener {

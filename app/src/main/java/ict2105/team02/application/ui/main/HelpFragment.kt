@@ -1,4 +1,4 @@
-package ict2105.team02.application.ui.help
+package ict2105.team02.application.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentHelpBinding
 import ict2105.team02.application.model.HelpData
 import ict2105.team02.application.recyclerview.HelpAdapter

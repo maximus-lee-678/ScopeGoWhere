@@ -26,7 +26,7 @@ class ScheduleAdapter(private val dataset: ArrayList<Endoscope>?)
         // Get Context From Parents
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val contactView  = inflater.inflate(R.layout.schedule_item,parent,false)
+        val contactView  = inflater.inflate(R.layout.recyclerview_schedule_item,parent,false)
         return ScheduleViewHolder(contactView)
     }
 

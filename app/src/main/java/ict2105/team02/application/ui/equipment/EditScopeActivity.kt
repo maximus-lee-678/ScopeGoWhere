@@ -2,6 +2,7 @@ package ict2105.team02.application.ui.equipment
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityEditScopeBinding
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.ui.main.MainActivity
@@ -32,6 +34,9 @@ class EditScopeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.setTitle(R.string.title_edit_endoscope)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityEditScopeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -127,5 +132,16 @@ class EditScopeActivity : AppCompatActivity() {
                 SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.time)
             binding.nextSampleDate.editText?.setText(formattedDate)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Back button press on action bar
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

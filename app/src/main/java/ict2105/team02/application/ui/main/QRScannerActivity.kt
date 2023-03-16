@@ -3,6 +3,7 @@ package ict2105.team02.application.ui.main
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.SurfaceHolder
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityQrScannerBinding
 import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
 import java.io.IOException
@@ -21,7 +23,7 @@ private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
 class QRScannerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQrScannerBinding
 
-    private var cameraSource: CameraSource? = null
+    private lateinit var cameraSource: CameraSource
     private lateinit var barcodeDetector: BarcodeDetector
     private var scannedValue = ""
 
@@ -32,7 +34,8 @@ class QRScannerActivity : AppCompatActivity() {
         binding = ActivityQrScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = "QR Scanner"
+        supportActionBar?.setTitle(R.string.title_qr_scanner)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
@@ -54,7 +57,7 @@ class QRScannerActivity : AppCompatActivity() {
             override fun surfaceCreated(holder: SurfaceHolder) {
                 try {
                     //Start preview after 1s delay
-                    cameraSource!!.start(holder)
+                    cameraSource.start(holder)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -63,14 +66,14 @@ class QRScannerActivity : AppCompatActivity() {
             @SuppressLint("MissingPermission")
             override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
                 try {
-                    cameraSource!!.start(holder)
+                    cameraSource.start(holder)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
             }
 
             override fun surfaceDestroyed(holder: SurfaceHolder) {
-                cameraSource!!.stop()
+                cameraSource.stop()
             }
         })
 
@@ -89,7 +92,7 @@ class QRScannerActivity : AppCompatActivity() {
                     val serial = validateQRCodeEndoscope(scannedValue)
                     if (serial.isNotEmpty()) {
                         runOnUiThread {
-                            cameraSource!!.stop()
+                            cameraSource.stop()
                             val fragment = ScopeDetailFragment.newInstance(serial.toInt())
                             fragment.show(supportFragmentManager, "scope_detail")
                             // showToast(scannedValue)
@@ -120,19 +123,30 @@ class QRScannerActivity : AppCompatActivity() {
         super.onWindowFocusChanged(hasFocus)
         // Enable camera only when activity is in focus
         if (hasFocus) {
-            cameraSource!!.start(binding.cameraSurfaceView.holder)
-        } else if (cameraSource != null) {
-            cameraSource!!.stop()
+            cameraSource.start(binding.cameraSurfaceView.holder)
+        } else {
+            cameraSource.stop()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        cameraSource!!.stop()
+        cameraSource.stop()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Back button press on action bar
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     // Validate QR code data for endoscopes.
-    // The format is "endoscope:{serial}". E.g. endoscope:001
+    // The format is "endoscope:{serial}". E.g. endoscope:1
     // Returns serial if valid, otherwise returns empty string
     fun validateQRCodeEndoscope(value: String) : String {
         val qrData = value.split(":")
