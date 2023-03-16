@@ -1,5 +1,6 @@
 package ict2105.team02.application.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,57 +9,42 @@ import ict2105.team02.application.repo.DataRepository
 import kotlinx.coroutines.launch
 
 class EquipmentListViewModel : ViewModel() {
-    private val equipments = MutableLiveData<List<Endoscope>>()
-    val filteredEquipment = MutableLiveData<List<Endoscope>>()
+    private val _equipments = MutableLiveData<List<Endoscope>>()
+    private val _displayedEquipments = MutableLiveData<List<Endoscope>>()
+
+    val equipments: LiveData<List<Endoscope>> get() = _equipments
+    val displayedEquipments: LiveData<List<Endoscope>> get() = _displayedEquipments
+
     private val repo = DataRepository()
 
     fun fetchEquipments(onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
             repo.getAllEndoscopes {
-                equipments.postValue(it)
-                filteredEquipment.postValue(it)
+                _equipments.postValue(it)
+                _displayedEquipments.postValue(it)
                 onFinish?.invoke()
             }
         }
     }
 
-    fun filterEquipmentStatus(status: String): Int {
-        val filteredList = getFilteredEquipmentStatusList(status, equipments.value ?: emptyList())
-        filteredEquipment.postValue(filteredList)
+    fun filterEquipmentByStatus(statuses: List<String>) {
+        if (equipments.value == null) return
 
-        return filteredList.size
+        val filteredList = equipments.value!!.filter { statuses.contains(it.scopeStatus) }
+        _displayedEquipments.postValue(filteredList)
     }
 
 
-    fun filterEquipmentSerial(status: String, serial: String): Int {
-        val filteredList = getFilteredEquipmentSerialList(
-            serial,
-            getFilteredEquipmentStatusList(status, equipments.value ?: emptyList())
-        )
-        filteredEquipment.postValue(filteredList)
+    fun filterEquipmentByName(name: String) {
+        if (equipments.value == null) return
 
-        return filteredList.size
+        val nameLowercase = name.lowercase()
+        // Name is combination of model and serial
+        val filteredList = equipments.value!!.filter { "${it.scopeModel}${it.scopeSerial}".lowercase().contains(nameLowercase) }
+        _displayedEquipments.postValue(filteredList)
     }
 
-    private fun getFilteredEquipmentStatusList(status: String, toFilterList: List<Endoscope>): List<Endoscope> {
-        val allEquipments = toFilterList
-        val filtered = if (status.lowercase() == "all") {
-            allEquipments // return all equipment
-        } else {
-            allEquipments.filter { it.scopeStatus.equals(status, ignoreCase = true) }
-        }
-
-        return filtered
-    }
-
-    private fun getFilteredEquipmentSerialList(serial: String, toFilterList: List<Endoscope>): List<Endoscope> {
-        val filtered = toFilterList.filter {
-            (it.scopeModel.plus(it.scopeSerial.toString())).contains(
-                serial,
-                ignoreCase = true
-            )
-        }
-
-        return filtered
+    fun clearFilters() {
+        _displayedEquipments.postValue(_equipments.value!!)
     }
 }

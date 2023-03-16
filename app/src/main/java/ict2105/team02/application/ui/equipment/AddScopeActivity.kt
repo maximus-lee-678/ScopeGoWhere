@@ -1,9 +1,11 @@
 package ict2105.team02.application.ui.equipment
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityAddScopeBinding
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.viewmodel.NewScopeViewModel
@@ -15,6 +17,9 @@ class AddScopeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.setTitle(R.string.title_create_endoscope)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityAddScopeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,5 +39,16 @@ class AddScopeActivity : AppCompatActivity() {
             }
             finish()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Back button press on action bar
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

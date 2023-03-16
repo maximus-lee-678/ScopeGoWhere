@@ -11,7 +11,6 @@ import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.ui.login.LoginActivity
 import ict2105.team02.application.ui.schedule.ScheduleFragment
-import ict2105.team02.application.ui.help.HelpFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

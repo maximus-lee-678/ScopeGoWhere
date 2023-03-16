@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
-import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.EndoscopeTransaction
 import ict2105.team02.application.model.ResultData
 import ict2105.team02.application.model.WashData
-import java.util.*
 
 class EquipLogAdapter:
     ListAdapter<EndoscopeTransaction, EquipLogAdapter.EndoscopeTransactionViewHolder>(EndoscopeTransactionComparator())
@@ -287,7 +285,7 @@ class EquipLogAdapter:
         companion object{
             fun create(parent: ViewGroup): EndoscopeTransactionViewHolder{
                 val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.recyclerview_log_view_item, parent, false)
+                    .inflate(R.layout.recyclerview_log_item, parent, false)
                 return EndoscopeTransactionViewHolder(view)
 
             }

@@ -1,6 +1,5 @@
 package ict2105.team02.application.recyclerview
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.HelpData
 import ict2105.team02.application.ui.help.*
+import ict2105.team02.application.ui.main.HelpFragment
 
 class HelpAdapter(private val dataset: List<HelpData>,
-                  private val parentFragment: HelpFragment)
+                  private val parentFragment: HelpFragment
+)
     : RecyclerView.Adapter<HelpAdapter.ItemViewHolder>(){
     val TAG = "HelpAdapter"
     private lateinit var fragment : Fragment
