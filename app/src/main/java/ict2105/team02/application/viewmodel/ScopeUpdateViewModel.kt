@@ -12,7 +12,7 @@ class ScopeUpdateViewModel: ViewModel() {
 
     fun updateScope(brand: String, model:String, serial:Int, type:String, nextSample: Date, status:String){
         viewModelScope.launch {
-            var newScope = Endoscope(nextSample, brand, model, serial, status, type)
+            val newScope = Endoscope(nextSample, brand, model, serial, status, type)
             repo.updateScope(newScope)
         }
     }

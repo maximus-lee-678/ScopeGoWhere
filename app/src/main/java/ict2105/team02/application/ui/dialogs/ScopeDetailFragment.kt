@@ -10,14 +10,18 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
-import ict2105.team02.application.ui.equipment.EquipLogFragment
-import ict2105.team02.application.ui.main.MainActivity
+import ict2105.team02.application.ui.equipment.EditScopeActivity
 import ict2105.team02.application.ui.sample.ScanDialogFragment
-import ict2105.team02.application.ui.scopeStore.EditScopeFragment
+import ict2105.team02.application.ui.equipment.EquipmentLogActivity
 import ict2105.team02.application.ui.wash.WashActivity
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_BRAND
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_NEXT_SAMPLE_DATE
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_SERIAL
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_TYPE
+import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
-import java.text.SimpleDateFormat
 
 class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
@@ -40,7 +44,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val serial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL)
+        val argSerial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL)
 
         viewModel.scopeDetail.observe(this) {
             // Hide loading progress indicator
@@ -52,7 +56,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                 binding.frameLayoutScopeName.visibility = View.GONE
                 binding.linearLayoutScopeDetail.visibility = View.GONE
                 binding.textViewScopeDetailError.visibility = View.VISIBLE
-                binding.textViewScopeDetailErrorSerial.text = "Serial: $serial"
+                binding.textViewScopeDetailErrorSerial.text = "Serial: $argSerial"
                 return@observe
             }
 
@@ -66,7 +70,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             binding.serialTextView.text = it.scopeSerial.toString()
             binding.statusTextView.text = it.scopeStatus
             binding.nextSampleTextView.text = it.nextSampleDate.toString()
-            binding.nextSampleTextView.text = SimpleDateFormat("dd/MM/yyyy").format(it.nextSampleDate)
+            binding.nextSampleTextView.text = it.nextSampleDate.toDateString()
 
             when(it.scopeStatus) {
                 "Circulation" -> {
@@ -84,20 +88,27 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         }
 
         binding.editScopeButton.setOnClickListener{
-            // may need to pass in parameter for the fragment to display the information
-            val fragment = EditScopeFragment.
-                            newInstance(viewModel.scopeDetail.value!!.scopeBrand,
-                                viewModel.scopeDetail.value!!.scopeSerial,
-                                viewModel.scopeDetail.value!!.scopeModel,
-                                viewModel.scopeDetail.value!!.scopeType,
-                                SimpleDateFormat("dd/MM/yyyy").format(viewModel.scopeDetail.value!!.nextSampleDate),
-                                viewModel.scopeDetail.value!!.scopeStatus)
-            (activity as MainActivity).navbarNavigate(fragment)
+            // replace with last fragment
+            val serial = viewModel.scopeDetail.value!!.scopeSerial
+            val brand = viewModel.scopeDetail.value!!.scopeBrand
+            val model = viewModel.scopeDetail.value!!.scopeModel
+            val type = viewModel.scopeDetail.value!!.scopeType
+            val nextSampleDate = viewModel.scopeDetail.value!!.nextSampleDate
+            val status = viewModel.scopeDetail.value!!.scopeStatus
+
+            val intent = Intent(requireContext(), EditScopeActivity::class.java)
+            intent.putExtra(KEY_ENDOSCOPE_SERIAL, serial)
+            intent.putExtra(KEY_ENDOSCOPE_BRAND, brand)
+            intent.putExtra(KEY_ENDOSCOPE_MODEL, model)
+            intent.putExtra(KEY_ENDOSCOPE_TYPE, type)
+            intent.putExtra(KEY_ENDOSCOPE_NEXT_SAMPLE_DATE, nextSampleDate.toDateString())
+            intent.putExtra(KEY_ENDOSCOPE_STATUS, status)
+            startActivity(intent)
         }
 
         binding.washButton.setOnClickListener {
             val intent = Intent(activity, WashActivity::class.java)
-            if (serial != null) {
+            if (argSerial != null) {
                 val scopeHashMap = HashMap<String, Any>()
                 scopeHashMap["scopeSerial"] = viewModel.scopeDetail.value!!.scopeSerial
                 scopeHashMap["scopeModel"] = viewModel.scopeDetail.value!!.scopeModel
@@ -120,12 +131,17 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             val scopeModel = viewModel.scopeDetail.value!!.scopeModel
             val scopeStatus = viewModel.scopeDetail.value!!.scopeStatus
 
-            val fragment = EquipLogFragment.newInstance(scopeSerial, scopeModel, scopeStatus)
-            (activity as MainActivity).navbarNavigate(fragment)
+            val intent = Intent(requireContext(), EquipmentLogActivity::class.java)
+            intent.putExtra(KEY_ENDOSCOPE_SERIAL, scopeSerial)
+            intent.putExtra(KEY_ENDOSCOPE_MODEL, scopeModel)
+            intent.putExtra(KEY_ENDOSCOPE_STATUS, scopeStatus)
+            startActivity(intent)
+
+            this.dismiss()
         }
 
-        if (serial != null) {
-            viewModel.fetchScopeDetail(serial)
+        if (argSerial != null) {
+            viewModel.fetchScopeDetail(argSerial)
         }
     }
 

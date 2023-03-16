@@ -23,7 +23,7 @@
             android:background="@android:color/transparent"
             android:scaleType="fitStart"
             android:layout_margin="10dp"
-            android:src="@drawable/common_google_signin_btn_icon_light" />
+            android:src="@drawable/baseline_handyman_24" />
 
         <LinearLayout
             android:layout_width="264dp"

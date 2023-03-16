@@ -22,12 +22,9 @@ class EquipmentListViewModel : ViewModel() {
         }
     }
 
-    private fun updateFilteredEquipment(filteredEquipment: List<Endoscope>) =
-        this.filteredEquipment.postValue(filteredEquipment)
-
     fun filterEquipmentStatus(status: String): Int {
         val filteredList = getFilteredEquipmentStatusList(status, equipments.value ?: emptyList())
-        updateFilteredEquipment(filteredList)
+        filteredEquipment.postValue(filteredList)
 
         return filteredList.size
     }
@@ -38,15 +35,12 @@ class EquipmentListViewModel : ViewModel() {
             serial,
             getFilteredEquipmentStatusList(status, equipments.value ?: emptyList())
         )
-        updateFilteredEquipment(filteredList)
+        filteredEquipment.postValue(filteredList)
 
         return filteredList.size
     }
 
-    private fun getFilteredEquipmentStatusList(
-        status: String,
-        toFilterList: List<Endoscope>
-    ): List<Endoscope> {
+    private fun getFilteredEquipmentStatusList(status: String, toFilterList: List<Endoscope>): List<Endoscope> {
         val allEquipments = toFilterList
         val filtered = if (status.lowercase() == "all") {
             allEquipments // return all equipment
@@ -57,10 +51,7 @@ class EquipmentListViewModel : ViewModel() {
         return filtered
     }
 
-    private fun getFilteredEquipmentSerialList(
-        serial: String,
-        toFilterList: List<Endoscope>
-    ): List<Endoscope> {
+    private fun getFilteredEquipmentSerialList(serial: String, toFilterList: List<Endoscope>): List<Endoscope> {
         val filtered = toFilterList.filter {
             (it.scopeModel.plus(it.scopeSerial.toString())).contains(
                 serial,

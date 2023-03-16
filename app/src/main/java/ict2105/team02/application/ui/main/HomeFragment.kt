@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentHomeBinding
 import ict2105.team02.application.viewmodel.HomeViewModel
 
@@ -17,15 +18,15 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater)
 
-        val owner = requireActivity()
+        val activity = requireActivity()
 
-        viewModel.user.observe(owner) {
+        viewModel.user.observe(activity) {
             binding.textViewUserName.text = it.name
-            binding.textViewUserStaffId.text = "Staff ID: ${it.staffId.toString()}"
-            binding.textViewUserDept.text = "Dept: ${it.department}"
+            binding.textViewUserStaffId.text = getString(R.string.home_staff_id, it.staffId.toString())
+            binding.textViewUserDept.text = getString(R.string.home_dept, it.department)
         }
 
-        viewModel.endoscopeStat.observe(owner) {
+        viewModel.endoscopeStat.observe(activity) {
             binding.textViewPendingSampleCount.text = it.pendingSample.toString()
             binding.textViewTotalEndoscopeCount.text = it.totalEndoscope.toString()
             binding.textViewInCirculationCount.text = it.inCirculation.toString()

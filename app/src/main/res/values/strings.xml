@@ -1,14 +1,27 @@
 <resources>
     <string name="app_name">Application</string>
 
+    <string name="title_home">Home</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="title_equipment">Equipment</string>
+    <string name="title_help">Help</string>
+
     <!-- Nav Bar -->
     <string name="nav_home">Home</string>
     <string name="nav_schedule">Schedule</string>
     <string name="nav_equipment">Equipment</string>
     <string name="nav_help">Help</string>
 
+    <!-- Nav Bar Menu -->
+    <string name="logout">Logout</string>
+
     <!-- Login -->
     <string name="hello_again">Hello again, you\'ve been missed!</string>
+    <string name="incorrect_login">Incorrect login</string>
+
+    <!-- Home -->
+    <string name="home_staff_id">Staff ID: %1$s</string>
+    <string name="home_dept">Dept: %1$s</string>
 
     <!-- Schedule -->
     <string name="schedule_layout_type_switch_left">Weekly View</string>
@@ -24,18 +37,23 @@
 
     <!-- Equipment List -->
     <string name="getting_equipments">Getting equipments</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>>
     <string name="error_360_no_scopes">No Scopes Found!</string>
+    <string name="search_hint">Enter Scope Name:</string>
+    <string name="search_button">Search</string>
+    <string name="clear_button">Clear</string>
+    <string name="add_scope">Add New Scope</string>
     <string-array name="equipmentSpinner">
         <item>All</item>
         <item>Circulation</item>
         <item>Sampling</item>
         <item>Washing</item>
     </string-array>
-    <string name="search_hint">Enter Scope Name:</string>
-    <string name="search_button">Search</string>
-    <string name="clear_button">Clear</string>
+
+    <!-- Endoscope Detail -->
+    <string name="endoscope_name">%1$s %2$s</string>
+
+    <!-- Endoscope Log -->
+    <string name="endoscope_log_sample_history">Sample History</string>
 
     <!-- Tutorial for using endoscope -->
     <string name="endoscope_cleaning_instructions">Endoscope Cleaning Instructions</string>
@@ -46,7 +64,6 @@
     <string name="endoscope_cleaning_instructions_disinfection">Disinfection: The endoscope should undergo <b>high-level disinfection</b> using a solution that contains glutaraldehyde or other approved disinfectants. The disinfection time should be according to the manufacturer instructions.</string>
     <string name="endoscope_cleaning_instructions_rinse_2">Rinse: The endoscope should be rinsed thoroughly with <i>sterile water</i> to remove any disinfectant residue. This step should be repeated at least three times.</string>
     <string name="endoscope_cleaning_instructions_drying_and_storage">Drying and Storage: The endoscope should be <b>dried</b> with a lint-free cloth and stored in a <b>dry</b>, <b>clean</b>, and <b>well-ventilated area</b>. The valves and channels should be kept open during storage to allow air circulation and prevent any growth of bacteria or mold.</string>
-
 
     <!-- App instructions -->
     <string name="app_instructions_title">How to Use the App</string>
@@ -68,22 +85,13 @@
     <!-- Sampling  -->
     <string name="sampling_title"> Endoscope Sampling Instructions </string>
     <string name="sampling_process">Before beginning the sampling process, ensure that the endoscope has been properly cleaned and disinfected following the manufacturer instructions.</string>
-
     <string name="ppe">Wear appropriate personal protective equipment (PPE) such as gloves, gown, and mask to prevent contamination during the sampling process.</string>
-
     <string name="prepare_equipment">Prepare the sampling equipment, such as swabs or sponges, according to the manufacturer instructions.</string>
-
     <string name="insert_equipment">Insert the sampling equipment into the channels and valves of the endoscope, making sure to sample all areas thoroughly.</string>
-
     <string name="rotate_equipment">Rotate the sampling equipment to ensure that all surfaces are sampled, especially in hard-to-reach areas.</string>
-
     <string name="remove_equipment">After sampling, remove the sampling equipment and place it in a sterile container for transport to the laboratory.</string>
-
     <string name="label_container">Label the container with the endoscope details, sampling date, and other relevant information.</string>
-
     <string name="store_container">Store the container appropriately and transport it to the laboratory for analysis as soon as possible.</string>
-
     <string name="results">Once the results are available, take appropriate action based on the findings and ensure that the endoscope is properly cleaned and disinfected before further use.</string>
-
 
 </resources>

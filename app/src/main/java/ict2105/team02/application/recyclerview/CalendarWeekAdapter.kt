@@ -115,7 +115,7 @@ class CalendarWeekAdapter(private val context: Context) :
 
         // Attach listener that returns date to Fragment and updates selection
         holder.textView.setOnClickListener {
-            selectedDate = dateDetails!!.weekArray[holder.adapterPosition]
+            selectedDate = dateDetails!!.weekArray[holder.bindingAdapterPosition]
 
             onItemClick?.invoke(selectedDate)
         }

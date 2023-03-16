@@ -6,8 +6,8 @@ import android.nfc.Tag
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import ict2105.team02.application.R
 import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.databinding.ActivityLoginBinding
@@ -40,7 +40,7 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
                     nfcViewModel.disableReaderMode(this@LoginActivity, this@LoginActivity)
                     goToHome()
                 } else{
-                    binding.error.text = "Incorrect login"
+                    binding.error.text = getString(R.string.incorrect_login)
                 }
             }
         } else {
@@ -49,13 +49,13 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
 
         //login button validate
         binding.loginButton.setOnClickListener {
-            var staffEmail = binding.userName.editText?.text.toString()
-            var password = binding.password.editText?.text.toString()
+            val staffEmail = binding.userName.editText?.text.toString()
+            val password = binding.password.editText?.text.toString()
             loginViewModel.login(staffEmail, password)
         }
 
-        loginViewModel.loginStatus.observe(this, Observer {
-            when(it){
+        loginViewModel.loginStatus.observe(this) {
+            when (it) {
                 is UiState.Loading -> {
                     // nothing to do
                 }
@@ -66,7 +66,7 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
                     binding.error.text = it.message
                 }
             }
-        })
+        }
     }
 
     override fun onTagDiscovered(tag: Tag) {

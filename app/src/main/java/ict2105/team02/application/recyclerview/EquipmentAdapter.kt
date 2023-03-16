@@ -19,7 +19,7 @@ class EquipmentAdapter: ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHol
 
         init {
             view.setOnClickListener {
-                onItemClick?.invoke(getItem(adapterPosition))
+                onItemClick?.invoke(getItem(bindingAdapterPosition))
             }
         }
     }

@@ -15,6 +15,7 @@ import ict2105.team02.application.databinding.FragmentRepeatOfMsSampleBinding
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.ui.wash.WasherWashFragment
 import ict2105.team02.application.utils.Utils
+import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.viewmodel.SampleViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,7 +58,7 @@ class RepeatOfMsSampleFragment : Fragment() {
                 // if true set it to true
                 viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
                     quarantinePeriod = binding.quarantineRequiredDropDown.editText?.text.toString(),
-                    repeatDateMS = Utils.strToDate(binding.repeatDate.editText?.text.toString()),
+                    repeatDateMS = binding.repeatDate.editText?.text.toString().parseDateString()!!,
                     borescope = binding.borescopeDropdown.editText?.text.toString()))
                 // replace with last fragment
                 val fragment = AtpSampleFragment()

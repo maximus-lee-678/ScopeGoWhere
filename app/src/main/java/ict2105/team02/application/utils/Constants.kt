@@ -6,7 +6,7 @@ class Constants {
         const val KEY_ENDOSCOPE_SERIAL = "SERIAL"
         const val KEY_ENDOSCOPE_MODEL = "MODEL"
         const val KEY_ENDOSCOPE_TYPE = "TYPE"
-        const val KEY_ENDOSCOPE_DATE = "DATE"
+        const val KEY_ENDOSCOPE_NEXT_SAMPLE_DATE = "DATE"
         const val KEY_ENDOSCOPE_STATUS = "STATUS"
     }
 }

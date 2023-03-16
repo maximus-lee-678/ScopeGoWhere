@@ -11,37 +11,32 @@ import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentHelpBinding
 import ict2105.team02.application.model.HelpData
 import ict2105.team02.application.recyclerview.HelpAdapter
-import ict2105.team02.application.recyclerview.ScheduleAdapter
 
 class HelpFragment : Fragment() {
     private lateinit var binding: FragmentHelpBinding
-    private lateinit var adapter: HelpAdapter
-    private lateinit var recyclerView: RecyclerView
-    val helpDataList = listOf(
+
+    private val helpDataList = listOf(
         HelpData("How to use App", "DKvU-5yJo0s"),
         HelpData("Endoscope Cleaning", "SxBjCvnXIeo"),
         HelpData("Endoscope Drying", "Sd5xafHAydU"),
         HelpData("Endoscope Sampling", "XyGhlNorlfE")
     )
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHelpBinding.inflate(layoutInflater)
-        val view: View = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager = LinearLayoutManager(context)
-        // Find recycler view
-        recyclerView = view.findViewById(R.id.scheduleRecycle)
-        // Set layout
-        recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(false)
-        adapter = HelpAdapter(helpDataList,this)
-        recyclerView.adapter = adapter
+
+        // Setup recyclerview
+        val rvAdapter = HelpAdapter(helpDataList,this)
+        binding.scheduleRecycle.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = rvAdapter
+            setHasFixedSize(false)
+        }
     }
 
 }

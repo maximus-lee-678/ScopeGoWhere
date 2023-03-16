@@ -3,19 +3,14 @@ package ict2105.team02.application.ui.wash
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.core.text.isDigitsOnly
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.Timestamp
-import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentDetergentWashBinding
-import ict2105.team02.application.utils.Utils
+import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.viewmodel.WashViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -65,7 +60,7 @@ class DetergentWashFragment : Fragment() {
             else{
                 // validate the input
                 var filterDate = binding.filterChangeDate.editText?.text.toString()
-                val dateForFB = Utils.strToDate(filterDate)
+                val dateForFB = filterDate.parseDateString()!!
                 // if true set it to true
                 viewModel.washData.postValue(viewModel.washData.value?.copy(
                     DetergentUsed = binding.detergentUsed.editText?.text.toString(),

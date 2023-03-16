@@ -1,7 +1,7 @@
 package ict2105.team02.application.ui.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +16,12 @@ import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentEquipmentBinding
 import ict2105.team02.application.recyclerview.EquipmentAdapter
 import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
+import ict2105.team02.application.ui.equipment.AddScopeActivity
 import ict2105.team02.application.viewmodel.EquipmentListViewModel
 
 class EquipmentFragment : Fragment() {
     private lateinit var binding: FragmentEquipmentBinding
     private lateinit var eqAdapter: EquipmentAdapter
-    private val TAG: String = this::class.simpleName!!
 
     private val viewModel by viewModels<EquipmentListViewModel>()
 
@@ -42,22 +42,14 @@ class EquipmentFragment : Fragment() {
         // Initialize spinner
         val spinner: Spinner = binding.equipmentSpinner
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.equipmentSpinner,
-            android.R.layout.simple_spinner_item
+        ArrayAdapter.createFromResource(requireContext(), R.array.equipmentSpinner, android.R.layout.simple_spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
             spinner.adapter = adapter
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     // Don't load if still retrieving equipment (very scuffed)
                     if (binding.loadEquipmentProgressIndicator.visibility == View.VISIBLE) {
                         return
@@ -101,6 +93,10 @@ class EquipmentFragment : Fragment() {
         binding.buttonClear.setOnClickListener {
             binding.editTextSearch.text.clear()
             makeToastIfZero(viewModel.filterEquipmentStatus(binding.equipmentSpinner.selectedItem.toString()))
+        }
+
+        binding.buttonCreateScope.setOnClickListener {
+            startActivity(Intent(requireContext(), AddScopeActivity::class.java))
         }
 
         viewModel.fetchEquipments {

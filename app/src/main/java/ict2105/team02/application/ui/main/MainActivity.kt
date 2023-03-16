@@ -11,12 +11,11 @@ import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.ui.login.LoginActivity
 import ict2105.team02.application.ui.schedule.ScheduleFragment
-import ict2105.team02.application.ui.scopeStore.AddScopeFragment
 import ict2105.team02.application.ui.help.HelpFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val TAG_FRAGMENT = "HomeFragment"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -27,10 +26,22 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavbar.setOnItemSelectedListener {
 
             when (it.itemId) {
-                R.id.nav_home -> navbarNavigate(HomeFragment())
-                R.id.nav_schedule -> navbarNavigate(ScheduleFragment())
-                R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
-                R.id.nav_help -> navbarNavigate(HelpFragment())
+                R.id.nav_home -> {
+                    navbarNavigate(HomeFragment())
+                    supportActionBar?.setTitle(R.string.title_home)
+                }
+                R.id.nav_schedule -> {
+                    navbarNavigate(ScheduleFragment())
+                    supportActionBar?.setTitle(R.string.title_schedule)
+                }
+                R.id.nav_equipment -> {
+                    navbarNavigate(EquipmentFragment())
+                    supportActionBar?.setTitle(R.string.title_equipment)
+                }
+                R.id.nav_help -> {
+                    navbarNavigate(HelpFragment())
+                    supportActionBar?.setTitle(R.string.title_help)
+                }
                 else -> {}
             }
             return@setOnItemSelectedListener true
@@ -58,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     fun navbarNavigate(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentFrameLayout, fragment,TAG_FRAGMENT)
+        transaction.replace(R.id.fragmentFrameLayout, fragment, null)
         transaction.addToBackStack(null)
         transaction.commit()
     }
@@ -69,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.logoutFragment -> {
                 val confirmationDialog = ConfirmationDialogFragment("Logout?") {
                     val intent = Intent(this, LoginActivity::class.java)
@@ -77,13 +88,9 @@ class MainActivity : AppCompatActivity() {
                     finish()
                 }
                 confirmationDialog.show(supportFragmentManager, "ConfirmationDialog")
-                return true
+                true
             }
-            R.id.addScope -> {
-                navbarNavigate(AddScopeFragment())
-                return true
-            }
-            else -> return true
+            else -> true
         }
     }
 }

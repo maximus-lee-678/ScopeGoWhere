@@ -14,6 +14,7 @@ import ict2105.team02.application.databinding.FragmentSwabResultSampleBinding
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.ui.wash.WasherWashFragment
 import ict2105.team02.application.utils.Utils
+import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.viewmodel.SampleViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,7 +58,7 @@ class SwabResultSampleFragment : Fragment() {
                 // validate the input
                 // if true set it to true
                 viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
-                    dateOfSwabResult = Utils.strToDate(binding.dateOfResultInput.editText?.text.toString()),
+                    dateOfSwabResult = binding.dateOfResultInput.editText?.text.toString().parseDateString()!!,
                     swabResult = binding.swabResultInput.editText?.text.toString(),
                     actionSwab = binding.actionInput.editText?.text.toString(),
                     cultureCommentSwab = binding.cultureCommentInput.editText?.text.toString()))

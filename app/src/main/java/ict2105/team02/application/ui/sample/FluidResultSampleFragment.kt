@@ -16,6 +16,7 @@ import ict2105.team02.application.databinding.FragmentFluidResultSampleBinding
 import ict2105.team02.application.ui.wash.DisinfectantWashFragment
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.utils.Utils
+import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.viewmodel.SampleViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -60,7 +61,7 @@ class FluidResultSampleFragment : Fragment() {
                 // validate the input
                 // if true update the viewModel
                 viewModel.sampleData.postValue(viewModel.sampleData.value?.copy(
-                    dateOfFluidResult = Utils.strToDate(binding.dateOfResultInput.editText?.text.toString()),
+                    dateOfFluidResult = binding.dateOfResultInput.editText?.text.toString().parseDateString()!!,
                     fluidResult = binding.fluidResultInput.editText?.text.toString(),
                     actionFluid = binding.actionInput.editText?.text.toString(),
                     cultureCommentFluid = binding.cultureCommentInput.editText?.text.toString()))

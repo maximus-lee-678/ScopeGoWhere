@@ -11,24 +11,29 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.databinding.FragmentHelpHowToUseAppBinding
+import ict2105.team02.application.utils.TAG
 
 class HowToUseAppFragment : Fragment() {
 
     private lateinit var binding: FragmentHelpHowToUseAppBinding
-    private lateinit var mywebView: WebView
-    private var currentVideoId : String = ""
+    private lateinit var webView: WebView
+    private var currentVideoId: String = ""
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val TAG = this.javaClass.simpleName
         binding = FragmentHelpHowToUseAppBinding.inflate(layoutInflater, container, false)
 
-        mywebView = binding.WebView
-        mywebView.isLongClickable = false
-        val webSettings: WebSettings = mywebView.settings
+        webView = binding.WebView
+        webView.isLongClickable = false
+        val webSettings: WebSettings = webView.settings
         webSettings.javaScriptEnabled = true
         webSettings.mediaPlaybackRequiresUserGesture = false
-        mywebView.webChromeClient = WebChromeClient()
-        mywebView.webViewClient = object : WebViewClient() {
-            override fun onPageStarted(view: WebView?, url: String?, favicon: android.graphics.Bitmap?) {
+        webView.webChromeClient = WebChromeClient()
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(
+                view: WebView?,
+                url: String?,
+                favicon: android.graphics.Bitmap?
+            ) {
                 super.onPageStarted(view, url, favicon)
             }
 
@@ -39,12 +44,11 @@ class HowToUseAppFragment : Fragment() {
                 return true
             }
         }
-        parentFragmentManager.setFragmentResultListener("helpPage",this)
-        { requestKey, bundle ->
+        parentFragmentManager.setFragmentResultListener("helpPage", this) { requestKey, bundle ->
             // We use a String here, but any type that can be put in a Bundle is supported
             val videoId = bundle.getString("videoId")
             if (videoId != null) {
-                Log.d(TAG,videoId)
+                Log.d(TAG, videoId)
                 this.currentVideoId = videoId
                 updateVideo(currentVideoId)
             }
@@ -54,14 +58,16 @@ class HowToUseAppFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mywebView.removeAllViews()
-        mywebView.destroy()
+        webView.removeAllViews()
+        webView.destroy()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        mywebView.removeAllViews()
-        mywebView.destroy()
+        webView.removeAllViews()
+        webView.destroy()
     }
+
     private fun updateVideo(videoId: String) {
         currentVideoId = videoId
         val html = """
@@ -86,8 +92,6 @@ class HowToUseAppFragment : Fragment() {
                 </body>
             </html>
         """
-        mywebView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
+        webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null)
     }
-
-    // ... other code ...\
 }
