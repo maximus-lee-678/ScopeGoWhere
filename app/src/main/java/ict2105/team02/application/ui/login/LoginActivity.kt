@@ -6,17 +6,18 @@ import android.nfc.Tag
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ict2105.team02.application.R
 import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.databinding.ActivityLoginBinding
-import ict2105.team02.application.viewmodel.LoginViewModel
+import ict2105.team02.application.viewmodel.AuthViewModel
 import ict2105.team02.application.viewmodel.NFCViewModel
 
 class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var authViewModel: AuthViewModel
     private lateinit var nfcViewModel: NFCViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +30,7 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
         setContentView(binding.root)
 
         // connecting to view model
-        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
         nfcViewModel = ViewModelProvider(this)[NFCViewModel::class.java]
 
         // enable NFC Reader
@@ -49,13 +50,13 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
 
         //login button validate
         binding.loginButton.setOnClickListener {
-            val staffEmail = binding.userName.editText?.text.toString()
-            val password = binding.password.editText?.text.toString()
-            loginViewModel.login(staffEmail, password)
+            var staffEmail = binding.userName.editText?.text.toString()
+            var password = binding.password.editText?.text.toString()
+            authViewModel.login(staffEmail, password)
         }
 
-        loginViewModel.loginStatus.observe(this) {
-            when (it) {
+        authViewModel.loginStatus.observe(this, Observer {
+            when(it){
                 is UiState.Loading -> {
                     // nothing to do
                 }
@@ -66,7 +67,7 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
                     binding.error.text = it.message
                 }
             }
-        }
+        })
     }
 
     override fun onTagDiscovered(tag: Tag) {

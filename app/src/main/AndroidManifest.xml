@@ -16,6 +16,8 @@
         android:name="android.hardware.nfc"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:hardwareAccelerated="true"
         android:name=".repo.MainApplication"
@@ -34,6 +36,15 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".notification.NotificationActivity"
+            android:noHistory="true"
+            android:excludeFromRecents="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
 
         <activity android:name=".ui.main.MainActivity" />

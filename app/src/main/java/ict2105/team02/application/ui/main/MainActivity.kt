@@ -1,29 +1,32 @@
 package ict2105.team02.application.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.ui.login.LoginActivity
 import ict2105.team02.application.ui.schedule.ScheduleFragment
+import ict2105.team02.application.notification.NotificationSpawner
+import ict2105.team02.application.viewmodel.AuthViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val TAG: String = this::class.simpleName!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        NotificationSpawner(this).createNotificationChannel()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navbarNavigate(HomeFragment())
+        chooseFragment()
 
         binding.bottomNavbar.setOnItemSelectedListener {
-
             when (it.itemId) {
                 R.id.nav_home -> {
                     navbarNavigate(HomeFragment())
@@ -73,6 +76,31 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    /**
+     * Chooses selected fragment based on intent extra value. Defaults to Home.
+     */
+    private fun chooseFragment() {
+        when (intent.getStringExtra(getString(R.string.main_activity_intent_fragment))) {
+            "home" -> {
+                navbarNavigate(HomeFragment())
+            }
+            "schedule" -> {
+                navbarNavigate(ScheduleFragment())
+                binding.bottomNavbar.selectedItemId = R.id.nav_schedule
+            }
+            "equipment" -> {
+                navbarNavigate(EquipmentFragment())
+                binding.bottomNavbar.selectedItemId = R.id.nav_equipment
+            }
+            "help" -> {
+                navbarNavigate(HelpFragment())
+            }
+            null -> {
+                navbarNavigate(HomeFragment())
+            }
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -82,11 +110,16 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.logoutFragment -> {
                 val confirmationDialog = ConfirmationDialogFragment("Logout?") {
+                    AuthViewModel().logout()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
                 confirmationDialog.show(supportFragmentManager, "ConfirmationDialog")
+                true
+            }
+            R.id.notification -> {
+                NotificationSpawner(this).generateSampleReadyNotification()
                 true
             }
             else -> true

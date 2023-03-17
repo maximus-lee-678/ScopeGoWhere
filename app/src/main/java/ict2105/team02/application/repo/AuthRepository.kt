@@ -7,19 +7,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-class AuthRepository{
+class AuthRepository {
     private val firebaseAuth = FirebaseAuth.getInstance()
 
-    suspend fun login(email:String, password: String) : UiState<AuthResult> {
-        return withContext(Dispatchers.IO){
+    suspend fun login(email: String, password: String): UiState<AuthResult> {
+        return withContext(Dispatchers.IO) {
             // use firebase authentication
             try {
                 val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
                 UiState.Success(result)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 UiState.Error("Invalid Email and Password")
             }
         }
     }
+
+    fun logout() {
+        firebaseAuth.signOut()
+    }
+
+    fun isUserLoggedIn(): Boolean = firebaseAuth.currentUser != null
 
 }

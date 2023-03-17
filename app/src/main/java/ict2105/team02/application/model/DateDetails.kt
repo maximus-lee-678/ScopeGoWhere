@@ -38,8 +38,7 @@ data class DateDetails(val todayDate: Date) {
             }
         }
 
-        // Update calendar to current day, then first day of that week
-        // Get monday's int value(negated if last month)
+        // Update calendar to current day, then loop through each day of that week and store to array
         // i have no idea why on god's green earth does calendarObject require an operation on it
         // before it works properly, if calendarObject.time is commented, weekArray[0] will always
         // display the previously selected day

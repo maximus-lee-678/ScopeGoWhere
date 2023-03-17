@@ -22,7 +22,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
-        android:text="@string/hello_again" />
+        android:text="@string/login_greetings" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userName"
