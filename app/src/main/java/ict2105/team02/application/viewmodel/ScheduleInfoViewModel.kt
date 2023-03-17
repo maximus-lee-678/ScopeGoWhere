@@ -5,38 +5,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ict2105.team02.application.model.DateDetails
 import ict2105.team02.application.model.Endoscope
-import ict2105.team02.application.model.Schedule
 import ict2105.team02.application.repo.DataRepository
-import ict2105.team02.application.repo.ScheduleProducer
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleInfoViewModel : ViewModel() {
     //    private val endoscopeData = MutableLiveData<Endoscope>()
-    private var mRepo: ScheduleProducer? = null
     private val xRepo: DataRepository = DataRepository()
-    private var mListSchedule: MutableLiveData<List<Schedule>>? = null
-    private lateinit var allSchedule: List<Schedule>
+    private var mListEndoscope: MutableLiveData<List<Endoscope>>? = null
     private var allEndoscope: List<Endoscope> = emptyList()
 
 
     init {
-        if (mListSchedule != null) {
+        if (mListEndoscope != null) {
         } else {
-            mRepo = ScheduleProducer.getInstance()
-            allSchedule = mRepo!!.getSchedules()
-            mListSchedule = MutableLiveData<List<Schedule>>()
-            mListSchedule?.postValue(allSchedule)
-
+            mListEndoscope = MutableLiveData<List<Endoscope>>()
         }
     }
 
     fun setScheduleByDate(inputDate: Date) {
-//        mRepo = ScheduleProducer.getInstance()
-        var filteredSchedule: ArrayList<Schedule> = ArrayList()
+        var filteredEndoscope: ArrayList<Endoscope> = ArrayList()
         if (allEndoscope == null)
             return
         for (endoscope in allEndoscope) {
@@ -44,20 +34,18 @@ class ScheduleInfoViewModel : ViewModel() {
             if (endoscope.nextSampleDate != null &&
                 areDatesEqualIgnoringTime(endoscope.nextSampleDate, inputDate)
             ) {
-                var schedule = Schedule(endoscope.nextSampleDate, endoscope.scopeSerial.toString(), endoscope.scopeStatus, endoscope.scopeModel)
-                filteredSchedule.add(schedule)
-
+                filteredEndoscope.add(endoscope)
             }
         }
-        val data = MutableLiveData<List<Schedule>>()
-        data.value = filteredSchedule
+        val data = MutableLiveData<List<Endoscope>>()
+        data.value = filteredEndoscope
 //        mListSchedule = data
-        mListSchedule?.postValue(filteredSchedule)
-        Log.d("Model State", filteredSchedule.toString())
+        mListEndoscope?.postValue(filteredEndoscope)
+        Log.d("Model State", filteredEndoscope.toString())
     }
 
-    fun getSchedule(): LiveData<List<Schedule>>? {
-        return mListSchedule
+    fun getScheduledEndoscope(): LiveData<List<Endoscope>>? {
+        return mListEndoscope
     }
 
     fun areDatesEqualIgnoringTime(date1: Date, date2: Date): Boolean {
