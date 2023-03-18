@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ict2105.team02.application.databinding.FragmentSample5ReviewBinding
+import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.SampleViewModel
 
@@ -18,8 +20,13 @@ class Sample5ReviewFragment : Fragment() {
         activity?.title = "Review Sample Data"
 
         binding.buttonSendForSample.setOnClickListener{
-            viewModel.insertSampleData()
-            requireActivity().finish()
+            val confirmationDialog = ConfirmationDialogFragment("Confirm send for wash?") {
+                // User clicked confirm
+                viewModel.insertSampleData()
+                Toast.makeText(requireContext(), "Scope wash recorded successfully!", Toast.LENGTH_LONG).show()
+                requireActivity().finish()
+            }
+            confirmationDialog.show(parentFragmentManager, "ConfirmationDialog")
         }
 
         return binding.root
