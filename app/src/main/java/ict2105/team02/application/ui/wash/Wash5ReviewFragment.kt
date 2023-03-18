@@ -21,7 +21,7 @@ class Wash5ReviewFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash5ReviewBinding.inflate(inflater)
 
-        binding.buttonSendForWash.setOnClickListener{
+        binding.buttonSendWash.setOnClickListener{
             val confirmationDialog = ConfirmationDialogFragment("Confirm send for wash?") {
                 // User clicked confirm
                 viewModel.insertWashData()
@@ -51,13 +51,6 @@ class Wash5ReviewFragment : Fragment() {
                 if (it.ScopeDryer != null) binding.scopeDryer.setText(it.ScopeDryer.toString())
                 if (it.DryerLevel != null) binding.dryerLevel.setText(it.DryerLevel.toString())
                 if (it.Remarks != null) binding.remarks.setText(it.Remarks.toString())
-            }
-        }
-        viewModel.scopeData.observe(viewLifecycleOwner) {
-            binding.apply {
-                brand.setText(it.scopeBrand)
-                model.setText(it.scopeModel)
-                serialNo.setText(it.scopeSerial.toString())
             }
         }
     }
