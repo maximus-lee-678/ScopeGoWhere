@@ -5,9 +5,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import ict2105.team02.application.model.*
+import ict2105.team02.application.utils.TAG
 import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.utils.Utils
+import ict2105.team02.application.utils.asHashMap
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDate
 
 private const val COLLECTION_USERS = "users"
 private const val COLLECTION_ENDOSCOPES = "endoscopes"
@@ -47,16 +50,6 @@ class DataRepository {
                 )
             )
         }
-    }
-
-    fun getTodayScheduledEndoscopes(onSuccess: (List<Endoscope>) -> Unit) {
-        Firebase.firestore.collection(COLLECTION_ENDOSCOPES)
-            .whereGreaterThan("NextSampleDate", Utils.getTodayStartDate())
-            .whereLessThan("NextSampleDate", Utils.getTodayEndDate())
-            .get()
-            .addOnSuccessListener {
-                onSuccess(it.toObjects(Endoscope::class.java))
-            }
     }
 
     fun getAllEndoscopes(onSuccess: (List<Endoscope>) -> Unit) {
@@ -197,18 +190,52 @@ class DataRepository {
         }
     }
 
-    fun insertWashData(serial: String, docName: String, washData: HashMap<String, Any?>) {
-        val data = hashMapOf(
-            "washData" to washData
-        )
+    fun insertWashData(serial: String, docName: String, washData: WashData) {
+        val data: HashMap<String, HashMap<String, Any>>
+        try {
+            data = hashMapOf("washData" to washData.asHashMap())
+
+        } catch (e: NullPointerException) {
+            Log.d(TAG, "Failed to insert wash data: Wash data is invalid")
+            return
+        }
+
         Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History")
             .document(docName)
-            .set(data).addOnSuccessListener {
-                Log.d("Insert", "Success")
+            .set(data)
+            .addOnSuccessListener {
+                Log.d(TAG, "Firebase insert wash data success")
+
+                // Update scope status
+                val updateScopeStatus = mapOf( "scopeStatus" to "Sampling") // Washing -> Sampling
+                Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).update(updateScopeStatus)
+                Log.d(TAG, "Firebase scope status update success")
             }
-            .addOnFailureListener { e ->
-                Log.d("Insert", "Fail due to $e")
+            .addOnFailureListener { e -> Log.d(TAG, "Firebase insert wash data fail due to $e") }
+    }
+
+    fun insertSampleData(serial: String, docName: String, sampleData: ResultData) {
+        val data: HashMap<String, HashMap<String, Any>>
+        try {
+            data = hashMapOf("resultData" to sampleData.asHashMap())
+
+        } catch (e: NullPointerException) {
+            Log.d(TAG, "Failed to insert sample result data: Result data is invalid")
+            return
+        }
+
+        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History")
+            .document(docName)
+            .set(data)
+            .addOnSuccessListener {
+                Log.d(TAG, "Firebase insert sample result data success")
+
+                // Update scope status
+                val updateScopeStatus = mapOf( "scopeStatus" to "Circulation") // Sampling -> Circulation
+                Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).update(updateScopeStatus)
+                Log.d(TAG, "Firebase scope status update success")
             }
+            .addOnFailureListener { e -> Log.d(TAG, "Firebase insert sample result data fail due to $e") }
     }
 
     fun insertNewScope(newScope: Endoscope) {

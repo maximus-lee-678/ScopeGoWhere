@@ -1,5 +1,6 @@
 package ict2105.team02.application.utils
 
+import ict2105.team02.application.model.WashData
 import java.text.SimpleDateFormat
 import java.util.*
 

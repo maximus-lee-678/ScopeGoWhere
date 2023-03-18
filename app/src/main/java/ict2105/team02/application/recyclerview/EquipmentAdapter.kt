@@ -25,7 +25,7 @@ class EquipmentAdapter : ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHo
             // Set a click listener for the item view
             view.setOnClickListener {
                 // Invoke the onItemClick callback with the corresponding Endoscope object
-                onItemClick?.invoke(getItem(adapterPosition))
+                onItemClick?.invoke(getItem(bindingAdapterPosition))
             }
         }
     }

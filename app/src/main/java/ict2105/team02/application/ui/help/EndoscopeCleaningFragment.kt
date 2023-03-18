@@ -33,6 +33,7 @@ class EndoscopeCleaningFragment : Fragment() {
                 super.onPageStarted(view, url, favicon)
             }
 
+            @Deprecated("Deprecated in Java")
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 if (url != null) {
                     view?.loadUrl(url)
@@ -41,7 +42,7 @@ class EndoscopeCleaningFragment : Fragment() {
             }
         }
         parentFragmentManager.setFragmentResultListener("helpPage",this)
-        { requestKey, bundle ->
+        { _, bundle ->
             // We use a String here, but any type that can be put in a Bundle is supported
             val videoId = bundle.getString("videoId")
             if (videoId != null) {

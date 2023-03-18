@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="viewmodel"
-            type="ict2105.team02.application.ui.sample.FluidResultSampleFragment" />
-    </data>
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.sample.FluidResultSampleFragment">
+        tools:context=".ui.sample.Sample1FluidResultFragment">
 
         <TextView
             android:id="@+id/fluidResultTextView"
@@ -21,7 +16,6 @@
             android:text="Fluid Result"
             android:textSize="25sp" />
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dateOfResultInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +25,7 @@
             android:hint="Date of Results">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dateOfResultInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="date"
@@ -41,7 +36,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fluidResultInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,6 +45,7 @@
             android:hint="Fluid Result">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fluidResultInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -58,7 +53,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/actionInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,6 +62,7 @@
             android:hint="Action">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/actionInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -75,7 +70,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cultureCommentInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,17 +79,11 @@
             android:hint="Culture Comments">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cultureCommentInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20sp"
-            android:text="Next" />
 
         <TextView
             android:id="@+id/errorMsgFluid"
@@ -105,4 +93,3 @@
             android:textColor="#FF1D1D" />
 
     </LinearLayout>
-</layout>
