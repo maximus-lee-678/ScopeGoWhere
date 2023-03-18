@@ -290,7 +290,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:spanCount="7"></androidx.recyclerview.widget.RecyclerView>
+                app:spanCount="7"/>
 
         </LinearLayout>
     </LinearLayout>

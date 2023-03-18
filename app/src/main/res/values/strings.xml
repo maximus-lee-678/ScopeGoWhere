@@ -19,12 +19,26 @@
     <string name="logout">Logout</string>
 
     <!-- Login -->
-    <string name="hello_again">Hello again, you\'ve been missed!</string>
+    <string name="login_greetings">Hello again, you\'ve been missed!</string>
     <string name="incorrect_login">Incorrect login</string>
 
     <!-- Home -->
     <string name="home_staff_id">Staff ID: %1$s</string>
     <string name="home_dept">Dept: %1$s</string>
+
+    <!--Menu-->
+    <string name="menu_notification">Spawn Notification</string>
+    <string name="menu_logout">Logout</string>
+
+    <!--Notification-->
+    <string name="default_channel_name">default_channel_name</string>
+    <string name="default_channel_description">default_channel_description</string>
+    <integer name="sample_ready_id">1</integer>
+    <string name="sample_ready_title">A sampling result is ready!</string>
+    <string name="sample_ready_description">Scope:</string>
+
+    <!--Main-->
+    <string name="main_activity_intent_fragment">fragmentSpec</string>
 
     <!-- Schedule -->
     <string name="schedule_layout_type_switch_left">Weekly View</string>
