@@ -20,14 +20,6 @@ class SampleViewModel: ViewModel() {
 
     private val repo = DataRepository()
 
-    private val constraintsBuilder =
-        CalendarConstraints.Builder()
-            .setValidator(DateValidatorPointForward.now())
-
-    val datePicker = MaterialDatePicker.Builder.datePicker()
-        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-        .setCalendarConstraints(constraintsBuilder.build())
-
     fun makeScope(brand: String, model: String, serial: Int) {
         scopeData.value = Endoscope(scopeBrand = brand, scopeModel = model, scopeSerial = serial)
     }

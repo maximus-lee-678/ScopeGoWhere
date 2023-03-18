@@ -6,19 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import ict2105.team02.application.databinding.FragmentWash4DisinfectantBinding
+import ict2105.team02.application.databinding.FragmentWash3DisinfectantBinding
 import ict2105.team02.application.utils.TextChangeListener
+import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.WashViewModel
 import java.util.*
 
-class Wash4DisinfectantFragment : Fragment() {
-    private lateinit var binding: FragmentWash4DisinfectantBinding
+class Wash3DisinfectantFragment : Fragment() {
+    private lateinit var binding: FragmentWash3DisinfectantBinding
     private val viewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentWash4DisinfectantBinding.inflate(inflater)
+        binding = FragmentWash3DisinfectantBinding.inflate(inflater)
         activity?.title = "Wash Equipment (4/5)"
 
         // Set existing data, if any
@@ -43,13 +44,9 @@ class Wash4DisinfectantFragment : Fragment() {
 
         // Date picker
         binding.disinfectantChanged.setOnClickListener {
-            val datePicker = viewModel.datePicker
-                .setTitleText("Date of Disinfectant Change")
-                .build()
-            datePicker.show(childFragmentManager, "Disinfectant")
-            datePicker.addOnPositiveButtonClickListener {
+            Utils.createMaterialDatePicker("Select disinfectant changed date") {
                 binding.disinfectantChanged.setText(Date(it).toDateString())
-            }
+            }.show(childFragmentManager, null)
         }
 
         return binding.root

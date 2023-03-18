@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import ict2105.team02.application.databinding.FragmentWash5DryingCabinetBinding
+import ict2105.team02.application.databinding.FragmentWash4DryingCabinetBinding
 import ict2105.team02.application.utils.TextChangeListener
 import ict2105.team02.application.viewmodel.WashViewModel
 
-class Wash5DryingCabinetFragment : Fragment() {
-    private lateinit var binding: FragmentWash5DryingCabinetBinding
+class Wash4DryingCabinetFragment : Fragment() {
+    private lateinit var binding: FragmentWash4DryingCabinetBinding
     private val viewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentWash5DryingCabinetBinding.inflate(inflater)
+        binding = FragmentWash4DryingCabinetBinding.inflate(inflater)
         activity?.title = "Wash Equipment (5/5)"
 
         // Set existing data, if any

@@ -3,9 +3,6 @@ package ict2105.team02.application.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
 import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.WashData
 import ict2105.team02.application.repo.DataRepository
@@ -19,14 +16,6 @@ class WashViewModel : ViewModel() {
 
     private val repo = DataRepository()
 
-    private val constraintsBuilder =
-        CalendarConstraints.Builder()
-            .setValidator(DateValidatorPointForward.now())
-
-    val datePicker = MaterialDatePicker.Builder.datePicker()
-        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-        .setCalendarConstraints(constraintsBuilder.build())
-
     fun makeScope(brand: String, model: String, serial: Int) {
         scopeData.value = Endoscope(scopeBrand = brand, scopeModel = model, scopeSerial = serial)
     }
@@ -35,7 +24,7 @@ class WashViewModel : ViewModel() {
         washData.value = WashData()
     }
 
-    fun setWash2AER(modelAER: String, serialAER: Int?) {
+    fun setWash1AER(modelAER: String, serialAER: Int?) {
         washData.postValue(
             washData.value?.copy(
                 AERModel = modelAER,

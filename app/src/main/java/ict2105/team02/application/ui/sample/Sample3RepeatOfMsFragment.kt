@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ict2105.team02.application.databinding.FragmentSample3RepeatOfMsBinding
 import ict2105.team02.application.utils.TextChangeListener
+import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.SampleViewModel
@@ -45,11 +46,9 @@ class Sample3RepeatOfMsFragment : Fragment() {
 
         // Date picker
         binding.repeatDate.setOnClickListener {
-            val datePicker = viewModel.datePicker.setTitleText("Select Date of Result").build()
-            datePicker.show(childFragmentManager, "Date Picker")
-            datePicker.addOnPositiveButtonClickListener {
-                binding.repeatDate.setText(Date((it)).toDateString())
-            }
+            Utils.createMaterialDatePicker("Select date of resample") { epoch ->
+                binding.repeatDate.setText(Date(epoch).toDateString())
+            }.show(childFragmentManager, null)
         }
 
         return binding.root

@@ -9,17 +9,17 @@ import android.view.ViewGroup
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import ict2105.team02.application.databinding.FragmentWash2WasherBinding
+import ict2105.team02.application.databinding.FragmentWash1WasherBinding
 import ict2105.team02.application.utils.TAG
 import ict2105.team02.application.utils.TextChangeListener
 import ict2105.team02.application.viewmodel.WashViewModel
 
-class Wash2WasherFragment : Fragment() {
-    private lateinit var binding: FragmentWash2WasherBinding
+class Wash1WasherFragment : Fragment() {
+    private lateinit var binding: FragmentWash1WasherBinding
     private val viewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentWash2WasherBinding.inflate(inflater)
+        binding = FragmentWash1WasherBinding.inflate(inflater)
         activity?.title = "Wash Equipment (2/5)"
 
         // Set existing data, if any
@@ -33,7 +33,7 @@ class Wash2WasherFragment : Fragment() {
         // For validation and update view model
         val textChangeListener = TextChangeListener {
             validate()
-            viewModel.setWash2AER(
+            viewModel.setWash1AER(
                 binding.editTextAERModel.text.toString(),
                 binding.editTextAERSerial.text.toString().toIntOrNull()
             )

@@ -1,13 +1,11 @@
 package ict2105.team02.application.ui.wash
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityWashBinding
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_BRAND
@@ -38,7 +36,7 @@ class WashActivity : AppCompatActivity() {
             Log.d(TAG, "[Wash] Scope detail: $brand $model $serial")
         }
 
-        val totalSteps = 6
+        val totalSteps = 5
         binding.buttonWashNextStep.setOnClickListener {
             if (++step > totalSteps) step = totalSteps
             changePage(step)
@@ -75,12 +73,11 @@ class WashActivity : AppCompatActivity() {
     private fun changePage(page: Int) {
         val transaction = supportFragmentManager.beginTransaction()
         when (page) {
-            1 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash1ScopeDetailFragment())
-            2 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash2WasherFragment())
-            3 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash3DetergentFragment())
-            4 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash4DisinfectantFragment())
-            5 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash5DryingCabinetFragment())
-            6 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash6ReviewFragment())
+            1 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash1WasherFragment())
+            2 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash2DetergentFragment())
+            3 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash3DisinfectantFragment())
+            4 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash4DryingCabinetFragment())
+            5 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash5ReviewFragment())
         }
         transaction.commit()
     }

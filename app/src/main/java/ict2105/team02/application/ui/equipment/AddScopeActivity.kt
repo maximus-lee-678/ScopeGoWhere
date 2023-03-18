@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityAddScopeBinding
+import ict2105.team02.application.utils.Utils.Companion.createMaterialDatePicker
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.viewmodel.NewScopeViewModel
 import kotlinx.coroutines.launch
@@ -18,15 +19,18 @@ class AddScopeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setTitle(R.string.title_create_endoscope)
+        setTitle(R.string.title_create_endoscope)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityAddScopeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-    }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
+        // Date picker
+        binding.nextSampleDate.setOnClickListener{
+            createMaterialDatePicker("Choose upcoming sample date") {
+
+            }.show(supportFragmentManager, null)
+        }
 
         binding.buttonAddScope.setOnClickListener {
             val brand = binding.scopeBrand.editText?.text.toString()

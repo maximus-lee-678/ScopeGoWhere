@@ -1,6 +1,5 @@
 package ict2105.team02.application.ui.wash
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,20 +8,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import ict2105.team02.application.databinding.FragmentWash6ReviewBinding
+import ict2105.team02.application.databinding.FragmentWash5ReviewBinding
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
-import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.utils.TAG
-import ict2105.team02.application.utils.asHashMap
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.WashViewModel
 
-class Wash6ReviewFragment : Fragment() {
-    private lateinit var binding: FragmentWash6ReviewBinding
+class Wash5ReviewFragment : Fragment() {
+    private lateinit var binding: FragmentWash5ReviewBinding
     private val viewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentWash6ReviewBinding.inflate(inflater)
+        binding = FragmentWash5ReviewBinding.inflate(inflater)
         activity?.title = "Review Wash Data"
 
         binding.buttonSendForWash.setOnClickListener{

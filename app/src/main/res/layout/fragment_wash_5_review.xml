@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.wash.Wash6ReviewFragment">
+    tools:context=".ui.wash.Wash5ReviewFragment">
 
     <ScrollView
         android:layout_width="match_parent"

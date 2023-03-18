@@ -6,19 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import ict2105.team02.application.databinding.FragmentWash3DetergentBinding
+import ict2105.team02.application.databinding.FragmentWash2DetergentBinding
 import ict2105.team02.application.utils.TextChangeListener
+import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.WashViewModel
 import java.util.*
 
-class Wash3DetergentFragment : Fragment() {
-    private lateinit var binding: FragmentWash3DetergentBinding
+class Wash2DetergentFragment : Fragment() {
+    private lateinit var binding: FragmentWash2DetergentBinding
     private val viewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentWash3DetergentBinding.inflate(inflater)
+        binding = FragmentWash2DetergentBinding.inflate(inflater)
         activity?.title = "Wash Equipment (3/5)"
 
         // Set existing data, if any
@@ -43,13 +44,9 @@ class Wash3DetergentFragment : Fragment() {
 
         // Date picker
         binding.filterChangeDate.setOnClickListener {
-            val datePicker = viewModel.datePicker
-                .setTitleText("Select Filter Changed Date")
-                .build()
-            datePicker.show(childFragmentManager,"Date Picker")
-            datePicker.addOnPositiveButtonClickListener {
+            Utils.createMaterialDatePicker("Select filter changed date") {
                 binding.filterChangeDate.setText(Date((it)).toDateString())
-            }
+            }.show(childFragmentManager, null)
         }
 
         return binding.root

@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ict2105.team02.application.databinding.FragmentSample2SwabResultBinding
-import ict2105.team02.application.utils.TAG
-import ict2105.team02.application.utils.TextChangeListener
-import ict2105.team02.application.utils.parseDateString
-import ict2105.team02.application.utils.toDateString
+import ict2105.team02.application.utils.*
 import ict2105.team02.application.viewmodel.SampleViewModel
 import java.time.LocalDate
 import java.util.*
@@ -51,11 +48,9 @@ class Sample2SwabResultFragment : Fragment() {
 
         // Date picker
         binding.dateOfResultInput.setOnClickListener{
-            viewModel.datePicker.setTitleText("Select Date of Result").build().also {
-                it.addOnPositiveButtonClickListener {
-                    binding.dateOfResultInput.setText(Date((it)).toDateString())
-                }
-            }.show(childFragmentManager,"Date Picker")
+            Utils.createMaterialDatePicker("Select date of sample result") { epoch ->
+                binding.dateOfResultInput.setText(Date(epoch).toDateString())
+            }.show(childFragmentManager, null)
         }
 
         return binding.root
