@@ -97,5 +97,7 @@
     <string name="label_container">Label the container with the endoscope details, sampling date, and other relevant information.</string>
     <string name="store_container">Store the container appropriately and transport it to the laboratory for analysis as soon as possible.</string>
     <string name="results">Once the results are available, take appropriate action based on the findings and ensure that the endoscope is properly cleaned and disinfected before further use.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

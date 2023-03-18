@@ -1,5 +1,7 @@
 package ict2105.team02.application.utils
 
+import android.content.Context
+import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,6 +23,10 @@ class Utils {
             calendar.set(Calendar.SECOND, 59)
             calendar.set(Calendar.MILLISECOND, 999)
             return calendar.time
+        }
+
+        fun showToast(context: Context, message: String){
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
 }
