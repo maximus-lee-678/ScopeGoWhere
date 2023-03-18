@@ -6,7 +6,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import ict2105.team02.application.R
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import ict2105.team02.application.databinding.ActivityWashBinding
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_BRAND
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
@@ -18,13 +19,33 @@ class WashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWashBinding
     private val viewModel by viewModels<WashViewModel>()
 
-    private var step: Int = 1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityWashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // ViewPager2 provides swipe function, TabLayout provides tabs
+        val stateAdapter = WashFragmentStateAdapter(this)
+        binding.viewPagerWash.apply {
+            adapter = stateAdapter
+            TabLayoutMediator(binding.tabLayoutWash, this) { tab, position ->
+                when (position) {
+                    0 -> tab.text = "1. AER"
+                    1 -> tab.text = "2. Detergent"
+                    2 -> tab.text = "3. Disinfectant"
+                    3 -> tab.text = "4. Drying"
+                    4 -> tab.text = "5. Summary"
+                }
+            }.attach()
+            registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    title = "Wash Equipment (${position + 1}/5)"
+                    updateNavigationButtons(position)
+                }
+            })
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -36,50 +57,43 @@ class WashActivity : AppCompatActivity() {
             Log.d(TAG, "[Wash] Scope detail: $brand $model $serial")
         }
 
-        val totalSteps = 5
-        binding.buttonWashNextStep.setOnClickListener {
-            if (++step > totalSteps) step = totalSteps
-            changePage(step)
-
-            when (step) {
-                2 -> { // Page 1 to 2, enable previous button
-                    binding.buttonWashPreviousStep.visibility = View.VISIBLE
-                }
-                totalSteps -> { // Hide next button on last page
-                    it.visibility = View.INVISIBLE
-                }
-            }
-        }
-        binding.buttonWashPreviousStep.setOnClickListener {
-            if (--step < 1) step = 1
-            changePage(step)
-
-            when (step) {
-                1 -> { // Hide previous button on first page
-                    it.visibility = View.INVISIBLE
-                }
-                totalSteps - 1 -> { // No longer last, enable next button
-                    binding.buttonWashNextStep.visibility = View.VISIBLE
-                }
-            }
-        }
+        binding.buttonWashNextStep.setOnClickListener { changePage(binding.viewPagerWash.currentItem + 1) }
+        binding.buttonWashPreviousStep.setOnClickListener { changePage(binding.viewPagerWash.currentItem - 1) }
 
         viewModel.makeWashData()
-
+        title = "Wash Equipment (1/5)"
         binding.buttonWashPreviousStep.visibility = View.INVISIBLE
-        changePage(step)
+        changePage(0)
     }
 
     private fun changePage(page: Int) {
-        val transaction = supportFragmentManager.beginTransaction()
-        when (page) {
-            1 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash1WasherFragment())
-            2 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash2DetergentFragment())
-            3 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash3DisinfectantFragment())
-            4 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash4DryingCabinetFragment())
-            5 -> transaction.replace(R.id.fragmentWashFrameLayout, Wash5ReviewFragment())
+        var newPage = page
+        if (newPage > TOTAL_STEPS - 1) newPage = TOTAL_STEPS - 1
+        else if (newPage < 0) newPage = 0
+
+        binding.tabLayoutWash.getTabAt(newPage)?.select()
+        binding.viewPagerWash.currentItem = newPage
+    }
+
+    private fun updateNavigationButtons(newPage: Int) {
+        when (newPage) {
+            0 -> {
+                // Hide previous button on first page
+                binding.buttonWashPreviousStep.visibility = View.INVISIBLE
+            }
+            1 -> {
+                // No longer first page, enable previous button
+                binding.buttonWashPreviousStep.visibility = View.VISIBLE
+            }
+            TOTAL_STEPS - 2 -> {
+                // No longer last page, enable next button
+                binding.buttonWashNextStep.visibility = View.VISIBLE
+            }
+            TOTAL_STEPS - 1 -> {
+                // Hide next button on last page
+                binding.buttonWashNextStep.visibility = View.INVISIBLE
+            }
         }
-        transaction.commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -91,5 +105,9 @@ class WashActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private const val TOTAL_STEPS = 5
     }
 }

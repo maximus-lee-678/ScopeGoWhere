@@ -21,7 +21,6 @@ class Sample1FluidResultFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View {
         binding = FragmentSample1FluidResultBinding.inflate(inflater)
-        activity?.title = "Sample Equipment (1/4)"
 
         // Set existing data, if any
         val sampleData = viewModel.sampleData.value

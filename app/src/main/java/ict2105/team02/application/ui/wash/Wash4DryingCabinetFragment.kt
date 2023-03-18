@@ -16,7 +16,6 @@ class Wash4DryingCabinetFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash4DryingCabinetBinding.inflate(inflater)
-        activity?.title = "Wash Equipment (5/5)"
 
         // Set existing data, if any
         val washData = viewModel.washData.value

@@ -18,7 +18,6 @@ class Sample4AtpFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample4AtpBinding.inflate(inflater)
-        activity?.title = "Sample Equipment (4/4)"
 
         // Set existing data, if any
         val sampleData = viewModel.sampleData.value

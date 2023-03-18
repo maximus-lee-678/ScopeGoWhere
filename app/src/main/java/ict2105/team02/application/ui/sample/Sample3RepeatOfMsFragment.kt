@@ -21,7 +21,6 @@ class Sample3RepeatOfMsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample3RepeatOfMsBinding.inflate(inflater)
-        activity?.title = "Sample Equipment (3/4)"
 
         // Set existing data, if any
         val sampleData = viewModel.sampleData.value

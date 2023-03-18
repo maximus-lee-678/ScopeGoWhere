@@ -20,7 +20,6 @@ class Wash3DisinfectantFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash3DisinfectantBinding.inflate(inflater)
-        activity?.title = "Wash Equipment (4/5)"
 
         // Set existing data, if any
         val washData = viewModel.washData.value

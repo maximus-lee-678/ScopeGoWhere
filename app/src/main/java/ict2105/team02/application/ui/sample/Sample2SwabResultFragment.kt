@@ -20,7 +20,6 @@ class Sample2SwabResultFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample2SwabResultBinding.inflate(inflater)
-        activity?.title = "Sample Equipment (2/4)"
 
         // Set existing data, if any
         val sampleData = viewModel.sampleData.value

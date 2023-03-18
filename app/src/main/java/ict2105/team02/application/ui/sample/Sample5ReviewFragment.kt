@@ -17,7 +17,6 @@ class Sample5ReviewFragment : Fragment() {
     private val viewModel by activityViewModels<SampleViewModel>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample5ReviewBinding.inflate(inflater)
-        activity?.title = "Review Sample Data"
 
         binding.buttonSendForSample.setOnClickListener{
             val confirmationDialog = ConfirmationDialogFragment("Confirm send for wash?") {

@@ -7,10 +7,10 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import ict2105.team02.application.R
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import ict2105.team02.application.databinding.ActivitySampleBinding
-import ict2105.team02.application.ui.wash.*
+import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.utils.Constants
 import ict2105.team02.application.utils.TAG
 import ict2105.team02.application.viewmodel.SampleViewModel
@@ -19,13 +19,33 @@ class SampleActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySampleBinding
     private val viewModel by viewModels<SampleViewModel>()
 
-    private var step: Int = 1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivitySampleBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // ViewPager2 provides swipe function, TabLayout provides tabs
+        val stateAdapter = SampleFragmentStateAdapter(this)
+        binding.viewPagerSample.apply {
+            adapter = stateAdapter
+            TabLayoutMediator(binding.tabLayoutSample, this) { tab, position ->
+                when (position) {
+                    0 -> tab.text = "1. Fluid"
+                    1 -> tab.text = "2. Swab"
+                    2 -> tab.text = "3. Repeat MS"
+                    3 -> tab.text = "4. ATP"
+                    4 -> tab.text = "5. Summary"
+                }
+            }.attach()
+            registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    title = "Sample Equipment (${position + 1}/5)"
+                    updateNavigationButtons(position)
+                }
+            })
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -38,50 +58,43 @@ class SampleActivity : AppCompatActivity() {
         }
 
 
-        val totalSteps = 5
-        binding.buttonSampleNextStep.setOnClickListener {
-            if (++step > totalSteps) step = totalSteps
-            changePage(step)
-
-            when (step) {
-                2 -> { // Page 1 to 2, enable previous button
-                    binding.buttonSamplePreviousStep.visibility = View.VISIBLE
-                }
-                totalSteps -> { // Hide next button on last page
-                    it.visibility = View.INVISIBLE
-                }
-            }
-        }
-        binding.buttonSamplePreviousStep.setOnClickListener {
-            if (--step < 1) step = 1
-            changePage(step)
-
-            when (step) {
-                1 -> { // Hide previous button on first page
-                    it.visibility = View.INVISIBLE
-                }
-                totalSteps - 1 -> { // No longer last, enable next button
-                    binding.buttonSampleNextStep.visibility = View.VISIBLE
-                }
-            }
-        }
+        binding.buttonSampleNextStep.setOnClickListener { changePage(binding.viewPagerSample.currentItem + 1) }
+        binding.buttonSamplePreviousStep.setOnClickListener { changePage(binding.viewPagerSample.currentItem - 1) }
 
         viewModel.makeSampleData()
-
         binding.buttonSamplePreviousStep.visibility = View.INVISIBLE
-        changePage(step)
+        title = "Sample Equipment (1/5)"
+        changePage(0)
     }
 
     private fun changePage(page: Int) {
-        val transaction = supportFragmentManager.beginTransaction()
-        when (page) {
-            1 -> transaction.replace(R.id.fragmentSampleFrameLayout, Sample1FluidResultFragment())
-            2 -> transaction.replace(R.id.fragmentSampleFrameLayout, Sample2SwabResultFragment())
-            3 -> transaction.replace(R.id.fragmentSampleFrameLayout, Sample3RepeatOfMsFragment())
-            4 -> transaction.replace(R.id.fragmentSampleFrameLayout, Sample4AtpFragment())
-            5 -> transaction.replace(R.id.fragmentSampleFrameLayout, Sample5ReviewFragment())
+        var newPage = page
+        if (newPage > TOTAL_STEPS - 1) newPage = TOTAL_STEPS - 1
+        else if (newPage < 0) newPage = 0
+
+        binding.tabLayoutSample.getTabAt(newPage)?.select()
+        binding.viewPagerSample.currentItem = newPage
+    }
+
+    private fun updateNavigationButtons(newPage: Int) {
+        when (newPage) {
+            0 -> {
+                // Hide previous button on first page
+                binding.buttonSamplePreviousStep.visibility = View.INVISIBLE
+            }
+            1 -> {
+                // No longer first page, enable previous button
+                binding.buttonSamplePreviousStep.visibility = View.VISIBLE
+            }
+            TOTAL_STEPS - 2 -> {
+                // No longer last page, enable next button
+                binding.buttonSampleNextStep.visibility = View.VISIBLE
+            }
+            TOTAL_STEPS - 1 -> {
+                // Hide next button on last page
+                binding.buttonSampleNextStep.visibility = View.INVISIBLE
+            }
         }
-        transaction.commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -93,5 +106,9 @@ class SampleActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private const val TOTAL_STEPS = 5
     }
 }

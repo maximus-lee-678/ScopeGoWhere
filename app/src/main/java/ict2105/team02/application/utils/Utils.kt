@@ -29,7 +29,8 @@ class Utils {
 
         fun createMaterialDatePicker(title: String, onSelect: (Long) -> Unit): MaterialDatePicker<Long> {
             val constrains = CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now()).build()
+                .setValidator(DateValidatorPointForward.now())
+                .build()
             return MaterialDatePicker.Builder.datePicker()
                 .setTitleText(title)
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())

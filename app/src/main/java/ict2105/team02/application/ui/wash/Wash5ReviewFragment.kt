@@ -20,7 +20,6 @@ class Wash5ReviewFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash5ReviewBinding.inflate(inflater)
-        activity?.title = "Review Wash Data"
 
         binding.buttonSendForWash.setOnClickListener{
             val confirmationDialog = ConfirmationDialogFragment("Confirm send for wash?") {

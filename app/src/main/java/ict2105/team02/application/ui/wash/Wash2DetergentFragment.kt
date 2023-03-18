@@ -20,7 +20,6 @@ class Wash2DetergentFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentWash2DetergentBinding.inflate(inflater)
-        activity?.title = "Wash Equipment (3/5)"
 
         // Set existing data, if any
         val washData = viewModel.washData.value
