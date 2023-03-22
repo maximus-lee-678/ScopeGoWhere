@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -32,34 +33,6 @@ class EndoscopeCleaningFragment : Fragment() , TextToSpeech.OnInitListener {
         val TAG = this.javaClass.simpleName
         binding = FragmentHelpCleanBinding.inflate(layoutInflater, container, false)
         tts = TextToSpeech(context, this)
-
-        tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) {
-                currentPosition = 0
-            }
-
-            override fun onDone(utteranceId: String?) {
-                currentPosition = 0
-            }
-
-            override fun onError(utteranceId: String?) {
-                currentPosition = 0
-            }
-
-            override fun onRangeStart(utteranceId: String?, start: Int, end: Int, frame: Int) {
-                currentPosition = end
-            }
-
-            override fun onStop(utteranceId: String?, interrupted: Boolean) {
-                if (interrupted) {
-                    currentPosition = tts.stop()
-                    isPaused = true
-                } else {
-                    currentPosition = allText.length
-                    isPaused = true
-                }
-            }
-        })
 
         binding.speak.setOnClickListener {
             readAllText()
@@ -154,47 +127,42 @@ class EndoscopeCleaningFragment : Fragment() , TextToSpeech.OnInitListener {
     private fun readAllText() {
         val stringBuilder = StringBuilder()
         if (allText != null) {
-            for (i in 0 until binding.LinearCleanHelp.childCount) {
-                val view = binding.LinearCleanHelp.getChildAt(i)
-                if (view is TextView) {
-                    stringBuilder.append(view.text).append(" ")
-                }
-            }
+	        for (i in 0 until binding.LinearCleanHelp.childCount) {
+		        val view = binding.LinearCleanHelp.getChildAt(i)
+		        if (view is TextView &&  view !is Button) {
+			        tts.speak(view.text.toString(), TextToSpeech.QUEUE_ADD, null, "TTSSpeak")
+			        tts.playSilentUtterance(1000, TextToSpeech.QUEUE_ADD,"TTSSpeak" )
+			        stringBuilder.append(view.text.toString())
+		        }
+	        }
             allText = stringBuilder.toString()
         }
 
         if (tts != null) {
             if (!isPaused) {
-                var x : Int = tts.speak(allText.substring(2), TextToSpeech.QUEUE_ADD, null, "TTSSpeak")
-                Log.d("TTS", x.toString())
+
             } else {
-                currentPosition = tts.stop()
-                Log.d("TTS", currentPosition.toString())
+				tts.stop()
 
             }
             isPaused = !isPaused
         }
     }
-    private fun pauseTTS() {
-        if (tts != null && !isPaused) {
-            currentPosition = tts.stop()
-            isPaused = true
-        }
-    }
+
     override fun onInit(status: Int) {
 
         if (status == TextToSpeech.SUCCESS) {
             // set US English as language for tts
-            val result = tts!!.setLanguage(Locale.US)
-
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+            val result = tts!!.setLanguage(Locale.CANADA)
+	        tts.setSpeechRate(1.5f)
+	        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS","The Language specified is not supported!")
             } else {
                 binding.speak.isEnabled = true
             }
 
         } else {
-            Log.e("TTS", "Initilization Failed!")
+            Log.e("TTS", "Initialization Failed!")
         }
 
     }
