@@ -20,7 +20,9 @@ import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_SERIAL
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_TYPE
+import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.parseDateString
+import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.ScopeUpdateViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -52,14 +54,16 @@ class EditScopeActivity : AppCompatActivity() {
         val intentNextSampleDate = intent.getStringExtra(KEY_ENDOSCOPE_NEXT_SAMPLE_DATE)
         val intentStatus = intent.getStringExtra(KEY_ENDOSCOPE_STATUS)
 
-        binding.scopeSerial.editText?.setText(intentSerial.toString())
-        binding.scopeBrand.editText?.setText(intentBrand)
-        binding.scopeModel.editText?.setText(intentModel)
-        binding.scopeType.editText?.setText(intentType)
-        binding.nextSampleDate.editText?.setText(intentNextSampleDate)
+        binding.scopeSerial.setText(intentSerial.toString())
+        binding.scopeBrand.setText(intentBrand)
+        binding.scopeModel.setText(intentModel)
+        binding.scopeType.setText(intentType)
+        binding.nextSampleDate.setText(intentNextSampleDate)
 
-        binding.nextSampleDate.editText?.setOnClickListener{
-            onDatePickerClick()
+        binding.nextSampleDate.setOnClickListener{
+            Utils.createMaterialDatePicker("Change sample date") {
+                binding.nextSampleDate.setText(Date(it).toDateString())
+            }.show(supportFragmentManager, null)
         }
 
         binding.buttonUpdateScope.setOnClickListener{
@@ -67,21 +71,20 @@ class EditScopeActivity : AppCompatActivity() {
         }
 
         binding.buttonDeleteScope.setOnClickListener {
-            val confirmationDialog = ConfirmationDialogFragment("Are you sure you want to delete this endoscope?") {
+            ConfirmationDialogFragment("Update endoscope data?") {
                 // User clicked confirm
                 viewModel.deleteScope(intentSerial)
                 Toast.makeText(this, "Scope Deleted Successfully!", Toast.LENGTH_LONG).show()
                 finish()
-            }
-            confirmationDialog.show(supportFragmentManager, "ConfirmationDialog")
+            }.show(supportFragmentManager, null)
         }
     }
 
     private fun onUpdateClick(intentSerial: Int, intentStatus: String?) {
-        val brand = binding.scopeBrand.editText?.text.toString()
-        val model = binding.scopeModel.editText?.text.toString()
-        val type = binding.scopeType.editText?.text.toString()
-        val nextSampleDate = binding.nextSampleDate.editText?.text.toString().parseDateString()
+        val brand = binding.scopeBrand.text.toString()
+        val model = binding.scopeModel.text.toString()
+        val type = binding.scopeType.text.toString()
+        val nextSampleDate = binding.nextSampleDate.text.toString().parseDateString()
 
         // Validate fields
         if (brand.isEmpty() || model.isEmpty() || type.isEmpty() || nextSampleDate == null) {
@@ -108,30 +111,6 @@ class EditScopeActivity : AppCompatActivity() {
             finish()
         }
         confirmationDialog.show(supportFragmentManager, "ConfirmationDialog")
-    }
-
-    private fun onDatePickerClick() {
-        val currentDate = Calendar.getInstance()
-        val builder = MaterialDatePicker.Builder.datePicker().setTitleText("Select date")
-        val constraintsBuilder = CalendarConstraints.Builder()
-        constraintsBuilder.setStart(currentDate.timeInMillis)
-        constraintsBuilder.setEnd(currentDate.timeInMillis + TimeUnit.DAYS.toMillis(365))
-
-        val validator = DateValidatorPointForward.from(currentDate.timeInMillis)
-        constraintsBuilder.setValidator(validator)
-
-        val constraints = constraintsBuilder.build()
-        builder.setCalendarConstraints(constraints)
-        val datePicker = builder.build()
-
-        datePicker.show(supportFragmentManager, "DatePicker")
-        datePicker.addOnPositiveButtonClickListener {
-            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-            calendar.timeInMillis = it
-            val formattedDate =
-                SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(calendar.time)
-            binding.nextSampleDate.editText?.setText(formattedDate)
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

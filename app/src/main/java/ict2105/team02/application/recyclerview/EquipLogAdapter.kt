@@ -12,6 +12,7 @@ import ict2105.team02.application.R
 import ict2105.team02.application.model.EndoscopeTransaction
 import ict2105.team02.application.model.ResultData
 import ict2105.team02.application.model.WashData
+import ict2105.team02.application.utils.toDateString
 
 class EquipLogAdapter:
     ListAdapter<EndoscopeTransaction, EquipLogAdapter.EndoscopeTransactionViewHolder>(EndoscopeTransactionComparator())
@@ -119,7 +120,7 @@ class EquipLogAdapter:
                 }
 
                 if (washData.WashDate != null) {
-                    washDateData.text = washData.WashDate.toString()
+                    washDateData.text = washData.WashDate.toDateString()
                 } else {
                     washDateLL.visibility = View.GONE
                 }
@@ -137,7 +138,7 @@ class EquipLogAdapter:
                 }
 
                 if (washData.DisinfectantChangedDate != null) {
-                    disinfectantChangedDateData.text = washData.DisinfectantChangedDate.toString()
+                    disinfectantChangedDateData.text = washData.DisinfectantChangedDate.toDateString()
                 } else {
                     disinfectantChangedDateLL.visibility = View.GONE
                 }
@@ -155,7 +156,7 @@ class EquipLogAdapter:
                 }
 
                 if (washData.FilterChangeDate != null) {
-                    filterChangeDateData.text = washData.FilterChangeDate.toString()
+                    filterChangeDateData.text = washData.FilterChangeDate.toDateString()
                 } else {
                     filterChangeDateLL.visibility = View.GONE
                 }
@@ -185,7 +186,7 @@ class EquipLogAdapter:
                 }
 
                 if (washData.WashDate != null) {
-                    washDateData.text = washData.WashDate.toString()
+                    washDateData.text = washData.WashDate.toDateString()
                 } else {
                     washDateLL.visibility = View.GONE
                 }

@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.equipment.AddScopeActivity">
+    tools:context=".ui.wash.Wash1ScopeDetailFragment">
 
     <TextView
+        android:id="@+id/dryingCabinetTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add a new Scope"
-        android:textAlignment="center"
-        android:textSize="24sp" />
-
+        android:layout_height="62dp"
+        android:layout_marginLeft="10sp"
+        android:gravity="bottom"
+        android:text="Drying Cabinet"
+        android:textSize="25sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -21,10 +22,10 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Scope Serial Number">
+        android:hint="Scope Dryer">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/scopeSerial"
+            android:id="@+id/scopeDryer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />
@@ -38,13 +39,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Scope Brand">
+        android:hint="Dryer Level">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/scopeBrand"
+            android:id="@+id/dryerLevel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,56 +56,21 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Scope Model">
+        android:hint="Remarks">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/scopeModel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="Scope Type">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/scopeType"
+            android:id="@+id/remarks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <TextView
+        android:id="@+id/errorMsgDCabinet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="Next Sample Date">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nextSampleDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/buttonAddScope"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:text="Add Scope" />
+        android:textAlignment="center"
+        android:textColor="#FF2323" />
 
 </LinearLayout>

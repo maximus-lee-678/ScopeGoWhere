@@ -1,6 +1,7 @@
 package ict2105.team02.application.ui.equipment
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,10 @@ class EquipmentLogActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        title = "Endoscope Logs"
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityEquipmentLogBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -66,5 +71,16 @@ class EquipmentLogActivity : AppCompatActivity() {
         }
 
         scopeDetailViewModel.fetchLogDetail(serial)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Back button press on action bar
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

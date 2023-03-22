@@ -13,6 +13,7 @@ import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.ui.equipment.EditScopeActivity
 import ict2105.team02.application.ui.sample.ScanDialogFragment
 import ict2105.team02.application.ui.equipment.EquipmentLogActivity
+import ict2105.team02.application.ui.sample.SampleActivity
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_BRAND
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
@@ -28,14 +29,11 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
     private val viewModel by viewModels<ScopeDetailViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentScopeDetailBinding.inflate(inflater)
 
         binding.frameLayoutScopeName.visibility = View.GONE
+        binding.textViewScopeDetailError.visibility = View.GONE
         binding.linearLayoutScopeDetail.visibility = View.INVISIBLE
 
         return binding.root
@@ -108,21 +106,19 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         }
 
         binding.washButton.setOnClickListener {
-            val intent = Intent(activity, WashActivity::class.java)
             if (argSerial != null) {
-                val scopeHashMap = HashMap<String, Any>()
-                scopeHashMap["scopeSerial"] = viewModel.scopeDetail.value!!.scopeSerial
-                scopeHashMap["scopeModel"] = viewModel.scopeDetail.value!!.scopeModel
-                scopeHashMap["scopeBrand"] = viewModel.scopeDetail.value!!.scopeBrand
-                intent.putExtra("scopeDetails", scopeHashMap)
+                val intent = Intent(requireContext(), WashActivity::class.java).apply {
+                    putExtra(KEY_ENDOSCOPE_SERIAL, viewModel.scopeDetail.value!!.scopeSerial)
+                    putExtra(KEY_ENDOSCOPE_MODEL, viewModel.scopeDetail.value!!.scopeModel)
+                    putExtra(KEY_ENDOSCOPE_BRAND, viewModel.scopeDetail.value!!.scopeBrand)
+                }
                 startActivity(intent)
             }
         }
 
         binding.sampleButton.setOnClickListener {
-//            val intent = Intent(getActivity(), SampleActivity::class.java)
-//            getActivity()?.startActivity(intent)
-            ScanDialogFragment().show(childFragmentManager,"")
+            val intent = Intent(requireContext(), SampleActivity::class.java)
+            startActivity(intent)
         }
 
         binding.viewLogsButton.setOnClickListener{

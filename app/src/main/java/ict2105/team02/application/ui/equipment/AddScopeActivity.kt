@@ -2,14 +2,19 @@ package ict2105.team02.application.ui.equipment
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityAddScopeBinding
+import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
+import ict2105.team02.application.utils.Utils.Companion.createMaterialDatePicker
 import ict2105.team02.application.utils.parseDateString
+import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.NewScopeViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 
 class AddScopeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddScopeBinding
@@ -18,26 +23,33 @@ class AddScopeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setTitle(R.string.title_create_endoscope)
+        setTitle(R.string.title_create_endoscope)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityAddScopeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-    }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
+        // Date picker
+        binding.nextSampleDate.setOnClickListener{
+            createMaterialDatePicker("Choose upcoming sample date") {
+                binding.nextSampleDate.setText(Date(it).toDateString())
+            }.show(supportFragmentManager, null)
+        }
 
         binding.buttonAddScope.setOnClickListener {
-            val brand = binding.scopeBrand.editText?.text.toString()
-            val model = binding.scopeModel.editText?.text.toString()
-            val serial = binding.scopeSerial.editText?.text.toString().toInt()
-            val type = binding.scopeType.editText?.text.toString()
-            val nextSample = binding.nextSampleDate.editText?.text.toString().parseDateString()
-            lifecycleScope.launch {
-                viewModel.insertScope(brand,model,serial,type,nextSample!!)
-            }
-            finish()
+            val brand = binding.scopeBrand.text.toString()
+            val model = binding.scopeModel.text.toString()
+            val serial = binding.scopeSerial.text.toString().toInt()
+            val type = binding.scopeType.text.toString()
+            val nextSample = binding.nextSampleDate.text.toString().parseDateString()
+
+            ConfirmationDialogFragment("Add new endoscope?") {
+                // User clicked confirm
+                lifecycleScope.launch {
+                    viewModel.insertScope(brand, model, serial, type, nextSample!!)
+                }
+                finish()
+            }.show(supportFragmentManager, null)
         }
     }
 
