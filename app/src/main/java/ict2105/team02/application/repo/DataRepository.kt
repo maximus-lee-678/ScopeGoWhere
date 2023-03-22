@@ -10,7 +10,6 @@ import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.asHashMap
 import kotlinx.coroutines.tasks.await
-import java.time.LocalDate
 
 private const val COLLECTION_USERS = "users"
 private const val COLLECTION_ENDOSCOPES = "endoscopes"
@@ -157,7 +156,7 @@ class DataRepository {
                                 fluidComment = fluidComment,
                                 fluidResult = fluidResult,
                                 quarantineRequired = quarantineRequired,
-                                recordedBy = recordedBy,
+                                doneBy = recordedBy,
                                 repeatDateMS = repeatChangeDateMS,
                                 resultDate = resultChangeDate,
                                 swabAction = swabAction,

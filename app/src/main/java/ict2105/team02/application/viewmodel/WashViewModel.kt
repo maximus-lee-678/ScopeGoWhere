@@ -68,7 +68,12 @@ class WashViewModel : ViewModel() {
         val washDataVal = washData.value
         if (washDataVal != null) {
             viewModelScope.launch {
-                repo.insertWashData(scopeData.value?.scopeSerial.toString(), docName, washDataVal)
+                repo.getAuthenticatedUserData {
+                    repo.insertWashData(scopeData.value?.scopeSerial.toString(), docName, washDataVal.copy(
+                        WashDate = Date(),
+                        DoneBy = it.name
+                    ))
+                }
             }
         }
     }
