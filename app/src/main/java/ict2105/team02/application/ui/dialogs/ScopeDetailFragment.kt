@@ -11,7 +11,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.ui.equipment.EditScopeActivity
-import ict2105.team02.application.ui.sample.ScanDialogFragment
 import ict2105.team02.application.ui.equipment.EquipmentLogActivity
 import ict2105.team02.application.ui.sample.SampleActivity
 import ict2105.team02.application.ui.wash.WashActivity
@@ -132,8 +131,6 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             intent.putExtra(KEY_ENDOSCOPE_MODEL, scopeModel)
             intent.putExtra(KEY_ENDOSCOPE_STATUS, scopeStatus)
             startActivity(intent)
-
-            this.dismiss()
         }
 
         if (argSerial != null) {
