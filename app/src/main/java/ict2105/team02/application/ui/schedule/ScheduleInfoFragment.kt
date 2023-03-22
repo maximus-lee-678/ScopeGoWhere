@@ -41,6 +41,7 @@ class ScheduleInfoFragment : Fragment() {
             val fragment = ScopeDetailFragment.newInstance(it.scopeSerial)
             Log.d("EquipmentAdapter", "Setup OnClick")
             fragment.show(requireActivity().supportFragmentManager, "scope_detail")
+
         }
 
 

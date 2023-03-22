@@ -30,7 +30,7 @@ class HelpFragment : Fragment() {
 
         // Setup recyclerview
         val rvAdapter = HelpAdapter(helpDataList,this)
-        binding.scheduleRecycle.apply {
+        binding.helpRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
             setHasFixedSize(false)

@@ -19,7 +19,7 @@ class HelpAdapter(private val dataset: List<HelpData>,
 )
     : RecyclerView.Adapter<HelpAdapter.ItemViewHolder>(){
     val TAG = "HelpAdapter"
-    private lateinit var fragment : Fragment
+    private lateinit var helpFragment : Fragment
     private var resID = 0
     class ItemViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
         val helpTitle : TextView = view.findViewById(R.id.HelpTitle)
@@ -38,37 +38,53 @@ class HelpAdapter(private val dataset: List<HelpData>,
         val TAG_FRAGMENT = "HelpPage"
         val item = dataset[position]
         holder.helpTitle.text = item.Title
-        changeFragmentAndResID(item)
+        changeResID(item)
         holder.helpImageButton.setImageResource(resID)
         holder.helpImageButton.setOnClickListener{
             var result : Bundle = Bundle()
+            changeFrag(item)
             result.putString("videoId",item.VideoID)
             parentFragment.setFragmentResult("helpPage",result)
             val transaction = parentFragment.parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentFrameLayout, fragment ,TAG_FRAGMENT)
+            transaction.replace(R.id.fragmentFrameLayout, helpFragment ,TAG_FRAGMENT)
             transaction.addToBackStack(null);
             transaction.commit()
         }
     }
-    fun changeFragmentAndResID(item : HelpData) {
+    fun changeResID(item : HelpData) {
         when(item.Title) {
             "How to use App" -> {
-                fragment = HowToUseAppFragment()
                 resID = R.drawable.bulb_icon
             }
             "Endoscope Cleaning" ->
             {
-                fragment = EndoscopeCleaningFragment()
                 resID = R.drawable.cleaning
             }
             "Endoscope Drying" ->
             {
-                fragment = EndoscopeDryingFragment()
                 resID = R.drawable.air_drying_icon
             }
             "Endoscope Sampling" -> {
-                fragment = EndoscopeSamplingFragment()
                 resID = R.drawable.sampling
+            }
+            else -> throw IllegalArgumentException("Invalid title: $item.Title")
+        }
+    }
+    fun changeFrag(item : HelpData) {
+        when(item.Title) {
+            "How to use App" -> {
+                helpFragment = HowToUseAppFragment()
+            }
+            "Endoscope Cleaning" ->
+            {
+                helpFragment = EndoscopeCleaningFragment()
+            }
+            "Endoscope Drying" ->
+            {
+                helpFragment = EndoscopeDryingFragment()
+            }
+            "Endoscope Sampling" -> {
+                helpFragment = EndoscopeSamplingFragment()
             }
             else -> throw IllegalArgumentException("Invalid title: $item.Title")
         }
