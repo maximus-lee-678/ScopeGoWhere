@@ -18,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone" >
 
         <TextView
             android:layout_width="match_parent"
@@ -247,6 +248,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sample" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/circulationButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Return to circulation" />
 
         </LinearLayout>
     </LinearLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
@@ -22,6 +23,7 @@ import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_TYPE
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
+import kotlinx.coroutines.launch
 
 class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
@@ -73,14 +75,20 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                 "Circulation" -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_inventory_2_24)
                     binding.sampleButton.visibility = View.GONE
+                    binding.washButton.visibility = View.VISIBLE
+                    binding.circulationButton.visibility = View.GONE
                 }
                 "Washing" -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_access_time_24)
+                    binding.sampleButton.visibility = View.VISIBLE
                     binding.washButton.visibility = View.GONE
+                    binding.circulationButton.visibility = View.GONE
                 }
                 "Sampling" -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_access_time_24)
+                    binding.sampleButton.visibility = View.GONE
                     binding.washButton.visibility = View.GONE
+                    binding.circulationButton.visibility = View.VISIBLE
                 }
             }
         }
@@ -118,6 +126,15 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         binding.sampleButton.setOnClickListener {
             val intent = Intent(requireContext(), SampleActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.circulationButton.setOnClickListener {
+            ConfirmationDialogFragment("Return endoscope to circulation?") {
+                // User clicked confirm
+                val serial = viewModel.scopeDetail.value!!.scopeSerial
+                viewModel.returnScopeToCirculation(serial)
+                viewModel.fetchScopeDetail(serial)
+            }.show(childFragmentManager, null)
         }
 
         binding.viewLogsButton.setOnClickListener{

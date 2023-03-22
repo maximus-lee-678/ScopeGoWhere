@@ -206,9 +206,7 @@ class DataRepository {
                 Log.d(TAG, "Firebase insert wash data success")
 
                 // Update scope status
-                val updateScopeStatus = mapOf( "scopeStatus" to "Sampling") // Washing -> Sampling
-                Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).update(updateScopeStatus)
-                Log.d(TAG, "Firebase scope status update success")
+                updateScopeStatus(serial, "Sampling")
             }
             .addOnFailureListener { e -> Log.d(TAG, "Firebase insert wash data fail due to $e") }
     }
@@ -230,9 +228,7 @@ class DataRepository {
                 Log.d(TAG, "Firebase insert sample result data success")
 
                 // Update scope status
-                val updateScopeStatus = mapOf( "scopeStatus" to "Circulation") // Sampling -> Circulation
-                Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).update(updateScopeStatus)
-                Log.d(TAG, "Firebase scope status update success")
+                updateScopeStatus(serial, "Circulation")
             }
             .addOnFailureListener { e -> Log.d(TAG, "Firebase insert sample result data fail due to $e") }
     }
@@ -258,6 +254,12 @@ class DataRepository {
             .addOnFailureListener { e ->
                 Log.d("Update Details", "Fail due to $e")
             }
+    }
+
+    fun updateScopeStatus(serial: String, status: String) {
+        val updateScopeStatus = mapOf( "scopeStatus" to status) // Sampling -> Circulation
+        Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).update(updateScopeStatus)
+        Log.d(TAG, "Firebase scope status update success")
     }
 
     fun deleteScope(serial: Int) {
