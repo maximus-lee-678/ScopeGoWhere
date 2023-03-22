@@ -30,7 +30,10 @@ fun WashData.asHashMap(): HashMap<String, Any> {
     val map = HashMap<String, Any>()
     this::class.java.declaredFields.forEach { field ->
         field.isAccessible = true
-        map[field.name] = field.get(this)!!
+        val value = field.get(this)
+        if (value != null) {
+            map[field.name] = value
+        }
     }
     return map
 }
@@ -39,7 +42,10 @@ fun ResultData.asHashMap(): HashMap<String, Any> {
     val map = HashMap<String, Any>()
     this::class.java.declaredFields.forEach { field ->
         field.isAccessible = true
-        map[field.name] = field.get(this)!!
+        val value = field.get(this)
+        if (value != null) {
+            map[field.name] = value
+        }
     }
     return map
 }

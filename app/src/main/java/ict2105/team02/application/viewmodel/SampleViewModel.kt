@@ -25,15 +25,15 @@ class SampleViewModel: ViewModel() {
     }
 
     fun makeSampleData() {
-        sampleData.value = ResultData()
+        sampleData.value = ResultData(resultDate = Date())
     }
 
-    fun setSample1Fluid(date: Date?, result: Boolean, action: String, cultureComment: String) {
+    fun setSample1Fluid(result: Boolean, action: String, cultureComment: String) {
         sampleData.postValue(
             sampleData.value?.copy(
-                resultDate = date,
                 fluidResult = result,
                 fluidAction = action,
+                fluidComment = cultureComment
             )
         )
     }
