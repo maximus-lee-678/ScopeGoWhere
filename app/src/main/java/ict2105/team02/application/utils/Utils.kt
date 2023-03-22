@@ -1,7 +1,9 @@
 package ict2105.team02.application.utils
 
-import android.content.Context
-import android.widget.Toast
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
+import ict2105.team02.application.model.WashData
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,8 +27,19 @@ class Utils {
             return calendar.time
         }
 
-        fun showToast(context: Context, message: String){
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        fun createMaterialDatePicker(title: String, onSelect: (Long) -> Unit): MaterialDatePicker<Long> {
+            val constrains = CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointForward.now())
+                .build()
+            return MaterialDatePicker.Builder.datePicker()
+                .setTitleText(title)
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setCalendarConstraints(constrains)
+                .build().apply {
+                    addOnPositiveButtonClickListener {
+                        onSelect(it)
+                    }
+                }
         }
     }
 }

@@ -1,55 +1,113 @@
 package ict2105.team02.application.ui.wash
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import ict2105.team02.application.R
-import ict2105.team02.application.databinding.ActivityMainBinding
-import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
-import ict2105.team02.application.ui.main.EquipmentFragment
-import ict2105.team02.application.ui.schedule.ScheduleFragment
-import ict2105.team02.application.ui.main.HomeFragment
-import ict2105.team02.application.ui.main.QRScannerActivity
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
+import ict2105.team02.application.databinding.ActivityWashBinding
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_BRAND
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_SERIAL
+import ict2105.team02.application.utils.TAG
 import ict2105.team02.application.viewmodel.WashViewModel
 
 class WashActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: WashViewModel
+    private lateinit var binding: ActivityWashBinding
+    private val viewModel by viewModels<WashViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        binding = ActivityWashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this)[WashViewModel::class.java]
-        val fragment = ScopeDetailsWashFragment()
-        var scopeDetailsMap = HashMap<String, Any>()
-        if (intent.extras != null){
-            scopeDetailsMap = intent.getSerializableExtra("scopeDetails") as HashMap<String, Any>
-            viewModel.makeScope(scopeDetailsMap["scopeBrand"].toString(), scopeDetailsMap["scopeModel"].toString(), scopeDetailsMap["scopeSerial"]as Int)
-        }
-        navbarNavigate(fragment)
 
-        binding.bottomNavbar.setOnItemSelectedListener {
-            when(it.itemId) {
-                R.id.nav_home -> navbarNavigate(HomeFragment())
-                R.id.nav_schedule -> navbarNavigate(ScheduleFragment())
-                R.id.nav_equipment -> navbarNavigate(EquipmentFragment())
-//                R.id.nav_help -> navbarNavigate(HelpFragment())
-                else -> { }
+        // ViewPager2 provides swipe function, TabLayout provides tabs
+        val stateAdapter = WashFragmentStateAdapter(this)
+        binding.viewPagerWash.apply {
+            adapter = stateAdapter
+            TabLayoutMediator(binding.tabLayoutWash, this) { tab, position ->
+                when (position) {
+                    0 -> tab.text = "1. AER"
+                    1 -> tab.text = "2. Detergent"
+                    2 -> tab.text = "3. Disinfectant"
+                    3 -> tab.text = "4. Drying"
+                    4 -> tab.text = "5. Summary"
+                }
+            }.attach()
+            registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    title = "Wash Equipment (${position + 1}/5)"
+                    updateNavigationButtons(position)
+                }
+            })
+        }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val brand = intent.getStringExtra(KEY_ENDOSCOPE_BRAND)
+        val model = intent.getStringExtra(KEY_ENDOSCOPE_MODEL)
+        val serial = intent.getIntExtra(KEY_ENDOSCOPE_SERIAL, -1)
+        if (brand != null && model != null && serial > 0){
+            viewModel.makeScope(brand, model, serial)
+            Log.d(TAG, "[Wash] Scope detail: $brand $model $serial")
+        }
+
+        binding.buttonWashNextStep.setOnClickListener { changePage(binding.viewPagerWash.currentItem + 1) }
+        binding.buttonWashPreviousStep.setOnClickListener { changePage(binding.viewPagerWash.currentItem - 1) }
+
+        viewModel.makeWashData()
+        title = "Wash Equipment (1/5)"
+        binding.buttonWashPreviousStep.visibility = View.INVISIBLE
+        changePage(0)
+    }
+
+    private fun changePage(page: Int) {
+        var newPage = page
+        if (newPage > TOTAL_STEPS - 1) newPage = TOTAL_STEPS - 1
+        else if (newPage < 0) newPage = 0
+
+        binding.tabLayoutWash.getTabAt(newPage)?.select()
+        binding.viewPagerWash.currentItem = newPage
+    }
+
+    private fun updateNavigationButtons(newPage: Int) {
+        when (newPage) {
+            0 -> {
+                // Hide previous button on first page
+                binding.buttonWashPreviousStep.visibility = View.INVISIBLE
             }
-            return@setOnItemSelectedListener true
-        }
-
-        binding.navbarFab.setOnClickListener {
-            val intent = Intent(this, QRScannerActivity::class.java)
-            startActivity(intent)
+            1 -> {
+                // No longer first page, enable previous button
+                binding.buttonWashPreviousStep.visibility = View.VISIBLE
+            }
+            TOTAL_STEPS - 2 -> {
+                // No longer last page, enable next button
+                binding.buttonWashNextStep.visibility = View.VISIBLE
+            }
+            TOTAL_STEPS - 1 -> {
+                // Hide next button on last page
+                binding.buttonWashNextStep.visibility = View.INVISIBLE
+            }
         }
     }
 
-    fun navbarNavigate(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentFrameLayout, fragment)
-        transaction.commit()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Back button press on action bar
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private const val TOTAL_STEPS = 5
     }
 }
