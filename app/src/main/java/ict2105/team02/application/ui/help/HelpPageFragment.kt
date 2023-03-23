@@ -1,14 +1,19 @@
 package ict2105.team02.application.ui.help
+import android.graphics.Typeface
 import android.speech.tts.TextToSpeech
 import android.os.Bundle
-import android.speech.tts.TextToSpeechService
-import android.speech.tts.UtteranceProgressListener
+import android.text.Html
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -16,22 +21,23 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController
-import ict2105.team02.application.databinding.FragmentHelpCleanBinding
+import ict2105.team02.application.R
+import ict2105.team02.application.databinding.FragmentHelpPageBinding
 import java.util.*
 
 
-class EndoscopeCleaningFragment : Fragment() , TextToSpeech.OnInitListener {
+class HelpPageFragment : Fragment() , TextToSpeech.OnInitListener {
 
-    private lateinit var binding: FragmentHelpCleanBinding
+    private lateinit var binding: FragmentHelpPageBinding
     private lateinit var youTubePlayerView: YouTubePlayerView
     private var currentVideoId : String = ""
     private lateinit var tts: TextToSpeech
     private var isPaused = false
-    private var currentPosition: Int = 0
+	var instructions: MutableList<String> = mutableListOf()
     private var allText: String = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val TAG = this.javaClass.simpleName
-        binding = FragmentHelpCleanBinding.inflate(layoutInflater, container, false)
+        binding = FragmentHelpPageBinding.inflate(layoutInflater, container, false)
         tts = TextToSpeech(context, this)
 
         binding.speak.setOnClickListener {
@@ -61,6 +67,12 @@ class EndoscopeCleaningFragment : Fragment() , TextToSpeech.OnInitListener {
                 this.currentVideoId = videoId
                 updateVideo(currentVideoId)
             }
+	        if (videoId != null) {
+		        val stringArrayID = bundle.getInt("stringArrayID")
+		        instructions = resources.getStringArray(stringArrayID).toMutableList()
+		        setUpInstruction()
+	        }
+
         }
 
         val scrollView = binding.helpCleanScroll
@@ -79,10 +91,49 @@ class EndoscopeCleaningFragment : Fragment() , TextToSpeech.OnInitListener {
                 })
             }
         }
-
-        return binding.root
+	    return binding.root
     }
+	private fun setUpInstruction() {
+		val linearLayout: LinearLayout = binding.LinearCleanHelp
+		for ((index, instruction) in instructions.withIndex()) {
+			if (index == 0) {
+				binding.HelpPageTitle.text =  instruction
+				continue
+			}
 
+			val textView = TextView(context)
+			textView.layoutParams = LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT
+			)
+			textView.text = Html.fromHtml(instruction)
+			textView.textSize = 16f
+			textView.setPadding(
+				dpToPx(16), dpToPx(16), dpToPx(16),
+				if (index == instructions.size - 1) dpToPx(16) else 0
+			)
+			textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_700))
+
+			// Apply bold styling to the text before the colon
+			val builder = SpannableStringBuilder(textView.text)
+			val colonIndex = instruction.indexOf(":")
+			if (colonIndex >= 0) {
+				builder.setSpan(
+					StyleSpan(Typeface.BOLD),
+					0, colonIndex,
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+				)
+			}
+			textView.text = builder
+
+			linearLayout.addView(textView)
+		}
+	}
+
+	fun dpToPx(dp: Int): Int {
+		val scale = resources.displayMetrics.density
+		return (dp * scale + 0.5f).toInt()
+	}
     override fun onDestroy() {
         super.onDestroy()
         youTubePlayerView.release()

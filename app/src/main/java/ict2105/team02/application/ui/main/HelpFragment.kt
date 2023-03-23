@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentHelpBinding
 import ict2105.team02.application.model.HelpData
 import ict2105.team02.application.recyclerview.HelpAdapter
@@ -14,10 +15,10 @@ class HelpFragment : Fragment() {
     private lateinit var binding: FragmentHelpBinding
 
     private val helpDataList = listOf(
-        HelpData("How to use App", "DKvU-5yJo0s"),
-        HelpData("Endoscope Cleaning", "SxBjCvnXIeo"),
-        HelpData("Endoscope Drying", "Sd5xafHAydU"),
-        HelpData("Endoscope Sampling", "XyGhlNorlfE")
+        HelpData("How to use App", "DKvU-5yJo0s", R.array.app_instructions),
+        HelpData("Endoscope Cleaning", "SxBjCvnXIeo",R.array.endoscope_cleaning_instructions),
+        HelpData("Endoscope Drying", "Sd5xafHAydU",R.array.endoscope_drying_instructions),
+        HelpData("Endoscope Sampling", "XyGhlNorlfE",R.array.endoscope_sampling_instructions)
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -101,6 +101,7 @@
     <string name="endoscope_drying_instructions_step_5">Step 5: Store the endoscope in a dry, clean, and well-ventilated area with the valves and channels open.</string>
 
     <!-- Sampling  -->
+
     <string name="sampling_title"> Endoscope Sampling Instructions </string>
     <string name="sampling_process">Before beginning the sampling process, ensure that the endoscope has been properly cleaned and disinfected following the manufacturer instructions.</string>
     <string name="ppe">Wear appropriate personal protective equipment (PPE) such as gloves, gown, and mask to prevent contamination during the sampling process.</string>
@@ -111,5 +112,48 @@
     <string name="label_container">Label the container with the endoscope details, sampling date, and other relevant information.</string>
     <string name="store_container">Store the container appropriately and transport it to the laboratory for analysis as soon as possible.</string>
     <string name="results">Once the results are available, take appropriate action based on the findings and ensure that the endoscope is properly cleaned and disinfected before further use.</string>
+
+    <string-array name="endoscope_cleaning_instructions">
+        <item name="endoscope_cleaning_instructions">Endoscope Cleaning Instructions</item>
+        <item>Step 1: Pre-cleaning. After using the endoscope, it should be rinsed thoroughly with warm water to remove any debris or organic material that might be present. The water should be flushed through all the channels of the endoscope, and the valves should be opened to ensure that all the surfaces are cleaned. This step should be done as soon as possible to avoid drying of any organic debris or contamination.</item>
+        <item>Step 2: Leak Testing. After pre-cleaning, the endoscope should undergo leak testing to check if there is any damage or leakage that might affect its performance. The leak test is done by immersing the endoscope in water and applying positive and negative pressure to it. Any leaks or damage should be repaired before proceeding to the next step.</item>
+        <item>Step 3: Manual Cleaning. The endoscope should be cleaned manually with a <b>soft brush</b>, <b>sponge</b>, or <b>cloth</b>. Special attention should be given to the channels, valves, and all the hard-to-reach areas where contamination may be hiding. Use only approved detergents and enzymatic cleaners to clean the endoscope.</item>
+        <item>Step 4: Rinse. The endoscope should be rinsed thoroughly with <i>warm water</i> to remove any detergent residue. This step should be repeated at least three times.</item>
+        <item>Step 5: Disinfection. The endoscope should undergo <b>high-level disinfection</b> using a solution that contains glutaraldehyde or other approved disinfectants. The disinfection time should be according to the manufacturer instructions.</item>
+        <item>Step 6: Rinse. The endoscope should be rinsed thoroughly with <i>sterile water</i> to remove any disinfectant residue. This step should be repeated at least three times.</item>
+        <item>Step 7: Drying and Storage. The endoscope should be <b>dried</b> with a lint-free cloth and stored in a <b>dry</b>, <b>clean</b>, and <b>well-ventilated area</b>. The valves and channels should be kept open during storage to allow air circulation and prevent any growth of bacteria or mold.</item>
+    </string-array>
+
+    <string-array name="endoscope_drying_instructions">
+        <item name="endoscope_drying_instructions">Endoscope Drying Instructions</item>
+        <item>Step 1: After rinsing the endoscope with sterile water, shake off any excess water and wipe the exterior with a lint-free cloth.</item>
+        <item>Step 2: Connect the air and water channels to the endoscope and purge the channels with compressed air to remove any remaining water.</item>
+        <item>Step 3: Hang the endoscope vertically in a well-ventilated area and allow it to air dry completely.</item>
+        <item>Step 4: Once dry, inspect the endoscope for any signs of damage or wear before storing it.</item>
+        <item>Step 5: Store the endoscope in a dry, clean, and well-ventilated area with the valves and channels open.</item>
+    </string-array>
+
+    <string-array name="endoscope_sampling_instructions">
+        <item>Endoscope Sampling Instructions</item>
+        <item>Step 1: Before beginning the sampling process, ensure that the endoscope has been properly cleaned and disinfected following the manufacturer instructions.</item>
+        <item>Step 2: Wear appropriate personal protective equipment (PPE) such as gloves, gown, and mask to prevent contamination during the sampling process.</item>
+        <item>Step 3: Prepare the sampling equipment, such as swabs or sponges, according to the manufacturer instructions.</item>
+        <item>Step 4: Insert the sampling equipment into the channels and valves of the endoscope, making sure to sample all areas thoroughly.</item>
+        <item>Step 5: Rotate the sampling equipment to ensure that all surfaces are sampled, especially in hard-to-reach areas.</item>
+        <item>Step 6: After sampling, remove the sampling equipment and place it in a sterile container for transport to the laboratory.</item>
+        <item>Step 7: Label the container with the endoscope details, sampling date, and other relevant information.</item>
+        <item>Step 8: Store the container appropriately and transport it to the laboratory for analysis as soon as possible.</item>
+        <item>Step 9: Once the results are available, take appropriate action based on the findings and ensure that the endoscope is properly cleaned and disinfected before further use.</item>
+    </string-array>
+
+    <string-array name="app_instructions">
+        <item name="app_instructions_title">How to Use the App</item>
+        <item>Step 1: Login to your account to access the app features.</item>
+        <item>Step 2: Use the navigation bar at the bottom to access different sections of the app, including the home screen, schedule, equipment, and help.</item>
+        <item>Step 3: Tap on the floating action button in the navigation bar to scan a QR code and add new equipment to your inventory.</item>
+        <item>Step 4: Tap on the options menu in the top right corner to access additional app settings, including the ability to log out of your account and add a new scope of work.</item>
+        <item>Step 5: Use the back button to navigate back to previous screens, or exit the app if you are on the home screen.</item>
+        <item name="app_instructions_summary">Congratulations! You are now ready to use the app to manage your equipment inventory and schedule.</item>
+    </string-array>
 
 </resources>

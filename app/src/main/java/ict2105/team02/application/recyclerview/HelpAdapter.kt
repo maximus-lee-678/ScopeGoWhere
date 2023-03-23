@@ -42,8 +42,9 @@ class HelpAdapter(private val dataset: List<HelpData>,
         holder.helpImageButton.setImageResource(resID)
         holder.helpImageButton.setOnClickListener{
             var result : Bundle = Bundle()
-            changeFrag(item)
+	        helpFragment = HelpPageFragment()
             result.putString("videoId",item.VideoID)
+	        result.putInt("stringArrayID",item.stringArrayID)
             parentFragment.setFragmentResult("helpPage",result)
             val transaction = parentFragment.parentFragmentManager.beginTransaction()
             transaction.replace(R.id.fragmentFrameLayout, helpFragment ,TAG_FRAGMENT)
@@ -66,25 +67,6 @@ class HelpAdapter(private val dataset: List<HelpData>,
             }
             "Endoscope Sampling" -> {
                 resID = R.drawable.sampling
-            }
-            else -> throw IllegalArgumentException("Invalid title: $item.Title")
-        }
-    }
-    fun changeFrag(item : HelpData) {
-        when(item.Title) {
-            "How to use App" -> {
-                helpFragment = HowToUseAppFragment()
-            }
-            "Endoscope Cleaning" ->
-            {
-                helpFragment = EndoscopeCleaningFragment()
-            }
-            "Endoscope Drying" ->
-            {
-                helpFragment = EndoscopeDryingFragment()
-            }
-            "Endoscope Sampling" -> {
-                helpFragment = EndoscopeSamplingFragment()
             }
             else -> throw IllegalArgumentException("Invalid title: $item.Title")
         }
