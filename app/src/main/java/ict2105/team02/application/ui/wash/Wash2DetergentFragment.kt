@@ -31,7 +31,7 @@ class Wash2DetergentFragment : Fragment() {
 
         // For validation and update view model
         val textChangeListener = TextChangeListener {
-            viewModel.setWash3Detergent(
+            viewModel.setWash2Detergent(
                 binding.detergentUsed.text.toString(),
                 binding.detergentLotNo.text.toString().toIntOrNull(),
                 binding.filterChangeDate.text.toString().parseDateString()

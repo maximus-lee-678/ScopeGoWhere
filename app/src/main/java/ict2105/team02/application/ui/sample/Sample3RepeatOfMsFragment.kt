@@ -45,7 +45,7 @@ class Sample3RepeatOfMsFragment : Fragment() {
 
         // Date picker
         binding.repeatDate.setOnClickListener {
-            Utils.createMaterialDatePicker("Select date of resample") { epoch ->
+            Utils.createMaterialFutureDatePicker("Select date of resample") { epoch ->
                 binding.repeatDate.setText(Date(epoch).toDateString())
             }.show(childFragmentManager, null)
         }

@@ -32,6 +32,8 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
     private val viewModel by viewModels<ScopeDetailViewModel>()
 
+    private var argSerial: Int = -1
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentScopeDetailBinding.inflate(inflater)
 
@@ -43,7 +45,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val argSerial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL) ?: throw NullPointerException()
+        argSerial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL) ?: throw NullPointerException()
 
         viewModel.scopeDetail.observe(this) {
             if (it == null) {
@@ -105,6 +107,10 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             startActivity(intent)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.fetchScopeDetail(argSerial)
     }
 
