@@ -55,7 +55,7 @@ class SampleViewModel: ViewModel() {
         )
     }
 
-    fun setSample4Atp(waterATPRLU: Int, swabATPRLU: Int) {
+    fun setSample4Atp(waterATPRLU: Int?, swabATPRLU: Int?) {
         sampleData.postValue(
             sampleData.value?.copy(
                 waterATPRLU = waterATPRLU,

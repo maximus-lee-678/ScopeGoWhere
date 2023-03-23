@@ -36,7 +36,7 @@ class Utils {
                 }
         }
 
-        fun createMaterialFutureDatePicker(title: String, onSelect: (Long) -> Unit): MaterialDatePicker<Long> {
+        fun createMaterialFutureDatePicker(title: String, onCancel: (() -> Unit)? = null, onSelect: (Long) -> Unit): MaterialDatePicker<Long> {
             val constrains = CalendarConstraints.Builder()
                 .setValidator(DateValidatorPointForward.now())
                 .build()
@@ -47,6 +47,9 @@ class Utils {
                 .build().apply {
                     addOnPositiveButtonClickListener {
                         onSelect(it)
+                    }
+                    addOnNegativeButtonClickListener {
+                        onCancel?.invoke()
                     }
                 }
         }

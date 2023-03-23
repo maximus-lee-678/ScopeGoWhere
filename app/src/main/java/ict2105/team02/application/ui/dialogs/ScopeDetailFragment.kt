@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
@@ -25,7 +24,6 @@ import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_TYPE
 import ict2105.team02.application.utils.TAG
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
-import kotlinx.coroutines.launch
 
 class ScopeDetailFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
@@ -79,10 +77,16 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
                 putExtra(KEY_ENDOSCOPE_MODEL, viewModel.scopeDetail.value!!.scopeModel)
                 putExtra(KEY_ENDOSCOPE_BRAND, viewModel.scopeDetail.value!!.scopeBrand)
             })
+            dismiss()
         }
 
         binding.sampleButton.setOnClickListener {
-            startActivity(Intent(requireContext(), SampleActivity::class.java))
+            startActivity(Intent(requireContext(), SampleActivity::class.java).apply {
+                putExtra(KEY_ENDOSCOPE_SERIAL, viewModel.scopeDetail.value!!.scopeSerial)
+                putExtra(KEY_ENDOSCOPE_MODEL, viewModel.scopeDetail.value!!.scopeModel)
+                putExtra(KEY_ENDOSCOPE_BRAND, viewModel.scopeDetail.value!!.scopeBrand)
+            })
+            dismiss()
         }
 
         binding.circulationButton.setOnClickListener {

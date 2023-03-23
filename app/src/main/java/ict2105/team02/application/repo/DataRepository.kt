@@ -223,7 +223,7 @@ class DataRepository {
 
         Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History")
             .document(docName)
-            .set(data)
+            .update(data as Map<String, Any>)
             .addOnSuccessListener {
                 Log.d(TAG, "Firebase insert sample result data success")
 
