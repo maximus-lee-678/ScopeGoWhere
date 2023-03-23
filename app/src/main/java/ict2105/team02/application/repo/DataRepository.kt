@@ -206,7 +206,7 @@ class DataRepository {
                 Log.d(TAG, "Firebase insert wash data success")
 
                 // Update scope status
-                updateScopeStatus(serial, "Sampling")
+                updateScopeStatus(serial, "Washing")
             }
             .addOnFailureListener { e -> Log.d(TAG, "Firebase insert wash data fail due to $e") }
     }
@@ -228,7 +228,7 @@ class DataRepository {
                 Log.d(TAG, "Firebase insert sample result data success")
 
                 // Update scope status
-                updateScopeStatus(serial, "Circulation")
+                updateScopeStatus(serial, "Sampling")
             }
             .addOnFailureListener { e -> Log.d(TAG, "Firebase insert sample result data fail due to $e") }
     }
