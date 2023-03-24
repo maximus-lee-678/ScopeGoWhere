@@ -25,7 +25,6 @@
                 android:id="@+id/HelpPageTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/endoscope_cleaning_instructions"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:padding="16dp"
