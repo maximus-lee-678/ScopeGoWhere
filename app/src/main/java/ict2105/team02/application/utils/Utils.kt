@@ -1,6 +1,9 @@
 package ict2105.team02.application.utils
 
+import android.content.Context
+import android.widget.Toast
 import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.util.*
@@ -14,6 +17,9 @@ class Utils {
             calendar.set(Calendar.SECOND, 0)
             calendar.set(Calendar.MILLISECOND, 0)
             return calendar.time
+        }
+        fun showToast(context: Context, msg:String){
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         }
 
         fun getTodayEndDate(): Date {
@@ -49,6 +55,24 @@ class Utils {
                         onSelect(it)
                     }
                     addOnNegativeButtonClickListener {
+                        onCancel?.invoke()
+                    }
+                }
+        }
+
+        fun createMaterialPastDatePicker(title:String, onCancel: (() -> Unit)? = null, onSelect: (Long) -> Unit): MaterialDatePicker<Long>{
+            val constraints = CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointBackward.now())
+                .build()
+            return MaterialDatePicker.Builder.datePicker()
+                .setTitleText(title)
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setCalendarConstraints(constraints)
+                .build().apply {
+                    addOnPositiveButtonClickListener {
+                        onSelect(it)
+                    }
+                    addOnPositiveButtonClickListener {
                         onCancel?.invoke()
                     }
                 }

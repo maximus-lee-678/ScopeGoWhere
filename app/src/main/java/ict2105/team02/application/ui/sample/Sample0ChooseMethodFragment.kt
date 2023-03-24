@@ -23,12 +23,11 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import com.google.android.material.button.MaterialButton
 import ict2105.team02.application.databinding.FragmentSampleMethodBinding
 import ict2105.team02.application.utils.Utils.Companion.showToast
 import ict2105.team02.application.viewmodel.SampleViewModel
 
-class SampleMethodFragment : Fragment() {
+class Sample0ChooseMethodFragment : Fragment() {
     private lateinit var binding: FragmentSampleMethodBinding
     private lateinit var viewModel: SampleViewModel
 
@@ -65,29 +64,29 @@ class SampleMethodFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.sampleSpinner.adapter = adapter
         val spinner:Spinner = binding.sampleSpinner
-        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = parent?.getItemAtPosition(position) as String
-                if(selectedItem == "Scan/ Take Photo"){
-                    binding.photoView.visibility = View.VISIBLE
-                    binding.childFragmentContainer.visibility = View.GONE
-                    val childFragment = childFragmentManager.findFragmentById(binding.childFragmentContainer.id)
-                    if (childFragment != null) {
-                        childFragmentManager.beginTransaction().remove(childFragment).commit()
-                    }
-                } else{
-                    binding.photoView.visibility = View.GONE
-                    binding.childFragmentContainer.visibility = View.VISIBLE
-                    childFragmentManager.beginTransaction()
-                        .replace(binding.childFragmentContainer.id, FluidResultSampleFragment())
-                        .commit()
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-        }
+//        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                val selectedItem = parent?.getItemAtPosition(position) as String
+//                if(selectedItem == "Scan/ Take Photo"){
+//                    binding.photoView.visibility = View.VISIBLE
+//                    binding.childFragmentContainer.visibility = View.GONE
+//                    val childFragment = childFragmentManager.findFragmentById(binding.childFragmentContainer.id)
+//                    if (childFragment != null) {
+//                        childFragmentManager.beginTransaction().remove(childFragment).commit()
+//                    }
+//                } else{
+//                    binding.photoView.visibility = View.GONE
+//                    binding.childFragmentContainer.visibility = View.VISIBLE
+//                    childFragmentManager.beginTransaction()
+//                        .replace(binding.childFragmentContainer.id, FluidResultSampleFragment())
+//                        .commit()
+//                }
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//
+//            }
+//        }
         //init array of permission required for camera, gallery
         cameraPermission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
         storagePermission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)

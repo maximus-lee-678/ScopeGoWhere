@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:orientation="vertical"
-    tools:context=".ui.sample.SampleMethodFragment">
+    tools:context=".ui.sample.Sample0ChooseMethodFragment">
 
 
     <Spinner

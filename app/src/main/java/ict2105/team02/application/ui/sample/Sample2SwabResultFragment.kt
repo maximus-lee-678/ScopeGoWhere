@@ -46,7 +46,7 @@ class Sample2SwabResultFragment : Fragment() {
 
         // Date picker
         binding.dateOfResultInput.setOnClickListener{
-            Utils.createMaterialDatePicker("Select date of sample result") { epoch ->
+            Utils.createMaterialPastDatePicker("Select date of sample result") { epoch ->
                 binding.dateOfResultInput.setText(Date(epoch).toDateString())
             }.show(childFragmentManager, null)
         }

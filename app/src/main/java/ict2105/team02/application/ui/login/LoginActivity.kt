@@ -50,8 +50,8 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
 
         //login button validate
         binding.loginButton.setOnClickListener {
-            var staffEmail = binding.userName.editText?.text.toString()
-            var password = binding.password.editText?.text.toString()
+            val staffEmail = binding.userName.editText?.text.toString()
+            val password = binding.password.editText?.text.toString()
             authViewModel.login(staffEmail, password)
         }
 
