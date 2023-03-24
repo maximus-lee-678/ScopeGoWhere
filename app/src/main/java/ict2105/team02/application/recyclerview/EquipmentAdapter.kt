@@ -11,7 +11,8 @@ import ict2105.team02.application.R
 import ict2105.team02.application.model.Endoscope
 
 // Adapter for displaying a list of endoscopes in a RecyclerView
-class EquipmentAdapter : ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHolder>(EndoscopeComparator()) {
+class EquipmentAdapter : ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHolder>
+    (EndoscopeComparator()) {
     // Callback for when an item is clicked
     var onItemClick: ((Endoscope) -> Unit)? = null
 

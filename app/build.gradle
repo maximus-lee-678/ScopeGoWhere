@@ -78,6 +78,6 @@ dependencies {
     //Computer Vision
     implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.2'
 //    // For video
-//    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
 
 }

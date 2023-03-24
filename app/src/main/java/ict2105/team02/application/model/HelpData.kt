@@ -4,5 +4,6 @@ import java.util.Date
 
 data class HelpData(
     val Title: String = "",
-    var VideoID: String = ""
+    var VideoID: String = "",
+    var stringArrayID : Int = 1
 )
