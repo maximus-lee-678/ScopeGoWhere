@@ -59,40 +59,43 @@ class HelpPageFragment : Fragment() , TextToSpeech.OnInitListener {
         val options = IFramePlayerOptions.Builder().controls(0).build()
         youTubePlayerView.initialize(listener, options)
 
-        parentFragmentManager.setFragmentResultListener("helpPage", this)
-        { requestKey, bundle ->
-            val videoId = bundle.getString("videoId")
-            if (videoId != null) {
-                Log.d(TAG, videoId)
-                this.currentVideoId = videoId
-                updateVideo(currentVideoId)
-            }
-	        if (videoId != null) {
-		        val stringArrayID = bundle.getInt("stringArrayID")
-		        instructions = resources.getStringArray(stringArrayID).toMutableList()
-		        setUpInstruction()
-	        }
+	    setupScrollObserver()
+	    parentFragmentManager.setFragmentResultListener("helpPage", this)
+	    { requestKey, bundle ->
+		    val videoId = bundle.getString("videoId")
+		    if (videoId != null) {
+			    this.currentVideoId = videoId
+			    updateVideo(currentVideoId)
+		    }
+		    val stringArrayID = bundle.getInt("stringArrayID")
+		    if (stringArrayID != null) {
+			    instructions = resources.getStringArray(stringArrayID).toMutableList()
+			    setUpInstruction()
+		    }
+	    }
 
-        }
 
-        val scrollView = binding.helpCleanScroll
-        scrollView.viewTreeObserver.addOnScrollChangedListener {
-            val videoViewLocation = IntArray(2)
-            youTubePlayerView.getLocationOnScreen(videoViewLocation)
-            val scrollViewLocation = IntArray(2)
-            scrollView.getLocationOnScreen(scrollViewLocation)
-
-            if (videoViewLocation[1] + youTubePlayerView.height < scrollViewLocation[1] ||
-                videoViewLocation[1] > scrollViewLocation[1] + scrollView.height) {
-                youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
-                    override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-                        youTubePlayer.pause()
-                    }
-                })
-            }
-        }
 	    return binding.root
     }
+
+	private fun setupScrollObserver(){
+		val scrollView = binding.helpCleanScroll
+		scrollView.viewTreeObserver.addOnScrollChangedListener {
+			val videoViewLocation = IntArray(2)
+			youTubePlayerView.getLocationOnScreen(videoViewLocation)
+			val scrollViewLocation = IntArray(2)
+			scrollView.getLocationOnScreen(scrollViewLocation)
+
+			if (videoViewLocation[1] + youTubePlayerView.height < scrollViewLocation[1] ||
+				videoViewLocation[1] > scrollViewLocation[1] + scrollView.height) {
+				youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+					override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+						youTubePlayer.pause()
+					}
+				})
+			}
+		}
+	}
 	private fun setUpInstruction() {
 		val linearLayout: LinearLayout = binding.LinearCleanHelp
 		for ((index, instruction) in instructions.withIndex()) {
@@ -217,5 +220,29 @@ class HelpPageFragment : Fragment() , TextToSpeech.OnInitListener {
         }
 
     }
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		setUpInstruction()
+	}
+
+	override fun onViewStateRestored(savedInstanceState: Bundle?) {
+		super.onViewStateRestored(savedInstanceState)
+		val TAG = "OnViewState"
+
+	}
+
+	override fun onSaveInstanceState(outState: Bundle) {
+		super.onSaveInstanceState(outState)
+		val TAG = "OnViewState"
+	}
+	override fun onStop() {
+		super.onStop()
+	}
+
     // ... other code ...\
 }
