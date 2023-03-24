@@ -221,8 +221,8 @@ class EquipLogAdapter:
                     quarantineRequiredLL.visibility = View.GONE
                 }
 
-                if (resultData.recordedBy?.isEmpty() == false) {
-                    recordedByData.text = resultData.recordedBy
+                if (resultData.doneBy?.isEmpty() == false) {
+                    recordedByData.text = resultData.doneBy
                 } else {
                     recordedByLL.visibility = View.GONE
                 }

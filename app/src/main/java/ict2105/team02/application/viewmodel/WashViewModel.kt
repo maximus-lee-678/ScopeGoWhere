@@ -33,7 +33,7 @@ class WashViewModel : ViewModel() {
         )
     }
 
-    fun setWash3Detergent(disinfectantUsed: String, lotNo: Int?, filterChangeDate: Date?) {
+    fun setWash2Detergent(disinfectantUsed: String, lotNo: Int?, filterChangeDate: Date?) {
         washData.postValue(
             washData.value?.copy(
                 DetergentUsed = disinfectantUsed,
@@ -43,7 +43,7 @@ class WashViewModel : ViewModel() {
         )
     }
 
-    fun setWash4Disinfectant(disinfectantUsed: String, lotNo: Int?, changedDate: Date?) {
+    fun setWash3Disinfectant(disinfectantUsed: String, lotNo: Int?, changedDate: Date?) {
         washData.postValue(
             washData.value?.copy(
                 DisinfectantUsed = disinfectantUsed,
@@ -53,7 +53,7 @@ class WashViewModel : ViewModel() {
         )
     }
 
-    fun setWash5Drying(scopeDryer: Int?, dryerLevel: Int?, remarks: String) {
+    fun setWash4Drying(scopeDryer: Int?, dryerLevel: Int?, remarks: String) {
         washData.postValue(
             washData.value?.copy(
                 ScopeDryer = scopeDryer,
@@ -68,7 +68,12 @@ class WashViewModel : ViewModel() {
         val washDataVal = washData.value
         if (washDataVal != null) {
             viewModelScope.launch {
-                repo.insertWashData(scopeData.value?.scopeSerial.toString(), docName, washDataVal)
+                repo.getAuthenticatedUserData {
+                    repo.insertWashData(scopeData.value?.scopeSerial.toString(), docName, washDataVal.copy(
+                        WashDate = Date(),
+                        DoneBy = it.name
+                    ))
+                }
             }
         }
     }

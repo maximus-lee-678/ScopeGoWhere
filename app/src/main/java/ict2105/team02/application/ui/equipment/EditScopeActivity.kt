@@ -7,9 +7,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityEditScopeBinding
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
@@ -25,9 +22,7 @@ import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.ScopeUpdateViewModel
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class EditScopeActivity : AppCompatActivity() {
     private val viewModel by viewModels<ScopeUpdateViewModel>()
@@ -61,7 +56,7 @@ class EditScopeActivity : AppCompatActivity() {
         binding.nextSampleDate.setText(intentNextSampleDate)
 
         binding.nextSampleDate.setOnClickListener{
-            Utils.createMaterialDatePicker("Change sample date") {
+            Utils.createMaterialFutureDatePicker("Change sample date") {
                 binding.nextSampleDate.setText(Date(it).toDateString())
             }.show(supportFragmentManager, null)
         }
@@ -71,7 +66,7 @@ class EditScopeActivity : AppCompatActivity() {
         }
 
         binding.buttonDeleteScope.setOnClickListener {
-            ConfirmationDialogFragment("Update endoscope data?") {
+            ConfirmationDialogFragment("Delete endoscope?") {
                 // User clicked confirm
                 viewModel.deleteScope(intentSerial)
                 Toast.makeText(this, "Scope Deleted Successfully!", Toast.LENGTH_LONG).show()

@@ -16,7 +16,6 @@ import ict2105.team02.application.viewmodel.AuthViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val TAG: String = this::class.simpleName!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,20 +47,6 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
-//        var callback = object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                if (supportFragmentManager.backStackEntryCount == 0) {
-//                    // If we are on the home fragment, exit the app
-//                    finish()
-//                } else {
-//                    // Otherwise, navigate back to the previous fragment
-//                    supportFragmentManager.popBackStack()
-//                }
-//            }
-//        }
-//
-//        // Add the callback to the activity's OnBackPressedDispatcher
-//        onBackPressedDispatcher.addCallback(this, callback)
 
         binding.navbarFab.setOnClickListener {
             val intent = Intent(this, QRScannerActivity::class.java)
@@ -69,10 +54,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun navbarNavigate(fragment: Fragment) {
+    private fun navbarNavigate(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentFrameLayout, fragment, null)
-        transaction.addToBackStack(null)
         transaction.commit()
     }
 

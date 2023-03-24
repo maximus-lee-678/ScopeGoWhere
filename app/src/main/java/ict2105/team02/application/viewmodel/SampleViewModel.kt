@@ -3,13 +3,9 @@ package ict2105.team02.application.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
 import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.ResultData
 import ict2105.team02.application.repo.DataRepository
-import ict2105.team02.application.utils.asHashMap
 import ict2105.team02.application.utils.toDateString
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -28,12 +24,12 @@ class SampleViewModel: ViewModel() {
         sampleData.value = ResultData()
     }
 
-    fun setSample1Fluid(date: Date?, result: Boolean, action: String, cultureComment: String) {
+    fun setSample1Fluid(result: Boolean, action: String, cultureComment: String) {
         sampleData.postValue(
             sampleData.value?.copy(
-                resultDate = date,
                 fluidResult = result,
                 fluidAction = action,
+                fluidComment = cultureComment
             )
         )
     }
@@ -59,7 +55,7 @@ class SampleViewModel: ViewModel() {
         )
     }
 
-    fun setSample4Atp(waterATPRLU: Int, swabATPRLU: Int) {
+    fun setSample4Atp(waterATPRLU: Int?, swabATPRLU: Int?) {
         sampleData.postValue(
             sampleData.value?.copy(
                 waterATPRLU = waterATPRLU,
@@ -73,7 +69,12 @@ class SampleViewModel: ViewModel() {
         val sampleDataVal = sampleData.value
         if (sampleDataVal != null) {
             viewModelScope.launch {
-                repo.insertSampleData(scopeData.value?.scopeSerial.toString(), docName, sampleDataVal)
+                repo.getAuthenticatedUserData {
+                    repo.insertSampleData(scopeData.value?.scopeSerial.toString(), docName, sampleDataVal.copy(
+                        resultDate = Date(),
+                        doneBy = it.name
+                    ))
+                }
             }
         }
     }

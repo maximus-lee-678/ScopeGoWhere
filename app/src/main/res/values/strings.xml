@@ -69,6 +69,18 @@
     <!-- Endoscope Detail -->
     <string name="endoscope_name">%1$s %2$s</string>
     <string name="endoscope_serial">Serial: %1$s</string>
+    <string name="edit">Edit</string>
+    <string name="view_logs">View Logs</string>
+    <string name="wash">Wash</string>
+    <string name="sample">Sample</string>
+    <string name="next_sample_date">Next Sample Date</string>
+    <string name="equipment_status">Equipment Status</string>
+    <string name="return_to_circulation">Return to circulation</string>
+    <string name="value">VALUE</string>
+    <string name="model">MODEL</string>
+    <string name="type">TYPE</string>
+    <string name="serial">SERIAL</string>
+    <string name="error_failed_load_endoscope_details">Failed to load endoscope details.</string>
 
     <!-- Endoscope Log -->
     <string name="endoscope_log_sample_history">Sample History</string>
@@ -158,4 +170,8 @@
         <item name="app_instructions_summary">Congratulations! You are now ready to use the app to manage your equipment inventory and schedule.</item>
     </string-array>
 
+    <!-- Placeholder text -->
+    <string name="placeholder_endoscope_name">ABC123</string>
+    <string name="placeholder_date">dd/MM/yyyy</string>
+    <string name="placeholder_status">XXX</string>
 </resources>

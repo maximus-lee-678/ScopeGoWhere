@@ -33,4 +33,10 @@ class ScopeDetailViewModel : ViewModel() {
             _scopeLogDetail.postValue(result)
         }
     }
+
+    fun returnScopeToCirculation(serial: Int) {
+        viewModelScope.launch {
+            repo.updateScopeStatus(serial.toString(), "Circulation")
+        }
+    }
 }

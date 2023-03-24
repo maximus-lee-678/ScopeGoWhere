@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import ict2105.team02.application.databinding.FragmentSample2SwabResultBinding
 import ict2105.team02.application.utils.*
 import ict2105.team02.application.viewmodel.SampleViewModel
-import java.time.LocalDate
 import java.util.*
 
 class Sample2SwabResultFragment : Fragment() {

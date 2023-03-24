@@ -27,7 +27,7 @@ class Wash4DryingCabinetFragment : Fragment() {
 
         // For validation and update view model
         val textChangeListener = TextChangeListener {
-            viewModel.setWash5Drying(
+            viewModel.setWash4Drying(
                 binding.scopeDryer.text.toString().toIntOrNull(),
                 binding.dryerLevel.text.toString().toIntOrNull(),
                 binding.remarks.text.toString()

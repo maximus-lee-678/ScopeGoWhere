@@ -54,9 +54,8 @@ class SampleActivity : AppCompatActivity() {
         val serial = intent.getIntExtra(Constants.KEY_ENDOSCOPE_SERIAL, -1)
         if (brand != null && model != null && serial > 0){
             viewModel.makeScope(brand, model, serial)
-            Log.d(TAG, "[Wash] Scope detail: $brand $model $serial")
+            Log.d(TAG, "[Sample] Scope detail: $brand $model $serial")
         }
-
 
         binding.buttonSampleNextStep.setOnClickListener { changePage(binding.viewPagerSample.currentItem + 1) }
         binding.buttonSamplePreviousStep.setOnClickListener { changePage(binding.viewPagerSample.currentItem - 1) }

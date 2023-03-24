@@ -25,7 +25,6 @@ class Sample1FluidResultFragment : Fragment() {
         // Set existing data, if any
         val sampleData = viewModel.sampleData.value
         if (sampleData != null) {
-            if (sampleData.resultDate != null) binding.dateOfResultInput.setText(sampleData.resultDate.toDateString())
             if (sampleData.fluidResult != null) binding.fluidResultInput.setText(sampleData.fluidResult.toString())
             if (sampleData.fluidAction != null) binding.actionInput.setText(sampleData.fluidAction)
             if (sampleData.fluidComment != null) binding.cultureCommentInput.setText(sampleData.fluidComment)
@@ -35,23 +34,14 @@ class Sample1FluidResultFragment : Fragment() {
         val textChangeListener = TextChangeListener {
             validate()
             viewModel.setSample1Fluid(
-                binding.dateOfResultInput.text.toString().parseDateString(),
                 binding.fluidResultInput.text.toString().isNotEmpty(),
                 binding.actionInput.text.toString(),
                 binding.cultureCommentInput.text.toString()
             )
         }
-        binding.dateOfResultInput.addTextChangedListener(textChangeListener)
         binding.fluidResultInput.addTextChangedListener(textChangeListener)
         binding.actionInput.addTextChangedListener(textChangeListener)
         binding.cultureCommentInput.addTextChangedListener(textChangeListener)
-
-        // Date picker
-        binding.dateOfResultInput.setOnClickListener{
-            Utils.createMaterialDatePicker("Select date of sample result") { epoch ->
-                binding.dateOfResultInput.setText(Date(epoch).toDateString())
-            }.show(childFragmentManager, null)
-        }
 
         return binding.root
     }
@@ -59,8 +49,7 @@ class Sample1FluidResultFragment : Fragment() {
     private fun validate(): Boolean {
         var valid = true
 
-        if(TextUtils.isEmpty(binding.dateOfResultInput.text) ||
-            TextUtils.isEmpty(binding.fluidResultInput.text)||
+        if(TextUtils.isEmpty(binding.fluidResultInput.text)||
             TextUtils.isEmpty(binding.actionInput.text)){
             binding.errorMsgFluid.text = "Please fill in all the fields"
             valid = false
