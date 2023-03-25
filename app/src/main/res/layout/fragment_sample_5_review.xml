@@ -40,7 +40,10 @@
                         android:id="@+id/fluidResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +57,10 @@
                         android:id="@+id/actionFluid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +74,10 @@
                         android:id="@+id/cultureCommentFluid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,7 +100,10 @@
                         android:id="@+id/dateOfSwabResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,7 +117,10 @@
                         android:id="@+id/swabResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +134,10 @@
                         android:id="@+id/actionSwab"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,7 +151,10 @@
                         android:id="@+id/cultureCommentSwab"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,7 +177,10 @@
                         android:id="@+id/quarantinePeriodInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,7 +194,10 @@
                         android:id="@+id/repeatDateMsInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,7 +211,10 @@
                         android:id="@+id/borescopeDropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -207,7 +237,10 @@
                         android:id="@+id/atpWaterRluInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -221,7 +254,10 @@
                         android:id="@+id/atp_swab_rlu_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

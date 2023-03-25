@@ -26,32 +26,53 @@ class SampleViewModel: ViewModel() {
         sampleData.value = ResultData()
     }
 
-    fun setSample1Fluid(result: Boolean, action: String, cultureComment: String) {
+    fun setSample1Fluid(action: String, cultureComment: String) {
         sampleData.postValue(
             sampleData.value?.copy(
-                fluidResult = result,
                 fluidAction = action,
                 fluidComment = cultureComment
             )
         )
     }
 
-    fun setSample2Swab(date: Date?, result: Boolean, action: String, cultureComment: String) {
+    fun setSample1Result(result: Boolean){
+        sampleData.postValue(
+            sampleData.value?.copy(
+                fluidResult = result
+            )
+        )
+    }
+
+    fun setSample2Swab(date: Date?, action: String, cultureComment: String) {
         sampleData.postValue(
             sampleData.value?.copy(
                 swabDate = date,
-                swabResult = result,
                 swabAction = action,
                 swabCultureComment = cultureComment
             )
         )
     }
 
-    fun setSample3RepeatOfMS(quarantineRequired: Boolean, repeatDateMS: Date?, borescope: Boolean) {
+    fun setSample2Result(result:Boolean){
+        sampleData.postValue(
+            sampleData.value?.copy(
+                swabResult = result
+            )
+        )
+    }
+
+    fun setSample3RepeatOfMS(repeatDateMS: Date?) {
+        sampleData.postValue(
+            sampleData.value?.copy(
+                repeatDateMS = repeatDateMS
+            )
+        )
+    }
+
+    fun setSample3Data(quarantineRequired: Boolean, borescope: Boolean){
         sampleData.postValue(
             sampleData.value?.copy(
                 quarantineRequired = quarantineRequired,
-                repeatDateMS = repeatDateMS,
                 borescope = borescope
             )
         )
