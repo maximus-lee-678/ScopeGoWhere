@@ -15,6 +15,7 @@ import ict2105.team02.application.ui.sample.ScanDialogFragment
 import ict2105.team02.application.ui.equipment.EquipmentLogActivity
 import ict2105.team02.application.ui.sample.SampleActivity
 import ict2105.team02.application.ui.wash.WashActivity
+import ict2105.team02.application.utils.Constants
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_BRAND
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_NEXT_SAMPLE_DATE
@@ -71,15 +72,15 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             binding.nextSampleTextView.text = it.nextSampleDate.toDateString()
 
             when(it.scopeStatus) {
-                "Circulation" -> {
+                Constants.ENDOSCOPE_CIRCULATION -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_inventory_2_24)
                     binding.sampleButton.visibility = View.GONE
                 }
-                "Washing" -> {
+                Constants.ENDOSCOPE_WASH -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_access_time_24)
                     binding.washButton.visibility = View.GONE
                 }
-                "Sampling" -> {
+                Constants.ENDOSCOPE_SAMPLE -> {
                     binding.statusIconImageView.setImageResource(R.drawable.outline_access_time_24)
                     binding.washButton.visibility = View.GONE
                 }
@@ -103,6 +104,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
             intent.putExtra(KEY_ENDOSCOPE_NEXT_SAMPLE_DATE, nextSampleDate.toDateString())
             intent.putExtra(KEY_ENDOSCOPE_STATUS, status)
             startActivity(intent)
+            this.dismiss()
         }
 
         binding.washButton.setOnClickListener {

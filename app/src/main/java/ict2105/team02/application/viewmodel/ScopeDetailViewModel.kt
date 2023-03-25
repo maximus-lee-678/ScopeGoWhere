@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.EndoscopeTransaction
 import ict2105.team02.application.repo.DataRepository
+import ict2105.team02.application.utils.Constants
 import ict2105.team02.application.utils.UiState
 import kotlinx.coroutines.launch
 
@@ -36,7 +37,7 @@ class ScopeDetailViewModel : ViewModel() {
 
     fun returnScopeToCirculation(serial: Int) {
         viewModelScope.launch {
-            repo.updateScopeStatus(serial.toString(), "Circulation")
+            repo.updateScopeStatus(serial.toString(), Constants.ENDOSCOPE_CIRCULATION)
         }
     }
 }
