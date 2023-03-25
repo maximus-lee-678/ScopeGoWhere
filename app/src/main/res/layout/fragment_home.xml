@@ -16,7 +16,7 @@
             android:id="@+id/imageViewUserAvatar"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/outline_person_24"
+            android:src="@drawable/profile_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -94,10 +94,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         app:cardBackgroundColor="@color/home_pending_sample"
         app:cardCornerRadius="10dp"
-        app:cardElevation="8dp"
-        app:cardMaxElevation="8dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 
@@ -117,8 +117,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Pending Sample Today\n(Endoscopes)"
-                android:textColor="?android:attr/textColorPrimaryInverse"
-                android:textSize="16sp" />
+                android:textColor="#725483"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewPendingSampleCount"
@@ -126,9 +127,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:text="XX"
-                android:textColor="?android:attr/textColorPrimaryInverse"
-                android:textSize="24sp"
                 android:textStyle="bold"
+                android:textColor="#725483"
+                android:textSize="24sp"
                 android:layout_marginTop="10dp"/>
 
         </LinearLayout>
@@ -143,10 +144,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="8dp"
             app:cardBackgroundColor="@color/home_pending_sample"
             app:cardCornerRadius="10dp"
-            app:cardElevation="8dp"
-            app:cardMaxElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -166,7 +166,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    android:textColor="#d95319"
+                    android:textStyle="bold"
                     android:text="Total Endoscopes"/>
 
                 <TextView
@@ -174,7 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
-                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    android:textColor="#d95319"
                     android:gravity="end"
                     android:text="XX"
                     android:textStyle="bold"
@@ -188,10 +189,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginRight="8dp"
             app:cardBackgroundColor="@color/home_pending_sample"
             app:cardCornerRadius="10dp"
-            app:cardElevation="8dp"
-            app:cardMaxElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -211,8 +211,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="In circulation"
-                    android:textColor="?android:attr/textColorPrimaryInverse"
-                    android:textSize="16sp" />
+                    android:textColor="#658354"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/textViewInCirculationCount"
@@ -220,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:text="XX"
-                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    android:textColor="#658354"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"/>
@@ -239,10 +240,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="8dp"
             app:cardBackgroundColor="@color/home_pending_sample"
             app:cardCornerRadius="10dp"
-            app:cardElevation="8dp"
-            app:cardMaxElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -262,7 +262,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Washing"
-                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    android:textColor="#235284"
+                    android:textStyle="bold"
                     android:textSize="16sp" />
 
                 <TextView
@@ -271,7 +272,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:text="XX"
-                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    android:textColor="#235284"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"/>
@@ -285,10 +286,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginRight="8dp"
             app:cardBackgroundColor="@color/home_pending_sample"
             app:cardCornerRadius="10dp"
-            app:cardElevation="8dp"
-            app:cardMaxElevation="8dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -309,7 +309,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    android:textColor="#235284"
+                    android:textStyle="bold"
                     android:text="Sampling"/>
 
                 <TextView
@@ -317,7 +318,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
-                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    android:textColor="#235284"
                     android:gravity="end"
                     android:text="XX"
                     android:textStyle="bold"

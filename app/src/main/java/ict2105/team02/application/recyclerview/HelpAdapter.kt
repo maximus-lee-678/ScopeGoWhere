@@ -1,5 +1,6 @@
 package ict2105.team02.application.recyclerview
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +39,7 @@ class HelpAdapter(private val dataset: List<HelpData>,
         val TAG_FRAGMENT = "HelpPage"
         val item = dataset[position]
         holder.helpTitle.text = item.Title
-        changeResID(item)
+        changeResID(item, holder)
         holder.helpImageButton.setImageResource(resID)
         holder.helpImageButton.setOnClickListener{
             var result : Bundle = Bundle()
@@ -52,21 +53,21 @@ class HelpAdapter(private val dataset: List<HelpData>,
             transaction.commit()
         }
     }
-    fun changeResID(item : HelpData) {
+    fun changeResID(item : HelpData, holder: ItemViewHolder) {
         when(item.Title) {
             "How to use App" -> {
-                resID = R.drawable.bulb_icon
+                resID = R.drawable.guide_icon
             }
             "Endoscope Cleaning" ->
             {
-                resID = R.drawable.cleaning
+                resID = R.drawable.cleaning_icon
             }
             "Endoscope Drying" ->
             {
-                resID = R.drawable.air_drying_icon
+                resID = R.drawable.drying_icon
             }
             "Endoscope Sampling" -> {
-                resID = R.drawable.sampling
+                resID = R.drawable.sampling_icon
             }
             else -> throw IllegalArgumentException("Invalid title: $item.Title")
         }

@@ -41,7 +41,7 @@
 
                 app:autoPlay ="false"
                 app:enableAutomaticInitialization = "false"
-                />
+                tools:ignore="MissingClass" />
 
         </LinearLayout>
     </ScrollView>
