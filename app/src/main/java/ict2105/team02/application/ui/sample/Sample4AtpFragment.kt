@@ -30,8 +30,8 @@ class Sample4AtpFragment : Fragment() {
         val textChangeListener = TextChangeListener {
             validate()
             viewModel.setSample4Atp(
-                binding.atpWaterRLUInput.text.toString().toInt(),
-                binding.atpSwabRLUInput.text.toString().toInt(),
+                binding.atpWaterRLUInput.text.toString().toIntOrNull(),
+                binding.atpSwabRLUInput.text.toString().toIntOrNull(),
             )
         }
         binding.atpWaterRLUInput.addTextChangedListener(textChangeListener)

@@ -2,14 +2,13 @@ package ict2105.team02.application.ui.equipment
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityAddScopeBinding
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
-import ict2105.team02.application.utils.Utils.Companion.createMaterialDatePicker
+import ict2105.team02.application.utils.Utils.Companion.createMaterialFutureDatePicker
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.NewScopeViewModel
@@ -31,7 +30,7 @@ class AddScopeActivity : AppCompatActivity() {
 
         // Date picker
         binding.nextSampleDate.setOnClickListener{
-            createMaterialDatePicker("Choose upcoming sample date") {
+            createMaterialFutureDatePicker("Choose upcoming sample date") {
                 binding.nextSampleDate.setText(Date(it).toDateString())
             }.show(supportFragmentManager, null)
         }

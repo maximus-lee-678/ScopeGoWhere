@@ -1,17 +1,19 @@
 package ict2105.team02.application.ui.sample
 
+import android.R
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ict2105.team02.application.databinding.FragmentSample2SwabResultBinding
 import ict2105.team02.application.utils.*
 import ict2105.team02.application.viewmodel.SampleViewModel
-import java.time.LocalDate
 import java.util.*
 
 class Sample2SwabResultFragment : Fragment() {
@@ -20,12 +22,22 @@ class Sample2SwabResultFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample2SwabResultBinding.inflate(inflater)
-
+        val spinner = binding.swabResultSpinner
+        val optionList = listOf("False", "True")
+        var swabResult = "false"
+        spinner.adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, optionList)
+        spinner.setSelection(0)
         // Set existing data, if any
         val sampleData = viewModel.sampleData.value
         if (sampleData != null) {
             if (sampleData.swabDate != null) binding.dateOfResultInput.setText(sampleData.swabDate.toDateString())
-            if (sampleData.swabResult != null) binding.swabResultInput.setText(sampleData.swabResult.toString())
+            if (sampleData.swabResult != null) {
+                if(sampleData.swabResult){
+                    spinner.setSelection(1)
+                } else {
+                    spinner.setSelection(0)
+                }
+            }
             if (sampleData.swabAction != null) binding.actionInput.setText(sampleData.swabAction)
             if (sampleData.swabCultureComment != null) binding.cultureCommentInput.setText(sampleData.swabCultureComment)
         }
@@ -35,19 +47,29 @@ class Sample2SwabResultFragment : Fragment() {
             validate()
             viewModel.setSample2Swab(
                 binding.dateOfResultInput.text.toString().parseDateString(),
-                binding.swabResultInput.text.toString().isNotEmpty(), // TODO: Replace input type
                 binding.actionInput.text.toString(),
                 binding.cultureCommentInput.text.toString()
             )
         }
+
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                swabResult = parent!!.getItemAtPosition(position).toString().toLowerCase()
+                viewModel.setSample2Result(swabResult.toBooleanStrictOrNull()!!)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do Nothing
+            }
+        }
+
         binding.dateOfResultInput.addTextChangedListener(textChangeListener)
-        binding.swabResultInput.addTextChangedListener(textChangeListener)
         binding.actionInput.addTextChangedListener(textChangeListener)
         binding.cultureCommentInput.addTextChangedListener(textChangeListener)
 
         // Date picker
         binding.dateOfResultInput.setOnClickListener{
-            Utils.createMaterialDatePicker("Select date of sample result") { epoch ->
+            Utils.createMaterialPastDatePicker("Select date of sample result") { epoch ->
                 binding.dateOfResultInput.setText(Date(epoch).toDateString())
             }.show(childFragmentManager, null)
         }
@@ -55,36 +77,10 @@ class Sample2SwabResultFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "RESUME")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "PAUSE")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "START")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "STOP")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "DESTROY")
-    }
-
     private fun validate(): Boolean {
         var valid = true
 
         if(TextUtils.isEmpty(binding.dateOfResultInput.text) ||
-            TextUtils.isEmpty(binding.swabResultInput.text)||
             TextUtils.isEmpty(binding.actionInput.text)){
             binding.errorMsgSwab.text = "Please fill in all the fields"
             valid = false

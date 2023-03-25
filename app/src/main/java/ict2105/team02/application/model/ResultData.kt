@@ -20,5 +20,5 @@ data class ResultData(
     val swabATPRLU: Int? = null,
 
     val resultDate: Date? = null,
-    val recordedBy: String? = null,
+    val doneBy: String? = null,
 )

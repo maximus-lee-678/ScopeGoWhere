@@ -31,17 +31,22 @@ class SampleActivity : AppCompatActivity() {
             adapter = stateAdapter
             TabLayoutMediator(binding.tabLayoutSample, this) { tab, position ->
                 when (position) {
-                    0 -> tab.text = "1. Fluid"
-                    1 -> tab.text = "2. Swab"
-                    2 -> tab.text = "3. Repeat MS"
-                    3 -> tab.text = "4. ATP"
-                    4 -> tab.text = "5. Summary"
+                    0 -> tab.text = "Choose Method"
+                    1 -> tab.text = "1. Fluid"
+                    2 -> tab.text = "2. Swab"
+                    3 -> tab.text = "3. Repeat MS"
+                    4 -> tab.text = "4. ATP"
+                    5 -> tab.text = "5. Summary"
                 }
             }.attach()
             registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    title = "Sample Equipment (${position + 1}/5)"
+                    title = if(position == 0){
+                        "Sample Equipment"
+                    } else{
+                        "Sample Equipment (${position}/5)"
+                    }
                     updateNavigationButtons(position)
                 }
             })
@@ -54,20 +59,19 @@ class SampleActivity : AppCompatActivity() {
         val serial = intent.getIntExtra(Constants.KEY_ENDOSCOPE_SERIAL, -1)
         if (brand != null && model != null && serial > 0){
             viewModel.makeScope(brand, model, serial)
-            Log.d(TAG, "[Wash] Scope detail: $brand $model $serial")
+            Log.d(TAG, "[Sample] Scope detail: $brand $model $serial")
         }
-
 
         binding.buttonSampleNextStep.setOnClickListener { changePage(binding.viewPagerSample.currentItem + 1) }
         binding.buttonSamplePreviousStep.setOnClickListener { changePage(binding.viewPagerSample.currentItem - 1) }
 
         viewModel.makeSampleData()
         binding.buttonSamplePreviousStep.visibility = View.INVISIBLE
-        title = "Sample Equipment (1/5)"
+        title = "Sample Equipment (0/5)"
         changePage(0)
     }
 
-    private fun changePage(page: Int) {
+    fun changePage(page: Int) {
         var newPage = page
         if (newPage > TOTAL_STEPS - 1) newPage = TOTAL_STEPS - 1
         else if (newPage < 0) newPage = 0
@@ -109,6 +113,6 @@ class SampleActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TOTAL_STEPS = 5
+        private const val TOTAL_STEPS = 6
     }
 }

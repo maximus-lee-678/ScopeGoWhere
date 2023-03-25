@@ -36,7 +36,6 @@ class Sample5ReviewFragment : Fragment() {
 
         viewModel.sampleData.observe(viewLifecycleOwner){
             binding.apply {
-                if (it.resultDate != null) dateOfFluidResult.setText(it.resultDate.toDateString())
                 if (it.fluidResult != null) fluidResult.setText(it.fluidResult.toString())
                 if (it.fluidAction != null) actionFluid.setText(it.fluidAction)
                 if (it.fluidComment != null) cultureCommentFluid.setText(it?.fluidComment)
@@ -47,8 +46,8 @@ class Sample5ReviewFragment : Fragment() {
                 if (it.quarantineRequired != null) quarantinePeriodInput.setText(it.quarantineRequired.toString())
                 if (it.repeatDateMS != null) repeatDateMsInput.setText(it.repeatDateMS.toDateString())
                 if (it.borescope != null) borescopeDropdown.setText(it?.borescope.toString())
-                if (it.waterATPRLU != null) atpWaterRluInput.setText(it?.waterATPRLU)
-                if (it.swabATPRLU != null) atpSwabRluInput.setText(it?.swabATPRLU)
+                if (it.waterATPRLU != null) atpWaterRluInput.setText(it?.waterATPRLU.toString())
+                if (it.swabATPRLU != null) atpSwabRluInput.setText(it?.swabATPRLU.toString())
             }
         }
     }

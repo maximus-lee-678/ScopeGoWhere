@@ -127,23 +127,16 @@ class EquipmentFragment : Fragment() {
         viewModel.displayedEquipments.observe(viewLifecycleOwner) {
             eqAdapter.submitList(it)
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+
+        // Put here so it refreshes automatically when returning from other activities
         viewModel.fetchEquipments {
             activity?.runOnUiThread {
                 binding.loadEquipmentProgressIndicator.visibility = View.INVISIBLE
             }
         }
-    }
-
-    /**
-     * Helper function that creates a piece of toast if it receives a 0.
-     * Called on equipment searches, notifies users if no scopes were found.
-     */
-    fun makeToastIfZero(itemCount: Int) {
-        if (itemCount == 0) Toast.makeText(
-            activity,
-            getString(R.string.error_no_scopes),
-            Toast.LENGTH_SHORT
-        ).show()
     }
 }

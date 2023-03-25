@@ -31,7 +31,7 @@ class Wash3DisinfectantFragment : Fragment() {
 
         // For validation and update view model
         val textChangeListener = TextChangeListener {
-            viewModel.setWash4Disinfectant(
+            viewModel.setWash3Disinfectant(
                 binding.disinfectantUsed.text.toString(),
                 binding.disinfectantLotNo.text.toString().toIntOrNull(),
                 binding.disinfectantChanged.text.toString().parseDateString()
