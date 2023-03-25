@@ -29,11 +29,7 @@
                 android:textStyle="bold"
                 android:padding="16dp"
                 android:background="@color/teal_200"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Speak"
-                android:id="@+id/speak"/>
+
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtube_player_view"
                 android:layout_width="match_parent"
@@ -41,8 +37,13 @@
 
                 app:autoPlay ="false"
                 app:enableAutomaticInitialization = "false"
-                tools:ignore="MissingClass" />
-
+                />
+            <Button
+                android:id="@+id/speak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play Text To Speech"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
