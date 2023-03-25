@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -18,23 +19,21 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import ict2105.team02.application.databinding.FragmentSampleMethodBinding
+import ict2105.team02.application.databinding.FragmentSample0MethodBinding
 import ict2105.team02.application.utils.Utils.Companion.showToast
 import ict2105.team02.application.viewmodel.SampleViewModel
 
 class Sample0ChooseMethodFragment : Fragment() {
-    private lateinit var binding: FragmentSampleMethodBinding
-    private lateinit var viewModel: SampleViewModel
-
+    private lateinit var binding: FragmentSample0MethodBinding
+    private val viewModel by activityViewModels<SampleViewModel>()
     private companion object{
         //handle result of Camera permission
         private const val CAMERA_REQUEST_CODE = 1001
-        private const val STORAGE_REQUEST_CODE = 200
     }
 
     //URI of image
@@ -52,41 +51,15 @@ class Sample0ChooseMethodFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentSampleMethodBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity())[SampleViewModel::class.java]
+        binding = FragmentSample0MethodBinding.inflate(inflater)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val methodList:List<String> = listOf("Scan/ Take Photo", "Manual entry")
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, methodList)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.sampleSpinner.adapter = adapter
-        val spinner:Spinner = binding.sampleSpinner
-//        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                val selectedItem = parent?.getItemAtPosition(position) as String
-//                if(selectedItem == "Scan/ Take Photo"){
-//                    binding.photoView.visibility = View.VISIBLE
-//                    binding.childFragmentContainer.visibility = View.GONE
-//                    val childFragment = childFragmentManager.findFragmentById(binding.childFragmentContainer.id)
-//                    if (childFragment != null) {
-//                        childFragmentManager.beginTransaction().remove(childFragment).commit()
-//                    }
-//                } else{
-//                    binding.photoView.visibility = View.GONE
-//                    binding.childFragmentContainer.visibility = View.VISIBLE
-//                    childFragmentManager.beginTransaction()
-//                        .replace(binding.childFragmentContainer.id, FluidResultSampleFragment())
-//                        .commit()
-//                }
-//            }
-//
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//
-//            }
-//        }
+        val sampleActivity = requireActivity() as SampleActivity
+
         //init array of permission required for camera, gallery
         cameraPermission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
         storagePermission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -96,6 +69,16 @@ class Sample0ChooseMethodFragment : Fragment() {
         progressDialog.setCanceledOnTouchOutside(false)
 
         textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
+        binding.manualEntryButton.setOnClickListener {
+            sampleActivity.changePage(1)
+        }
+        binding.photoEntryButton.setOnClickListener {
+            binding.buttonOptionsLayout.visibility = View.GONE
+            binding.methodSelectTextView.text = "Select photo source and then scan"
+            binding.photoView.visibility = View.VISIBLE
+        }
+
         binding.inputImageBtn.setOnClickListener {
             showInputImageDialog()
         }
@@ -106,6 +89,9 @@ class Sample0ChooseMethodFragment : Fragment() {
                 recognizeTextFromImage()
             }
         }
+        binding.moveToReview.setOnClickListener {
+            sampleActivity.changePage(5)
+        }
     }
 
     private fun recognizeTextFromImage() {
@@ -113,12 +99,28 @@ class Sample0ChooseMethodFragment : Fragment() {
         progressDialog.show()
         try{
             val inputImage = InputImage.fromFilePath(requireContext(), imageUri!!)
+            val sampleDataMap = hashMapOf<String, String>()
             progressDialog.setMessage("Recognizing Text")
             val textTaskResult = textRecognizer.process(inputImage)
                 .addOnSuccessListener { text->
                     progressDialog.dismiss()
-                    val regonizedText = text.text
-                    binding.recognizedTextEt.setText(regonizedText)
+                    val recognizedText = text.text
+                    val lines = recognizedText.split("\n") // Split the input string into lines using the newline character as the separator
+                    for (line in lines) {
+                        val parts = line.split("=") // Split each line into parts using the colon character as the separator
+                        if (parts.size == 2) { // Check if the line has exactly two parts
+                            var key = parts[0].trim() // Remove whitespace around the key
+                            key = key.replaceFirst(key[0], key[0].toLowerCase())
+                            val value = parts[1].trim() // Remove whitespace around the value
+                            sampleDataMap[key] = value
+                            Log.d("Check Text From Image", "$key = ${sampleDataMap[key]}")
+                        }
+                        else{
+                            Log.d("Value Read", line)
+                        }
+                    }
+                    viewModel.setAllSample(sampleDataMap)
+                    binding.recognizedTextEt.setText(recognizedText)
                 }
                 .addOnFailureListener { e->
                     progressDialog.dismiss()
@@ -131,8 +133,8 @@ class Sample0ChooseMethodFragment : Fragment() {
     }
     private fun showInputImageDialog(){
         val popupMenu = PopupMenu(requireContext(), binding.inputImageBtn)
-        popupMenu.menu.add(Menu.NONE,1,1,"CAMERA")
-        popupMenu.menu.add(Menu.NONE,2,2,"GALLERY")
+        popupMenu.menu.add(Menu.NONE,1,1,"Camera")
+        popupMenu.menu.add(Menu.NONE,2,2,"From Gallery")
 
         popupMenu.show()
 
@@ -185,6 +187,8 @@ class Sample0ChooseMethodFragment : Fragment() {
             }
         }
 
+
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

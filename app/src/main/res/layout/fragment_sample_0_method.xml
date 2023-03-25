@@ -9,16 +9,41 @@
     tools:context=".ui.sample.Sample0ChooseMethodFragment">
 
 
-    <Spinner
-        android:id="@+id/sampleSpinner"
+    <TextView
+        android:id="@+id/methodSelectTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Select Entry Method" />
+
+    <LinearLayout
+        android:id="@+id/buttonOptionsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/photoEntryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:text="Photo Entry" />
+
+        <Button
+            android:id="@+id/manualEntryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:text="Manual Entry" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/photoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,12 +93,15 @@
                     android:id="@+id/recognizedTextEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/moveToReview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Review Results" />
             </LinearLayout>
         </ScrollView>
+
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/child_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>

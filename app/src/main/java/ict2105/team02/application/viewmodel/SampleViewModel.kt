@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.ResultData
 import ict2105.team02.application.repo.DataRepository
+import ict2105.team02.application.utils.Utils
+import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -63,6 +65,29 @@ class SampleViewModel: ViewModel() {
             )
         )
     }
+
+    fun setAllSample(sampleDataHash: HashMap<String, String>) {
+        var resultData = sampleData.value ?: ResultData() // initialize with current value or empty object
+
+        sampleDataHash.forEach { (key, value) ->
+            when (key) {
+                "fluidResult" -> resultData = resultData.copy(fluidResult = value.toBooleanStrictOrNull())
+                "fluidAction" -> resultData = resultData.copy(fluidAction = value)
+                "fluidComment" -> resultData = resultData.copy(fluidComment = value)
+                "swabDate" -> resultData = resultData.copy(swabDate = value.parseDateString())
+                "swabResult" -> resultData = resultData.copy(swabResult = value.toBooleanStrictOrNull())
+                "swabAction" -> resultData = resultData.copy(swabAction = value)
+                "swabCultureComment" -> resultData = resultData.copy(swabCultureComment = value)
+                "quarantineRequired" -> resultData = resultData.copy(quarantineRequired = value.toBooleanStrictOrNull())
+                "repeatDateMS" -> resultData = resultData.copy(repeatDateMS = value.parseDateString())
+                "waterATPRLU" -> resultData = resultData.copy(waterATPRLU = value.toIntOrNull())
+                "swabATPRLU" -> resultData = resultData.copy(swabATPRLU = value.toIntOrNull())
+            }
+        }
+
+        sampleData.postValue(resultData)
+    }
+
 
     fun insertSampleData() {
         val docName = Date().toDateString("yyMMdd") + "-logs"
