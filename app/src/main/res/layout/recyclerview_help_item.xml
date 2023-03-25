@@ -5,26 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="90dp">
 
-
-    <ImageButton
-        android:id="@+id/HelpImageButton"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="69dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:background="#FFFBFF"
-        android:outlineAmbientShadowColor="@color/black"
-        android:scaleType="fitStart" />
-
-    <TextView
-        android:id="@+id/HelpTitle"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|start"
-        android:layout_marginLeft="170dp"
-        android:layout_marginBottom="9dp"
-        android:text="How to use the app"
-        android:textSize="18dp" />
+        app:cardBackgroundColor="#f0f3ff"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="2dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <ImageButton
+            android:id="@+id/HelpImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="69dp"
+            android:background="#f0f3ff"
+            android:scaleType="fitStart"
+            android:padding="15dp"
+            android:paddingLeft="30dp"/>
+
+        <TextView
+            android:id="@+id/HelpTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginLeft="80dp"
+            android:layout_marginBottom="3dp"
+            android:text="How to use the app"
+            android:textSize="18dp"
+            android:textColor="#313131"
+            android:textStyle="bold"/>
+
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>

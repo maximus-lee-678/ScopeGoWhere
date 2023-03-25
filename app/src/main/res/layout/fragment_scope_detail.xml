@@ -48,10 +48,16 @@
         android:id="@+id/frameLayoutScopeName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?android:attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="?android:attr/colorPrimary">
+
+        <ImageButton
+            android:id="@+id/editScopeButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_baseline_edit_24"
+            android:paddingLeft="250dp"
+            android:scaleType="centerInside"/>
 
         <TextView
             android:id="@+id/textViewEquipmentName"
@@ -59,9 +65,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingVertical="10dp"
-            android:text="@string/placeholder_endoscope_name"
-            android:textAppearance="?attr/textAppearanceHeadline3"
-            android:textColor="?android:attr/textColorPrimaryInverse" />
+            />
+
     </FrameLayout>
 
     <LinearLayout
@@ -92,10 +97,69 @@
                 android:textColor="?android:attr/colorPrimary"
                 android:textSize="24sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/statusIconImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/trace_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Equipment Status"
+                    android:layout_marginStart="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/statusIconImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/statusTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="XXX"
+                    android:textColor="?attr/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/model" />
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/nextSampleIconImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/calendar_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next Sample Date"
+                    android:layout_marginStart="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/nextSampleIconImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/nextSampleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="dd/MM/yyyy"
+                    android:textColor="?attr/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -105,14 +169,11 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/serialTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/value"
-                android:textColor="?android:attr/colorPrimary"
-                android:textSize="24sp" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/editScopeButton"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Edit" />-->
 
             <TextView
                 android:layout_width="wrap_content"
