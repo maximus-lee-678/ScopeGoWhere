@@ -1,12 +1,10 @@
 package ict2105.team02.application.ui.help
 import android.graphics.Typeface
-import android.speech.tts.TextToSpeech
 import android.os.Bundle
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,61 +21,70 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentHelpPageBinding
-import java.util.*
 
 
-class HelpPageFragment : Fragment() , TextToSpeech.OnInitListener {
+class HelpPageFragment : Fragment()  {
 
     private lateinit var binding: FragmentHelpPageBinding
     private lateinit var youTubePlayerView: YouTubePlayerView
     private var currentVideoId : String = ""
-    private lateinit var tts: TextToSpeech
-    private var isPaused = false
+	private lateinit var  tts : AudioNarrator
 	var instructions: MutableList<String> = mutableListOf()
     private var allText: String = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val TAG = this.javaClass.simpleName
+	    // setup binding
         binding = FragmentHelpPageBinding.inflate(layoutInflater, container, false)
-        tts = TextToSpeech(context, this)
-
-        binding.speak.setOnClickListener {
-            readAllText()
-        }
-        youTubePlayerView = binding.youtubePlayerView
-
+	    youTubePlayerView = binding.youtubePlayerView
+	    //Setup TTS
+	    tts = context?.let { AudioNarrator(it)}!!
         // Initialize the YouTubePlayerView
-        val listener = object : AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-
-                val defaultPlayerUiController =
-                DefaultPlayerUiController(youTubePlayerView, youTubePlayer)
-                youTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
-                youTubePlayer.loadVideo(currentVideoId, 0f)
-            }
-        }
-        // disable iframe ui
-        val options = IFramePlayerOptions.Builder().controls(0).build()
-        youTubePlayerView.initialize(listener, options)
-
+	    initializeYoutube()
+	    // Setup Information from context
+	    setUpHelpPage()
+	    //Setup pause video Scroll Function
 	    setupScrollObserver()
-	    parentFragmentManager.setFragmentResultListener("helpPage", this)
-	    { requestKey, bundle ->
-		    val videoId = bundle.getString("videoId")
-		    if (videoId != null) {
-			    this.currentVideoId = videoId
-			    updateVideo(currentVideoId)
-		    }
-		    val stringArrayID = bundle.getInt("stringArrayID")
-		    if (stringArrayID != null) {
-			    instructions = resources.getStringArray(stringArrayID).toMutableList()
-			    setUpInstruction()
-		    }
+	    // Setup TextToSpeech
+	    binding.speak.setOnClickListener {
+		    val isPlaying = tts.toggleTextToSpeech { readAllText() }
+		    if (!isPlaying)
+			    binding.speak.text = "Play Text To Speech"
+		    else
+			    binding.speak.text = "Stop Text To Speech"
+		    pauseYoutubeVideo()
+
 	    }
-
-
 	    return binding.root
     }
+	private fun initializeYoutube(){
+		val listener = object : AbstractYouTubePlayerListener() {
+			override fun onReady(youTubePlayer: YouTubePlayer) {
 
+				val defaultPlayerUiController =
+					DefaultPlayerUiController(youTubePlayerView, youTubePlayer)
+				youTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
+				youTubePlayer.loadVideo(currentVideoId, 0f)
+			}
+		}
+		// disable iframe ui
+		val options = IFramePlayerOptions.Builder().controls(0).build()
+		youTubePlayerView.initialize(listener, options)
+	}
+	private fun setUpHelpPage(){
+		parentFragmentManager.setFragmentResultListener("helpPage", this)
+		{ requestKey, bundle ->
+			val videoId = bundle.getString("videoId")
+			if (videoId != null) {
+				this.currentVideoId = videoId
+				updateVideo(currentVideoId)
+			}
+			val stringArrayID = bundle.getInt("stringArrayID")
+			if (stringArrayID != null) {
+				instructions = resources.getStringArray(stringArrayID).toMutableList()
+				setUpInstruction()
+			}
+		}
+	}
 	private fun setupScrollObserver(){
 		val scrollView = binding.helpCleanScroll
 		scrollView.viewTreeObserver.addOnScrollChangedListener {
@@ -88,11 +95,7 @@ class HelpPageFragment : Fragment() , TextToSpeech.OnInitListener {
 
 			if (videoViewLocation[1] + youTubePlayerView.height < scrollViewLocation[1] ||
 				videoViewLocation[1] > scrollViewLocation[1] + scrollView.height) {
-				youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
-					override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-						youTubePlayer.pause()
-					}
-				})
+				pauseYoutubeVideo()
 			}
 		}
 	}
@@ -132,7 +135,13 @@ class HelpPageFragment : Fragment() , TextToSpeech.OnInitListener {
 			linearLayout.addView(textView)
 		}
 	}
-
+	private fun pauseYoutubeVideo(){
+		youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+			override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+				youTubePlayer.pause()
+			}
+		})
+	}
 	fun dpToPx(dp: Int): Int {
 		val scale = resources.displayMetrics.density
 		return (dp * scale + 0.5f).toInt()
@@ -140,18 +149,14 @@ class HelpPageFragment : Fragment() , TextToSpeech.OnInitListener {
     override fun onDestroy() {
         super.onDestroy()
         youTubePlayerView.release()
-        if (tts != null) {
-            tts!!.stop()
-            tts!!.shutdown()
-        }
+	    tts.closeTTS()
+
     }
     override fun onDestroyView() {
         super.onDestroyView()
         youTubePlayerView.release()
-        if (tts != null) {
-            tts!!.stop()
-            tts!!.shutdown()
-        }
+	    tts.closeTTS()
+
     }
     private fun updateVideo(videoId: String) {
         currentVideoId = videoId
@@ -161,88 +166,34 @@ class HelpPageFragment : Fragment() , TextToSpeech.OnInitListener {
             }
         })
     }
+	fun readAllText() {
+		val linearLayout = binding.LinearCleanHelp
+		for (i in 0 until linearLayout.childCount) {
+			val view = linearLayout.getChildAt(i)
+			if (view is TextView &&  view !is Button) {
+				tts.addToQueue(view.text.toString())
+			}
+		}
+
+	}
     override fun onPause() {
         super.onPause()
-        youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
-            override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-                youTubePlayer.pause()
-            }
-        })
+	    pauseYoutubeVideo()
+	    tts.stopTTS()
+	    binding.speak.text = "Play Text To Speech"
     }
 
     override fun onResume() {
         super.onResume()
-        youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
-            override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-                youTubePlayer.play()
-            }
-        })
+        pauseYoutubeVideo()
     }
-    private fun readAllText() {
-        val stringBuilder = StringBuilder()
-        if (allText != null) {
-	        for (i in 0 until binding.LinearCleanHelp.childCount) {
-		        val view = binding.LinearCleanHelp.getChildAt(i)
-		        if (view is TextView &&  view !is Button) {
-			        tts.speak(view.text.toString(), TextToSpeech.QUEUE_ADD, null, "TTSSpeak")
-			        tts.playSilentUtterance(1000, TextToSpeech.QUEUE_ADD,"TTSSpeak" )
-			        stringBuilder.append(view.text.toString())
-		        }
-	        }
-            allText = stringBuilder.toString()
-        }
-
-        if (tts != null) {
-            if (!isPaused) {
-
-            } else {
-				tts.stop()
-
-            }
-            isPaused = !isPaused
-        }
-    }
-
-    override fun onInit(status: Int) {
-
-        if (status == TextToSpeech.SUCCESS) {
-            // set US English as language for tts
-            val result = tts!!.setLanguage(Locale.CANADA)
-	        tts.setSpeechRate(1.5f)
-	        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS","The Language specified is not supported!")
-            } else {
-                binding.speak.isEnabled = true
-            }
-
-        } else {
-            Log.e("TTS", "Initialization Failed!")
-        }
-
-    }
-
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		setUpInstruction()
 	}
 
-	override fun onViewStateRestored(savedInstanceState: Bundle?) {
-		super.onViewStateRestored(savedInstanceState)
-		val TAG = "OnViewState"
 
-	}
-
-	override fun onSaveInstanceState(outState: Bundle) {
-		super.onSaveInstanceState(outState)
-		val TAG = "OnViewState"
-	}
-	override fun onStop() {
-		super.onStop()
-	}
 
     // ... other code ...\
 }
