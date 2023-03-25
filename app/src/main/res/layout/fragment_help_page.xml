@@ -26,24 +26,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:padding="16dp"
-                android:background="@color/teal_200"/>
+                android:padding="16dp" />
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtube_player_view"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-
                 app:autoPlay ="false"
                 app:enableAutomaticInitialization = "false"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 />
+
             <Button
                 android:id="@+id/speak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Play Text To Speech"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"/>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
