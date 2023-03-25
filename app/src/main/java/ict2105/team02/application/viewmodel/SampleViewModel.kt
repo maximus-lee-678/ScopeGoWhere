@@ -105,7 +105,6 @@ class SampleViewModel: ViewModel() {
                 "swabATPRLU" -> resultData = resultData.copy(swabATPRLU = value.toIntOrNull())
             }
         }
-
         sampleData.postValue(resultData)
     }
 

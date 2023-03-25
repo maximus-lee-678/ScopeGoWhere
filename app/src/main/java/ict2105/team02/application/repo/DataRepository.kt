@@ -5,10 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import ict2105.team02.application.model.*
-import ict2105.team02.application.utils.TAG
-import ict2105.team02.application.utils.UiState
-import ict2105.team02.application.utils.Utils
-import ict2105.team02.application.utils.asHashMap
+import ict2105.team02.application.utils.*
 import kotlinx.coroutines.tasks.await
 
 private const val COLLECTION_USERS = "users"
@@ -38,13 +35,13 @@ class DataRepository {
                     }.size,
                     endoscopes.size,
                     endoscopes.filter {
-                        it.scopeStatus == "Circulation"
+                        it.scopeStatus == Constants.ENDOSCOPE_CIRCULATION
                     }.size,
                     endoscopes.filter {
-                        it.scopeStatus == "Washing"
+                        it.scopeStatus == Constants.ENDOSCOPE_WASH
                     }.size,
                     endoscopes.filter {
-                        it.scopeStatus == "Sampling"
+                        it.scopeStatus == Constants.ENDOSCOPE_SAMPLE
                     }.size,
                 )
             )
@@ -223,12 +220,12 @@ class DataRepository {
 
         Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History")
             .document(docName)
-            .update(data as Map<String, Any>)
+            .set(data as Map<String, Any>)
             .addOnSuccessListener {
                 Log.d(TAG, "Firebase insert sample result data success")
 
                 // Update scope status
-                updateScopeStatus(serial, "Sampling")
+                updateScopeStatus(serial, Constants.ENDOSCOPE_CIRCULATION)
             }
             .addOnFailureListener { e -> Log.d(TAG, "Firebase insert sample result data fail due to $e") }
     }
