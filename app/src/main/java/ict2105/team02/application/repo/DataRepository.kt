@@ -126,25 +126,25 @@ class DataRepository {
                         // result data
                         val resultData: Map<String, Any>? = data["resultData"] as? Map<String, Any>
                         if (resultData != null) {
-                            val borescope = resultData["Borescope"] as? Boolean
-                            val fluidAction = resultData["FluidAction"] as? String
-                            val fluidComment = resultData["FluidComment"] as? String
-                            val fluidResult = resultData["FluidResult"] as? Boolean
-                            val quarantineRequired = resultData["QuarantineRequired"] as? Boolean
-                            val recordedBy = resultData["RecordedBy"] as? String
+                            val borescope = resultData["borescope"] as? Boolean
+                            val fluidAction = resultData["fluidAction"] as? String
+                            val fluidComment = resultData["fluidComment"] as? String
+                            val fluidResult = resultData["fluidResult"] as? Boolean
+                            val quarantineRequired = resultData["quarantineRequired"] as? Boolean
+                            val recordedBy = resultData["recordedBy"] as? String
                             val repeatDateMS =
-                                resultData["RepeatDateMS"] as? com.google.firebase.Timestamp
+                                resultData["repeatDateMS"] as? com.google.firebase.Timestamp
                             val repeatChangeDateMS = repeatDateMS?.toDate()
                             val resultDate =
-                                resultData["ResultDate"] as? com.google.firebase.Timestamp
+                                resultData["resultDate"] as? com.google.firebase.Timestamp
                             val resultChangeDate = resultDate?.toDate()
-                            val swabAction = resultData["SwabAction"] as? String
-                            val swabCultureComment = resultData["SwabCultureComment"] as? String
-                            val swabDate = resultData["SwabDate"] as? com.google.firebase.Timestamp
+                            val swabAction = resultData["swabAction"] as? String
+                            val swabCultureComment = resultData["swabCultureComment"] as? String
+                            val swabDate = resultData["swabDate"] as? com.google.firebase.Timestamp
                             val swabChangeDate = swabDate?.toDate()
-                            val swabResult = resultData["SwabResult"] as? Boolean
-                            val swapATPRLU = resultData["SwapATPRLU"] as? Int
-                            val waterATPRLU = resultData["WaterATPRLU"] as? Int
+                            val swabResult = resultData["swabResult"] as? Boolean
+                            val swapATPRLU = resultData["swapATPRLU"] as? Int
+                            val waterATPRLU = resultData["waterATPRLU"] as? Int
 
                             //creating object for result data
                             resultDataDetail = ResultData(
@@ -163,7 +163,7 @@ class DataRepository {
                                 swabATPRLU = swapATPRLU,
                                 waterATPRLU = waterATPRLU
                             )
-                            Log.d("TAG", "finish fetching result data")
+                            Log.d("Result Data", resultData.toString())
                         }
                         var combineDetails = EndoscopeTransaction(
                             washData = washDataDetail,
