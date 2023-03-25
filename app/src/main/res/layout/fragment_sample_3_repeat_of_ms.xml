@@ -25,10 +25,10 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:layout_weight="0.5"
-            android:gravity="clip_horizontal|center_vertical"
+            android:gravity="center_vertical"
             android:text="Quarantine Required:"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textAlignment="gravity"
+            android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/quarantineSpinner"
@@ -49,9 +49,10 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:layout_weight="0.5"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="center_vertical"
             android:text="Borescope:"
-            android:textSize="20sp" />
+            android:textAlignment="gravity"
+            android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/borescopeSpinner"
