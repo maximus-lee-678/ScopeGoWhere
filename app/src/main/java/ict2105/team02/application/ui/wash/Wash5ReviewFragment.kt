@@ -16,7 +16,7 @@ import ict2105.team02.application.viewmodel.WashViewModel
 
 class Wash5ReviewFragment : Fragment() {
     private lateinit var binding: FragmentWash5ReviewBinding
-    private val viewModel by activityViewModels<WashViewModel>()
+    private val washViewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash5ReviewBinding.inflate(inflater)
@@ -24,7 +24,7 @@ class Wash5ReviewFragment : Fragment() {
         binding.buttonSendWash.setOnClickListener{
             val confirmationDialog = ConfirmationDialogFragment("Confirm send for wash?") {
                 // User clicked confirm
-                viewModel.insertWashData()
+                washViewModel.insertWashData()
                 Toast.makeText(requireContext(), "Scope wash recorded successfully!", Toast.LENGTH_LONG).show()
                 activity?.finish()
             }
@@ -37,7 +37,7 @@ class Wash5ReviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.washData.observe(viewLifecycleOwner) {
+        washViewModel.washData.observe(viewLifecycleOwner) {
             binding.apply {
                 Log.d(TAG, it.toString())
                 if (it.AERModel != null) binding.aerModel.setText(it.AERModel)

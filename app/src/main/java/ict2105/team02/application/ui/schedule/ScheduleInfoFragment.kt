@@ -6,21 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.databinding.FragmentScheduleInfoBinding
 import ict2105.team02.application.ui.equipment.EquipmentAdapter
 import ict2105.team02.application.ui.dialogs.ScopeDetailDialogFragment
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
 
-class ScheduleInfoFragment : Fragment() {
+class ScheduleInfoFragment(
+    private val scheduleInfoViewModel: ScheduleInfoViewModel
+) : Fragment() {
     private lateinit var eqAdapter: EquipmentAdapter
     private lateinit var binding: FragmentScheduleInfoBinding
-    private lateinit var viewModel: ScheduleInfoViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentScheduleInfoBinding.inflate(inflater)
-        viewModel = ViewModelProvider(requireActivity()).get(ScheduleInfoViewModel::class.java)
 
         binding.scheduleRecycle.setHasFixedSize(false)
         eqAdapter = EquipmentAdapter()
@@ -43,15 +43,14 @@ class ScheduleInfoFragment : Fragment() {
 
         }
 
+        scheduleInfoViewModel.getScheduledEndoscope()?.observe(viewLifecycleOwner) {
+            eqAdapter.submitList(it)
+        }
 
-        viewModel.fetchAllScheduledScope() {
+        scheduleInfoViewModel.fetchAllScheduledScope() {
             activity?.runOnUiThread {
                 binding.loadEquipmentProgressIndicator.visibility = View.INVISIBLE
             }
-        }
-
-        viewModel.getScheduledEndoscope()?.observe(viewLifecycleOwner) {
-            eqAdapter.submitList(it)
         }
     }
 }

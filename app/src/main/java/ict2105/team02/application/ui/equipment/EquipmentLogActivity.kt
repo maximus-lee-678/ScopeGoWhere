@@ -5,9 +5,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityEquipmentLogBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_SERIAL
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS
@@ -16,7 +19,12 @@ import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 
 class EquipmentLogActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEquipmentLogBinding
-    private val scopeDetailViewModel by viewModels<ScopeDetailViewModel>()
+    private val scopeDetailViewModel: ScopeDetailViewModel by viewModels {
+        ViewModelFactory(
+            "ScopeDetailViewModel",
+            application as MainApplication
+        )
+    }
 
     private lateinit var rvAdapter: EquipLogAdapter
 

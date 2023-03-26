@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import ict2105.team02.application.R
@@ -11,12 +12,15 @@ import ict2105.team02.application.databinding.ActivityMainBinding
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.notification.NotificationSpawner
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.equipment.EquipmentFragment
 import ict2105.team02.application.ui.help.HelpFragment
 import ict2105.team02.application.viewmodel.AuthViewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private val authViewModel: AuthViewModel by viewModels { ViewModelFactory("AuthViewModel", application as MainApplication) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.logoutFragment -> {
                 val confirmationDialog = ConfirmationDialogFragment("Logout?") {
-                    AuthViewModel().logout()
+                    authViewModel.logout()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()

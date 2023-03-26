@@ -16,7 +16,7 @@ import ict2105.team02.application.viewmodel.WashViewModel
 
 class Wash1WasherFragment : Fragment() {
     private lateinit var binding: FragmentWash1WasherBinding
-    private val viewModel by activityViewModels<WashViewModel>()
+    private val washViewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash1WasherBinding.inflate(inflater)
@@ -24,7 +24,7 @@ class Wash1WasherFragment : Fragment() {
         // For validation and update view model
         val textChangeListener = TextChangeListener {
             validate()
-            viewModel.setWash1AER(
+            washViewModel.setWash1AER(
                 binding.editTextAERModel.text.toString(),
                 binding.editTextAERSerial.text.toString().toIntOrNull()
             )
@@ -33,7 +33,7 @@ class Wash1WasherFragment : Fragment() {
         binding.editTextAERModel.addTextChangedListener(textChangeListener)
         binding.editTextAERSerial.addTextChangedListener(textChangeListener)
 
-        viewModel.washData.observe(viewLifecycleOwner) {
+        washViewModel.washData.observe(viewLifecycleOwner) {
             if (it.AERModel != null) binding.editTextAERModel.setText(it.AERModel)
             if (it.AERSerial != null) binding.editTextAERSerial.setText(it.AERSerial.toString())
         }

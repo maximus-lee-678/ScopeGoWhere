@@ -9,14 +9,17 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import ict2105.team02.application.databinding.FragmentSample1FluidResultBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.utils.TextChangeListener
 import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.viewmodel.SampleViewModel
 
 class Sample1FluidResultFragment : Fragment() {
     private lateinit var binding: FragmentSample1FluidResultBinding
-    private val viewModel by activityViewModels<SampleViewModel>()
+    private val sampleViewModel by activityViewModels<SampleViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View {
         binding = FragmentSample1FluidResultBinding.inflate(inflater)
@@ -28,7 +31,7 @@ class Sample1FluidResultFragment : Fragment() {
             onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val fluidResult = parent!!.getItemAtPosition(position).toString().lowercase()
-                    viewModel.setSample1Result(fluidResult.toBooleanStrictOrNull())
+                    sampleViewModel.setSample1Result(fluidResult.toBooleanStrictOrNull())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -40,13 +43,13 @@ class Sample1FluidResultFragment : Fragment() {
         // For validation and update view model
         val textChangeListener = TextChangeListener {
             validate()
-            viewModel.setSample1Fluid(
+            sampleViewModel.setSample1Fluid(
                 binding.actionInput.text.toString(),
                 binding.cultureCommentInput.text.toString()
             )
         }
 
-        viewModel.sampleData.observe(viewLifecycleOwner) {
+        sampleViewModel.sampleData.observe(viewLifecycleOwner) {
             if (it.fluidResult != null){
                 if(it.fluidResult){
                     binding.fluidResultInputSpinner.setSelection(1)

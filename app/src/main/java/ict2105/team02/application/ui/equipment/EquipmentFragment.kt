@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentEquipmentBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.dialogs.ScopeDetailDialogFragment
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS_FILTER
 import ict2105.team02.application.utils.TAG
@@ -22,10 +24,18 @@ import ict2105.team02.application.viewmodel.EquipmentListViewModel
 class EquipmentFragment : Fragment() {
     private lateinit var binding: FragmentEquipmentBinding
     private lateinit var eqAdapter: EquipmentAdapter
+    private val equipmentListViewModel: EquipmentListViewModel by viewModels {
+        ViewModelFactory(
+            "EquipmentListViewModel",
+            activity?.application as MainApplication
+        )
+    }
 
-    private val viewModel by viewModels<EquipmentListViewModel>()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentEquipmentBinding.inflate(inflater)
 
         // Setup recyclerview
@@ -51,7 +61,7 @@ class EquipmentFragment : Fragment() {
                 val chip = binding.chipGroupStatusFilters.getChildAt(i) as? Chip
                 chip?.isChecked = false
             }
-            viewModel.clearFilters()
+            equipmentListViewModel.clearFilters()
         }
 
         binding.buttonCreateScope.setOnClickListener {
@@ -59,19 +69,20 @@ class EquipmentFragment : Fragment() {
         }
 
         // Endoscope search text change listener
-        binding.editTextSearch.addTextChangedListener(object: TextWatcher {
+        binding.editTextSearch.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val search = s.toString()
-                viewModel.filterEquipmentByName(search)
+                equipmentListViewModel.filterEquipmentByName(search)
             }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
-            override fun afterTextChanged(s: Editable?) { }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun afterTextChanged(s: Editable?) {}
         })
 
         // Status filter chips checked change listener
         binding.chipGroupStatusFilters.setOnCheckedStateChangeListener { group, chipIds ->
             if (chipIds.size == 0) {
-                viewModel.clearFilters()
+                equipmentListViewModel.clearFilters()
                 return@setOnCheckedStateChangeListener
             }
 
@@ -83,16 +94,20 @@ class EquipmentFragment : Fragment() {
                     selectedStatuses.add(chip.text.toString())
                 }
             }
-            viewModel.filterEquipmentByStatus(selectedStatuses)
+            equipmentListViewModel.filterEquipmentByStatus(selectedStatuses)
         }
 
         // Bind view to view model
-        viewModel.equipments.observe(viewLifecycleOwner) {
+        equipmentListViewModel.equipments.observe(viewLifecycleOwner) {
             val filter = arguments?.getString(KEY_ENDOSCOPE_STATUS_FILTER)
             val uniqueStatuses = it.distinctBy { e -> e.scopeStatus }.map { e -> e.scopeStatus }
             binding.chipGroupStatusFilters.removeAllViews() // Clear children chips
             for (status in uniqueStatuses) {
-                val statusChip = layoutInflater.inflate(R.layout.chipgroup_status_chip, binding.chipGroupStatusFilters, false) as Chip
+                val statusChip = layoutInflater.inflate(
+                    R.layout.chipgroup_status_chip,
+                    binding.chipGroupStatusFilters,
+                    false
+                ) as Chip
                 statusChip.apply { text = status }
                 binding.chipGroupStatusFilters.addView(statusChip)
                 Log.d(TAG, "$filter == $status")
@@ -101,7 +116,7 @@ class EquipmentFragment : Fragment() {
                 }
             }
         }
-        viewModel.displayedEquipments.observe(viewLifecycleOwner) {
+        equipmentListViewModel.displayedEquipments.observe(viewLifecycleOwner) {
             eqAdapter.submitList(it)
         }
     }
@@ -110,7 +125,7 @@ class EquipmentFragment : Fragment() {
         super.onResume()
 
         // Put here so it refreshes automatically when returning from other activities
-        viewModel.fetchEquipments {
+        equipmentListViewModel.fetchEquipments {
             activity?.runOnUiThread {
                 binding.loadEquipmentProgressIndicator.visibility = View.INVISIBLE
             }

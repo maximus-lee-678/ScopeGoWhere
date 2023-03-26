@@ -7,22 +7,34 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import ict2105.team02.application.databinding.FragmentSample5ReviewBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.SampleViewModel
 
 class Sample5ReviewFragment : Fragment() {
     private lateinit var binding: FragmentSample5ReviewBinding
-    private val viewModel by activityViewModels<SampleViewModel>()
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    private val sampleViewModel by activityViewModels<SampleViewModel>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentSample5ReviewBinding.inflate(inflater)
 
-        binding.buttonSendSample.setOnClickListener{
+        binding.buttonSendSample.setOnClickListener {
             val confirmationDialog = ConfirmationDialogFragment("Confirm send for wash?") {
                 // User clicked confirm
-                viewModel.insertSampleData()
-                Toast.makeText(requireContext(), "Scope wash recorded successfully!", Toast.LENGTH_LONG).show()
+                sampleViewModel.insertSampleData()
+                Toast.makeText(
+                    requireContext(),
+                    "Scope wash recorded successfully!",
+                    Toast.LENGTH_LONG
+                ).show()
                 requireActivity().finish()
             }
             confirmationDialog.show(parentFragmentManager, "ConfirmationDialog")
@@ -34,7 +46,7 @@ class Sample5ReviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.sampleData.observe(viewLifecycleOwner){
+        sampleViewModel.sampleData.observe(viewLifecycleOwner) {
             binding.apply {
                 if (it.fluidResult != null) fluidResult.setText(it.fluidResult.toString())
                 if (it.fluidAction != null) actionFluid.setText(it.fluidAction)

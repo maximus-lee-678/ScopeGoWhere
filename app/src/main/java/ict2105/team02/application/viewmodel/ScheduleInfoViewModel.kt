@@ -11,12 +11,11 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ScheduleInfoViewModel : ViewModel() {
-    //    private val endoscopeData = MutableLiveData<Endoscope>()
-    private val xRepo: DataRepository = DataRepository()
+class ScheduleInfoViewModel(
+    private val dataRepository: DataRepository
+) : ViewModel() {
     private var mListEndoscope: MutableLiveData<List<Endoscope>>? = null
     private var allEndoscope: List<Endoscope> = emptyList()
-
 
     init {
         if (mListEndoscope != null) {
@@ -53,7 +52,7 @@ class ScheduleInfoViewModel : ViewModel() {
 
     fun fetchAllScheduledScope(onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
-            xRepo?.getAllEndoscopes {
+            dataRepository?.getAllEndoscopes {
                 allEndoscope = it
                 onFinish?.invoke()
             }

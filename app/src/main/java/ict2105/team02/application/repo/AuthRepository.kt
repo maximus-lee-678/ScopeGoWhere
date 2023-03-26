@@ -1,5 +1,6 @@
 package ict2105.team02.application.repo
 
+import android.content.Context
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import ict2105.team02.application.utils.UiState
@@ -28,4 +29,27 @@ class AuthRepository {
 
     fun isUserLoggedIn(): Boolean = firebaseAuth.currentUser != null
 
+    /**
+     * Singleton for this repository.
+     */
+    companion object {
+        // Boilerplate-y code for singleton: the private reference to this self
+        @Volatile
+        private var INSTANCE: AuthRepository? = null
+
+        /**
+         * Boilerplate-y code for singleton: to ensure only a single copy is ever present
+         */
+        fun getInstance(): AuthRepository {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE?.let {
+                    return it
+                }
+
+                val instance = AuthRepository()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
 }
