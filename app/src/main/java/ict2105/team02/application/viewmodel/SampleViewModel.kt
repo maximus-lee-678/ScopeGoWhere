@@ -12,7 +12,7 @@ import ict2105.team02.application.utils.toDateString
 import kotlinx.coroutines.launch
 import java.util.Date
 
-class SampleViewModel: ViewModel() {
+class SampleViewModel : ViewModel() {
     var sampleData = MutableLiveData<ResultData>()
     var scopeData = MutableLiveData<Endoscope>()
 
@@ -35,7 +35,7 @@ class SampleViewModel: ViewModel() {
         )
     }
 
-    fun setSample1Result(result: Boolean){
+    fun setSample1Result(result: Boolean?) {
         sampleData.postValue(
             sampleData.value?.copy(
                 fluidResult = result
@@ -53,7 +53,7 @@ class SampleViewModel: ViewModel() {
         )
     }
 
-    fun setSample2Result(result:Boolean){
+    fun setSample2Result(result: Boolean?) {
         sampleData.postValue(
             sampleData.value?.copy(
                 swabResult = result
@@ -69,7 +69,7 @@ class SampleViewModel: ViewModel() {
         )
     }
 
-    fun setSample3Data(quarantineRequired: Boolean, borescope: Boolean){
+    fun setSample3Data(quarantineRequired: Boolean?, borescope: Boolean?) {
         sampleData.postValue(
             sampleData.value?.copy(
                 quarantineRequired = quarantineRequired,
@@ -88,19 +88,24 @@ class SampleViewModel: ViewModel() {
     }
 
     fun setAllSample(sampleDataHash: HashMap<String, String>) {
-        var resultData = sampleData.value ?: ResultData() // initialize with current value or empty object
+        var resultData =
+            sampleData.value ?: ResultData() // initialize with current value or empty object
 
         sampleDataHash.forEach { (key, value) ->
             when (key) {
-                "fluidResult" -> resultData = resultData.copy(fluidResult = value.toBooleanStrictOrNull())
+                "fluidResult" -> resultData =
+                    resultData.copy(fluidResult = value.toBooleanStrictOrNull())
                 "fluidAction" -> resultData = resultData.copy(fluidAction = value)
                 "fluidComment" -> resultData = resultData.copy(fluidComment = value)
                 "swabDate" -> resultData = resultData.copy(swabDate = value.parseDateString())
-                "swabResult" -> resultData = resultData.copy(swabResult = value.toBooleanStrictOrNull())
+                "swabResult" -> resultData =
+                    resultData.copy(swabResult = value.toBooleanStrictOrNull())
                 "swabAction" -> resultData = resultData.copy(swabAction = value)
                 "swabCultureComment" -> resultData = resultData.copy(swabCultureComment = value)
-                "quarantineRequired" -> resultData = resultData.copy(quarantineRequired = value.toBooleanStrictOrNull())
-                "repeatDateMS" -> resultData = resultData.copy(repeatDateMS = value.parseDateString())
+                "quarantineRequired" -> resultData =
+                    resultData.copy(quarantineRequired = value.toBooleanStrictOrNull())
+                "repeatDateMS" -> resultData =
+                    resultData.copy(repeatDateMS = value.parseDateString())
                 "waterATPRLU" -> resultData = resultData.copy(waterATPRLU = value.toIntOrNull())
                 "swabATPRLU" -> resultData = resultData.copy(swabATPRLU = value.toIntOrNull())
             }
@@ -115,10 +120,12 @@ class SampleViewModel: ViewModel() {
         if (sampleDataVal != null) {
             viewModelScope.launch {
                 repo.getAuthenticatedUserData {
-                    repo.insertSampleData(scopeData.value?.scopeSerial.toString(), docName, sampleDataVal.copy(
-                        resultDate = Date(),
-                        doneBy = it.name
-                    ))
+                    repo.insertSampleData(
+                        scopeData.value?.scopeSerial.toString(), docName, sampleDataVal.copy(
+                            resultDate = Date(),
+                            doneBy = it.name
+                        )
+                    )
                 }
             }
         }

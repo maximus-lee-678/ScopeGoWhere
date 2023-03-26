@@ -10,9 +10,9 @@
         android:id="@+id/swabResultTextView"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginLeft="10sp"
+        android:layout_marginHorizontal="10sp"
         android:gravity="bottom"
-        android:text="Swab Result"
+        android:text="@string/swab_result"
         android:textSize="25sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -22,7 +22,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Date of Results">
+        android:hint="@string/date_of_result">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dateOfResultInput"
@@ -48,7 +48,7 @@
             android:layout_margin="10dp"
             android:layout_weight="0.5"
             android:gravity="center_vertical"
-            android:text="Swab Result:"
+            android:text="@string/swab_result_prefix"
             android:textAlignment="gravity"
             android:textSize="16sp" />
 
@@ -67,7 +67,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Action">
+        android:hint="@string/action">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/actionInput"
@@ -84,7 +84,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Culture Comments">
+        android:hint="@string/culture_comment">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cultureCommentInput"

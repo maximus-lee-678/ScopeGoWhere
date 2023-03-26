@@ -21,14 +21,6 @@ class Wash3DisinfectantFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash3DisinfectantBinding.inflate(inflater)
 
-        // Set existing data, if any
-        val washData = viewModel.washData.value
-        if (washData != null) {
-            if (washData.DisinfectantUsed != null) binding.disinfectantUsed.setText(washData.DisinfectantUsed)
-            if (washData.DisinfectantLotNo != null) binding.disinfectantLotNo.setText(washData.DisinfectantLotNo.toString())
-            if (washData.DisinfectantChangedDate != null) binding.disinfectantChanged.setText(washData.DisinfectantChangedDate.toDateString())
-        }
-
         // For validation and update view model
         val textChangeListener = TextChangeListener {
             viewModel.setWash3Disinfectant(
@@ -46,6 +38,12 @@ class Wash3DisinfectantFragment : Fragment() {
             Utils.createMaterialDatePicker("Select disinfectant changed date") {
                 binding.disinfectantChanged.setText(Date(it).toDateString())
             }.show(childFragmentManager, null)
+        }
+
+        viewModel.washData.observe(viewLifecycleOwner) {
+            if (it.DisinfectantUsed != null) binding.disinfectantUsed.setText(it.DisinfectantUsed)
+            if (it.DisinfectantLotNo != null) binding.disinfectantLotNo.setText(it.DisinfectantLotNo.toString())
+            if (it.DisinfectantChangedDate != null) binding.disinfectantChanged.setText(it.DisinfectantChangedDate.toDateString())
         }
 
         return binding.root

@@ -22,24 +22,21 @@ class Sample2SwabResultFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample2SwabResultBinding.inflate(inflater)
-        val spinner = binding.swabResultSpinner
-        val optionList = listOf("False", "True")
-        var swabResult = "false"
-        spinner.adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, optionList)
-        spinner.setSelection(0)
-        // Set existing data, if any
-        val sampleData = viewModel.sampleData.value
-        if (sampleData != null) {
-            if (sampleData.swabDate != null) binding.dateOfResultInput.setText(sampleData.swabDate.toDateString())
-            if (sampleData.swabResult != null) {
-                if(sampleData.swabResult){
-                    spinner.setSelection(1)
-                } else {
-                    spinner.setSelection(0)
+
+        binding.swabResultSpinner.apply {
+            adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, listOf("False", "True"))
+            setSelection(0)
+
+            onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val swabResult = parent!!.getItemAtPosition(position).toString().lowercase()
+                    viewModel.setSample2Result(swabResult.toBooleanStrictOrNull())
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // Do Nothing
                 }
             }
-            if (sampleData.swabAction != null) binding.actionInput.setText(sampleData.swabAction)
-            if (sampleData.swabCultureComment != null) binding.cultureCommentInput.setText(sampleData.swabCultureComment)
         }
 
         // For validation and update view model
@@ -52,17 +49,6 @@ class Sample2SwabResultFragment : Fragment() {
             )
         }
 
-        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                swabResult = parent!!.getItemAtPosition(position).toString().toLowerCase()
-                viewModel.setSample2Result(swabResult.toBooleanStrictOrNull()!!)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do Nothing
-            }
-        }
-
         binding.dateOfResultInput.addTextChangedListener(textChangeListener)
         binding.actionInput.addTextChangedListener(textChangeListener)
         binding.cultureCommentInput.addTextChangedListener(textChangeListener)
@@ -72,6 +58,19 @@ class Sample2SwabResultFragment : Fragment() {
             Utils.createMaterialPastDatePicker("Select date of sample result") { epoch ->
                 binding.dateOfResultInput.setText(Date(epoch).toDateString())
             }.show(childFragmentManager, null)
+        }
+
+        viewModel.sampleData.observe(viewLifecycleOwner) {
+            if (it.swabDate != null) binding.dateOfResultInput.setText(it.swabDate.toDateString())
+            if (it.swabResult != null) {
+                if (it.swabResult) {
+                    binding.swabResultSpinner.setSelection(1)
+                } else {
+                    binding.swabResultSpinner.setSelection(0)
+                }
+            }
+            if (it.swabAction != null) binding.actionInput.setText(it.swabAction)
+            if (it.swabCultureComment != null) binding.cultureCommentInput.setText(it.swabCultureComment)
         }
 
         return binding.root

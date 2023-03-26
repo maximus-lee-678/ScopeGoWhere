@@ -25,34 +25,42 @@ class Sample3RepeatOfMsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample3RepeatOfMsBinding.inflate(inflater)
         binding.quarantineLayout.visibility = View.GONE
-        val quarantineSpinner = binding.quarantineSpinner
-        val borescopeSpinner = binding.borescopeSpinner
+
         val optionList = listOf("False", "True")
-        var quarantineResult = "false"
-        var borescope = "false"
-        quarantineSpinner.adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, optionList)
-        quarantineSpinner.setSelection(0)
-        borescopeSpinner.adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, optionList)
-        borescopeSpinner.setSelection(0)
-        // Set existing data, if any
-        val sampleData = viewModel.sampleData.value
-        if (sampleData != null) {
-            if (sampleData.quarantineRequired != null) {
-                if (sampleData.quarantineRequired) {
-                    quarantineSpinner.setSelection(1)
-                } else {
-                    quarantineSpinner.setSelection(0)
+
+        binding.quarantineSpinner.apply {
+            adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, optionList)
+            setSelection(0)
+
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val quarantineResult = parent!!.getItemAtPosition(position).toString().lowercase()
+                    viewModel.setSample3Data(quarantineResult.toBooleanStrictOrNull(), quarantineResult.toBooleanStrictOrNull())
                 }
-            }
-            if (sampleData.repeatDateMS != null) binding.repeatDate.setText(sampleData.repeatDateMS.toDateString())
-            if (sampleData.borescope != null) {
-                if (sampleData.borescope) {
-                    borescopeSpinner.setSelection(1)
-                } else {
-                    borescopeSpinner.setSelection(0)
+                override fun onNothingSelected(parent: AdapterView<*>?) { // Do Nothing }
                 }
             }
         }
+
+        binding.borescopeSpinner.apply {
+            adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, optionList)
+            setSelection(0)
+
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val isBorescope = parent!!.getItemAtPosition(position).toString().lowercase()
+                    viewModel.setSample3Data(viewModel.sampleData.value!!.quarantineRequired, isBorescope.toBooleanStrictOrNull()!!)
+                    if (position == 1) {
+                        binding.quarantineLayout.visibility = View.VISIBLE
+                    } else {
+                        binding.quarantineLayout.visibility = View.GONE
+                    }
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) { // Do Nothing }
+                }
+            }
+        }
+
         // For validation and update view model
         val textChangeListener = TextChangeListener {
             validate()
@@ -61,31 +69,6 @@ class Sample3RepeatOfMsFragment : Fragment() {
             )
         }
         binding.repeatDate.addTextChangedListener(textChangeListener)
-        borescopeSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                borescope = parent!!.getItemAtPosition(position).toString().toLowerCase()
-                viewModel.setSample3Data(quarantineResult.toBooleanStrictOrNull()!!,borescope.toBooleanStrictOrNull()!!)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do Nothing
-            }
-        }
-        quarantineSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                quarantineResult = parent!!.getItemAtPosition(position).toString().toLowerCase()
-                viewModel.setSample3Data(quarantineResult.toBooleanStrictOrNull()!!,borescope.toBooleanStrictOrNull()!!)
-                if(position == 1){
-                    binding.quarantineLayout.visibility = View.VISIBLE
-                } else{
-                    binding.quarantineLayout.visibility = View.GONE
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do Nothing
-            }
-        }
         // Date picker
         binding.repeatDate.setOnClickListener {
             Utils.createMaterialFutureDatePicker("Select date of resample", {
@@ -94,6 +77,24 @@ class Sample3RepeatOfMsFragment : Fragment() {
                     binding.repeatDate.setText(Date(epoch).toDateString())
                  }
             ).show(childFragmentManager, null)
+        }
+
+        viewModel.sampleData.observe(viewLifecycleOwner) {
+            if (it.quarantineRequired != null) {
+                if (it.quarantineRequired) {
+                    binding.quarantineSpinner.setSelection(1)
+                } else {
+                    binding.quarantineSpinner.setSelection(0)
+                }
+            }
+            if (it.repeatDateMS != null) binding.repeatDate.setText(it.repeatDateMS.toDateString())
+            if (it.borescope != null) {
+                if (it.borescope) {
+                    binding.borescopeSpinner.setSelection(1)
+                } else {
+                    binding.borescopeSpinner.setSelection(0)
+                }
+            }
         }
         return binding.root
     }

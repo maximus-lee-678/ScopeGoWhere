@@ -9,9 +9,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginLeft="10sp"
+        android:layout_marginHorizontal="10sp"
         android:gravity="bottom"
-        android:text="Repeat of MS"
+        android:text="@string/repeat_of_ms"
         android:textSize="25sp" />
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:layout_margin="10dp"
             android:layout_weight="0.5"
             android:gravity="center_vertical"
-            android:text="Quarantine Required:"
+            android:text="@string/quarantine_required_prefix"
             android:textAlignment="gravity"
             android:textSize="16sp" />
 
@@ -50,7 +50,7 @@
             android:layout_margin="10dp"
             android:layout_weight="0.5"
             android:gravity="center_vertical"
-            android:text="Borescope:"
+            android:text="@string/borescope_prefix"
             android:textAlignment="gravity"
             android:textSize="16sp" />
 
@@ -75,7 +75,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:hint="dd/mm/yy">
+            android:hint="@string/placeholder_date">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/repeatDate"

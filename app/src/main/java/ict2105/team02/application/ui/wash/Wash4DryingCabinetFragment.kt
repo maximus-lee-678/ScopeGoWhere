@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ict2105.team02.application.databinding.FragmentWash4DryingCabinetBinding
 import ict2105.team02.application.utils.TextChangeListener
+import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.WashViewModel
 
 class Wash4DryingCabinetFragment : Fragment() {
@@ -16,14 +17,6 @@ class Wash4DryingCabinetFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash4DryingCabinetBinding.inflate(inflater)
-
-        // Set existing data, if any
-        val washData = viewModel.washData.value
-        if (washData != null) {
-            if (washData.ScopeDryer != null) binding.scopeDryer.setText(washData.ScopeDryer.toString())
-            if (washData.DryerLevel != null) binding.dryerLevel.setText(washData.DryerLevel.toString())
-            if (washData.Remarks != null) binding.remarks.setText(washData.Remarks.toString())
-        }
 
         // For validation and update view model
         val textChangeListener = TextChangeListener {
@@ -36,6 +29,12 @@ class Wash4DryingCabinetFragment : Fragment() {
         binding.scopeDryer.addTextChangedListener(textChangeListener)
         binding.dryerLevel.addTextChangedListener(textChangeListener)
         binding.remarks.addTextChangedListener(textChangeListener)
+
+        viewModel.washData.observe(viewLifecycleOwner) {
+            if (it.ScopeDryer != null) binding.scopeDryer.setText(it.ScopeDryer.toString())
+            if (it.DryerLevel != null) binding.dryerLevel.setText(it.DryerLevel.toString())
+            if (it.Remarks != null) binding.remarks.setText(it.Remarks.toString())
+        }
 
         return binding.root
     }

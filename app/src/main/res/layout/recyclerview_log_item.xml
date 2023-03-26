@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
             android:id="@+id/washDataTitle5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wash Data"
+            android:text="@string/wash_data"
             android:textColor="@color/purple_500"
             android:textSize="16sp" />
 
@@ -34,8 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="AER Model :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/aer_model_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -56,8 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="AER Serial :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/aer_serial_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -78,8 +77,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Detergent Used :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/detergent_used_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -100,8 +99,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Detergent Lot No :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/detergent_lot_no_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -122,8 +121,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Filter Change Date :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/filter_change_date_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -144,8 +143,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Disinfectant Used :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/disinfectant_used_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -166,8 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Disinfectant Lot No :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/disinfectant_lot_no_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -188,8 +187,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Disinfectant Changed Date :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/disinfectant_changed_date_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -210,8 +209,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Scope Dryer :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/scope_dryer_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -232,8 +231,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Done By :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/done_by_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -254,8 +253,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Remarks :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/remarks_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -276,8 +275,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Dryer Level:"
+                android:layout_marginEnd="10dp"
+                android:text="@string/dryer_level_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -298,8 +297,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Wash Date :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/wash_date_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -321,7 +320,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Result Data"
+            android:text="@string/result_data"
             android:textColor="@color/purple_500"
             android:textSize="16sp" />
 
@@ -336,8 +335,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Fluid Result :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/fluid_result_prefix2"
                 android:textColor="@color/black" />
 
             <TextView
@@ -358,8 +357,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Fluid Action :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/fluid_action_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -380,8 +379,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Fluid Comment :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/fluid_comment_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -402,8 +401,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Quarantine Required :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/quarantine_required_prefix2"
                 android:textColor="@color/black" />
 
             <TextView
@@ -424,8 +423,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Recorded By :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/recorded_by_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -446,8 +445,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Swab Result :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/swab_result_prefix2"
                 android:textColor="@color/black" />
 
             <TextView
@@ -468,8 +467,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Swab Action :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/swab_action_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -490,8 +489,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Swab Culture Comment :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/swab_culture_comment_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -512,8 +511,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Repeat Date MS :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/repeat_date_ms_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -534,8 +533,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Borescope :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/borescope_prefix2"
                 android:textColor="@color/black" />
 
             <TextView
@@ -556,8 +555,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Water ATP RLU :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/water_atp_rlu_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -578,8 +577,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Swab ATP RLU :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/swab_atp_rlu_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -600,8 +599,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Result Date :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/result_date_prefix"
                 android:textColor="@color/black" />
 
             <TextView
@@ -622,8 +621,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:text="Swab Date :"
+                android:layout_marginEnd="10dp"
+                android:text="@string/swab_date_prefix"
                 android:textColor="@color/black" />
 
             <TextView

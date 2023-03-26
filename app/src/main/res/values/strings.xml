@@ -21,10 +21,20 @@
     <!-- Login -->
     <string name="login_greetings">Hello again, you\'ve been missed!</string>
     <string name="incorrect_login">Incorrect login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="or_with">or With</string>
+    <string name="staff_card">Staff Card</string>
 
     <!-- Home -->
     <string name="home_staff_id">Staff ID: %1$s</string>
     <string name="home_dept">Dept: %1$s</string>
+    <string name="pending_sample_today_n_endoscopes">Pending Sample Today\n(Endoscopes)</string>
+    <string name="total_endoscopes">Total Endoscopes</string>
+    <string name="in_circulation">In circulation</string>
+    <string name="washing">Washing</string>
+    <string name="sampling">Sampling</string>
 
     <!--Menu-->
     <string name="menu_notification">Spawn Notification</string>
@@ -33,9 +43,9 @@
     <!--Notification-->
     <string name="default_channel_name">default_channel_name</string>
     <string name="default_channel_description">default_channel_description</string>
-    <integer name="sample_ready_id">1</integer>
     <string name="sample_ready_title">A sampling result is ready!</string>
     <string name="sample_ready_description">Scope:</string>
+    <integer name="sample_ready_id">1</integer>
 
     <!-- Main -->
     <string name="main_activity_intent_fragment">fragmentSpec</string>
@@ -59,6 +69,7 @@
     <string name="filtering_options">Filtering Options</string>
     <string name="clear_filters">Clear</string>
     <string name="add_scope">Add New Scope</string>
+    <string name="add_a_new_scope">Add a new Scope</string>
     <string-array name="equipment_status_spinner">
         <item>All</item>
         <item>Circulation</item>
@@ -84,6 +95,80 @@
 
     <!-- Endoscope Log -->
     <string name="endoscope_log_sample_history">Sample History</string>
+    <string name="wash_data">Wash Data</string>
+    <string name="aer_model_prefix">AER Model :</string>
+    <string name="aer_serial_prefix">AER Serial :</string>
+    <string name="detergent_used_prefix">Detergent Used :</string>
+    <string name="detergent_lot_no_prefix">Detergent Lot No :</string>
+    <string name="filter_change_date_prefix">Filter Change Date :</string>
+    <string name="disinfectant_used_prefix">Disinfectant Used :</string>
+    <string name="disinfectant_lot_no_prefix">Disinfectant Lot No :</string>
+    <string name="disinfectant_changed_date_prefix">Disinfectant Changed Date :</string>
+    <string name="scope_dryer_prefix">Scope Dryer :</string>
+    <string name="done_by_prefix">Done By :</string>
+    <string name="remarks_prefix">Remarks :</string>
+    <string name="dryer_level_prefix">Dryer Level:</string>
+    <string name="wash_date_prefix">Wash Date :</string>
+    <string name="result_data">Result Data</string>
+    <string name="fluid_result_prefix2">Fluid Result :</string>
+    <string name="fluid_action_prefix">Fluid Action :</string>
+    <string name="fluid_comment_prefix">Fluid Comment :</string>
+    <string name="quarantine_required_prefix2">Quarantine Required :</string>
+    <string name="recorded_by_prefix">Recorded By :</string>
+    <string name="swab_result_prefix2">Swab Result :</string>
+    <string name="swab_action_prefix">Swab Action :</string>
+    <string name="swab_culture_comment_prefix">Swab Culture Comment :</string>
+    <string name="repeat_date_ms_prefix">Repeat Date MS :</string>
+    <string name="borescope_prefix2">Borescope :</string>
+    <string name="water_atp_rlu_prefix">Water ATP RLU :</string>
+    <string name="swab_atp_rlu_prefix">Swab ATP RLU :</string>
+    <string name="result_date_prefix">Result Date :</string>
+    <string name="swab_date_prefix">Swab Date :</string>
+
+    <!-- Wash/Sample Forms -->
+    <string name="select_entry_method">Select Entry Method</string>
+    <string name="manual_entry">Enter Manually</string>
+    <string name="upload_photo">Upload Photo</string>
+    <string name="scan_again">Scan Again</string>
+    <string name="process_result">Process Result</string>
+    <string name="record_wash">Record Wash</string>
+    <string name="record_sample">Record Sample</string>
+
+    <string name="washer">Washer</string>
+    <string name="aer_model">AER Model</string>
+    <string name="aer_serial_no">AER Serial No.</string>
+    <string name="detergent">Detergent</string>
+    <string name="detergent_used">Detergent Used</string>
+    <string name="detergent_lot_no">Detergent Lot No.</string>
+    <string name="filter_change_date">Filter Change Date</string>
+    <string name="disinfectant">Disinfectant</string>
+    <string name="disinfectant_used">Disinfectant Used</string>
+    <string name="disinfectant_lot_no">Disinfectant Lot No.</string>
+    <string name="disinfectant_changed_date">Disinfectant Changed Date</string>
+    <string name="drying_cabinet">Drying Cabinet</string>
+    <string name="scope_dryer">Scope Dryer</string>
+    <string name="dryer_level">Dryer Level</string>
+    <string name="remarks">Remarks</string>
+
+    <string name="fluid_result">Fluid Result</string>
+    <string name="fluid_result_prefix">Fluid Result:</string>
+    <string name="action">Action</string>
+    <string name="comments">Comments</string>
+    <string name="swab_result">Swab Result</string>
+    <string name="swab_result_prefix">Swab Result:</string>
+    <string name="date_of_result">Date of Result</string>
+    <string name="culture_comment">Culture Comment</string>
+    <string name="repeat_of_ms">Resample Date</string>
+    <string name="quarantine_required">Quarantine Required</string>
+    <string name="quarantine_required_prefix">Quarantine Required:</string>
+    <string name="borescope">Borescope</string>
+    <string name="borescope_prefix">Borescope:</string>
+    <string name="atp_results">ATP Results</string>
+    <string name="atp_water_rlu">ATP Water RLU</string>
+    <string name="atp_swab_rlu">ATP Swab RLU</string>
+
+    <!-- Help text -->
+    <string name="how_to_use_the_app">How to use the app</string>
 
     <string-array name="endoscope_cleaning_instructions">
         <item name="endoscope_cleaning_instructions">Endoscope Cleaning Instructions</item>
@@ -130,6 +215,10 @@
 
     <!-- Placeholder text -->
     <string name="placeholder_endoscope_name">ABC123</string>
-    <string name="placeholder_date">dd/MM/yyyy</string>
+    <string name="placeholder_date">dd/mm/yyyy</string>
     <string name="placeholder_status">XXX</string>
+    <string name="placeholder_name">NAME</string>
+    <string name="placeholder_staff_id">Staff ID: STAFF ID</string>
+    <string name="placeholder_dept">Dept: Endoscopy</string>
+    <string name="placeholder_number">XX</string>
 </resources>
