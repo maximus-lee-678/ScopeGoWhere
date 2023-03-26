@@ -21,18 +21,6 @@ class Wash1WasherFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash1WasherBinding.inflate(inflater)
 
-        // For validation and update view model
-        val textChangeListener = TextChangeListener {
-            validate()
-            washViewModel.setWash1AER(
-                binding.editTextAERModel.text.toString(),
-                binding.editTextAERSerial.text.toString().toIntOrNull()
-            )
-        }
-
-        binding.editTextAERModel.addTextChangedListener(textChangeListener)
-        binding.editTextAERSerial.addTextChangedListener(textChangeListener)
-
         washViewModel.washData.observe(viewLifecycleOwner) {
             if (it.AERModel != null) binding.editTextAERModel.setText(it.AERModel)
             if (it.AERSerial != null) binding.editTextAERSerial.setText(it.AERSerial.toString())
@@ -41,24 +29,13 @@ class Wash1WasherFragment : Fragment() {
         return binding.root
     }
 
-    private fun validate(): Boolean {
-        var valid = true
+    override fun onPause() {
+        super.onPause()
 
-        if (TextUtils.isEmpty(binding.editTextAERModel.text) || TextUtils.isEmpty(binding.editTextAERSerial.text)) {
-            binding.errorMsg.text = "Please fill in all the fields"
-            valid = false
-        }
-        else if (!binding.editTextAERSerial.text.toString().isDigitsOnly()) {
-            binding.errorMsg.text = "AER Serial No. must only contain numbers"
-            valid = false
-        }
-
-        if (valid) {
-            binding.errorMsg.visibility = View.GONE
-        } else {
-            binding.errorMsg.visibility = View.VISIBLE
-        }
-
-        return valid
+        // Save fields to ViewModel when leaving fragment
+        washViewModel.setWash1AER(
+            binding.editTextAERModel.text.toString(),
+            binding.editTextAERSerial.text.toString().toIntOrNull()
+        )
     }
 }

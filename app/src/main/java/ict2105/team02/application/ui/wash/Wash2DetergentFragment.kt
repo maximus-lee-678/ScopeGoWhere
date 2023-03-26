@@ -21,18 +21,6 @@ class Wash2DetergentFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentWash2DetergentBinding.inflate(inflater)
 
-        // For validation and update view model
-        val textChangeListener = TextChangeListener {
-            washViewModel.setWash2Detergent(
-                binding.detergentUsed.text.toString(),
-                binding.detergentLotNo.text.toString().toIntOrNull(),
-                binding.filterChangeDate.text.toString().parseDateString()
-            )
-        }
-        binding.detergentUsed.addTextChangedListener(textChangeListener)
-        binding.detergentLotNo.addTextChangedListener(textChangeListener)
-        binding.filterChangeDate.addTextChangedListener(textChangeListener)
-
         // Date picker
         binding.filterChangeDate.setOnClickListener {
             Utils.createMaterialDatePicker("Select filter changed date") {
@@ -47,5 +35,16 @@ class Wash2DetergentFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // Save fields to ViewModel when leaving fragment
+        washViewModel.setWash2Detergent(
+            binding.detergentUsed.text.toString(),
+            binding.detergentLotNo.text.toString().toIntOrNull(),
+            binding.filterChangeDate.text.toString().parseDateString()
+        )
     }
 }

@@ -49,3 +49,11 @@ fun ResultData.asHashMap(): HashMap<String, Any> {
     }
     return map
 }
+
+fun String.mapYesNoToBoolean(): Boolean {
+    return this.lowercase() == "yes"
+}
+
+fun String.mapPositiveNegativeToBoolean(): Boolean {
+    return this.lowercase() == "positive"
+}

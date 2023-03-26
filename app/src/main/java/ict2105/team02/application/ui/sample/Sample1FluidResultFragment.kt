@@ -11,10 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import ict2105.team02.application.databinding.FragmentSample1FluidResultBinding
-import ict2105.team02.application.repo.MainApplication
-import ict2105.team02.application.repo.ViewModelFactory
-import ict2105.team02.application.utils.TextChangeListener
-import ict2105.team02.application.utils.Utils
+import ict2105.team02.application.R
+import ict2105.team02.application.utils.mapPositiveNegativeToBoolean
 import ict2105.team02.application.viewmodel.SampleViewModel
 
 class Sample1FluidResultFragment : Fragment() {
@@ -25,28 +23,16 @@ class Sample1FluidResultFragment : Fragment() {
         binding = FragmentSample1FluidResultBinding.inflate(inflater)
 
         binding.fluidResultInputSpinner.apply {
-            adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("False", "True"))
+            adapter = ArrayAdapter.createFromResource(requireContext(), R.array.spinner_positive_negative, android.R.layout.simple_spinner_dropdown_item)
             setSelection(0)
 
             onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val fluidResult = parent!!.getItemAtPosition(position).toString().lowercase()
-                    sampleViewModel.setSample1Result(fluidResult.toBooleanStrictOrNull())
+                    val fluidResult = parent!!.getItemAtPosition(position).toString()
+                    sampleViewModel.setSample1Result(fluidResult.mapPositiveNegativeToBoolean())
                 }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // Do nothing
-                }
+                override fun onNothingSelected(parent: AdapterView<*>?) { }
             }
-        }
-
-        // For validation and update view model
-        val textChangeListener = TextChangeListener {
-            validate()
-            sampleViewModel.setSample1Fluid(
-                binding.actionInput.text.toString(),
-                binding.cultureCommentInput.text.toString()
-            )
         }
 
         sampleViewModel.sampleData.observe(viewLifecycleOwner) {
@@ -62,10 +48,17 @@ class Sample1FluidResultFragment : Fragment() {
             if (it.fluidComment != null) binding.cultureCommentInput.setText(it.fluidComment)
         }
 
-        binding.actionInput.addTextChangedListener(textChangeListener)
-        binding.cultureCommentInput.addTextChangedListener(textChangeListener)
-
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // Save fields to ViewModel when leaving fragment
+        sampleViewModel.setSample1Fluid(
+            binding.actionInput.text.toString(),
+            binding.cultureCommentInput.text.toString()
+        )
     }
 
     private fun validate(): Boolean {

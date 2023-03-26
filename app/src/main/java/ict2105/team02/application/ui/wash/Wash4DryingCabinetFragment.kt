@@ -18,18 +18,6 @@ class Wash4DryingCabinetFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash4DryingCabinetBinding.inflate(inflater)
 
-        // For validation and update view model
-        val textChangeListener = TextChangeListener {
-            washViewModel.setWash4Drying(
-                binding.scopeDryer.text.toString().toIntOrNull(),
-                binding.dryerLevel.text.toString().toIntOrNull(),
-                binding.remarks.text.toString()
-            )
-        }
-        binding.scopeDryer.addTextChangedListener(textChangeListener)
-        binding.dryerLevel.addTextChangedListener(textChangeListener)
-        binding.remarks.addTextChangedListener(textChangeListener)
-
         washViewModel.washData.observe(viewLifecycleOwner) {
             if (it.ScopeDryer != null) binding.scopeDryer.setText(it.ScopeDryer.toString())
             if (it.DryerLevel != null) binding.dryerLevel.setText(it.DryerLevel.toString())
@@ -37,5 +25,16 @@ class Wash4DryingCabinetFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // Save fields to ViewModel when leaving fragment
+        washViewModel.setWash4Drying(
+            binding.scopeDryer.text.toString().toIntOrNull(),
+            binding.dryerLevel.text.toString().toIntOrNull(),
+            binding.remarks.text.toString()
+        )
     }
 }
