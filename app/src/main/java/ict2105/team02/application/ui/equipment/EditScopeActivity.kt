@@ -20,12 +20,12 @@ import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_TYPE
 import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
-import ict2105.team02.application.viewmodel.ScopeUpdateViewModel
+import ict2105.team02.application.viewmodel.EndoscopeViewModel
 import kotlinx.coroutines.launch
 import java.util.*
 
 class EditScopeActivity : AppCompatActivity() {
-    private val viewModel by viewModels<ScopeUpdateViewModel>()
+    private val viewModel by viewModels<EndoscopeViewModel>()
 
     private lateinit var binding: ActivityEditScopeBinding
 

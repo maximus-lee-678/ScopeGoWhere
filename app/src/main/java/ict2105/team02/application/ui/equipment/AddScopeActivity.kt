@@ -11,13 +11,13 @@ import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.utils.Utils.Companion.createMaterialFutureDatePicker
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
-import ict2105.team02.application.viewmodel.NewScopeViewModel
+import ict2105.team02.application.viewmodel.EndoscopeViewModel
 import kotlinx.coroutines.launch
 import java.util.*
 
 class AddScopeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddScopeBinding
-    private val viewModel by viewModels<NewScopeViewModel>()
+    private val viewModel by viewModels<EndoscopeViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
