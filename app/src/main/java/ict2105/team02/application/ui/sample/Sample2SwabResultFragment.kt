@@ -1,9 +1,6 @@
 package ict2105.team02.application.ui.sample
 
-import android.R
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentSample2SwabResultBinding
 import ict2105.team02.application.utils.*
 import ict2105.team02.application.viewmodel.SampleViewModel
@@ -24,34 +22,17 @@ class Sample2SwabResultFragment : Fragment() {
         binding = FragmentSample2SwabResultBinding.inflate(inflater)
 
         binding.swabResultSpinner.apply {
-            adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, listOf("False", "True"))
+            adapter = ArrayAdapter.createFromResource(requireContext(), R.array.spinner_positive_negative, android.R.layout.simple_spinner_dropdown_item)
             setSelection(0)
 
             onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val swabResult = parent!!.getItemAtPosition(position).toString().lowercase()
-                    viewModel.setSample2Result(swabResult.toBooleanStrictOrNull())
+                    val swabResult = parent!!.getItemAtPosition(position).toString()
+                    viewModel.setSample2Result(swabResult.mapPositiveNegativeToBoolean())
                 }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // Do Nothing
-                }
+                override fun onNothingSelected(parent: AdapterView<*>?) { }
             }
         }
-
-        // For validation and update view model
-        val textChangeListener = TextChangeListener {
-            validate()
-            viewModel.setSample2Swab(
-                binding.dateOfResultInput.text.toString().parseDateString(),
-                binding.actionInput.text.toString(),
-                binding.cultureCommentInput.text.toString()
-            )
-        }
-
-        binding.dateOfResultInput.addTextChangedListener(textChangeListener)
-        binding.actionInput.addTextChangedListener(textChangeListener)
-        binding.cultureCommentInput.addTextChangedListener(textChangeListener)
 
         // Date picker
         binding.dateOfResultInput.setOnClickListener{
@@ -76,21 +57,14 @@ class Sample2SwabResultFragment : Fragment() {
         return binding.root
     }
 
-    private fun validate(): Boolean {
-        var valid = true
+    override fun onPause() {
+        super.onPause()
 
-        if(TextUtils.isEmpty(binding.dateOfResultInput.text) ||
-            TextUtils.isEmpty(binding.actionInput.text)){
-            binding.errorMsgSwab.text = "Please fill in all the fields"
-            valid = false
-        }
-
-        if (valid) {
-            binding.errorMsgSwab.visibility = View.GONE
-        } else {
-            binding.errorMsgSwab.visibility = View.VISIBLE
-        }
-
-        return valid
+        // Save fields to ViewModel when leaving fragment
+        viewModel.setSample2Swab(
+            binding.dateOfResultInput.text.toString().parseDateString(),
+            binding.actionInput.text.toString(),
+            binding.cultureCommentInput.text.toString()
+        )
     }
 }
