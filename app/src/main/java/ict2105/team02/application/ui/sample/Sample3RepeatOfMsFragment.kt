@@ -1,6 +1,5 @@
 package ict2105.team02.application.ui.sample
 
-import android.R
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -10,9 +9,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentSample3RepeatOfMsBinding
-import ict2105.team02.application.utils.TextChangeListener
 import ict2105.team02.application.utils.Utils
+import ict2105.team02.application.utils.mapYesNoToBoolean
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.SampleViewModel
@@ -24,51 +24,41 @@ class Sample3RepeatOfMsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample3RepeatOfMsBinding.inflate(inflater)
-        binding.quarantineLayout.visibility = View.GONE
 
-        val optionList = listOf("False", "True")
+        binding.repeatDate.visibility = View.GONE
 
         binding.quarantineSpinner.apply {
-            adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, optionList)
+            adapter = ArrayAdapter.createFromResource(requireContext(), R.array.spinner_yes_no, android.R.layout.simple_spinner_dropdown_item)
             setSelection(0)
 
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val quarantineResult = parent!!.getItemAtPosition(position).toString().lowercase()
-                    viewModel.setSample3Data(quarantineResult.toBooleanStrictOrNull(), quarantineResult.toBooleanStrictOrNull())
+                    val quarantineResult = parent!!.getItemAtPosition(position).toString()
+                    viewModel.setSample3Data(quarantineResult.mapYesNoToBoolean(), viewModel.sampleData.value?.borescope)
+
+                    // Show next sample date if result is positive
+                    when (position) {
+                        0 -> binding.repeatDate.visibility = View.GONE
+                        1 -> binding.repeatDate.visibility = View.VISIBLE
+                    }
                 }
-                override fun onNothingSelected(parent: AdapterView<*>?) { // Do Nothing }
-                }
+                override fun onNothingSelected(parent: AdapterView<*>?) { }
             }
         }
 
         binding.borescopeSpinner.apply {
-            adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_dropdown_item, optionList)
+            adapter = ArrayAdapter.createFromResource(requireContext(), R.array.spinner_yes_no, android.R.layout.simple_spinner_dropdown_item)
             setSelection(0)
 
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val isBorescope = parent!!.getItemAtPosition(position).toString().lowercase()
-                    viewModel.setSample3Data(viewModel.sampleData.value!!.quarantineRequired, isBorescope.toBooleanStrictOrNull()!!)
-                    if (position == 1) {
-                        binding.quarantineLayout.visibility = View.VISIBLE
-                    } else {
-                        binding.quarantineLayout.visibility = View.GONE
-                    }
+                    val isBorescope = parent!!.getItemAtPosition(position).toString()
+                    viewModel.setSample3Data(viewModel.sampleData.value?.quarantineRequired, isBorescope.mapYesNoToBoolean())
                 }
-                override fun onNothingSelected(parent: AdapterView<*>?) { // Do Nothing }
-                }
+                override fun onNothingSelected(parent: AdapterView<*>?) { }
             }
         }
 
-        // For validation and update view model
-        val textChangeListener = TextChangeListener {
-            validate()
-            viewModel.setSample3RepeatOfMS(
-                binding.repeatDate.text.toString().parseDateString()
-            )
-        }
-        binding.repeatDate.addTextChangedListener(textChangeListener)
         // Date picker
         binding.repeatDate.setOnClickListener {
             Utils.createMaterialFutureDatePicker("Select date of resample", {
@@ -98,7 +88,17 @@ class Sample3RepeatOfMsFragment : Fragment() {
         }
         return binding.root
     }
-    fun validate(): Boolean {
+
+    override fun onPause() {
+        super.onPause()
+
+        // Save fields to ViewModel when leaving fragment
+        viewModel.setSample3RepeatOfMS(
+            binding.repeatDate.text.toString().parseDateString()
+        )
+    }
+
+    private fun validate(): Boolean {
         var valid = true
         if (TextUtils.isEmpty(binding.repeatDate.text)) {
             binding.errorMsgRepeat.text = "Please fill in all the fields"
