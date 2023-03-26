@@ -39,6 +39,7 @@
 
     <!--Main-->
     <string name="main_activity_intent_fragment">fragmentSpec</string>
+    <string name="equipment_filter">equipmentFilter</string>
 
     <!-- Schedule -->
     <string name="schedule_layout_type_switch_left">Weekly View</string>

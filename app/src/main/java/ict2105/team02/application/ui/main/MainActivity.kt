@@ -15,7 +15,7 @@ import ict2105.team02.application.notification.NotificationSpawner
 import ict2105.team02.application.viewmodel.AuthViewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +73,13 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavbar.selectedItemId = R.id.nav_schedule
             }
             "equipment" -> {
-                navbarNavigate(EquipmentFragment())
+                val bundle = Bundle()
+                val eqFragment = EquipmentFragment()
+                if(intent.getStringExtra(getString(R.string.equipment_filter))!= null){
+                    bundle.putString(getString(R.string.equipment_filter),intent.getStringExtra(getString(R.string.equipment_filter)))
+                }
+                eqFragment.arguments = bundle
+                navbarNavigate(eqFragment)
                 binding.bottomNavbar.selectedItemId = R.id.nav_equipment
             }
             "help" -> {

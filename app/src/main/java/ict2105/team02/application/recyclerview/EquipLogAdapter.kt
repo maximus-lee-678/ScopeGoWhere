@@ -1,5 +1,6 @@
 package ict2105.team02.application.recyclerview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -194,6 +195,7 @@ class EquipLogAdapter:
         }
 
         fun bindResultData(resultData: ResultData?){
+            Log.d("RV Adapter", resultData.toString())
             if(resultData == null){
                 resultDataLL.visibility = View.GONE
             }else {
@@ -246,7 +248,7 @@ class EquipLogAdapter:
                 }
 
                 if (resultData.repeatDateMS != null) {
-                    repeatDateMSData.text = resultData.repeatDateMS.toString()
+                    repeatDateMSData.text = resultData.repeatDateMS.toDateString()
                 } else {
                     repeatDateMSLL.visibility = View.GONE
                 }
@@ -270,13 +272,13 @@ class EquipLogAdapter:
                 }
 
                 if (resultData.resultDate != null) {
-                    resultDateData.text = resultData.resultDate.toString()
+                    resultDateData.text = resultData.resultDate.toDateString()
                 } else {
                     resultDateLL.visibility = View.GONE
                 }
 
                 if (resultData.swabDate != null) {
-                    swabDateData.text = resultData.swabDate.toString()
+                    swabDateData.text = resultData.swabDate.toDateString()
                 } else {
                     swabDateLL.visibility = View.GONE
                 }

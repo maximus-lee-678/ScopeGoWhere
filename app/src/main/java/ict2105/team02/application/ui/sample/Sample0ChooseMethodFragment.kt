@@ -31,6 +31,7 @@ import ict2105.team02.application.viewmodel.SampleViewModel
 class Sample0ChooseMethodFragment : Fragment() {
     private lateinit var binding: FragmentSample0MethodBinding
     private val viewModel by activityViewModels<SampleViewModel>()
+    private lateinit var sampleActivity:SampleActivity
     private companion object{
         //handle result of Camera permission
         private const val CAMERA_REQUEST_CODE = 1001
@@ -46,7 +47,6 @@ class Sample0ChooseMethodFragment : Fragment() {
     private lateinit var progressDialog: ProgressDialog
     private lateinit var textRecognizer: TextRecognizer
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle? ): View? {
@@ -58,7 +58,7 @@ class Sample0ChooseMethodFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sampleActivity = requireActivity() as SampleActivity
+        sampleActivity = requireActivity() as SampleActivity
 
         //init array of permission required for camera, gallery
         cameraPermission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -82,15 +82,12 @@ class Sample0ChooseMethodFragment : Fragment() {
         binding.inputImageBtn.setOnClickListener {
             showInputImageDialog()
         }
-        binding.recognizeTextBtn.setOnClickListener {
+        binding.moveToReview.setOnClickListener {
             if (imageUri == null){
                 showToast(requireContext(),"Pick Image First")
             } else{
                 recognizeTextFromImage()
             }
-        }
-        binding.moveToReview.setOnClickListener {
-            sampleActivity.changePage(5)
         }
     }
 
@@ -120,7 +117,8 @@ class Sample0ChooseMethodFragment : Fragment() {
                         }
                     }
                     viewModel.setAllSample(sampleDataMap)
-                    binding.recognizedTextEt.setText(recognizedText)
+
+                    sampleActivity.changePage(5)
                 }
                 .addOnFailureListener { e->
                     progressDialog.dismiss()

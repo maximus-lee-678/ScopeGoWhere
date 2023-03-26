@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ import ict2105.team02.application.databinding.FragmentEquipmentBinding
 import ict2105.team02.application.recyclerview.EquipmentAdapter
 import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
 import ict2105.team02.application.ui.equipment.AddScopeActivity
+import ict2105.team02.application.utils.Constants
+import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.viewmodel.EquipmentListViewModel
 
 class EquipmentFragment : Fragment() {
@@ -35,34 +38,6 @@ class EquipmentFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = eqAdapter
         }
-
-        // Initialize spinner
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        // Apply the adapter to the spinner
-//        binding.equipmentSpinner.apply {
-//            adapter = ArrayAdapter.createFromResource(requireContext(), R.array.equipment_status_spinner, android.R.layout.simple_spinner_item)
-//                .also {
-//                    // Specify the layout to use when the list of choices appears
-//                    it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//                }
-//
-//            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                    // Don't load if still retrieving equipment (very scuffed)
-//                    if (binding.loadEquipmentProgressIndicator.visibility == View.VISIBLE) {
-//                        return
-//                    }
-//
-//                    val selectedStatus = parent?.getItemAtPosition(position).toString()
-//                    makeToastIfZero(viewModel.filterEquipmentStatus(selectedStatus))
-//                }
-//
-//                override fun onNothingSelected(p0: AdapterView<*>?) {
-//                    // DO NOTHING
-//                }
-//            }
-//        }
-
         return binding.root
     }
 
@@ -106,6 +81,7 @@ class EquipmentFragment : Fragment() {
 
             val selectedStatuses = mutableListOf<String>()
             for (chipId in chipIds) {
+                Log.d("Chip", chipId.toString())
                 val chip = group.findViewById<Chip>(chipId)
                 if (chip != null) {
                     selectedStatuses.add(chip.text.toString())
@@ -116,12 +92,20 @@ class EquipmentFragment : Fragment() {
 
         // Bind view to view model
         viewModel.equipments.observe(viewLifecycleOwner) {
+            val filter = arguments?.getString(getString(R.string.equipment_filter))
+            var filtered:Chip? = null
             val uniqueStatuses = it.distinctBy { e -> e.scopeStatus }.map { e -> e.scopeStatus }
             binding.chipGroupStatusFilters.removeAllViews() // Clear children chips
             for (status in uniqueStatuses) {
                 val statusChip = layoutInflater.inflate(R.layout.chipgroup_status_chip, binding.chipGroupStatusFilters, false) as Chip
                 statusChip.apply { text = status }
+                if(filter == status){
+                    filtered = statusChip
+                }
                 binding.chipGroupStatusFilters.addView(statusChip)
+            }
+            if(filtered != null){
+                binding.chipGroupStatusFilters.check(filtered!!.id)
             }
         }
         viewModel.displayedEquipments.observe(viewLifecycleOwner) {
