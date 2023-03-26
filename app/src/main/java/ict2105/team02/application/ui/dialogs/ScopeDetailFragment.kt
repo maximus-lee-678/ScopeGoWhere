@@ -118,8 +118,14 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
         }
 
         binding.sampleButton.setOnClickListener {
-            val intent = Intent(requireContext(), SampleActivity::class.java)
-            startActivity(intent)
+            if (argSerial != null) {
+                val intent = Intent(requireContext(), SampleActivity::class.java).apply {
+                    putExtra(KEY_ENDOSCOPE_SERIAL, viewModel.scopeDetail.value!!.scopeSerial)
+                    putExtra(KEY_ENDOSCOPE_MODEL, viewModel.scopeDetail.value!!.scopeModel)
+                    putExtra(KEY_ENDOSCOPE_BRAND, viewModel.scopeDetail.value!!.scopeBrand)
+                }
+                startActivity(intent)
+            }
         }
 
         binding.viewLogsButton.setOnClickListener{
