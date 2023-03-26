@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.switchmaterial.SwitchMaterial
 import ict2105.team02.application.databinding.FragmentScheduleBinding
 import ict2105.team02.application.repo.DataRepository
 import ict2105.team02.application.repo.MainApplication
@@ -211,7 +212,7 @@ class CalendarFragment : Fragment() {
         // Layout button: Update layout to month or week
         binding.switchScheduleViewType.setOnClickListener { view ->
             Log.d(TAG, "switchScheduleViewType")
-            val switch: Switch = view as Switch
+            val switch = view as SwitchMaterial
 
             calendarViewModel.forceAlignCalendar()
             calendarViewModel.updateLayoutType(switch.isChecked)
