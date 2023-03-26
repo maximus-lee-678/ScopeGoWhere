@@ -1,6 +1,5 @@
 package ict2105.team02.application.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentHomeBinding
-import ict2105.team02.application.ui.sample.SampleActivity
 import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.utils.Constants
 import ict2105.team02.application.viewmodel.HomeViewModel
@@ -40,23 +38,35 @@ class HomeFragment : Fragment() {
         }
 
         binding.linearLayoutPendingSample.setOnClickListener {
-            createMainActivityIntent("schedule")
+            mainActivity.navbarNavigate(ScheduleFragment())
         }
 
         binding.linearLayoutAllEndoscope.setOnClickListener {
-            createMainActivityIntent("equipment")
+            mainActivity.navbarNavigate(EquipmentFragment())
         }
 
         binding.linearLayoutCirculation.setOnClickListener {
-            createMainActivityIntent("equipment", Constants.ENDOSCOPE_CIRCULATION)
+            mainActivity.navbarNavigate(EquipmentFragment().apply {
+                arguments = Bundle().apply {
+                    putString(Constants.KEY_ENDOSCOPE_STATUS_FILTER, Constants.ENDOSCOPE_CIRCULATION)
+                }
+            })
         }
 
         binding.linearLayoutWashing.setOnClickListener {
-            createMainActivityIntent("equipment", Constants.ENDOSCOPE_WASH)
+            mainActivity.navbarNavigate(EquipmentFragment().apply {
+                arguments = Bundle().apply {
+                    putString(Constants.KEY_ENDOSCOPE_STATUS_FILTER, Constants.ENDOSCOPE_WASH)
+                }
+            })
         }
 
         binding.linearLayoutSampling.setOnClickListener {
-            createMainActivityIntent("equipment", Constants.ENDOSCOPE_SAMPLE)
+            mainActivity.navbarNavigate(EquipmentFragment().apply {
+                arguments = Bundle().apply {
+                    putString(Constants.KEY_ENDOSCOPE_STATUS_FILTER, Constants.ENDOSCOPE_SAMPLE)
+                }
+            })
         }
         return binding.root
     }
@@ -66,14 +76,5 @@ class HomeFragment : Fragment() {
 
         viewModel.fetchUserData()
         viewModel.fetchEndoscopeStats()
-    }
-    private fun createMainActivityIntent(fragment: String, equipmentFilter: String? = null){
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.putExtra(getString(R.string.main_activity_intent_fragment), fragment)
-        equipmentFilter?.let {
-            intent.putExtra(getString(R.string.equipment_filter), it)
-        }
-        startActivity(intent)
-        activity?.finish()
     }
 }

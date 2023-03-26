@@ -11,7 +11,6 @@ import androidx.core.app.NotificationManagerCompat
 import ict2105.team02.application.R
 
 class NotificationSpawner(private val context: Context) {
-    private val CHANNEL_ID: String = "defaultChannel"
     private val mainActivityIntentSpec: String = context.getString(R.string.main_activity_intent_fragment)
 
     /**
@@ -63,5 +62,9 @@ class NotificationSpawner(private val context: Context) {
             // notificationId is a unique int for each notification that you must define
             notify(context.resources.getInteger(R.integer.sample_ready_id), builder.build())
         }
+    }
+
+    companion object {
+        private const val CHANNEL_ID: String = "defaultChannel"
     }
 }

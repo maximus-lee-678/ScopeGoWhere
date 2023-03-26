@@ -118,17 +118,15 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonCreateScope"
-        android:layout_width="60dp"
-        android:layout_height="63dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="68dp"
         android:src="@drawable/ic_baseline_add_circle_24"
         app:backgroundTint="#fcbc44"
         app:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/equipmentsRecyclerView"
-        app:pressedTranslationZ="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="40dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

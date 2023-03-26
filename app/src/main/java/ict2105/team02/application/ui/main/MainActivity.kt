@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        NotificationSpawner(this).createNotificationChannel()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        chooseFragment()
+        NotificationSpawner(this).createNotificationChannel()
 
         binding.bottomNavbar.setOnItemSelectedListener {
             when (it.itemId) {
@@ -52,43 +52,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, QRScannerActivity::class.java)
             startActivity(intent)
         }
+
+        // Default to homepage
+        binding.bottomNavbar.selectedItemId = R.id.nav_home
     }
 
-    private fun navbarNavigate(fragment: Fragment) {
+    fun navbarNavigate(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentFrameLayout, fragment, null)
         transaction.commit()
-    }
-
-    /**
-     * Chooses selected fragment based on intent extra value. Defaults to Home.
-     */
-    private fun chooseFragment() {
-        when (intent.getStringExtra(getString(R.string.main_activity_intent_fragment))) {
-            "home" -> {
-                navbarNavigate(HomeFragment())
-            }
-            "schedule" -> {
-                navbarNavigate(ScheduleFragment())
-                binding.bottomNavbar.selectedItemId = R.id.nav_schedule
-            }
-            "equipment" -> {
-                val bundle = Bundle()
-                val eqFragment = EquipmentFragment()
-                if(intent.getStringExtra(getString(R.string.equipment_filter))!= null){
-                    bundle.putString(getString(R.string.equipment_filter),intent.getStringExtra(getString(R.string.equipment_filter)))
-                }
-                eqFragment.arguments = bundle
-                navbarNavigate(eqFragment)
-                binding.bottomNavbar.selectedItemId = R.id.nav_equipment
-            }
-            "help" -> {
-                navbarNavigate(HelpFragment())
-            }
-            null -> {
-                navbarNavigate(HomeFragment())
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

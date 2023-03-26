@@ -21,7 +21,7 @@ class HelpFragment : Fragment() {
         HelpData("Endoscope Sampling", "XyGhlNorlfE",R.array.endoscope_sampling_instructions)
     )
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHelpBinding.inflate(layoutInflater)
         return binding.root
     }

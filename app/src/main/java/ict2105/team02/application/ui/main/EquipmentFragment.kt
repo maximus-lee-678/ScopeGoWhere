@@ -8,8 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,8 +17,8 @@ import ict2105.team02.application.databinding.FragmentEquipmentBinding
 import ict2105.team02.application.recyclerview.EquipmentAdapter
 import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
 import ict2105.team02.application.ui.equipment.AddScopeActivity
-import ict2105.team02.application.utils.Constants
-import ict2105.team02.application.utils.Utils
+import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS_FILTER
+import ict2105.team02.application.utils.TAG
 import ict2105.team02.application.viewmodel.EquipmentListViewModel
 
 class EquipmentFragment : Fragment() {
@@ -92,20 +90,17 @@ class EquipmentFragment : Fragment() {
 
         // Bind view to view model
         viewModel.equipments.observe(viewLifecycleOwner) {
-            val filter = arguments?.getString(getString(R.string.equipment_filter))
-            var filtered:Chip? = null
+            val filter = arguments?.getString(KEY_ENDOSCOPE_STATUS_FILTER)
             val uniqueStatuses = it.distinctBy { e -> e.scopeStatus }.map { e -> e.scopeStatus }
             binding.chipGroupStatusFilters.removeAllViews() // Clear children chips
             for (status in uniqueStatuses) {
                 val statusChip = layoutInflater.inflate(R.layout.chipgroup_status_chip, binding.chipGroupStatusFilters, false) as Chip
                 statusChip.apply { text = status }
-                if(filter == status){
-                    filtered = statusChip
-                }
                 binding.chipGroupStatusFilters.addView(statusChip)
-            }
-            if(filtered != null){
-                binding.chipGroupStatusFilters.check(filtered!!.id)
+                Log.d(TAG, "$filter == $status")
+                if (filter == status) {
+                    binding.chipGroupStatusFilters.check(statusChip.id)
+                }
             }
         }
         viewModel.displayedEquipments.observe(viewLifecycleOwner) {

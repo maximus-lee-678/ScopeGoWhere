@@ -26,14 +26,9 @@ class ScheduleInfoViewModel : ViewModel() {
     }
 
     fun setScheduleByDate(inputDate: Date) {
-        var filteredEndoscope: ArrayList<Endoscope> = ArrayList()
-        if (allEndoscope == null)
-            return
+        val filteredEndoscope: ArrayList<Endoscope> = ArrayList()
         for (endoscope in allEndoscope) {
-
-            if (endoscope.nextSampleDate != null &&
-                areDatesEqualIgnoringTime(endoscope.nextSampleDate, inputDate)
-            ) {
+            if (areDatesEqualIgnoringTime(endoscope.nextSampleDate, inputDate)) {
                 filteredEndoscope.add(endoscope)
             }
         }
@@ -41,7 +36,6 @@ class ScheduleInfoViewModel : ViewModel() {
         data.value = filteredEndoscope
 //        mListSchedule = data
         mListEndoscope?.postValue(filteredEndoscope)
-        Log.d("Model State", filteredEndoscope.toString())
     }
 
     fun getScheduledEndoscope(): LiveData<List<Endoscope>>? {
