@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityEditScopeBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_BRAND
@@ -25,7 +27,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class EditScopeActivity : AppCompatActivity() {
-    private val viewModel by viewModels<EndoscopeViewModel>()
+    private val endoscopeViewModel: EndoscopeViewModel by viewModels { ViewModelFactory("EndoscopeViewModel", application as MainApplication) }
 
     private lateinit var binding: ActivityEditScopeBinding
 
@@ -68,7 +70,7 @@ class EditScopeActivity : AppCompatActivity() {
         binding.buttonDeleteScope.setOnClickListener {
             ConfirmationDialogFragment("Delete endoscope?") {
                 // User clicked confirm
-                viewModel.deleteScope(intentSerial)
+                endoscopeViewModel.deleteScope(intentSerial)
                 Toast.makeText(this, "Scope Deleted Successfully!", Toast.LENGTH_LONG).show()
                 finish()
             }.show(supportFragmentManager, null)
@@ -91,7 +93,7 @@ class EditScopeActivity : AppCompatActivity() {
             // User clicked confirm
             // update the details into the database
             lifecycleScope.launch {
-                viewModel.updateScope(
+                endoscopeViewModel.updateScope(
                     brand,
                     model,
                     intentSerial,

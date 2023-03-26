@@ -13,12 +13,12 @@ import ict2105.team02.application.viewmodel.WashViewModel
 
 class Wash4DryingCabinetFragment : Fragment() {
     private lateinit var binding: FragmentWash4DryingCabinetBinding
-    private val viewModel by activityViewModels<WashViewModel>()
+    private val washViewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash4DryingCabinetBinding.inflate(inflater)
 
-        viewModel.washData.observe(viewLifecycleOwner) {
+        washViewModel.washData.observe(viewLifecycleOwner) {
             if (it.ScopeDryer != null) binding.scopeDryer.setText(it.ScopeDryer.toString())
             if (it.DryerLevel != null) binding.dryerLevel.setText(it.DryerLevel.toString())
             if (it.Remarks != null) binding.remarks.setText(it.Remarks.toString())
@@ -31,7 +31,7 @@ class Wash4DryingCabinetFragment : Fragment() {
         super.onPause()
 
         // Save fields to ViewModel when leaving fragment
-        viewModel.setWash4Drying(
+        washViewModel.setWash4Drying(
             binding.scopeDryer.text.toString().toIntOrNull(),
             binding.dryerLevel.text.toString().toIntOrNull(),
             binding.remarks.text.toString()

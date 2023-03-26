@@ -20,18 +20,22 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentSample0MethodBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.utils.Utils.Companion.showToast
 import ict2105.team02.application.viewmodel.SampleViewModel
 
 class Sample0ChooseMethodFragment : Fragment() {
     private lateinit var binding: FragmentSample0MethodBinding
-    private val viewModel by activityViewModels<SampleViewModel>()
+    private val sampleViewModel by activityViewModels<SampleViewModel>()
+
     private lateinit var sampleActivity: SampleActivity
 
     private companion object {
@@ -49,7 +53,10 @@ class Sample0ChooseMethodFragment : Fragment() {
     private lateinit var progressDialog: ProgressDialog
     private lateinit var textRecognizer: TextRecognizer
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSample0MethodBinding.inflate(inflater)
         return binding.root
@@ -115,7 +122,7 @@ class Sample0ChooseMethodFragment : Fragment() {
                             Log.d("Value Read", line)
                         }
                     }
-                    viewModel.setAllSample(sampleDataMap)
+                    sampleViewModel.setAllSample(sampleDataMap)
 
                     sampleActivity.changePage(5)
                 }

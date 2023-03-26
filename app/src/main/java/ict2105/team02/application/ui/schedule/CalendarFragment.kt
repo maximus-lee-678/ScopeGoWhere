@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -16,25 +15,26 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 import ict2105.team02.application.databinding.FragmentScheduleBinding
 import ict2105.team02.application.repo.DataRepository
 import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.viewmodel.CalendarViewModel
-import ict2105.team02.application.viewmodel.CalendarViewModelFactory
+import ict2105.team02.application.viewmodel.HomeViewModel
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CalendarFragment : Fragment() {
+class CalendarFragment(
+    private val scheduleInfoViewModel: ScheduleInfoViewModel
+) : Fragment() {
     private lateinit var binding: FragmentScheduleBinding
     private val TAG: String = this::class.simpleName!!
     private val daysInWeek: Int = 7
 
     private val calendarViewModel: CalendarViewModel by viewModels {
-        CalendarViewModelFactory(
-            (activity?.application as MainApplication).repository,
-            DataRepository(),
-            (activity?.application as MainApplication)
+        ViewModelFactory(
+            "CalendarViewModel", activity?.application as MainApplication
         )
     }
-    private lateinit var scheduleInfoViewModel: ScheduleInfoViewModel
+
     private lateinit var calendarMonthAdapter: CalendarMonthAdapter
     private lateinit var calendarWeekAdapter: CalendarWeekAdapter
 
@@ -52,8 +52,6 @@ class CalendarFragment : Fragment() {
         createListenersFragment()   // Fragment listeners creation
         createObservers()           // Data observers creation
 
-        scheduleInfoViewModel =
-            ViewModelProvider(requireActivity()).get(ScheduleInfoViewModel::class.java)
         scheduleInfoViewModel.fetchAllScheduledScope {
             val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
             updateModel(currentDate)
@@ -68,7 +66,7 @@ class CalendarFragment : Fragment() {
         val dateFormat = SimpleDateFormat("dd-MM-yyyy")
         val date = dateFormat.parse(input)
         // Update view Model.
-        scheduleInfoViewModel.setScheduleByDate(date)
+        scheduleInfoViewModel.setScheduleByDate(date!!)
     }
 
     /**
@@ -215,7 +213,10 @@ class CalendarFragment : Fragment() {
             val switch = view as SwitchMaterial
 
             calendarViewModel.forceAlignCalendar()
-            calendarViewModel.updateLayoutType(switch.isChecked)
+            calendarViewModel.updateLayoutType(
+                switch.isChecked,
+                requireActivity().applicationContext
+            )
 
             Log.d(
                 TAG,

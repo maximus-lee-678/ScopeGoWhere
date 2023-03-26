@@ -10,11 +10,11 @@ import ict2105.team02.application.utils.toDateString
 import kotlinx.coroutines.launch
 import java.util.*
 
-class WashViewModel : ViewModel() {
+class WashViewModel(
+    private val dataRepository: DataRepository
+) : ViewModel() {
     var washData = MutableLiveData<WashData>()
     var scopeData = MutableLiveData<Endoscope>()
-
-    private val repo = DataRepository()
 
     fun makeScope(brand: String, model: String, serial: Int) {
         scopeData.value = Endoscope(scopeBrand = brand, scopeModel = model, scopeSerial = serial)
@@ -68,8 +68,8 @@ class WashViewModel : ViewModel() {
         val washDataVal = washData.value
         if (washDataVal != null) {
             viewModelScope.launch {
-                repo.getAuthenticatedUserData {
-                    repo.insertWashData(scopeData.value?.scopeSerial.toString(), docName, washDataVal.copy(
+                dataRepository.getAuthenticatedUserData {
+                    dataRepository.insertWashData(scopeData.value?.scopeSerial.toString(), docName, washDataVal.copy(
                         WashDate = Date(),
                         DoneBy = it.name
                     ))

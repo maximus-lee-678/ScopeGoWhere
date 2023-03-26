@@ -16,7 +16,7 @@ import java.util.*
 
 class Wash2DetergentFragment : Fragment() {
     private lateinit var binding: FragmentWash2DetergentBinding
-    private val viewModel by activityViewModels<WashViewModel>()
+    private val washViewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentWash2DetergentBinding.inflate(inflater)
@@ -27,8 +27,8 @@ class Wash2DetergentFragment : Fragment() {
                 binding.filterChangeDate.setText(Date((it)).toDateString())
             }.show(childFragmentManager, null)
         }
-        
-        viewModel.washData.observe(viewLifecycleOwner) {
+
+        washViewModel.washData.observe(viewLifecycleOwner) {
             if (it.DetergentUsed != null) binding.detergentUsed.setText(it.DetergentUsed)
             if (it.DetergentLotNo != null) binding.detergentLotNo.setText(it.DetergentLotNo.toString())
             if (it.FilterChangeDate != null) binding.filterChangeDate.setText(it.FilterChangeDate.toDateString())
@@ -41,7 +41,7 @@ class Wash2DetergentFragment : Fragment() {
         super.onPause()
 
         // Save fields to ViewModel when leaving fragment
-        viewModel.setWash2Detergent(
+        washViewModel.setWash2Detergent(
             binding.detergentUsed.text.toString(),
             binding.detergentLotNo.text.toString().toIntOrNull(),
             binding.filterChangeDate.text.toString().parseDateString()

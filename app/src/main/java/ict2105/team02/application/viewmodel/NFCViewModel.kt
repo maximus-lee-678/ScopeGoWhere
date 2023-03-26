@@ -17,7 +17,7 @@ import java.lang.StringBuilder
 import kotlin.experimental.and
 
 class NFCViewModel: ViewModel() {
-    private val TAG = NFCViewModel::class.java.simpleName
+    private val TAG = this::class.simpleName!!
     private val liveTag: MutableLiveData<String?> = MutableLiveData(null)
     private var authenticated:MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -29,6 +29,7 @@ class NFCViewModel: ViewModel() {
         options.putInt(NfcAdapter.EXTRA_READER_PRESENCE_CHECK_DELAY, 30000)
         return options
     }
+
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun enableReaderMode(context: Context, activity: Activity, callback: NfcAdapter.ReaderCallback){
         val flags:Int = getNFCFlags()

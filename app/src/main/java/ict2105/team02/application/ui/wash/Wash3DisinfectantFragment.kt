@@ -16,7 +16,7 @@ import java.util.*
 
 class Wash3DisinfectantFragment : Fragment() {
     private lateinit var binding: FragmentWash3DisinfectantBinding
-    private val viewModel by activityViewModels<WashViewModel>()
+    private val washViewModel by activityViewModels<WashViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash3DisinfectantBinding.inflate(inflater)
@@ -28,7 +28,7 @@ class Wash3DisinfectantFragment : Fragment() {
             }.show(childFragmentManager, null)
         }
 
-        viewModel.washData.observe(viewLifecycleOwner) {
+        washViewModel.washData.observe(viewLifecycleOwner) {
             if (it.DisinfectantUsed != null) binding.disinfectantUsed.setText(it.DisinfectantUsed)
             if (it.DisinfectantLotNo != null) binding.disinfectantLotNo.setText(it.DisinfectantLotNo.toString())
             if (it.DisinfectantChangedDate != null) binding.disinfectantChanged.setText(it.DisinfectantChangedDate.toDateString())
@@ -41,7 +41,7 @@ class Wash3DisinfectantFragment : Fragment() {
         super.onPause()
 
         // Save fields to ViewModel when leaving fragment
-        viewModel.setWash3Disinfectant(
+        washViewModel.setWash3Disinfectant(
             binding.disinfectantUsed.text.toString(),
             binding.disinfectantLotNo.text.toString().toIntOrNull(),
             binding.disinfectantChanged.text.toString().parseDateString()

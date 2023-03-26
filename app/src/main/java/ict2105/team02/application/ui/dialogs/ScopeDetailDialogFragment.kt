@@ -11,6 +11,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScopeDetailBinding
 import ict2105.team02.application.model.Endoscope
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.equipment.EditScopeActivity
 import ict2105.team02.application.ui.equipment.EquipmentLogActivity
 import ict2105.team02.application.ui.sample.SampleActivity
@@ -29,7 +31,12 @@ import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 class ScopeDetailDialogFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
 
-    private val viewModel by viewModels<ScopeDetailViewModel>()
+    private val scopeDetailViewModel: ScopeDetailViewModel by viewModels {
+        ViewModelFactory(
+            "ScopeDetailViewModel",
+            activity?.application as MainApplication
+        )
+    }
 
     private var argSerial: Int = -1
 
@@ -46,7 +53,7 @@ class ScopeDetailDialogFragment : BottomSheetDialogFragment() {
 
         argSerial = arguments?.getInt(KEY_ENDOSCOPE_SERIAL) ?: throw NullPointerException()
 
-        viewModel.scopeDetail.observe(this) {
+        scopeDetailViewModel.scopeDetail.observe(this) {
             if (it == null) {
                 setUILoadFailed(argSerial)
                 return@observe
@@ -56,7 +63,7 @@ class ScopeDetailDialogFragment : BottomSheetDialogFragment() {
         }
 
         binding.editScopeButton.setOnClickListener{
-            val endoscope = viewModel.scopeDetail.value
+            val endoscope = scopeDetailViewModel.scopeDetail.value
             if (endoscope == null) {
                 Log.d(TAG, "[Edit Scope Button] ViewModel endoscope data is null!")
                 return@setOnClickListener
@@ -74,18 +81,18 @@ class ScopeDetailDialogFragment : BottomSheetDialogFragment() {
 
         binding.washButton.setOnClickListener {
             startActivity(Intent(requireContext(), WashActivity::class.java).apply {
-                putExtra(KEY_ENDOSCOPE_SERIAL, viewModel.scopeDetail.value!!.scopeSerial)
-                putExtra(KEY_ENDOSCOPE_MODEL, viewModel.scopeDetail.value!!.scopeModel)
-                putExtra(KEY_ENDOSCOPE_BRAND, viewModel.scopeDetail.value!!.scopeBrand)
+                putExtra(KEY_ENDOSCOPE_SERIAL, scopeDetailViewModel.scopeDetail.value!!.scopeSerial)
+                putExtra(KEY_ENDOSCOPE_MODEL, scopeDetailViewModel.scopeDetail.value!!.scopeModel)
+                putExtra(KEY_ENDOSCOPE_BRAND, scopeDetailViewModel.scopeDetail.value!!.scopeBrand)
             })
             dismiss()
         }
 
         binding.sampleButton.setOnClickListener {
             startActivity(Intent(requireContext(), SampleActivity::class.java).apply {
-                putExtra(KEY_ENDOSCOPE_SERIAL, viewModel.scopeDetail.value!!.scopeSerial)
-                putExtra(KEY_ENDOSCOPE_MODEL, viewModel.scopeDetail.value!!.scopeModel)
-                putExtra(KEY_ENDOSCOPE_BRAND, viewModel.scopeDetail.value!!.scopeBrand)
+                putExtra(KEY_ENDOSCOPE_SERIAL, scopeDetailViewModel.scopeDetail.value!!.scopeSerial)
+                putExtra(KEY_ENDOSCOPE_MODEL, scopeDetailViewModel.scopeDetail.value!!.scopeModel)
+                putExtra(KEY_ENDOSCOPE_BRAND, scopeDetailViewModel.scopeDetail.value!!.scopeBrand)
             })
             dismiss()
         }
@@ -93,17 +100,17 @@ class ScopeDetailDialogFragment : BottomSheetDialogFragment() {
         binding.circulationButton.setOnClickListener {
             ConfirmationDialogFragment("Return endoscope to circulation?") {
                 // User clicked confirm
-                val serial = viewModel.scopeDetail.value!!.scopeSerial
-                viewModel.returnScopeToCirculation(serial)
-                viewModel.fetchScopeDetail(serial)
+                val serial = scopeDetailViewModel.scopeDetail.value!!.scopeSerial
+                scopeDetailViewModel.returnScopeToCirculation(serial)
+                scopeDetailViewModel.fetchScopeDetail(serial)
             }.show(childFragmentManager, null)
         }
 
         binding.viewLogsButton.setOnClickListener{
             // replace with last fragment
-            val scopeSerial = viewModel.scopeDetail.value!!.scopeSerial
-            val scopeModel = viewModel.scopeDetail.value!!.scopeModel
-            val scopeStatus = viewModel.scopeDetail.value!!.scopeStatus
+            val scopeSerial = scopeDetailViewModel.scopeDetail.value!!.scopeSerial
+            val scopeModel = scopeDetailViewModel.scopeDetail.value!!.scopeModel
+            val scopeStatus = scopeDetailViewModel.scopeDetail.value!!.scopeStatus
 
             val intent = Intent(requireContext(), EquipmentLogActivity::class.java)
             intent.putExtra(KEY_ENDOSCOPE_SERIAL, scopeSerial)
@@ -116,7 +123,7 @@ class ScopeDetailDialogFragment : BottomSheetDialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.fetchScopeDetail(argSerial)
+        scopeDetailViewModel.fetchScopeDetail(argSerial)
     }
 
     private fun setUILoading() {

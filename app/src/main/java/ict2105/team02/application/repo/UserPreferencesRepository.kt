@@ -31,6 +31,8 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
  * being saved.
  */
 class UserPreferencesRepository(context: Context) {
+    private val TAG: String = this::class.simpleName!!
+
     // object for defining PreferencesKeys
     private object PreferencesKeys {
         val scheduleLayoutType: Preferences.Key<Boolean> = booleanPreferencesKey(LAYOUT_TYPE)
@@ -60,11 +62,10 @@ class UserPreferencesRepository(context: Context) {
         }
     }
 
-    // singularity point
+    /**
+     * Singleton for this repository.
+     */
     companion object {
-        // The usual for debugging
-        private val TAG: String = "UserPreferencesRepository"
-
         // Boilerplate-y code for singleton: the private reference to this self
         @Volatile
         private var INSTANCE: UserPreferencesRepository? = null

@@ -8,15 +8,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentHomeBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.equipment.EquipmentFragment
 import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.utils.Constants
+import ict2105.team02.application.viewmodel.EquipmentListViewModel
 import ict2105.team02.application.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
 
-    private val viewModel by viewModels<HomeViewModel>()
+    private val homeViewModel: HomeViewModel by viewModels {
+        ViewModelFactory(
+            "HomeViewModel",
+            activity?.application as MainApplication
+        )
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater)
@@ -24,13 +32,13 @@ class HomeFragment : Fragment() {
         val activity = requireActivity()
         val mainActivity = requireActivity() as MainActivity
 
-        viewModel.user.observe(activity) {
+        homeViewModel.user.observe(activity) {
             binding.textViewUserName.text = it.name
             binding.textViewUserStaffId.text = getString(R.string.home_staff_id, it.staffId.toString())
             binding.textViewUserDept.text = getString(R.string.home_dept, it.department)
         }
 
-        viewModel.endoscopeStat.observe(activity) {
+        homeViewModel.endoscopeStat.observe(activity) {
             binding.textViewPendingSampleCount.text = it.pendingSample.toString()
             binding.textViewTotalEndoscopeCount.text = it.totalEndoscope.toString()
             binding.textViewInCirculationCount.text = it.inCirculation.toString()
@@ -75,7 +83,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetchUserData()
-        viewModel.fetchEndoscopeStats()
+        homeViewModel.fetchUserData()
+        homeViewModel.fetchEndoscopeStats()
     }
 }

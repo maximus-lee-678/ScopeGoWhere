@@ -7,19 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import ict2105.team02.application.databinding.FragmentSample4AtpBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.utils.TextChangeListener
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.SampleViewModel
 
 class Sample4AtpFragment : Fragment() {
     private lateinit var binding: FragmentSample4AtpBinding
-    private val viewModel by activityViewModels<SampleViewModel>()
+    private val sampleViewModel by activityViewModels<SampleViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample4AtpBinding.inflate(inflater)
 
-        viewModel.sampleData.observe(viewLifecycleOwner) {
+        sampleViewModel.sampleData.observe(viewLifecycleOwner) {
             if (it.waterATPRLU != null) binding.atpWaterRLUInput.setText(it.waterATPRLU.toString())
             if (it.swabATPRLU != null) binding.atpSwabRLUInput.setText(it.swabATPRLU.toString())
         }
@@ -30,7 +33,7 @@ class Sample4AtpFragment : Fragment() {
     override fun onPause() {
         super.onPause()
 
-        viewModel.setSample4Atp(
+        sampleViewModel.setSample4Atp(
             binding.atpWaterRLUInput.text.toString().toIntOrNull(),
             binding.atpSwabRLUInput.text.toString().toIntOrNull(),
         )

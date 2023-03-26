@@ -5,19 +5,32 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ict2105.team02.application.R
 import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.databinding.ActivityLoginBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.viewmodel.AuthViewModel
 import ict2105.team02.application.viewmodel.NFCViewModel
 
-class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
+class LoginActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var authViewModel: AuthViewModel
-    private lateinit var nfcViewModel: NFCViewModel
+    private val authViewModel: AuthViewModel by viewModels {
+        ViewModelFactory(
+            "AuthViewModel",
+            application as MainApplication
+        )
+    }
+    private val nfcViewModel: NFCViewModel by viewModels {
+        ViewModelFactory(
+            "NFCViewModel",
+            application as MainApplication
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,18 +41,18 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // connecting to view model
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
-        nfcViewModel = ViewModelProvider(this)[NFCViewModel::class.java]
-
         // enable NFC Reader
-        if(nfcViewModel.checkEnabled(this@LoginActivity)) {
-            nfcViewModel.enableReaderMode(this@LoginActivity, this@LoginActivity, this@LoginActivity)
+        if (nfcViewModel.checkEnabled(this@LoginActivity)) {
+            nfcViewModel.enableReaderMode(
+                this@LoginActivity,
+                this@LoginActivity,
+                this@LoginActivity
+            )
             nfcViewModel.observeTag().observe(this) {
                 if (it) {
                     nfcViewModel.disableReaderMode(this@LoginActivity, this@LoginActivity)
                     goToHome()
-                } else{
+                } else {
                     binding.error.text = getString(R.string.incorrect_login)
                 }
             }
@@ -47,7 +60,7 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
             Toast.makeText(this, "NFC is not enabled/unavailable", Toast.LENGTH_LONG).show()
         }
 
-        //login button validate
+        // login button validate
         binding.loginButton.setOnClickListener {
             val staffEmail = binding.userName.editText?.text.toString()
             val password = binding.password.editText?.text.toString()
@@ -55,7 +68,7 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
         }
 
         authViewModel.loginStatus.observe(this, Observer {
-            when(it){
+            when (it) {
                 is UiState.Loading -> {
                     // nothing to do
                 }
@@ -73,7 +86,7 @@ class LoginActivity: AppCompatActivity(), NfcAdapter.ReaderCallback {
         nfcViewModel.readTag(tag)
     }
 
-    private fun goToHome(){
+    private fun goToHome() {
         intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

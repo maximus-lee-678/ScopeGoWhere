@@ -11,18 +11,18 @@ import ict2105.team02.application.utils.Constants
 import ict2105.team02.application.utils.UiState
 import kotlinx.coroutines.launch
 
-class ScopeDetailViewModel : ViewModel() {
+class ScopeDetailViewModel(
+    private val dataRepository: DataRepository
+) : ViewModel() {
     private val _scopeDetail = MutableLiveData<Endoscope>()
     val scopeDetail: LiveData<Endoscope> = _scopeDetail
 
     private val _scopeLogDetail = MutableLiveData<UiState<List<EndoscopeTransaction>>>()
     val scopeLogDetail: LiveData<UiState<List<EndoscopeTransaction>>> = _scopeLogDetail
 
-    private val repo = DataRepository()
-
     fun fetchScopeDetail(serial: Int) {
         viewModelScope.launch {
-            repo.getEndoscope(serial.toString()) {
+            dataRepository.getEndoscope(serial.toString()) {
                 _scopeDetail.postValue(it)
             }
         }
@@ -30,14 +30,14 @@ class ScopeDetailViewModel : ViewModel() {
 
     fun fetchLogDetail(serial: Int) {
         viewModelScope.launch {
-            val result = repo.getEndoscopeHistory(serial.toString())
+            val result = dataRepository.getEndoscopeHistory(serial.toString())
             _scopeLogDetail.postValue(result)
         }
     }
 
     fun returnScopeToCirculation(serial: Int) {
         viewModelScope.launch {
-            repo.updateScopeStatus(serial.toString(), Constants.ENDOSCOPE_CIRCULATION)
+            dataRepository.updateScopeStatus(serial.toString(), Constants.ENDOSCOPE_CIRCULATION)
         }
     }
 }

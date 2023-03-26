@@ -1,7 +1,6 @@
 package ict2105.team02.application.viewmodel
 
-import android.app.Application
-import android.util.Log
+import android.content.Context
 import androidx.lifecycle.*
 import ict2105.team02.application.model.DateDetails
 import ict2105.team02.application.repo.DataRepository
@@ -14,10 +13,8 @@ import kotlin.collections.HashMap
 
 class CalendarViewModel(
     private val userPreferencesRepository: UserPreferencesRepository,
-    private val dataRepository: DataRepository,
-    application: Application
-) : AndroidViewModel(application) {
-    private val context = getApplication<Application>().applicationContext
+    private val dataRepository: DataRepository
+) : ViewModel()  {
 
     // Initialise following to today
     private val calendar: Calendar = Calendar.getInstance()
@@ -49,7 +46,7 @@ class CalendarViewModel(
      * Writes new layout type to repository.
      * Called by listener in fragment. (layout switch)
      */
-    fun updateLayoutType(layoutType: Boolean) {
+    fun updateLayoutType(layoutType: Boolean, context: Context) {
         scheduleLayoutType.postValue(layoutType)
         viewModelScope.launch {
             userPreferencesRepository.updateLayoutType(layoutType, context)
@@ -112,28 +109,7 @@ class CalendarViewModel(
                 }
 
                 samplingDates.postValue(workingHashmap)
-
-//                for ((key, value) in workingHashmap) {
-//                    Log.d("fish", "$key = $value")
-//                }
-
-//                onFinish?.invoke()
             }
         }
-    }
-}
-
-class CalendarViewModelFactory(
-    private val userPreferencesRepository: UserPreferencesRepository,
-    private val dataRepository: DataRepository,
-    private val application: Application
-) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CalendarViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return CalendarViewModel(userPreferencesRepository, dataRepository, application) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

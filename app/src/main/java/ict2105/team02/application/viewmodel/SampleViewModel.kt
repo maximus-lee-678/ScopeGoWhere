@@ -12,11 +12,11 @@ import ict2105.team02.application.utils.toDateString
 import kotlinx.coroutines.launch
 import java.util.Date
 
-class SampleViewModel : ViewModel() {
+class SampleViewModel(
+    private val dataRepository: DataRepository
+): ViewModel() {
     var sampleData = MutableLiveData<ResultData>()
     var scopeData = MutableLiveData<Endoscope>()
-
-    private val repo = DataRepository()
 
     fun makeScope(brand: String, model: String, serial: Int) {
         scopeData.value = Endoscope(scopeBrand = brand, scopeModel = model, scopeSerial = serial)
@@ -119,8 +119,8 @@ class SampleViewModel : ViewModel() {
         val sampleDataVal = sampleData.value
         if (sampleDataVal != null) {
             viewModelScope.launch {
-                repo.getAuthenticatedUserData {
-                    repo.insertSampleData(
+                dataRepository.getAuthenticatedUserData {
+                    dataRepository.insertSampleData(
                         scopeData.value?.scopeSerial.toString(), docName, sampleDataVal.copy(
                             resultDate = Date(),
                             doneBy = it.name

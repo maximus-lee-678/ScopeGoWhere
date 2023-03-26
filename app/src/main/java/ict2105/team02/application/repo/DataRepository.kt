@@ -269,4 +269,28 @@ class DataRepository {
                 Log.d("Delete Scope", "Fail due to $e")
             }
     }
+
+    /**
+     * Singleton for this repository.
+     */
+    companion object {
+        // Boilerplate-y code for singleton: the private reference to this self
+        @Volatile
+        private var INSTANCE: DataRepository? = null
+
+        /**
+         * Boilerplate-y code for singleton: to ensure only a single copy is ever present
+         */
+        fun getInstance(): DataRepository {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE?.let {
+                    return it
+                }
+
+                val instance = DataRepository()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
 }

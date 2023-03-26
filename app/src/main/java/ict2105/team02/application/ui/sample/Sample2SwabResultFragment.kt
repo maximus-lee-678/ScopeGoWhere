@@ -16,9 +16,13 @@ import java.util.*
 
 class Sample2SwabResultFragment : Fragment() {
     private lateinit var binding: FragmentSample2SwabResultBinding
-    private val viewModel by activityViewModels<SampleViewModel>()
+    private val sampleViewModel by activityViewModels<SampleViewModel>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentSample2SwabResultBinding.inflate(inflater)
 
         binding.swabResultSpinner.apply {
@@ -28,20 +32,20 @@ class Sample2SwabResultFragment : Fragment() {
             onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val swabResult = parent!!.getItemAtPosition(position).toString()
-                    viewModel.setSample2Result(swabResult.mapPositiveNegativeToBoolean())
+                    sampleViewModel.setSample2Result(swabResult.mapPositiveNegativeToBoolean())
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) { }
             }
         }
 
         // Date picker
-        binding.dateOfResultInput.setOnClickListener{
+        binding.dateOfResultInput.setOnClickListener {
             Utils.createMaterialPastDatePicker("Select date of sample result") { epoch ->
                 binding.dateOfResultInput.setText(Date(epoch).toDateString())
             }.show(childFragmentManager, null)
         }
 
-        viewModel.sampleData.observe(viewLifecycleOwner) {
+        sampleViewModel.sampleData.observe(viewLifecycleOwner) {
             if (it.swabDate != null) binding.dateOfResultInput.setText(it.swabDate.toDateString())
             if (it.swabResult != null) {
                 if (it.swabResult) {
@@ -61,7 +65,7 @@ class Sample2SwabResultFragment : Fragment() {
         super.onPause()
 
         // Save fields to ViewModel when leaving fragment
-        viewModel.setSample2Swab(
+        sampleViewModel.setSample2Swab(
             binding.dateOfResultInput.text.toString().parseDateString(),
             binding.actionInput.text.toString(),
             binding.cultureCommentInput.text.toString()

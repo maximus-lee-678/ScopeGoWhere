@@ -3,14 +3,17 @@ package ict2105.team02.application.notification
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import android.util.Log
+import androidx.activity.viewModels
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.main.LoginActivity
 import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.viewmodel.AuthViewModel
 
 class NotificationActivity : AppCompatActivity() {
     private val TAG: String = this::class.simpleName!!
-    private lateinit var authViewModel: AuthViewModel
+    private val authViewModel: AuthViewModel by viewModels { ViewModelFactory("AuthViewModel", application as MainApplication) }
 
     private val intentFragmentSpec: String = "fragmentSpec"
 
@@ -24,9 +27,6 @@ class NotificationActivity : AppCompatActivity() {
      * Resolves a sample ready notification selection.
      */
     private fun sampleReadyLogic() {
-        // connecting to view model
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
-
         if (authViewModel.isUserLoggedIn()) {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(intentFragmentSpec, getIntent().getStringExtra(intentFragmentSpec))

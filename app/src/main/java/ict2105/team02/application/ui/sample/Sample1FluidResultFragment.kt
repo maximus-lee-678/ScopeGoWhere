@@ -9,14 +9,15 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import ict2105.team02.application.R
+import androidx.fragment.app.viewModels
 import ict2105.team02.application.databinding.FragmentSample1FluidResultBinding
+import ict2105.team02.application.R
 import ict2105.team02.application.utils.mapPositiveNegativeToBoolean
 import ict2105.team02.application.viewmodel.SampleViewModel
 
 class Sample1FluidResultFragment : Fragment() {
     private lateinit var binding: FragmentSample1FluidResultBinding
-    private val viewModel by activityViewModels<SampleViewModel>()
+    private val sampleViewModel by activityViewModels<SampleViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View {
         binding = FragmentSample1FluidResultBinding.inflate(inflater)
@@ -28,13 +29,13 @@ class Sample1FluidResultFragment : Fragment() {
             onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val fluidResult = parent!!.getItemAtPosition(position).toString()
-                    viewModel.setSample1Result(fluidResult.mapPositiveNegativeToBoolean())
+                    sampleViewModel.setSample1Result(fluidResult.mapPositiveNegativeToBoolean())
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) { }
             }
         }
 
-        viewModel.sampleData.observe(viewLifecycleOwner) {
+        sampleViewModel.sampleData.observe(viewLifecycleOwner) {
             if (it.fluidResult != null){
                 if(it.fluidResult){
                     binding.fluidResultInputSpinner.setSelection(1)
@@ -54,7 +55,7 @@ class Sample1FluidResultFragment : Fragment() {
         super.onPause()
 
         // Save fields to ViewModel when leaving fragment
-        viewModel.setSample1Fluid(
+        sampleViewModel.setSample1Fluid(
             binding.actionInput.text.toString(),
             binding.cultureCommentInput.text.toString()
         )

@@ -7,9 +7,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import ict2105.team02.application.databinding.ActivitySampleBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.utils.Constants
 import ict2105.team02.application.utils.TAG
@@ -17,7 +20,12 @@ import ict2105.team02.application.viewmodel.SampleViewModel
 
 class SampleActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySampleBinding
-    private val viewModel by viewModels<SampleViewModel>()
+    private val sampleViewModel: SampleViewModel by viewModels {
+        ViewModelFactory(
+            "SampleViewModel",
+            application as MainApplication
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,14 +66,14 @@ class SampleActivity : AppCompatActivity() {
         val model = intent.getStringExtra(Constants.KEY_ENDOSCOPE_MODEL)
         val serial = intent.getIntExtra(Constants.KEY_ENDOSCOPE_SERIAL, -1)
         if (brand != null && model != null && serial > 0){
-            viewModel.makeScope(brand, model, serial)
+            sampleViewModel.makeScope(brand, model, serial)
             Log.d(TAG, "[Sample] Scope detail: $brand $model $serial")
         }
 
         binding.buttonSampleNextStep.setOnClickListener { changePage(binding.viewPagerSample.currentItem + 1) }
         binding.buttonSamplePreviousStep.setOnClickListener { changePage(binding.viewPagerSample.currentItem - 1) }
 
-        viewModel.makeSampleData()
+        sampleViewModel.makeSampleData()
         binding.buttonSamplePreviousStep.visibility = View.INVISIBLE
         title = "Sample Equipment (0/5)"
         changePage(0)

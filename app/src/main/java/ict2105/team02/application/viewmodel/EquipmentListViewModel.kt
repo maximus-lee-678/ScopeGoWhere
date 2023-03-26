@@ -8,18 +8,18 @@ import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.repo.DataRepository
 import kotlinx.coroutines.launch
 
-class EquipmentListViewModel : ViewModel() {
+class EquipmentListViewModel(
+    private val dataRepository: DataRepository
+) : ViewModel() {
     private val _equipments = MutableLiveData<List<Endoscope>>()
     private val _displayedEquipments = MutableLiveData<List<Endoscope>>()
 
     val equipments: LiveData<List<Endoscope>> get() = _equipments
     val displayedEquipments: LiveData<List<Endoscope>> get() = _displayedEquipments
 
-    private val repo = DataRepository()
-
     fun fetchEquipments(onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
-            repo.getAllEndoscopes {
+            dataRepository.getAllEndoscopes {
                 _equipments.postValue(it)
                 _displayedEquipments.postValue(it)
                 onFinish?.invoke()

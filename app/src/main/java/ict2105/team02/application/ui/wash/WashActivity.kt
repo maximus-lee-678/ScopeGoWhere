@@ -6,9 +6,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import ict2105.team02.application.databinding.ActivityWashBinding
+import ict2105.team02.application.repo.MainApplication
+import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_BRAND
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_SERIAL
@@ -17,7 +20,11 @@ import ict2105.team02.application.viewmodel.WashViewModel
 
 class WashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWashBinding
-    private val viewModel by viewModels<WashViewModel>()
+    private val washViewModel: WashViewModel by viewModels {
+        ViewModelFactory(
+            "WashViewModel", application as MainApplication
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,14 +60,14 @@ class WashActivity : AppCompatActivity() {
         val model = intent.getStringExtra(KEY_ENDOSCOPE_MODEL)
         val serial = intent.getIntExtra(KEY_ENDOSCOPE_SERIAL, -1)
         if (brand != null && model != null && serial > 0){
-            viewModel.makeScope(brand, model, serial)
+            washViewModel.makeScope(brand, model, serial)
             Log.d(TAG, "[Wash] Scope detail: $brand $model $serial")
         }
 
         binding.buttonWashNextStep.setOnClickListener { changePage(binding.viewPagerWash.currentItem + 1) }
         binding.buttonWashPreviousStep.setOnClickListener { changePage(binding.viewPagerWash.currentItem - 1) }
 
-        viewModel.makeWashData()
+        washViewModel.makeWashData()
         title = "Wash Equipment (1/5)"
         binding.buttonWashPreviousStep.visibility = View.INVISIBLE
         changePage(0)

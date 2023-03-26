@@ -10,18 +10,18 @@ import ict2105.team02.application.model.User
 import ict2105.team02.application.repo.DataRepository
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel(){
+class HomeViewModel(
+    private val dataRepository: DataRepository
+) : ViewModel(){
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
 
     private val _endoscopeStat = MutableLiveData<EndoscopeStatistics>()
     val endoscopeStat: LiveData<EndoscopeStatistics> = _endoscopeStat
 
-    private val repo = DataRepository()
-
     fun fetchUserData(onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
-            repo.getAuthenticatedUserData {
+            dataRepository.getAuthenticatedUserData {
                 _user.postValue(it)
                 onFinish?.invoke()
             }
@@ -30,7 +30,7 @@ class HomeViewModel : ViewModel(){
 
     fun fetchEndoscopeStats(onFinish: (() -> Unit)? = null) {
         viewModelScope.launch {
-            repo.getEndoscopeStatistics {
+            dataRepository.getEndoscopeStatistics {
                 _endoscopeStat.postValue(it)
                 onFinish?.invoke()
             }
