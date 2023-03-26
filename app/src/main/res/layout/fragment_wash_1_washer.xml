@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/washerTextView"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginLeft="10sp"
+        android:layout_marginHorizontal="10sp"
         android:gravity="bottom"
-        android:text="Washer"
+        android:text="@string/washer"
         android:textSize="25sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -20,7 +20,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="AER Model">
+        android:hint="@string/aer_model">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextAERModel"
@@ -37,7 +37,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="AER Serial No.">
+        android:hint="@string/aer_serial_no">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextAERSerial"

@@ -32,7 +32,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Staff Email">
+        android:hint="@string/email">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -49,7 +49,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Password">
+        android:hint="@string/password">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -66,7 +66,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:backgroundTint="?android:attr/colorPrimary"
-        android:text="LOGIN" />
+        android:text="@string/login" />
 
     <TextView
         android:id="@+id/error"
@@ -93,7 +93,7 @@
             android:padding="2dp"
             android:background="@android:color/white"
             android:layout_centerHorizontal="true"
-            android:text=" or With " />
+            android:text="@string/or_with" />
     </RelativeLayout>
 
     <Button
@@ -104,7 +104,7 @@
         android:background="@android:color/transparent"
         android:drawableEnd="@drawable/nfc"
         android:gravity="center_vertical"
-        android:text="Staff Card"
+        android:text="@string/staff_card"
         android:textColor="?android:attr/textColorPrimary" />
 
 </LinearLayout>

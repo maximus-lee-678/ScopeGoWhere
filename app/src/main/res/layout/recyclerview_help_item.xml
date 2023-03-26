@@ -31,8 +31,8 @@
             android:layout_gravity="center_vertical|start"
             android:layout_marginLeft="80dp"
             android:layout_marginBottom="3dp"
-            android:text="How to use the app"
-            android:textSize="18dp"
+            android:text="@string/how_to_use_the_app"
+            android:textSize="18sp"
             android:textColor="#313131"
             android:textStyle="bold"/>
 

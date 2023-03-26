@@ -1,89 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:orientation="vertical"
+    android:padding="12dp"
     tools:context=".ui.sample.Sample0ChooseMethodFragment">
-
 
     <TextView
         android:id="@+id/methodSelectTextView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Select Entry Method"
-        android:textSize="16sp" />
+        android:text="@string/select_entry_method"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/buttonOptionsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <ScrollView
+        android:id="@+id/imageScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/inputImageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/methodSelectTextView">
 
-        <Button
-            android:id="@+id/photoEntryButton"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/photo_image_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:text="Photo Entry" />
+            android:adjustViewBounds="true" />
+    </ScrollView>
 
-        <Button
-            android:id="@+id/manualEntryButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:text="Manual Entry" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/photoView"
-        android:layout_width="match_parent"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/inputImageButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="invisible">
+        android:layout_marginEnd="8dp"
+        android:text="@string/upload_photo"
+        app:layout_constraintBottom_toTopOf="@+id/manualEntryButton"
+        app:layout_constraintEnd_toStartOf="@+id/processPhotoButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/processPhotoButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/process_result"
+        app:layout_constraintBottom_toTopOf="@+id/manualEntryButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/inputImageButton" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/inputImageBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:text="Take Photo" />
+    <Button
+        android:id="@+id/manualEntryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/manual_entry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imageIv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true" />
-
-                <Button
-                    android:id="@+id/moveToReview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Review Results" />
-            </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

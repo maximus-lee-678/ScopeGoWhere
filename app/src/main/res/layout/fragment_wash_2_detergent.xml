@@ -8,9 +8,9 @@
         android:id="@+id/detergentTextView"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginLeft="10sp"
+        android:layout_marginHorizontal="10sp"
         android:gravity="bottom"
-        android:text="Detergent"
+        android:text="@string/detergent"
         android:textSize="25sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -20,7 +20,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Detergent Used">
+        android:hint="@string/detergent_used">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/detergentUsed"
@@ -37,7 +37,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Detergent Lot No">
+        android:hint="@string/detergent_lot_no">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/detergentLotNo"
@@ -54,7 +54,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Filter Change Date">
+        android:hint="@string/filter_change_date">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/filterChangeDate"

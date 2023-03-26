@@ -26,20 +26,23 @@
                     android:id="@+id/washerTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Washer"
+                    android:text="@string/washer"
                     android:textSize="25sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="AER Model">
+                    android:hint="@string/aer_model">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/aerModel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,13 +50,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="AER Serial No.">
+                    android:hint="@string/aer_serial_no">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/aerSerialNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,20 +69,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20sp"
                     android:gravity="bottom"
-                    android:text="Detergent"
+                    android:text="@string/detergent"
                     android:textSize="25sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Detergent Used">
+                    android:hint="@string/detergent_used">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/detergentUsed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,13 +93,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Detergent Lot No">
+                    android:hint="@string/detergent_lot_no">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/detergentLotNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,13 +110,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Filter Change Date">
+                    android:hint="@string/filter_change_date">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/filterChangeDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,20 +129,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20sp"
                     android:gravity="bottom"
-                    android:text="Disinfectant"
+                    android:text="@string/disinfectant"
                     android:textSize="25sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Disinfectant Used">
+                    android:hint="@string/disinfectant_used">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/disinfectantUsed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,13 +153,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Disinfectant Lot No">
+                    android:hint="@string/disinfectant_lot_no">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/disinfectantLotNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,13 +170,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Disinfectant Changed">
+                    android:hint="@string/disinfectant_changed_date">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/disinfectantChanged"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,20 +189,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20sp"
                     android:gravity="bottom"
-                    android:text="Drying Cabinet"
+                    android:text="@string/drying_cabinet"
                     android:textSize="25sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Scope Dryer">
+                    android:hint="@string/scope_dryer">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/scopeDryer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -186,13 +213,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Dryer Level">
+                    android:hint="@string/dryer_level">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/dryerLevel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -200,13 +230,16 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Remarks">
+                    android:hint="@string/remarks">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/remarks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:inputType="none"
+                        app:textInputLayoutFocusedRectEnabled="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -215,7 +248,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Record Wash" />
+                    android:text="@string/record_wash" />
             </LinearLayout>
 
         </ScrollView>

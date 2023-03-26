@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.wash.Wash1ScopeDetailFragment">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/detergentTextView"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginLeft="10sp"
+        android:layout_marginHorizontal="10sp"
         android:gravity="bottom"
-        android:text="Disinfectant"
+        android:text="@string/disinfectant"
         android:textSize="25sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -22,7 +20,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Disinfectant Used">
+        android:hint="@string/disinfectant_used">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/disinfectantUsed"
@@ -39,7 +37,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Disinfectant Lot No">
+        android:hint="@string/disinfectant_lot_no">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/disinfectantLotNo"
@@ -56,7 +54,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Disinfectant Changed">
+        android:hint="@string/disinfectant_changed_date">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/disinfectantChanged"

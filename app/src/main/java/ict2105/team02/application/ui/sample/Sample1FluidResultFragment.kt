@@ -20,24 +20,21 @@ class Sample1FluidResultFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View {
         binding = FragmentSample1FluidResultBinding.inflate(inflater)
-        val spinner = binding.fluidResultInputSpinner
-        val optionList = listOf("False", "True")
-        var fluidResult = "false"
-        spinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, optionList)
-        spinner.setSelection(0)
-        // Set existing data, if any
-        val sampleData = viewModel.sampleData.value
-        if (sampleData != null) {
-            if (sampleData.fluidResult != null){
-                if(sampleData.fluidResult){
-                    spinner.setSelection(1)
+
+        binding.fluidResultInputSpinner.apply {
+            adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listOf("False", "True"))
+            setSelection(0)
+
+            onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val fluidResult = parent!!.getItemAtPosition(position).toString().lowercase()
+                    viewModel.setSample1Result(fluidResult.toBooleanStrictOrNull())
                 }
-                else {
-                    spinner.setSelection(0)
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // Do nothing
                 }
             }
-            if (sampleData.fluidAction != null) binding.actionInput.setText(sampleData.fluidAction)
-            if (sampleData.fluidComment != null) binding.cultureCommentInput.setText(sampleData.fluidComment)
         }
 
         // For validation and update view model
@@ -49,15 +46,17 @@ class Sample1FluidResultFragment : Fragment() {
             )
         }
 
-        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                fluidResult = parent!!.getItemAtPosition(position).toString().toLowerCase()
-                viewModel.setSample1Result(fluidResult.toBooleanStrictOrNull()!!)
+        viewModel.sampleData.observe(viewLifecycleOwner) {
+            if (it.fluidResult != null){
+                if(it.fluidResult){
+                    binding.fluidResultInputSpinner.setSelection(1)
+                }
+                else {
+                    binding.fluidResultInputSpinner.setSelection(0)
+                }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do nothing
-            }
+            if (it.fluidAction != null) binding.actionInput.setText(it.fluidAction)
+            if (it.fluidComment != null) binding.cultureCommentInput.setText(it.fluidComment)
         }
 
         binding.actionInput.addTextChangedListener(textChangeListener)

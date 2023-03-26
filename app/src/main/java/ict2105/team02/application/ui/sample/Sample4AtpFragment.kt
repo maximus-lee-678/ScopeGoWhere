@@ -19,13 +19,6 @@ class Sample4AtpFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSample4AtpBinding.inflate(inflater)
 
-        // Set existing data, if any
-        val sampleData = viewModel.sampleData.value
-        if (sampleData != null) {
-            if (sampleData.waterATPRLU != null) binding.atpWaterRLUInput.setText(sampleData.waterATPRLU.toString())
-            if (sampleData.swabATPRLU != null) binding.atpSwabRLUInput.setText(sampleData.swabATPRLU.toString())
-        }
-
         // For validation and update view model
         val textChangeListener = TextChangeListener {
             validate()
@@ -36,6 +29,11 @@ class Sample4AtpFragment : Fragment() {
         }
         binding.atpWaterRLUInput.addTextChangedListener(textChangeListener)
         binding.atpSwabRLUInput.addTextChangedListener(textChangeListener)
+
+        viewModel.sampleData.observe(viewLifecycleOwner) {
+            if (it.waterATPRLU != null) binding.atpWaterRLUInput.setText(it.waterATPRLU.toString())
+            if (it.swabATPRLU != null) binding.atpSwabRLUInput.setText(it.swabATPRLU.toString())
+        }
 
         return binding.root
     }

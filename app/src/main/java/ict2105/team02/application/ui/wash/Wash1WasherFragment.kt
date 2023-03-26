@@ -21,14 +21,6 @@ class Wash1WasherFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWash1WasherBinding.inflate(inflater)
 
-        // Set existing data, if any
-        val washData = viewModel.washData.value
-        if (washData != null) {
-            Log.d(TAG, washData.toString())
-            if (washData.AERModel != null) binding.editTextAERModel.setText(washData.AERModel)
-            if (washData.AERSerial != null) binding.editTextAERSerial.setText(washData.AERSerial.toString())
-        }
-
         // For validation and update view model
         val textChangeListener = TextChangeListener {
             validate()
@@ -40,6 +32,11 @@ class Wash1WasherFragment : Fragment() {
 
         binding.editTextAERModel.addTextChangedListener(textChangeListener)
         binding.editTextAERSerial.addTextChangedListener(textChangeListener)
+
+        viewModel.washData.observe(viewLifecycleOwner) {
+            if (it.AERModel != null) binding.editTextAERModel.setText(it.AERModel)
+            if (it.AERSerial != null) binding.editTextAERSerial.setText(it.AERSerial.toString())
+        }
 
         return binding.root
     }
