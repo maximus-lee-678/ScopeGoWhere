@@ -1,4 +1,4 @@
-package ict2105.team02.application.ui.main
+package ict2105.team02.application.ui.help
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentHelpBinding
 import ict2105.team02.application.model.HelpData
-import ict2105.team02.application.recyclerview.HelpAdapter
 
 class HelpFragment : Fragment() {
     private lateinit var binding: FragmentHelpBinding

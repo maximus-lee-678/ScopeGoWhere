@@ -1,4 +1,4 @@
-package ict2105.team02.application.recyclerview
+package ict2105.team02.application.ui.equipment
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +16,9 @@ import ict2105.team02.application.model.WashData
 import ict2105.team02.application.utils.toDateString
 
 class EquipLogAdapter:
-    ListAdapter<EndoscopeTransaction, EquipLogAdapter.EndoscopeTransactionViewHolder>(EndoscopeTransactionComparator())
+    ListAdapter<EndoscopeTransaction, EquipLogAdapter.EndoscopeTransactionViewHolder>(
+        EndoscopeTransactionComparator()
+    )
 {
 
     class EndoscopeTransactionViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -286,7 +288,7 @@ class EquipLogAdapter:
         }
 
         companion object{
-            fun create(parent: ViewGroup): EndoscopeTransactionViewHolder{
+            fun create(parent: ViewGroup): EndoscopeTransactionViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
                     .inflate(R.layout.recyclerview_log_item, parent, false)
                 return EndoscopeTransactionViewHolder(view)

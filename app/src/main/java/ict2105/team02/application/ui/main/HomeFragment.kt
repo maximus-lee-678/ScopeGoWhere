@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentHomeBinding
+import ict2105.team02.application.ui.equipment.EquipmentFragment
 import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.utils.Constants
 import ict2105.team02.application.viewmodel.HomeViewModel

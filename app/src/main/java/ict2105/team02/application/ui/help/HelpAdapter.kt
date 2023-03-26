@@ -1,6 +1,5 @@
-package ict2105.team02.application.recyclerview
+package ict2105.team02.application.ui.help
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,6 @@ import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.HelpData
-import ict2105.team02.application.ui.help.*
-import ict2105.team02.application.ui.main.HelpFragment
 
 class HelpAdapter(private val dataset: List<HelpData>,
                   private val parentFragment: HelpFragment

@@ -1,41 +1,29 @@
-package ict2105.team02.application.recyclerview
+package ict2105.team02.application.ui.schedule
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.text.SpannableString
-import android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE
+import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.DateDetails
-import java.io.ByteArrayOutputStream
 
-
-
-class CalendarMonthAdapter(private val context: Context) :
-    RecyclerView.Adapter<CalendarMonthAdapter.ItemViewHolder>() {
+class CalendarWeekAdapter(private val context: Context) :
+    RecyclerView.Adapter<CalendarWeekAdapter.ItemViewHolder>() {
     private val TAG: String = this::class.simpleName!!
-    private val maxGridCount: Int = 42
-    private val cellHeight: Double = 0.075
+    private val daysInWeek: Int = 7
     private val deselectedHex: Int =
         ResourcesCompat.getColor(context.resources, R.color.schedule_unselected, null)
     private val selectedHex: Int =
         ResourcesCompat.getColor(context.resources, R.color.schedule_selected, null)
     private val servicingIcon: String = context.getString(R.string.servicing_icon)
-
     private val servicingHex: Int =
         ResourcesCompat.getColor(context.resources, R.color.schedule_event_dot, null)
 
@@ -48,7 +36,7 @@ class CalendarMonthAdapter(private val context: Context) :
     var onItemClick: ((IntArray) -> Unit)? = null
 
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.textViewCalendarMonthItem)
+        val textView: TextView = view.findViewById(R.id.textViewCalendarWeekItem)
     }
 
     /**
@@ -57,12 +45,10 @@ class CalendarMonthAdapter(private val context: Context) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CalendarMonthAdapter.ItemViewHolder {
-
+    ): ItemViewHolder {
         // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recyclerview_calendar_month_item, parent, false)
-        adapterLayout.layoutParams.height = (parent.height * cellHeight).toInt()
+            .inflate(R.layout.recyclerview_calendar_week_item, parent, false)
 
         return ItemViewHolder(adapterLayout)
     }
@@ -70,15 +56,9 @@ class CalendarMonthAdapter(private val context: Context) :
     /**
      * Replace the contents of a view (invoked by the layout manager)
      */
-    override fun onBindViewHolder(holder: CalendarMonthAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         // If called before initialisation, render nothing
         if (dateDetails == null || samplingDates == null) {
-            return
-        }
-
-        // Grid item must be equal to larger than starting day and less than number of days + start day
-        // Position is 0 terminated, must +1 when calculating
-        if (position + 1 <= dateDetails!!.firstDayOfMonth!! || position + 1 > dateDetails!!.firstDayOfMonth!! + dateDetails!!.daysInMonth!!) {
             return
         }
 
@@ -86,36 +66,44 @@ class CalendarMonthAdapter(private val context: Context) :
         val sampleCount: Int? = samplingDates!!.get(
             String.format(
                 "%02d-%02d-%04d",
-                position + 1 - dateDetails!!.firstDayOfMonth!!,
-                dateDetails!!.month!!,
-                dateDetails!!.year!!
+                dateDetails!!.weekArray[position][0],
+                dateDetails!!.weekArray[position][1],
+                dateDetails!!.weekArray[position][2]
             )
         )
 
         // Set Text
         val dateText: String =
-            (position + 1 - dateDetails!!.firstDayOfMonth!!).toString()  // Day number
+            String.format(
+                "%02d/%02d/%04d",
+                dateDetails!!.weekArray[position][0],
+                dateDetails!!.weekArray[position][1],
+                dateDetails!!.weekArray[position][2]
+            )  // Date
         val dateTextSpan = SpannableString(dateText)
-        dateTextSpan.setSpan(RelativeSizeSpan(1f), 0, dateText.length, SPAN_INCLUSIVE_INCLUSIVE)
+        dateTextSpan.setSpan(
+            RelativeSizeSpan(1f), 0, dateText.length,
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
+        )
 
         val servicingText: String = servicingIcon.repeat(
             sampleCount ?: 0
-        )  // Servicing Count, maximum displayable: 4 before funky looking
+        )  // Servicing Count
         val servicingTextSpan = SpannableString(servicingText)
         servicingTextSpan.setSpan(
             RelativeSizeSpan(1f),
             0,
             servicingText.length,
-            SPAN_INCLUSIVE_INCLUSIVE
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
         )   // Set size
         servicingTextSpan.setSpan(
             ForegroundColorSpan(servicingHex),
             0,
             servicingText.length,
-            SPAN_INCLUSIVE_INCLUSIVE
+            Spanned.SPAN_INCLUSIVE_INCLUSIVE
         )   // Set colour
 
-        holder.textView.text = TextUtils.concat(dateTextSpan, "\n", servicingTextSpan)
+        holder.textView.text = TextUtils.concat(dateTextSpan, "   ", servicingTextSpan)
 
         // Only highlight day when the user is on the original month
         if (selectedPos >= 0 && selectedPos == position) {
@@ -126,11 +114,7 @@ class CalendarMonthAdapter(private val context: Context) :
 
         // Attach listener that returns date to Fragment and updates selection
         holder.textView.setOnClickListener {
-            selectedDate = intArrayOf(
-                position + 1 - dateDetails!!.firstDayOfMonth!!,
-                dateDetails!!.month!!,
-                dateDetails!!.year!!
-            )
+            selectedDate = dateDetails!!.weekArray[holder.bindingAdapterPosition]
 
             onItemClick?.invoke(selectedDate)
         }
@@ -139,22 +123,24 @@ class CalendarMonthAdapter(private val context: Context) :
     /**
      * Return the size of your dataset (invoked by the layout manager)
      */
-    override fun getItemCount() = maxGridCount
+    override fun getItemCount() = daysInWeek
 
     /**
      * Helper function that computes and updates selectedPos.
      * Computes -1 if selected date is off screen, and corresponding position otherwise.
      */
     private fun getSelectedPosition(dateDetails: DateDetails): Boolean {
-        // if month & year dont match, page has changed, selected position is off screen
-        if (dateDetails.month!! != selectedDate[1] || dateDetails.year!! != selectedDate[2]) {
-            selectedPos = -1
-            return true
+        // if matching date is found in week array, selected position is on screen
+        for (i in 0..6) {
+            if (dateDetails.weekArray[i][0] == selectedDate[0] && dateDetails.weekArray[i][1] == selectedDate[1] && dateDetails.weekArray[i][2] == selectedDate[2]) {
+                selectedPos = i
+                return false
+            }
         }
 
-        // page has not changed, calculate position
-        selectedPos = dateDetails.day!! + dateDetails.firstDayOfMonth!! - 1
-        return false
+        // no match found, selected position is off screen
+        selectedPos = -1
+        return true
     }
 
     /**
@@ -175,6 +161,7 @@ class CalendarMonthAdapter(private val context: Context) :
         this.dateDetails = dateDetails
 
         val originalPosition: Int = selectedPos
+
         // Generate new position
         val didPageChange: Boolean = getSelectedPosition(dateDetails)
         // User is returning to original page, selected pos goes from negative to positive
@@ -185,11 +172,10 @@ class CalendarMonthAdapter(private val context: Context) :
         }
 
         // User is clicking on another date on original page
-        // Refresh only 2 items (currently causing weird phantoms, disabled)
+        // Refresh only 2 items
         if (!didPageChange) {
-//            notifyItemChanged(originalPosition)
-//            notifyItemChanged(selectedPos)
-            notifyDataSetChanged()
+            notifyItemChanged(originalPosition)
+            notifyItemChanged(selectedPos)
             return
         }
 

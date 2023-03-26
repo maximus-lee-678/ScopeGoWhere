@@ -1,4 +1,4 @@
-package ict2105.team02.application.ui.login
+package ict2105.team02.application.ui.main
 
 import android.content.Intent
 import android.nfc.NfcAdapter
@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ict2105.team02.application.R
-import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.databinding.ActivityLoginBinding
 import ict2105.team02.application.viewmodel.AuthViewModel

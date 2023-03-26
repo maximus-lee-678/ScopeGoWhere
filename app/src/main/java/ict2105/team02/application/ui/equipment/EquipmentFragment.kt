@@ -1,4 +1,4 @@
-package ict2105.team02.application.ui.main
+package ict2105.team02.application.ui.equipment
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentEquipmentBinding
-import ict2105.team02.application.recyclerview.EquipmentAdapter
-import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
-import ict2105.team02.application.ui.equipment.AddScopeActivity
+import ict2105.team02.application.ui.dialogs.ScopeDetailDialogFragment
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS_FILTER
 import ict2105.team02.application.utils.TAG
 import ict2105.team02.application.viewmodel.EquipmentListViewModel
@@ -43,7 +41,7 @@ class EquipmentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         eqAdapter.onItemClick = {
-            val fragment = ScopeDetailFragment.newInstance(it.scopeSerial)
+            val fragment = ScopeDetailDialogFragment.newInstance(it.scopeSerial)
             fragment.show(requireActivity().supportFragmentManager, "scope_detail")
         }
 

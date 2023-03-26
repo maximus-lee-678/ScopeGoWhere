@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentScheduleInfoBinding
-import ict2105.team02.application.recyclerview.EquipmentAdapter
-import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
+import ict2105.team02.application.ui.equipment.EquipmentAdapter
+import ict2105.team02.application.ui.dialogs.ScopeDetailDialogFragment
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
 
 class ScheduleInfoFragment : Fragment() {
@@ -38,7 +37,7 @@ class ScheduleInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Set onItemClick before observing the LiveData
         eqAdapter.onItemClick = {
-            val fragment = ScopeDetailFragment.newInstance(it.scopeSerial)
+            val fragment = ScopeDetailDialogFragment.newInstance(it.scopeSerial)
             Log.d("EquipmentAdapter", "Setup OnClick")
             fragment.show(requireActivity().supportFragmentManager, "scope_detail")
 

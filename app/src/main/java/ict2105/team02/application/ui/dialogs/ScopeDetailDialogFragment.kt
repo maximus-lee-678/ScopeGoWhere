@@ -26,7 +26,7 @@ import ict2105.team02.application.utils.TAG
 import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.ScopeDetailViewModel
 
-class ScopeDetailFragment : BottomSheetDialogFragment() {
+class ScopeDetailDialogFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentScopeDetailBinding
 
     private val viewModel by viewModels<ScopeDetailViewModel>()
@@ -186,7 +186,7 @@ class ScopeDetailFragment : BottomSheetDialogFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(serialNo: Int) = ScopeDetailFragment().apply {
+        fun newInstance(serialNo: Int) = ScopeDetailDialogFragment().apply {
             arguments = Bundle().apply {
                 putInt(KEY_ENDOSCOPE_SERIAL, serialNo)
             }

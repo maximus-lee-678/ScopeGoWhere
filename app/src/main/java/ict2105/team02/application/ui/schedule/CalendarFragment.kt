@@ -13,8 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.databinding.FragmentScheduleBinding
-import ict2105.team02.application.recyclerview.CalendarMonthAdapter
-import ict2105.team02.application.recyclerview.CalendarWeekAdapter
 import ict2105.team02.application.repo.DataRepository
 import ict2105.team02.application.repo.MainApplication
 import ict2105.team02.application.viewmodel.CalendarViewModel

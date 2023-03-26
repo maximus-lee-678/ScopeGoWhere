@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityEquipmentLogBinding
-import ict2105.team02.application.recyclerview.EquipLogAdapter
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_MODEL
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_SERIAL
 import ict2105.team02.application.utils.Constants.Companion.KEY_ENDOSCOPE_STATUS

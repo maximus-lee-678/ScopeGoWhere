@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import ict2105.team02.application.ui.login.LoginActivity
+import ict2105.team02.application.ui.main.LoginActivity
 import ict2105.team02.application.ui.main.MainActivity
 import ict2105.team02.application.viewmodel.AuthViewModel
 

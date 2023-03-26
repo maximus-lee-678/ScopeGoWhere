@@ -15,7 +15,7 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityQrScannerBinding
-import ict2105.team02.application.ui.dialogs.ScopeDetailFragment
+import ict2105.team02.application.ui.dialogs.ScopeDetailDialogFragment
 import java.io.IOException
 
 private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
@@ -93,7 +93,7 @@ class QRScannerActivity : AppCompatActivity() {
                     if (serial.isNotEmpty()) {
                         runOnUiThread {
                             cameraSource.stop()
-                            val fragment = ScopeDetailFragment.newInstance(serial.toInt())
+                            val fragment = ScopeDetailDialogFragment.newInstance(serial.toInt())
                             fragment.show(supportFragmentManager, "scope_detail")
                             // showToast(scannedValue)
                         }

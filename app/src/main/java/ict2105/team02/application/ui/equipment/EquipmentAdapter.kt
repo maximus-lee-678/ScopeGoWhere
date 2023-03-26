@@ -1,4 +1,4 @@
-package ict2105.team02.application.recyclerview
+package ict2105.team02.application.ui.equipment
 
 import android.view.LayoutInflater
 import android.view.View
