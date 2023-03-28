@@ -22,7 +22,7 @@ class Wash2DetergentFragment : Fragment() {
 
         // Date picker
         binding.filterChangeDate.setOnClickListener {
-            Utils.createMaterialDatePicker("Select filter changed date") {
+            Utils.createMaterialPastDatePicker("Select filter changed date") {
                 binding.filterChangeDate.setText(Date((it)).toDateString())
             }.show(childFragmentManager, null)
         }
