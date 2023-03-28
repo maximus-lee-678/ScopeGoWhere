@@ -22,7 +22,7 @@ class Wash3DisinfectantFragment : Fragment() {
 
         // Date picker
         binding.disinfectantChanged.setOnClickListener {
-            Utils.createMaterialDatePicker("Select disinfectant changed date") {
+            Utils.createMaterialPastDatePicker("Select disinfectant changed date") {
                 binding.disinfectantChanged.setText(Date(it).toDateString())
             }.show(childFragmentManager, null)
         }
