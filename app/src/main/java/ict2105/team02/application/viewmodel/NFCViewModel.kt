@@ -21,7 +21,6 @@ class NFCViewModel: ViewModel() {
     private val _nfcStatus = MutableLiveData<NFCStatus>().apply {
         value = NFCStatus.NoOperation
     }
-    val nfcStatus: LiveData<NFCStatus> = _nfcStatus
     var authUser:List<Long> = listOf(-1454180711 , -1195384119, -1194713799, -1194525767)
 
     private fun getNFCFlags(): Int{
