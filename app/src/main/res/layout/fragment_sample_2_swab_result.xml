@@ -43,7 +43,7 @@
 
         <TextView
             android:id="@+id/swabResultTextview"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:layout_weight="0.5"
@@ -54,10 +54,10 @@
 
         <Spinner
             android:id="@+id/swabResultSpinner"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="10dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout

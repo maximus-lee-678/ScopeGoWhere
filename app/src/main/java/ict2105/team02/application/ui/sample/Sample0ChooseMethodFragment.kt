@@ -18,6 +18,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -88,7 +90,7 @@ class Sample0ChooseMethodFragment : Fragment() {
                 recognizeTextFromImage()
             }
         }
-
+        binding.imageScrollView. visibility =View.GONE;
         binding.processPhotoButton.isEnabled = false
     }
 
@@ -169,6 +171,7 @@ class Sample0ChooseMethodFragment : Fragment() {
             binding.photoImageView.setImageURI(imageUri)
             binding.inputImageButton.text = getString(R.string.scan_again)
             binding.processPhotoButton.isEnabled = true
+            binding.imageScrollView.visibility = View.VISIBLE
         } else {
             showToast(requireContext(), "Cancelled")
         }

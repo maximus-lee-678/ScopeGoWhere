@@ -12,6 +12,7 @@
         android:layout_height="62dp"
         android:layout_marginBottom="8dp"
         android:gravity="bottom"
+        android:paddingLeft="10dp"
         android:text="@string/repeat_of_ms"
         android:textSize="25sp" />
 
@@ -26,6 +27,7 @@
             android:layout_height="50dp"
             android:layout_weight="0.5"
             android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             android:text="@string/quarantine_required_prefix"
             android:textAlignment="gravity"
             android:textSize="16sp" />
@@ -34,7 +36,7 @@
             android:id="@+id/quarantineSpinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -48,6 +50,7 @@
             android:id="@+id/repeatDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
@@ -66,6 +69,7 @@
             android:layout_height="50dp"
             android:layout_weight="0.5"
             android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             android:text="@string/borescope_prefix"
             android:textAlignment="gravity"
             android:textSize="16sp" />
@@ -74,7 +78,7 @@
             android:id="@+id/borescopeSpinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <TextView
