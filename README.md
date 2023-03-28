@@ -57,7 +57,7 @@ This project would not exist without these folks!
 
 🧑 **BENNY LIM YI JIE - 2101955**  
 🧑 **CHEN JIAJUN - 2101351**  
-🧑 **Lai Wen Jun - 2102989**  
+🧑 **LAI WEN JUN - 2102989**  
 👩 **LEE YAN RONG - 2102608**  
-🧑 **Maximus Lee Zhi Qin - 2100724**  
-🧑 **Wang Ting Wei - 2101332**  
+🧑 **MAXIMUS LEE ZHI QIN - 2100724**  
+🧑 **WANG TING WEI - 2101332**  
