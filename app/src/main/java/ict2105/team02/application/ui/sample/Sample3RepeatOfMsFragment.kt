@@ -1,7 +1,6 @@
 package ict2105.team02.application.ui.sample
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import ict2105.team02.application.databinding.FragmentSample3RepeatOfMsBinding
 import ict2105.team02.application.R
+import ict2105.team02.application.databinding.FragmentSample3RepeatOfMsBinding
 import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.mapYesNoToBoolean
 import ict2105.team02.application.utils.parseDateString
@@ -96,24 +94,9 @@ class Sample3RepeatOfMsFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-
         // Save fields to ViewModel when leaving fragment
         sampleViewModel.setSample3RepeatOfMS(
             binding.repeatDate.text.toString().parseDateString()
         )
-    }
-
-    private fun validate(): Boolean {
-        var valid = true
-        if (TextUtils.isEmpty(binding.repeatDate.text)) {
-            binding.errorMsgRepeat.text = "Please fill in all the fields"
-            valid = false
-        }
-        if (valid) {
-            binding.errorMsgRepeat.visibility = View.GONE
-        } else {
-            binding.errorMsgRepeat.visibility = View.VISIBLE
-        }
-        return valid
     }
 }

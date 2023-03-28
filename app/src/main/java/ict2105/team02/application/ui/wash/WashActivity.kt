@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import ict2105.team02.application.databinding.ActivityWashBinding
@@ -21,9 +20,7 @@ import ict2105.team02.application.viewmodel.WashViewModel
 class WashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWashBinding
     private val washViewModel: WashViewModel by viewModels {
-        ViewModelFactory(
-            "WashViewModel", application as MainApplication
-        )
+        ViewModelFactory("WashViewModel", application as MainApplication)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

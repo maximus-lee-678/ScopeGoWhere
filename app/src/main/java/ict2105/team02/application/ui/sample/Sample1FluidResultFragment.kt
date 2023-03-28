@@ -9,9 +9,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import ict2105.team02.application.databinding.FragmentSample1FluidResultBinding
 import ict2105.team02.application.R
+import ict2105.team02.application.databinding.FragmentSample1FluidResultBinding
 import ict2105.team02.application.utils.mapPositiveNegativeToBoolean
 import ict2105.team02.application.viewmodel.SampleViewModel
 

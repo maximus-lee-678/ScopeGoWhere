@@ -3,7 +3,6 @@ package ict2105.team02.application.ui.help
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import android.widget.LinearLayout
 import java.util.*
 
 class AudioNarrator(context : Context) : TextToSpeech.OnInitListener {

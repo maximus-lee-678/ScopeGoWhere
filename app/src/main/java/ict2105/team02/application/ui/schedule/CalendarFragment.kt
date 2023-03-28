@@ -8,16 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.switchmaterial.SwitchMaterial
 import ict2105.team02.application.databinding.FragmentScheduleBinding
-import ict2105.team02.application.repo.DataRepository
 import ict2105.team02.application.repo.MainApplication
 import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.viewmodel.CalendarViewModel
-import ict2105.team02.application.viewmodel.HomeViewModel
 import ict2105.team02.application.viewmodel.ScheduleInfoViewModel
 import java.text.SimpleDateFormat
 import java.util.*

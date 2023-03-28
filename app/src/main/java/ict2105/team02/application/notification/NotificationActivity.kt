@@ -1,10 +1,9 @@
 package ict2105.team02.application.notification
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import ict2105.team02.application.repo.MainApplication
 import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.main.LoginActivity

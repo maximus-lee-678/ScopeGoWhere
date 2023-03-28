@@ -1,13 +1,12 @@
 package ict2105.team02.application.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.AuthResult
-import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.repo.AuthRepository
-import ict2105.team02.application.repo.DataRepository
-import ict2105.team02.application.repo.MainApplication
-import ict2105.team02.application.repo.UserPreferencesRepository
+import ict2105.team02.application.utils.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

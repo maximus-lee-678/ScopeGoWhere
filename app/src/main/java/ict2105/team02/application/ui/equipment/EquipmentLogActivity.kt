@@ -5,7 +5,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityEquipmentLogBinding

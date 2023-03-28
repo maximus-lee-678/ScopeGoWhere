@@ -6,11 +6,10 @@ import androidx.lifecycle.viewModelScope
 import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.ResultData
 import ict2105.team02.application.repo.DataRepository
-import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
 import kotlinx.coroutines.launch
-import java.util.Date
+import java.util.*
 
 class SampleViewModel(
     private val dataRepository: DataRepository

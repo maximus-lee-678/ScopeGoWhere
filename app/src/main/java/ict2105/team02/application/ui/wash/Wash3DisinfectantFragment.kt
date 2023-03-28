@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ict2105.team02.application.databinding.FragmentWash3DisinfectantBinding
-import ict2105.team02.application.utils.TextChangeListener
 import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString

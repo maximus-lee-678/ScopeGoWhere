@@ -8,12 +8,12 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import ict2105.team02.application.R
-import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.databinding.ActivityLoginBinding
 import ict2105.team02.application.repo.MainApplication
 import ict2105.team02.application.repo.ViewModelFactory
+import ict2105.team02.application.utils.NFCStatus
+import ict2105.team02.application.utils.UiState
 import ict2105.team02.application.viewmodel.AuthViewModel
 import ict2105.team02.application.viewmodel.NFCViewModel
 
@@ -49,10 +49,10 @@ class LoginActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
                 this@LoginActivity
             )
             nfcViewModel.observeTag().observe(this) {
-                if (it) {
+                if (it == NFCStatus.Auth) {
                     nfcViewModel.disableReaderMode(this@LoginActivity, this@LoginActivity)
                     goToHome()
-                } else {
+                } else if (it == NFCStatus.NotAuth){
                     binding.error.text = getString(R.string.incorrect_login)
                 }
             }

@@ -10,9 +10,7 @@ import ict2105.team02.application.utils.toDateString
 import kotlinx.coroutines.launch
 import java.util.*
 
-class WashViewModel(
-    private val dataRepository: DataRepository
-) : ViewModel() {
+class WashViewModel(private val dataRepository: DataRepository) : ViewModel() {
     var washData = MutableLiveData<WashData>()
     var scopeData = MutableLiveData<Endoscope>()
 

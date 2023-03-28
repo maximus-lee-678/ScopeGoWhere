@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.EndoscopeStatistics
 import ict2105.team02.application.model.User
 import ict2105.team02.application.repo.DataRepository

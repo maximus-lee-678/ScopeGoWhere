@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ict2105.team02.application.databinding.FragmentWash4DryingCabinetBinding
-import ict2105.team02.application.utils.TextChangeListener
-import ict2105.team02.application.utils.toDateString
 import ict2105.team02.application.viewmodel.WashViewModel
 
 class Wash4DryingCabinetFragment : Fragment() {

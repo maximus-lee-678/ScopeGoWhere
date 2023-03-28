@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Application</string>
+    <string name="app_name">ScopeGoWhere</string>
 
     <string name="title_home">Home</string>
     <string name="title_schedule">Schedule</string>
@@ -26,6 +26,11 @@
     <string name="login">LOGIN</string>
     <string name="or_with">or With</string>
     <string name="staff_card">Staff Card</string>
+
+    <!-- NFC -->
+    <integer-array name="auth_user">
+
+    </integer-array>
 
     <!-- Home -->
     <string name="home_staff_id">Staff ID: %1$s</string>

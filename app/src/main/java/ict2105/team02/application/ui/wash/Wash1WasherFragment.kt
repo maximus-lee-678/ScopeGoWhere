@@ -1,17 +1,12 @@
 package ict2105.team02.application.ui.wash
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ict2105.team02.application.databinding.FragmentWash1WasherBinding
-import ict2105.team02.application.utils.TAG
-import ict2105.team02.application.utils.TextChangeListener
 import ict2105.team02.application.viewmodel.WashViewModel
 
 class Wash1WasherFragment : Fragment() {

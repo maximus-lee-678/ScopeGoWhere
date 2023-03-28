@@ -9,8 +9,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -19,16 +17,14 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentSample0MethodBinding
-import ict2105.team02.application.repo.MainApplication
-import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.utils.Utils.Companion.showToast
 import ict2105.team02.application.viewmodel.SampleViewModel
 
@@ -117,9 +113,6 @@ class Sample0ChooseMethodFragment : Fragment() {
                             key = key.replaceFirst(key[0], key[0].toLowerCase())
                             val value = parts[1].trim() // Remove whitespace around the value
                             sampleDataMap[key] = value
-                            Log.d("Check Text From Image", "$key = ${sampleDataMap[key]}")
-                        } else {
-                            Log.d("Value Read", line)
                         }
                     }
                     sampleViewModel.setAllSample(sampleDataMap)
@@ -140,7 +133,6 @@ class Sample0ChooseMethodFragment : Fragment() {
         PopupMenu(requireContext(), binding.inputImageButton).apply {
             menu.add(Menu.NONE, 1, 1, "Camera")
             menu.add(Menu.NONE, 2, 2, "From Gallery")
-
             setOnMenuItemClickListener { menuItem ->
                 val id = menuItem.itemId
                 if (id == 1) {
@@ -160,7 +152,6 @@ class Sample0ChooseMethodFragment : Fragment() {
                 } else if (id == 2) {
                     pickImageGallery()
                 }
-
                 return@setOnMenuItemClickListener true
             }
         }.show()
@@ -217,8 +208,6 @@ class Sample0ChooseMethodFragment : Fragment() {
         if (requestCode == CAMERA_REQUEST_CODE && grantResults.isNotEmpty()) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 pickImageCamera()
-            } else {
-                showToast(requireContext(), "What is happening")
             }
         }
     }

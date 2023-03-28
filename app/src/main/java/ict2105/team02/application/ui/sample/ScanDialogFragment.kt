@@ -6,18 +6,12 @@ import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import ict2105.team02.application.R
 import ict2105.team02.application.repo.MainApplication
 import ict2105.team02.application.repo.ViewModelFactory
+import ict2105.team02.application.utils.NFCStatus
 import ict2105.team02.application.viewmodel.NFCViewModel
 
 class ScanDialogFragment : DialogFragment(), NfcAdapter.ReaderCallback {
@@ -30,7 +24,6 @@ class ScanDialogFragment : DialogFragment(), NfcAdapter.ReaderCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         if (nfcViewModel.checkEnabled(requireContext())) {
             nfcViewModel.enableReaderMode(
                 requireContext(),
@@ -38,7 +31,7 @@ class ScanDialogFragment : DialogFragment(), NfcAdapter.ReaderCallback {
                 this@ScanDialogFragment
             )
             nfcViewModel.observeTag().observe(this) {
-                if (it) {
+                if (it == NFCStatus.Auth) {
                     nfcViewModel.disableReaderMode(requireContext(), requireActivity())
                     val intent = Intent(activity, SampleActivity::class.java)
                     activity?.startActivity(intent)

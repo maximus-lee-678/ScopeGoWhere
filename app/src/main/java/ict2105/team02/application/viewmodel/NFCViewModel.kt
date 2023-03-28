@@ -12,14 +12,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ict2105.team02.application.utils.NFCStatus
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 import kotlin.experimental.and
 
 class NFCViewModel: ViewModel() {
     private val TAG = this::class.simpleName!!
-    private val liveTag: MutableLiveData<String?> = MutableLiveData(null)
-    private var authenticated:MutableLiveData<Boolean> = MutableLiveData(false)
+    private val _nfcStatus = MutableLiveData<NFCStatus>().apply {
+        value = NFCStatus.NoOperation
+    }
+    val nfcStatus: LiveData<NFCStatus> = _nfcStatus
+    var authUser:List<Long> = listOf(-1454180711 , -1195384119, -1194713799, -1194525767)
 
     private fun getNFCFlags(): Int{
         return NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_NFC_B or NfcAdapter.FLAG_READER_NFC_F or NfcAdapter.FLAG_READER_NFC_V or NfcAdapter.FLAG_READER_NFC_BARCODE
@@ -53,11 +56,12 @@ class NFCViewModel: ViewModel() {
 
     fun readTag(tag: Tag){
         viewModelScope.launch {
-            val nfcData = StringBuilder()
             val id: ByteArray = tag.id
-            nfcData.append("Tag ID (dec): ${getDec(id)} \n")
-            liveTag.value = "$nfcData"
-            authenticated.value = true
+            if (getDec(id) in authUser){
+                changeStatus(NFCStatus.Auth)
+            } else {
+                changeStatus(NFCStatus.NotAuth)
+            }
         }
     }
 
@@ -72,7 +76,11 @@ class NFCViewModel: ViewModel() {
         return result
     }
 
-    fun observeTag() : MutableLiveData<Boolean> {
-        return authenticated
+    fun observeTag() : MutableLiveData<NFCStatus> {
+        return _nfcStatus
+    }
+
+    private fun changeStatus(status: NFCStatus){
+        _nfcStatus.value = status
     }
 }

@@ -1,19 +1,16 @@
 package ict2105.team02.application.ui.sample
 
-
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import ict2105.team02.application.databinding.ActivitySampleBinding
 import ict2105.team02.application.repo.MainApplication
 import ict2105.team02.application.repo.ViewModelFactory
-import ict2105.team02.application.ui.wash.WashActivity
 import ict2105.team02.application.utils.Constants
 import ict2105.team02.application.utils.TAG
 import ict2105.team02.application.viewmodel.SampleViewModel

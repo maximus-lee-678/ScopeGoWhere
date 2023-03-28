@@ -13,7 +13,6 @@ import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.ui.equipment.EquipmentFragment
 import ict2105.team02.application.ui.schedule.ScheduleFragment
 import ict2105.team02.application.utils.Constants
-import ict2105.team02.application.viewmodel.EquipmentListViewModel
 import ict2105.team02.application.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {

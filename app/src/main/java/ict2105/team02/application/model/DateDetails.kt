@@ -1,6 +1,5 @@
 package ict2105.team02.application.model
 
-import android.util.Log
 import ict2105.team02.application.ui.schedule.CalendarFragment
 import java.text.SimpleDateFormat
 import java.util.*

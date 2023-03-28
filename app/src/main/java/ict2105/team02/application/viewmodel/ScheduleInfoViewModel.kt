@@ -1,6 +1,5 @@
 package ict2105.team02.application.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.repo.DataRepository
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ScheduleInfoViewModel(
     private val dataRepository: DataRepository
