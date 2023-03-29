@@ -20,9 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="69dp"
             android:background="#f0f3ff"
-            android:scaleType="fitStart"
             android:padding="15dp"
-            android:paddingLeft="30dp"/>
+            android:paddingLeft="30dp"
+            android:scaleType="fitStart" />
 
         <TextView
             android:id="@+id/HelpTitle"
@@ -32,9 +32,9 @@
             android:layout_marginLeft="80dp"
             android:layout_marginBottom="3dp"
             android:text="@string/app_title"
-            android:textSize="18sp"
             android:textColor="#313131"
-            android:textStyle="bold"/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>
 

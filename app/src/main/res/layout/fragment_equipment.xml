@@ -32,15 +32,15 @@
             android:indeterminate="true" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-<!--    <Button-->
-<!--        android:id="@+id/buttonCreateScope"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/add_scope"-->
-<!--        android:layout_marginHorizontal="8dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/buttonCreateScope"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/add_scope"-->
+    <!--        android:layout_marginHorizontal="8dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/dividerAfterAddScope"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextSearch"
@@ -113,6 +113,6 @@
         app:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="40dp"/>
+        app:maxImageSize="40dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

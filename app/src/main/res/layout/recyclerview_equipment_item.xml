@@ -15,8 +15,8 @@
         app:cardMaxElevation="1dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
-        app:contentPaddingTop="5dp"
-        app:contentPaddingBottom="5dp">
+        app:contentPaddingBottom="5dp"
+        app:contentPaddingTop="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:src="@drawable/equipment"/>
+                android:src="@drawable/equipment" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,20 +38,20 @@
                     android:id="@+id/equipmentRVItemText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:paddingTop="6dp"
-                    android:layout_marginLeft="10dp"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
-                    android:textColor="#313131"/>
+                    android:textColor="#313131" />
 
                 <TextView
                     android:id="@+id/equipmentRVItemSecondaryText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="#808588"/>
+                    android:textColor="#808588" />
             </LinearLayout>
         </LinearLayout>
 

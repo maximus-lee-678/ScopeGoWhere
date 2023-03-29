@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/nav_home"
-        android:title="Home"
-        android:icon="@drawable/baseline_home_24" />
+        android:icon="@drawable/baseline_home_24"
+        android:title="@string/nav_home" />
 
     <item
         android:id="@+id/nav_schedule"
-        android:title="Schedule"
-        android:icon="@drawable/baseline_calendar_month_24" />
+        android:icon="@drawable/baseline_calendar_month_24"
+        android:title="@string/nav_schedule" />
 
     <item
         android:id="@+id/nav_fab_spacing"
@@ -18,11 +18,11 @@
 
     <item
         android:id="@+id/nav_equipment"
-        android:title="Equipment"
-        android:icon="@drawable/baseline_handyman_24" />
+        android:icon="@drawable/baseline_handyman_24"
+        android:title="@string/nav_equipment" />
 
     <item
         android:id="@+id/nav_help"
-        android:title="Help"
-        android:icon="@drawable/baseline_help_24" />
+        android:icon="@drawable/baseline_help_24"
+        android:title="@string/nav_help" />
 </menu>

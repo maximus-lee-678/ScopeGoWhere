@@ -9,15 +9,6 @@
     <string name="title_create_endoscope">Create New Endoscope</string>
     <string name="title_edit_endoscope">Edit Endoscope</string>
 
-    <!-- Nav Bar -->
-    <string name="nav_home">Home</string>
-    <string name="nav_schedule">Schedule</string>
-    <string name="nav_equipment">Equipment</string>
-    <string name="nav_help">Help</string>
-
-    <!-- Nav Bar Menu -->
-    <string name="logout">Logout</string>
-
     <!-- Login -->
     <string name="login_greetings">Hello again, you\'ve been missed!</string>
     <string name="incorrect_login">Incorrect login</string>
@@ -50,11 +41,15 @@
     <string name="washing">Washing</string>
     <string name="sampling">Sampling</string>
 
-    <!--Menu-->
+    <!-- Menu / Navbar -->
     <string name="menu_notification">Spawn Notification</string>
     <string name="menu_logout">Logout</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_schedule">Schedule</string>
+    <string name="nav_equipment">Equipment</string>
+    <string name="nav_help">Help</string>
 
-    <!--Notification-->
+    <!-- Notification -->
     <string name="default_channel_name">default_channel_name</string>
     <string name="default_channel_description">default_channel_description</string>
     <string name="sample_ready_title">A sampling result is ready!</string>
@@ -82,8 +77,6 @@
     <string name="search_hint">Search by endoscope name…</string>
     <string name="filtering_options">Filtering Options</string>
     <string name="clear_filters">Clear</string>
-    <string name="add_scope">Add New Scope</string>
-    <string name="add_a_new_scope">Add a new Scope</string>
     <string-array name="equipment_status_spinner">
         <item>All</item>
         <item>Circulation</item>
@@ -91,10 +84,23 @@
         <item>Washing</item>
     </string-array>
 
-    <!-- Scope Add / Edit Exclusives -->
+    <!-- Scope Add / Edit / Delete Exclusives -->
+    <string name="add_scope">Add New Scope</string>
+    <string name="edit_scope">Edit Scope</string>
+    <string name="add_edit_scope_serial">Scope Serial Number</string>
+    <string name="add_edit_scope_brand">Scope Brand</string>
+    <string name="add_edit_scope_model">Scope Model</string>
+    <string name="add_edit_scope_type">Scope Type</string>
+    <string name="add_edit_scope_next_sample">Next Sample Date</string>
+    <string name="add_scope_submit_button">Add Scope</string>
+    <string name="edit_scope_submit_button">Update</string>
+    <string name="delete_scope_submit_button">Delete</string>
+
     <string name="scope_choose_sample_date">Choose upcoming Sample Date</string>
     <string name="scope_add_confirm">Add new endoscope?</string>
     <string name="scope_add_success">Endoscope successfully added!</string>
+
+
     <string name="scope_update_confirm">Update endoscope?</string>
     <string name="scope_update_success">Endoscope successfully updated!</string>
     <string name="scope_delete_confirm">Delete endoscope?</string>

@@ -9,9 +9,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit Scope"
-        android:textSize="25sp"
-        android:padding="16dp" />
+        android:padding="16dp"
+        android:text="@string/edit_scope"
+        android:textSize="25sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -21,7 +21,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:enabled="false"
-        android:hint="Scope Serial Number">
+        android:hint="@string/add_edit_scope_serial">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/scopeSerial"
@@ -38,7 +38,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Scope Brand">
+        android:hint="@string/add_edit_scope_brand">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/scopeBrand"
@@ -55,7 +55,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Scope Model">
+        android:hint="@string/add_edit_scope_model">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/scopeModel"
@@ -72,7 +72,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Scope Type">
+        android:hint="@string/add_edit_scope_type">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/scopeType"
@@ -89,7 +89,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Next Sample Date">
+        android:hint="@string/add_edit_scope_next_sample">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nextSampleDate"
@@ -109,16 +109,16 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
-        android:text="Update" />
+        android:text="@string/edit_scope_submit_button" />
 
     <Button
         android:id="@+id/buttonDeleteScope"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        style="?attr/materialButtonOutlinedStyle"
-        android:textColor="@color/red_rose"
-        android:text="Delete" />
+        android:text="@string/delete_scope_submit_button"
+        android:textColor="@color/red_rose" />
 
     <TextView
         android:id="@+id/errorMsg"
