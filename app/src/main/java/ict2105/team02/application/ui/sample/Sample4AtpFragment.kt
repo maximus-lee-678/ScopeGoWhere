@@ -33,23 +33,4 @@ class Sample4AtpFragment : Fragment() {
             binding.atpSwabRLUInput.text.toString().toIntOrNull(),
         )
     }
-
-    private fun validate(): Boolean {
-        var valid = true
-
-        if (TextUtils.isEmpty(binding.atpWaterRLUInput.text)
-            || TextUtils.isEmpty(binding.atpSwabRLUInput.text)
-        ) {
-            binding.errorMsgAtp.text = "Please fill in all the fields"
-            valid = false
-        }
-
-        if (valid) {
-            binding.errorMsgAtp.visibility = View.GONE
-        } else {
-            binding.errorMsgAtp.visibility = View.VISIBLE
-        }
-
-        return valid
-    }
 }

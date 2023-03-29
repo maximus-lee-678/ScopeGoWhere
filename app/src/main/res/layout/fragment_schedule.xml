@@ -115,9 +115,9 @@
                 android:layout_gravity="center"
                 android:backgroundTint="#FFFFFF"
                 android:drawableTop="@drawable/ic_baseline_navigate_next_24"
+                android:elevation="10dp"
                 android:paddingTop="8dp"
                 android:paddingRight="13dp"
-                android:elevation="10dp"
                 android:text=""
                 app:cornerRadius="10dp"
                 app:strokeColor="#CED3DE"
@@ -210,8 +210,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:paddingLeft="20dp">
+                android:paddingLeft="20dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textViewWeekMonday"
@@ -220,8 +220,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_monday"
                     android:textAlignment="viewStart"
-                    android:textSize="16sp"
-                    android:textColor="#8F9BB3" />
+                    android:textColor="#8F9BB3"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textViewWeekTuesday"
@@ -230,8 +230,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_tuesday"
                     android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textColor="#8F9BB3" />
+                    android:textColor="#8F9BB3"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textViewWeekWednesday"
@@ -240,8 +240,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_wednesday"
                     android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textColor="#8F9BB3" />
+                    android:textColor="#8F9BB3"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textViewWeekThursday"
@@ -250,8 +250,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_thursday"
                     android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textColor="#8F9BB3" />
+                    android:textColor="#8F9BB3"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textViewWeekFriday"
@@ -260,8 +260,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_friday"
                     android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textColor="#8F9BB3" />
+                    android:textColor="#8F9BB3"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textViewWeekSaturday"
@@ -270,8 +270,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_saturday"
                     android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textColor="#8F9BB3" />
+                    android:textColor="#8F9BB3"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textViewWeekSunday"
@@ -280,8 +280,8 @@
                     android:padding="8sp"
                     android:text="@string/schedule_sunday"
                     android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textColor="#8F9BB3" />
+                    android:textColor="#8F9BB3"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -290,7 +290,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:spanCount="7"/>
+                app:spanCount="7" />
 
         </LinearLayout>
     </LinearLayout>

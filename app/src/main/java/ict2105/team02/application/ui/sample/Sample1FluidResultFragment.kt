@@ -59,21 +59,4 @@ class Sample1FluidResultFragment : Fragment() {
             binding.cultureCommentInput.text.toString()
         )
     }
-
-    private fun validate(): Boolean {
-        var valid = true
-
-        if(TextUtils.isEmpty(binding.actionInput.text)){
-            binding.errorMsgFluid.text = "Please fill in all the fields"
-            valid = false
-        }
-
-        if (valid) {
-            binding.errorMsgFluid.visibility = View.GONE
-        } else {
-            binding.errorMsgFluid.visibility = View.VISIBLE
-        }
-
-        return valid
-    }
 }

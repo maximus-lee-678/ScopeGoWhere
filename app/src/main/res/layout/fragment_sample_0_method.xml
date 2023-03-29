@@ -19,7 +19,7 @@
     <ScrollView
         android:id="@+id/imageScrollView"
         android:layout_width="388dp"
-        android:layout_height="521dp">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/photo_image_view"

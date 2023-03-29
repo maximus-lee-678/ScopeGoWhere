@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import ict2105.team02.application.R
 import ict2105.team02.application.repo.MainApplication
 import ict2105.team02.application.repo.ViewModelFactory
 import ict2105.team02.application.utils.NFCStatus
@@ -36,21 +37,27 @@ class ScanDialogFragment : DialogFragment(), NfcAdapter.ReaderCallback {
                     val intent = Intent(activity, SampleActivity::class.java)
                     activity?.startActivity(intent)
                 } else {
-                    Toast.makeText(requireContext(), "Please use a valid pass", Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(
+                        requireContext(),
+                        resources.getString(R.string.login_nfc_invalid),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         } else {
-            Toast.makeText(requireContext(), "NFC is not enabled/unavailable", Toast.LENGTH_LONG)
-                .show()
+            Toast.makeText(
+                requireContext(),
+                resources.getString(R.string.login_nfc_disabled),
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         AlertDialog.Builder(requireContext())
-            .setMessage("Please scan your staff pass to authenticate")
-            .setNeutralButton("Enter Manually") { _, _ -> }
-//            .setPositiveButton("Scanned") { _,_ ->
+            .setMessage(resources.getString(R.string.login_nfc_prompt))
+            .setNeutralButton(resources.getString(R.string.login_manual)) { _, _ -> }
+//            .setPositiveButton(resources.getString(R.string.login_pass_scanned)) { _,_ ->
 //                val intent = Intent(getActivity(), SampleActivity::class.java)
 //                getActivity()?.startActivity(intent)
 //            }

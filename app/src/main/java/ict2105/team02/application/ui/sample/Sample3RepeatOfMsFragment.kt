@@ -64,7 +64,7 @@ class Sample3RepeatOfMsFragment : Fragment() {
 
         // Date picker
         binding.repeatDate.setOnClickListener {
-            Utils.createMaterialFutureDatePicker("Select date of resample", {
+            Utils.createMaterialFutureDatePicker(resources.getString(R.string.repeat_of_ms_popup_title), {
                 binding.repeatDate.setText("") // Set empty string if cancelled (this field is optional if result is negative)
             }, { epoch ->
                 binding.repeatDate.setText(Date(epoch).toDateString())

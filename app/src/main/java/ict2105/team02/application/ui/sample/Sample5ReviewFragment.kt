@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentSample5ReviewBinding
 import ict2105.team02.application.ui.dialogs.ConfirmationDialogFragment
 import ict2105.team02.application.utils.toDateString
@@ -24,12 +25,12 @@ class Sample5ReviewFragment : Fragment() {
         binding = FragmentSample5ReviewBinding.inflate(inflater)
 
         binding.buttonSendSample.setOnClickListener {
-            val confirmationDialog = ConfirmationDialogFragment("Confirm these results?") {
+            val confirmationDialog = ConfirmationDialogFragment(resources.getString(R.string.confirm_sample_prompt)) {
                 // User clicked confirm
                 sampleViewModel.insertSampleData()
                 Toast.makeText(
                     requireContext(),
-                    "Scope wash recorded successfully!",
+                    resources.getString(R.string.confirm_sample_success),
                     Toast.LENGTH_LONG
                 ).show()
                 requireActivity().finish()

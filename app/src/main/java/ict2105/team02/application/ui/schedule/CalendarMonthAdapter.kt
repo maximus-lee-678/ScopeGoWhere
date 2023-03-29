@@ -137,7 +137,7 @@ class CalendarMonthAdapter(private val context: Context) :
      * Computes -1 if selected date is off screen, and corresponding position otherwise.
      */
     private fun getSelectedPosition(dateDetails: DateDetails): Boolean {
-        // if month & year dont match, page has changed, selected position is off screen
+        // if month & year don't match, page has changed, selected position is off screen
         if (dateDetails.month!! != selectedDate[1] || dateDetails.year!! != selectedDate[2]) {
             selectedPos = -1
             return true
@@ -176,7 +176,7 @@ class CalendarMonthAdapter(private val context: Context) :
         }
 
         // User is clicking on another date on original page
-        // Refresh only 2 items (currently causing weird phantoms, disabled)
+        // Refresh only 2 items (currently causing weird phantoms, disabled <forever>)
         if (!didPageChange) {
 //            notifyItemChanged(originalPosition)
 //            notifyItemChanged(selectedPos)

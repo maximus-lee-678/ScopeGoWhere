@@ -197,7 +197,7 @@ class Sample0ChooseMethodFragment : Fragment() {
             binding.inputImageButton.text = getString(R.string.scan_again)
             binding.processPhotoButton.isEnabled = true
         } else {
-            showToast(requireContext(), "Cancelled")
+            showToast(requireContext(), resources.getString(R.string.scanner_close))
         }
     }
 

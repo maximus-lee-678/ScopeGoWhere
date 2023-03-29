@@ -26,7 +26,7 @@ class HelpAdapter(private val dataset: List<HelpData>,
         // Get Context From Parents
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val contactView  = inflater.inflate(R.layout.recyclerview_help_item,parent,false)
+        val contactView = inflater.inflate(R.layout.recyclerview_help_item, parent, false)
         return ItemViewHolder(contactView)
     }
 
@@ -49,6 +49,7 @@ class HelpAdapter(private val dataset: List<HelpData>,
 	        }
         }
     }
+
     private fun getImageResourceId(item : HelpData) : Int {
 	    return when (item.Title) {
 		    "How to use App" -> R.drawable.guide_icon
@@ -58,8 +59,8 @@ class HelpAdapter(private val dataset: List<HelpData>,
 		    else -> throw IllegalArgumentException("Invalid title: ${item.Title}")
 	    }
     }
+
     override fun getItemCount(): Int {
         return dataset.size
     }
-
 }

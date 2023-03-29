@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
 
     <ImageView
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:textAlignment="center"
-        android:textColor="#FF0000"/>
+        android:textColor="#FF0000" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -89,9 +89,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:background="@android:color/white"
             android:layout_centerHorizontal="true"
+            android:background="@android:color/white"
+            android:padding="2dp"
             android:text="@string/or_with" />
     </RelativeLayout>
 
