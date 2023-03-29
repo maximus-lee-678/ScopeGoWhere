@@ -16,9 +16,7 @@ class HelpAdapter(private val dataset: List<HelpData>,
                   private val parentFragment: HelpFragment
 )
     : RecyclerView.Adapter<HelpAdapter.ItemViewHolder>(){
-    val TAG = "HelpAdapter"
     private lateinit var helpFragment : Fragment
-    private var resID = 0
     class ItemViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
         val helpTitle : TextView = view.findViewById(R.id.HelpTitle)
         val helpImageButton : ImageButton = view.findViewById(R.id.HelpImageButton)
@@ -36,44 +34,32 @@ class HelpAdapter(private val dataset: List<HelpData>,
         val TAG_FRAGMENT = "HelpPage"
         val item = dataset[position]
         holder.helpTitle.text = item.Title
-        changeResID(item, holder)
-        holder.helpImageButton.setImageResource(resID)
+        holder.helpImageButton.setImageResource(getImageResourceId(item))
         holder.helpImageButton.setOnClickListener{
-            var result : Bundle = Bundle()
+	        val result = Bundle().apply {
+		        putString("videoId", item.VideoID)
+		        putInt("stringArrayID", item.stringArrayID)
+	        }
 	        helpFragment = HelpPageFragment()
-            result.putString("videoId",item.VideoID)
-	        result.putInt("stringArrayID",item.stringArrayID)
             parentFragment.setFragmentResult("helpPage",result)
-            val transaction = parentFragment.parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentFrameLayout, helpFragment ,TAG_FRAGMENT)
-            transaction.addToBackStack(null);
-            transaction.commit()
+            val transaction = parentFragment.parentFragmentManager.beginTransaction().apply{
+	            replace(R.id.fragmentFrameLayout, helpFragment ,TAG_FRAGMENT)
+	            addToBackStack(null)
+	            commit()
+            }
         }
     }
-    fun changeResID(item : HelpData, holder: ItemViewHolder) {
-        when(item.Title) {
-            "How to use App" -> {
-                resID = R.drawable.guide_icon
-            }
-            "Endoscope Cleaning" ->
-            {
-                resID = R.drawable.cleaning_icon
-            }
-            "Endoscope Drying" ->
-            {
-                resID = R.drawable.drying_icon
-            }
-            "Endoscope Sampling" -> {
-                resID = R.drawable.sampling_icon
-            }
-            else -> throw IllegalArgumentException("Invalid title: $item.Title")
-        }
+    private fun getImageResourceId(item : HelpData) : Int {
+	    return when (item.Title) {
+		    "How to use App" -> R.drawable.guide_icon
+		    "Endoscope Cleaning" -> R.drawable.cleaning_icon
+		    "Endoscope Drying" -> R.drawable.drying_icon
+		    "Endoscope Sampling" -> R.drawable.sampling_icon
+		    else -> throw IllegalArgumentException("Invalid title: ${item.Title}")
+	    }
     }
     override fun getItemCount(): Int {
         return dataset.size
     }
-
-
-
 
 }

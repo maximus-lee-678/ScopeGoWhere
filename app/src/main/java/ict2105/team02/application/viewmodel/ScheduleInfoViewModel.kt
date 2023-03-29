@@ -16,30 +16,20 @@ class ScheduleInfoViewModel(
     private var allEndoscope: List<Endoscope> = emptyList()
 
     init {
-        if (mListEndoscope != null) {
-        } else {
-            mListEndoscope = MutableLiveData<List<Endoscope>>()
-        }
+	    mListEndoscope = MutableLiveData()
     }
 
     fun setScheduleByDate(inputDate: Date) {
-        val filteredEndoscope: ArrayList<Endoscope> = ArrayList()
-        for (endoscope in allEndoscope) {
-            if (areDatesEqualIgnoringTime(endoscope.nextSampleDate, inputDate)) {
-                filteredEndoscope.add(endoscope)
-            }
-        }
-        val data = MutableLiveData<List<Endoscope>>()
-        data.value = filteredEndoscope
-//        mListSchedule = data
-        mListEndoscope?.postValue(filteredEndoscope)
+
+	    val filteredEndoscope = allEndoscope.filter { areDatesEqualIgnoringTime(it.nextSampleDate, inputDate) }
+	    mListEndoscope?.value = filteredEndoscope
     }
 
     fun getScheduledEndoscope(): LiveData<List<Endoscope>>? {
         return mListEndoscope
     }
 
-    fun areDatesEqualIgnoringTime(date1: Date, date2: Date): Boolean {
+    private fun areDatesEqualIgnoringTime(date1: Date, date2: Date): Boolean {
         val cal1 = Calendar.getInstance().apply { time = date1 }
         val cal2 = Calendar.getInstance().apply { time = date2 }
 
