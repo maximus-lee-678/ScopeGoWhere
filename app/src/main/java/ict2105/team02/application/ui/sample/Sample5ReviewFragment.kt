@@ -24,7 +24,7 @@ class Sample5ReviewFragment : Fragment() {
         binding = FragmentSample5ReviewBinding.inflate(inflater)
 
         binding.buttonSendSample.setOnClickListener {
-            val confirmationDialog = ConfirmationDialogFragment("Confirm send for wash?") {
+            val confirmationDialog = ConfirmationDialogFragment("Confirm these results?") {
                 // User clicked confirm
                 sampleViewModel.insertSampleData()
                 Toast.makeText(

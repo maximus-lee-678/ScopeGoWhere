@@ -220,12 +220,12 @@ class DataRepository {
 
         Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History")
             .document(docName)
-            .update(data as Map<String, Any>)
+            .set(data as Map<String, Any>)
             .addOnSuccessListener {
                 Log.d(TAG, "Firebase insert sample result data success")
 
                 // Update scope status
-                updateScopeStatus(serial, Constants.ENDOSCOPE_CIRCULATION)
+                updateScopeStatus(serial, Constants.ENDOSCOPE_SAMPLE)
             }
             .addOnFailureListener { e -> Log.d(TAG, "Firebase insert sample result data fail due to $e") }
     }

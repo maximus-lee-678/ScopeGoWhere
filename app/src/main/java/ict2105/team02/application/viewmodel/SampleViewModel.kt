@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import ict2105.team02.application.model.Endoscope
 import ict2105.team02.application.model.ResultData
 import ict2105.team02.application.repo.DataRepository
+import ict2105.team02.application.utils.mapPositiveNegativeToBoolean
+import ict2105.team02.application.utils.mapYesNoToBoolean
 import ict2105.team02.application.utils.parseDateString
 import ict2105.team02.application.utils.toDateString
 import kotlinx.coroutines.launch
@@ -93,16 +95,16 @@ class SampleViewModel(
         sampleDataHash.forEach { (key, value) ->
             when (key) {
                 "fluidResult" -> resultData =
-                    resultData.copy(fluidResult = value.toBooleanStrictOrNull())
+                    resultData.copy(fluidResult = value.mapPositiveNegativeToBoolean())
                 "fluidAction" -> resultData = resultData.copy(fluidAction = value)
                 "fluidComment" -> resultData = resultData.copy(fluidComment = value)
                 "swabDate" -> resultData = resultData.copy(swabDate = value.parseDateString())
                 "swabResult" -> resultData =
-                    resultData.copy(swabResult = value.toBooleanStrictOrNull())
+                    resultData.copy(swabResult = value.mapPositiveNegativeToBoolean())
                 "swabAction" -> resultData = resultData.copy(swabAction = value)
                 "swabCultureComment" -> resultData = resultData.copy(swabCultureComment = value)
                 "quarantineRequired" -> resultData =
-                    resultData.copy(quarantineRequired = value.toBooleanStrictOrNull())
+                    resultData.copy(quarantineRequired = value.mapYesNoToBoolean())
                 "repeatDateMS" -> resultData =
                     resultData.copy(repeatDateMS = value.parseDateString())
                 "waterATPRLU" -> resultData = resultData.copy(waterATPRLU = value.toIntOrNull())
