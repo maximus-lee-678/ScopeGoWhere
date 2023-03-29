@@ -102,8 +102,6 @@ class EditScopeActivity : AppCompatActivity() {
                     intentStatus!!
                 )
             }
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             Toast.makeText(this, "Scope Updated Successfully!", Toast.LENGTH_LONG).show()
             finish()
         }
