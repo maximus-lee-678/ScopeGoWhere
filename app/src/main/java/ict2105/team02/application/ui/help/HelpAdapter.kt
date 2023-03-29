@@ -40,13 +40,13 @@ class HelpAdapter(private val dataset: List<HelpData>,
 		        putString("videoId", item.VideoID)
 		        putInt("stringArrayID", item.stringArrayID)
 	        }
-	        helpFragment = HelpPageFragment()
-            parentFragment.setFragmentResult("helpPage",result)
-            val transaction = parentFragment.parentFragmentManager.beginTransaction().apply{
-	            replace(R.id.fragmentFrameLayout, helpFragment ,TAG_FRAGMENT)
-	            addToBackStack(null)
-	            commit()
-            }
+        helpFragment = HelpPageFragment()
+        parentFragment.setFragmentResult("helpPage",result)
+        val transaction = parentFragment.parentFragmentManager.beginTransaction().apply{
+            replace(R.id.fragmentFrameLayout, helpFragment ,TAG_FRAGMENT)
+            addToBackStack(null)
+            commit()
+        }
         }
     }
     private fun getImageResourceId(item : HelpData) : Int {
