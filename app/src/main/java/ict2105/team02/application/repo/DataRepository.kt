@@ -220,14 +220,35 @@ class DataRepository {
 
         Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History")
             .document(docName)
-            .set(data as Map<String, Any>)
-            .addOnSuccessListener {
-                Log.d(TAG, "Firebase insert sample result data success")
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    // Document exists, update it
+                    Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History")
+                        .document(docName)
+                        .update(data as Map<String, Any>)
+                        .addOnSuccessListener {
+                            Log.d(TAG, "Firebase update sample result data success")
 
-                // Update scope status
-                updateScopeStatus(serial, Constants.ENDOSCOPE_SAMPLE)
+                            // Update scope status
+                            updateScopeStatus(serial, Constants.ENDOSCOPE_SAMPLE)
+                        }
+                        .addOnFailureListener { e -> Log.d(TAG, "Firebase update sample result data fail due to $e") }
+                } else {
+                    // Document does not exist, set it
+                    Firebase.firestore.collection(COLLECTION_ENDOSCOPES).document(serial).collection("History")
+                        .document(docName)
+                        .set(data as Map<String, Any>)
+                        .addOnSuccessListener {
+                            Log.d(TAG, "Firebase insert sample result data success")
+
+                            // Update scope status
+                            updateScopeStatus(serial, Constants.ENDOSCOPE_SAMPLE)
+                        }
+                        .addOnFailureListener { e -> Log.d(TAG, "Firebase insert sample result data fail due to $e") }
+                }
             }
-            .addOnFailureListener { e -> Log.d(TAG, "Firebase insert sample result data fail due to $e") }
+            .addOnFailureListener { e -> Log.d(TAG, "Firebase get document fail due to $e") }
     }
 
     fun insertNewScope(newScope: Endoscope) {
