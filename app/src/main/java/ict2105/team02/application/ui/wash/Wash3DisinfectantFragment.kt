@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.FragmentWash3DisinfectantBinding
 import ict2105.team02.application.utils.Utils
 import ict2105.team02.application.utils.parseDateString
@@ -22,7 +23,7 @@ class Wash3DisinfectantFragment : Fragment() {
 
         // Date picker
         binding.disinfectantChanged.setOnClickListener {
-            Utils.createMaterialPastDatePicker("Select disinfectant changed date") {
+            Utils.createMaterialPastDatePicker(resources.getString(R.string.disinfectant_changed_date_popup_title)) {
                 binding.disinfectantChanged.setText(Date(it).toDateString())
             }.show(childFragmentManager, null)
         }

@@ -40,7 +40,6 @@ class ScheduleInfoFragment(
             val fragment = ScopeDetailDialogFragment.newInstance(it.scopeSerial)
             Log.d("EquipmentAdapter", "Setup OnClick")
             fragment.show(requireActivity().supportFragmentManager, "scope_detail")
-
         }
 
         scheduleInfoViewModel.getScheduledEndoscope()?.observe(viewLifecycleOwner) {

@@ -37,8 +37,16 @@ class QRScannerActivity : AppCompatActivity() {
         supportActionBar?.setTitle(R.string.title_qr_scanner)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_REQUEST_CODE
+            )
         } else {
             setupQRScanner()
         }
@@ -64,7 +72,12 @@ class QRScannerActivity : AppCompatActivity() {
             }
 
             @SuppressLint("MissingPermission")
-            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+            override fun surfaceChanged(
+                holder: SurfaceHolder,
+                format: Int,
+                width: Int,
+                height: Int
+            ) {
                 try {
                     cameraSource.start(holder)
                 } catch (e: IOException) {
@@ -79,7 +92,11 @@ class QRScannerActivity : AppCompatActivity() {
 
         barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
             override fun release() {
-                Toast.makeText(applicationContext, "Scanner has been closed", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    applicationContext,
+                    resources.getString(R.string.scanner_close),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
 
@@ -99,7 +116,7 @@ class QRScannerActivity : AppCompatActivity() {
                         }
                     } else {
                         runOnUiThread {
-                            showToast("Invalid QR code")
+                            showToast(resources.getString(R.string.scanner_invalid))
                         }
                     }
                 }
@@ -107,13 +124,21 @@ class QRScannerActivity : AppCompatActivity() {
         })
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty()) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 setupQRScanner()
             } else {
-                Toast.makeText(applicationContext, "Permission Denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    applicationContext,
+                    resources.getString(R.string.access_denied),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -148,7 +173,7 @@ class QRScannerActivity : AppCompatActivity() {
     // Validate QR code data for endoscopes.
     // The format is "endoscope:{serial}". E.g. endoscope:1
     // Returns serial if valid, otherwise returns empty string
-    fun validateQRCodeEndoscope(value: String) : String {
+    fun validateQRCodeEndoscope(value: String): String {
         val qrData = value.split(":")
         if (qrData.size == 2 && qrData[0] == "endoscope") {
             val serial = qrData[1]

@@ -49,6 +49,7 @@ class HelpAdapter(private val dataset: List<HelpData>,
 	        }
         }
     }
+
     private fun getImageResourceId(item : HelpData) : Int {
 	    return when (item.Title) {
 		    "How to use App" -> R.drawable.guide_icon

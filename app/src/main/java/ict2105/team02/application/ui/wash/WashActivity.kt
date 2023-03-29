@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import ict2105.team02.application.R
 import ict2105.team02.application.databinding.ActivityWashBinding
 import ict2105.team02.application.repo.MainApplication
 import ict2105.team02.application.repo.ViewModelFactory
@@ -29,23 +30,24 @@ class WashActivity : AppCompatActivity() {
         binding = ActivityWashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val washHeaderOptions = resources.getStringArray(R.array.wash_menu_opts)
         // ViewPager2 provides swipe function, TabLayout provides tabs
         val stateAdapter = WashFragmentStateAdapter(this)
         binding.viewPagerWash.apply {
             adapter = stateAdapter
             TabLayoutMediator(binding.tabLayoutWash, this) { tab, position ->
                 when (position) {
-                    0 -> tab.text = "1. AER"
-                    1 -> tab.text = "2. Detergent"
-                    2 -> tab.text = "3. Disinfectant"
-                    3 -> tab.text = "4. Drying"
-                    4 -> tab.text = "5. Summary"
+                    0 -> tab.text = washHeaderOptions[0]
+                    1 -> tab.text = washHeaderOptions[1]
+                    2 -> tab.text = washHeaderOptions[2]
+                    3 -> tab.text = washHeaderOptions[3]
+                    4 -> tab.text = washHeaderOptions[4]
                 }
             }.attach()
             registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    title = "Wash Equipment (${position + 1}/5)"
+                    title = resources.getString(R.string.wash_title_printf, position.toString())
                     updateNavigationButtons(position)
                 }
             })
@@ -65,7 +67,7 @@ class WashActivity : AppCompatActivity() {
         binding.buttonWashPreviousStep.setOnClickListener { changePage(binding.viewPagerWash.currentItem - 1) }
 
         washViewModel.makeWashData()
-        title = "Wash Equipment (1/5)"
+        title = resources.getString(R.string.wash_title_printf, "1")
         binding.buttonWashPreviousStep.visibility = View.INVISIBLE
         changePage(0)
     }

@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity(), NfcAdapter.ReaderCallback {
                 if (it == NFCStatus.Auth) {
                     nfcViewModel.disableReaderMode(this@LoginActivity, this@LoginActivity)
                     goToHome()
-                } else if (it == NFCStatus.NotAuth){
+                } else if (it == NFCStatus.NotAuth) {
                     binding.error.text = getString(R.string.incorrect_login)
                 }
             }

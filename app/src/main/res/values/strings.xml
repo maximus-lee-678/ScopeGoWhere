@@ -26,10 +26,20 @@
     <string name="login">LOGIN</string>
     <string name="or_with">or With</string>
     <string name="staff_card">Staff Card</string>
+    <string name="login_manual">Login Manually</string>
+    <string name="login_pass_scanned">Staff Pass Scanned!</string>
+    <string name="login_nfc_prompt">Please present your staff pass!</string>
+    <string name="login_nfc_invalid">Invalid staff pass!</string>
+    <string name="login_nfc_disabled">NFC is not enabled/unavailable.</string>
 
     <!-- Dialog -->
+    <string name="access_denied">Permission denied</string>
     <string name="dialog_confirm">Confirm</string>
     <string name="dialog_cancel">Cancel</string>
+
+    <!-- QR / CV -->
+    <string name="scanner_close">Scanner Closed</string>
+    <string name="scanner_invalid">Invalid QR Code</string>
 
     <!-- Home -->
     <string name="home_staff_id">Staff ID: %1$s</string>
@@ -89,7 +99,7 @@
     <string name="scope_update_success">Endoscope successfully updated!</string>
     <string name="scope_delete_confirm">Delete endoscope?</string>
     <string name="scope_delete_success">Endoscope successfully deleted!</string>
-    <string name="missing_inputs">Please fill in all the fields</string>
+    <string name="missing_inputs">Please fill in all the fields!</string>
 
     <!-- Endoscope Detail -->
     <string name="endoscope_name">%1$s %2$s</string>
@@ -122,7 +132,7 @@
     <string name="scope_dryer_prefix">Scope Dryer :</string>
     <string name="done_by_prefix">Done By :</string>
     <string name="remarks_prefix">Remarks :</string>
-    <string name="dryer_level_prefix">Dryer Level:</string>
+    <string name="dryer_level_prefix">Dryer Level :</string>
     <string name="wash_date_prefix">Wash Date :</string>
     <string name="result_data">Result Data</string>
     <string name="fluid_result_prefix2">Fluid Result :</string>
@@ -140,7 +150,7 @@
     <string name="result_date_prefix">Result Date :</string>
     <string name="swab_date_prefix">Swab Date :</string>
 
-    <!-- Wash/Sample Forms -->
+    <!-- Wash/Sample -->
     <string name="select_entry_method">Select Entry Method</string>
     <string name="manual_entry">Enter Manually</string>
     <string name="upload_photo">Upload Photo</string>
@@ -149,6 +159,14 @@
     <string name="record_wash">Record Wash</string>
     <string name="record_sample">Record Sample</string>
 
+    <string name="wash_title_printf">Wash Equipment (%1$s/5)</string>
+    <string-array name="wash_menu_opts">
+        <item>1. AER</item>
+        <item>2. Detergent</item>
+        <item>3. Disinfectant</item>
+        <item>4. Drying</item>
+        <item>5. Summary</item>
+    </string-array>
     <string name="washer">Washer</string>
     <string name="aer_model">AER Model</string>
     <string name="aer_serial_no">AER Serial No.</string>
@@ -160,11 +178,24 @@
     <string name="disinfectant_used">Disinfectant Used</string>
     <string name="disinfectant_lot_no">Disinfectant Lot No.</string>
     <string name="disinfectant_changed_date">Disinfectant Changed Date</string>
+    <string name="disinfectant_changed_date_popup_title">Select Disinfectant Changed Date</string>
     <string name="drying_cabinet">Drying Cabinet</string>
     <string name="scope_dryer">Scope Dryer</string>
     <string name="dryer_level">Dryer Level</string>
     <string name="remarks">Remarks</string>
+    <string name="confirm_wash_prompt">Confirm scope wash details?</string>
+    <string name="confirm_wash_success">Scope wash details successfully recorded!</string>
 
+    <string name="sample_title">Sample Equipment</string>
+    <string name="sample_title_printf">Sample Equipment (%1$s/5)</string>
+    <string-array name="sample_menu_opts">
+        <item>Choose Method</item>
+        <item>1. Fluid</item>
+        <item>2. Swab</item>
+        <item>3. Repeat MS</item>
+        <item>4. ATP</item>
+        <item>5. Summary</item>
+    </string-array>
     <string name="fluid_result">Fluid Result</string>
     <string name="fluid_result_prefix">Fluid Result:</string>
     <string name="action">Action</string>
@@ -174,6 +205,7 @@
     <string name="date_of_result">Date of Result</string>
     <string name="culture_comment">Culture Comment</string>
     <string name="repeat_of_ms">Repeat MS</string>
+    <string name="repeat_of_ms_popup_title">Select Resample Date</string>
     <string name="quarantine_required">Quarantine Required</string>
     <string name="quarantine_required_prefix">Quarantine Required:</string>
     <string name="borescope">Borescope</string>
@@ -181,6 +213,9 @@
     <string name="atp_results">ATP Results</string>
     <string name="atp_water_rlu">ATP Water RLU</string>
     <string name="atp_swab_rlu">ATP Swab RLU</string>
+    <string name="confirm_sample_prompt">Confirm sample details?</string>
+    <string name="confirm_sample_success">Scope sample successfully recorded!</string>
+
 
     <string-array name="spinner_yes_no">
         <item>No</item>
@@ -191,7 +226,7 @@
         <item>Positive</item>
     </string-array>
 
-    <!-- Help text -->
+    <!-- Help -->
     <string name="app_title">How to Use the App</string>
 
     <string-array name="app_instructions">
@@ -236,6 +271,9 @@
         <item>Step 8: Store the container appropriately and transport it to the laboratory for analysis as soon as possible.</item>
         <item>Step 9: Once the results are available, take appropriate action based on the findings and ensure that the endoscope is properly cleaned and disinfected before further use.</item>
     </string-array>
+
+    <string name="tts_play">Play Text To Speech</string>
+    <string name="tts_stop">Stop Text To Speech</string>
 
     <!-- Placeholder text -->
     <string name="placeholder_endoscope_name">ABC123</string>
