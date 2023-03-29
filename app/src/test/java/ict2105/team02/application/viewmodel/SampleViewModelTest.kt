@@ -70,14 +70,14 @@ class SampleViewModelTest {
     @Test
     fun testSetAllSample() {
         val sampleDataMap = hashMapOf(
-            "fluidResult" to "true",
+            "fluidResult" to "positive",
             "fluidAction" to "action1",
             "fluidComment" to "comment1",
             "swabDate" to "1/1/2023",
-            "swabResult" to "false",
+            "swabResult" to "negative",
             "swabAction" to "action2",
             "swabCultureComment" to "comment2",
-            "quarantineRequired" to "false",
+            "quarantineRequired" to "no",
             "repeatDateMS" to "",
             "waterATPRLU" to "55",
             "swabATPRLU" to "55"
