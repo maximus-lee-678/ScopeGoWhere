@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -30,11 +31,9 @@ class HelpPageFragment : Fragment()  {
     private var currentVideoId : String = ""
 	private lateinit var  tts : AudioNarrator
 	var instructions: MutableList<String> = mutableListOf()
-    private var allText: String = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val TAG = this.javaClass.simpleName
 	    // setup binding
-        binding = FragmentHelpPageBinding.inflate(layoutInflater, container, false)
+        binding = FragmentHelpPageBinding.inflate(inflater, container, false)
 	    youTubePlayerView = binding.youtubePlayerView
 	    //Setup TTS
 	    tts = context?.let { AudioNarrator(it)}!!
@@ -43,16 +42,15 @@ class HelpPageFragment : Fragment()  {
 	    // Setup Information from context
 	    setUpHelpPage()
 	    //Setup pause video Scroll Function
-	    setupScrollObserver()
+	    setupScrollObserver(binding.helpCleanScroll)
 	    // Setup TextToSpeech
 	    binding.speak.setOnClickListener {
-		    val isPlaying = tts.toggleTextToSpeech { readAllText() }
+		    val isPlaying = tts.toggleTextToSpeech { readAllText(binding.LinearCleanHelp) }
 		    if (!isPlaying)
 			    binding.speak.text = "Play Text To Speech"
 		    else
 			    binding.speak.text = "Stop Text To Speech"
 		    pauseYoutubeVideo()
-
 	    }
 	    return binding.root
     }
@@ -64,6 +62,7 @@ class HelpPageFragment : Fragment()  {
 					DefaultPlayerUiController(youTubePlayerView, youTubePlayer)
 				youTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.rootView)
 				youTubePlayer.loadVideo(currentVideoId, 0f)
+				youTubePlayer.play()
 			}
 		}
 		// disable iframe ui
@@ -73,20 +72,19 @@ class HelpPageFragment : Fragment()  {
 	private fun setUpHelpPage(){
 		parentFragmentManager.setFragmentResultListener("helpPage", this)
 		{ requestKey, bundle ->
-			val videoId = bundle.getString("videoId")
+			val videoId = bundle?.getString("videoId")
+			val stringArrayID = bundle?.getInt("stringArrayID")
 			if (videoId != null) {
 				this.currentVideoId = videoId
 				updateVideo(currentVideoId)
 			}
-			val stringArrayID = bundle.getInt("stringArrayID")
 			if (stringArrayID != null) {
 				instructions = resources.getStringArray(stringArrayID).toMutableList()
 				setUpInstruction()
 			}
 		}
 	}
-	private fun setupScrollObserver(){
-		val scrollView = binding.helpCleanScroll
+	private fun setupScrollObserver (scrollView : ScrollView){
 		scrollView.viewTreeObserver.addOnScrollChangedListener {
 			val videoViewLocation = IntArray(2)
 			youTubePlayerView.getLocationOnScreen(videoViewLocation)
@@ -166,8 +164,7 @@ class HelpPageFragment : Fragment()  {
             }
         })
     }
-	fun readAllText() {
-		val linearLayout = binding.LinearCleanHelp
+	private fun readAllText(linearLayout: LinearLayout) {
 		for (i in 0 until linearLayout.childCount) {
 			val view = linearLayout.getChildAt(i)
 			if (view is TextView &&  view !is Button) {
