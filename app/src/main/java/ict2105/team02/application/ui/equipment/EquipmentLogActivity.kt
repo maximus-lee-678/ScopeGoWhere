@@ -29,9 +29,6 @@ class EquipmentLogActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        title = "Endoscope Logs"
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityEquipmentLogBinding.inflate(layoutInflater)

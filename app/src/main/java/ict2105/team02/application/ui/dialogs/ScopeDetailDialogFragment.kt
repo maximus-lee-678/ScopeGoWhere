@@ -98,7 +98,7 @@ class ScopeDetailDialogFragment : BottomSheetDialogFragment() {
         }
 
         binding.circulationButton.setOnClickListener {
-            ConfirmationDialogFragment("Return endoscope to circulation?") {
+            ConfirmationDialogFragment(resources.getString(R.string.dialog_return_to_circulation)) {
                 // User clicked confirm
                 val serial = scopeDetailViewModel.scopeDetail.value!!.scopeSerial
                 scopeDetailViewModel.returnScopeToCirculation(serial)

@@ -12,23 +12,24 @@ import androidx.recyclerview.widget.RecyclerView
 import ict2105.team02.application.R
 import ict2105.team02.application.model.HelpData
 
-class HelpAdapter(private val dataset: List<HelpData>,
-                  private val parentFragment: HelpFragment
-)
-    : RecyclerView.Adapter<HelpAdapter.ItemViewHolder>(){
-    val TAG = "HelpAdapter"
-    private lateinit var helpFragment : Fragment
+class HelpAdapter(
+    private val dataset: List<HelpData>,
+    private val parentFragment: HelpFragment
+) : RecyclerView.Adapter<HelpAdapter.ItemViewHolder>() {
+    private val TAG: String = this::class.simpleName!!
+    private lateinit var helpFragment: Fragment
     private var resID = 0
-    class ItemViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
-        val helpTitle : TextView = view.findViewById(R.id.HelpTitle)
-        val helpImageButton : ImageButton = view.findViewById(R.id.HelpImageButton)
+
+    class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        val helpTitle: TextView = view.findViewById(R.id.HelpTitle)
+        val helpImageButton: ImageButton = view.findViewById(R.id.HelpImageButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         // Get Context From Parents
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val contactView  = inflater.inflate(R.layout.recyclerview_help_item,parent,false)
+        val contactView = inflater.inflate(R.layout.recyclerview_help_item, parent, false)
         return ItemViewHolder(contactView)
     }
 
@@ -38,29 +39,28 @@ class HelpAdapter(private val dataset: List<HelpData>,
         holder.helpTitle.text = item.Title
         changeResID(item, holder)
         holder.helpImageButton.setImageResource(resID)
-        holder.helpImageButton.setOnClickListener{
-            var result : Bundle = Bundle()
-	        helpFragment = HelpPageFragment()
-            result.putString("videoId",item.VideoID)
-	        result.putInt("stringArrayID",item.stringArrayID)
-            parentFragment.setFragmentResult("helpPage",result)
+        holder.helpImageButton.setOnClickListener {
+            val result: Bundle = Bundle()
+            helpFragment = HelpPageFragment()
+            result.putString("videoId", item.VideoID)
+            result.putInt("stringArrayID", item.stringArrayID)
+            parentFragment.setFragmentResult("helpPage", result)
             val transaction = parentFragment.parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentFrameLayout, helpFragment ,TAG_FRAGMENT)
+            transaction.replace(R.id.fragmentFrameLayout, helpFragment, TAG_FRAGMENT)
             transaction.addToBackStack(null);
             transaction.commit()
         }
     }
-    fun changeResID(item : HelpData, holder: ItemViewHolder) {
-        when(item.Title) {
+
+    private fun changeResID(item: HelpData, holder: ItemViewHolder) {
+        when (item.Title) {
             "How to use App" -> {
                 resID = R.drawable.guide_icon
             }
-            "Endoscope Cleaning" ->
-            {
+            "Endoscope Cleaning" -> {
                 resID = R.drawable.cleaning_icon
             }
-            "Endoscope Drying" ->
-            {
+            "Endoscope Drying" -> {
                 resID = R.drawable.drying_icon
             }
             "Endoscope Sampling" -> {
@@ -69,11 +69,8 @@ class HelpAdapter(private val dataset: List<HelpData>,
             else -> throw IllegalArgumentException("Invalid title: $item.Title")
         }
     }
+
     override fun getItemCount(): Int {
         return dataset.size
     }
-
-
-
-
 }

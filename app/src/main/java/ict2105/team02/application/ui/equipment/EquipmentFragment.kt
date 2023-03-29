@@ -1,5 +1,6 @@
 package ict2105.team02.application.ui.equipment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -39,7 +40,7 @@ class EquipmentFragment : Fragment() {
         binding = FragmentEquipmentBinding.inflate(inflater)
 
         // Setup recyclerview
-        eqAdapter = EquipmentAdapter()
+        eqAdapter = EquipmentAdapter(activity as Context)
         binding.equipmentsRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = eqAdapter

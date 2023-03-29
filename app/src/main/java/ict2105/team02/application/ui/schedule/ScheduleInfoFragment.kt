@@ -1,5 +1,6 @@
 package ict2105.team02.application.ui.schedule
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +23,7 @@ class ScheduleInfoFragment(
         binding = FragmentScheduleInfoBinding.inflate(inflater)
 
         binding.scheduleRecycle.setHasFixedSize(false)
-        eqAdapter = EquipmentAdapter()
+        eqAdapter = EquipmentAdapter(activity as Context)
 
         binding.scheduleRecycle.apply {
             this.layoutManager = LinearLayoutManager(requireContext())

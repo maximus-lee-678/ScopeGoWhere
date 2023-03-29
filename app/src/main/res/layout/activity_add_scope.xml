@@ -107,4 +107,11 @@
         android:layout_marginRight="10dp"
         android:text="Add Scope" />
 
+    <TextView
+        android:id="@+id/errorMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="#FF3030" />
+
 </LinearLayout>

@@ -58,7 +58,7 @@ class EditScopeActivity : AppCompatActivity() {
         binding.nextSampleDate.setText(intentNextSampleDate)
 
         binding.nextSampleDate.setOnClickListener{
-            Utils.createMaterialFutureDatePicker("Change sample date") {
+            Utils.createMaterialFutureDatePicker(resources.getString(R.string.scope_choose_sample_date)) {
                 binding.nextSampleDate.setText(Date(it).toDateString())
             }.show(supportFragmentManager, null)
         }
@@ -68,10 +68,12 @@ class EditScopeActivity : AppCompatActivity() {
         }
 
         binding.buttonDeleteScope.setOnClickListener {
-            ConfirmationDialogFragment("Delete endoscope?") {
+            ConfirmationDialogFragment(resources.getString(R.string.scope_delete_confirm)) {
                 // User clicked confirm
-                endoscopeViewModel.deleteScope(intentSerial)
-                Toast.makeText(this, "Scope Deleted Successfully!", Toast.LENGTH_LONG).show()
+                lifecycleScope.launch {
+                    endoscopeViewModel.deleteScope(intentSerial)
+                }
+                Toast.makeText(this, resources.getString(R.string.scope_delete_success), Toast.LENGTH_LONG).show()
                 finish()
             }.show(supportFragmentManager, null)
         }
@@ -85,11 +87,11 @@ class EditScopeActivity : AppCompatActivity() {
 
         // Validate fields
         if (brand.isEmpty() || model.isEmpty() || type.isEmpty() || nextSampleDate == null) {
-            binding.errorMsg.text = "Please fill in all the fields"
+            binding.errorMsg.text = resources.getString(R.string.missing_inputs);
             return
         }
 
-        val confirmationDialog = ConfirmationDialogFragment("Update endoscope?") {
+        val confirmationDialog = ConfirmationDialogFragment(resources.getString(R.string.scope_update_confirm)) {
             // User clicked confirm
             // update the details into the database
             lifecycleScope.launch {
@@ -104,7 +106,7 @@ class EditScopeActivity : AppCompatActivity() {
             }
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "Scope Updated Successfully!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, resources.getString(R.string.scope_update_success), Toast.LENGTH_LONG).show()
             finish()
         }
         confirmationDialog.show(supportFragmentManager, "ConfirmationDialog")

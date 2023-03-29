@@ -1,5 +1,6 @@
 package ict2105.team02.application.ui.equipment
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import ict2105.team02.application.R
 import ict2105.team02.application.model.Endoscope
 
 // Adapter for displaying a list of endoscopes in a RecyclerView
-class EquipmentAdapter : ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHolder>
+class EquipmentAdapter(private val context: Context) : ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHolder>
     (EndoscopeComparator()) {
     // Callback for when an item is clicked
     var onItemClick: ((Endoscope) -> Unit)? = null
@@ -57,7 +58,7 @@ class EquipmentAdapter : ListAdapter<Endoscope, EquipmentAdapter.EquipmentViewHo
         // Get the Endoscope object for the current item
         val item = getItem(position)
         // Set the name of the endoscope to a combination of its model and serial number
-        holder.nameTextView.text = item.scopeModel + item.scopeSerial
+        holder.nameTextView.text = context.resources.getString(R.string.endoscope_name, item.scopeModel, item.scopeSerial.toString())
         // Set the status of the endoscope
         holder.statusTextView.text = item.scopeStatus
     }
