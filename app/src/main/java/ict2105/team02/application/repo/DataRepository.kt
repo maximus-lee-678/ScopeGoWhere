@@ -203,7 +203,7 @@ class DataRepository {
                 Log.d(TAG, "Firebase insert wash data success")
 
                 // Update scope status
-                updateScopeStatus(serial, "Washing")
+                updateScopeStatus(serial, Constants.ENDOSCOPE_WASH)
             }
             .addOnFailureListener { e -> Log.d(TAG, "Firebase insert wash data fail due to $e") }
     }
