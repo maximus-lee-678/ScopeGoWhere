@@ -18,9 +18,6 @@ class Utils {
             calendar.set(Calendar.MILLISECOND, 0)
             return calendar.time
         }
-        fun showToast(context: Context, msg:String){
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-        }
 
         fun getTodayEndDate(): Date {
             val calendar = Calendar.getInstance()
@@ -76,6 +73,10 @@ class Utils {
                         onCancel?.invoke()
                     }
                 }
+        }
+
+        fun showToast(context: Context, msg:String){
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         }
     }
 }

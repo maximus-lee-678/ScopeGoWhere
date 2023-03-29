@@ -6,8 +6,11 @@ import ict2105.team02.application.utils.*
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.runner.RunWith
+import org.junit.runners.BlockJUnit4ClassRunner
 import java.util.*
 
+@RunWith(BlockJUnit4ClassRunner::class)
 class ExtensionFunctionsUnitTest {
     @Test
     fun testTAG() {
@@ -15,31 +18,48 @@ class ExtensionFunctionsUnitTest {
         assertEquals("Object", testObject.TAG)
     }
 
+    // toDateString extension function
     @Test
     fun testToDateString() {
-        val calendar = Calendar.getInstance()
-        calendar.set(2023, 2, 26)
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        val date = calendar.time
+        val date = Calendar.getInstance().apply {
+            set(2023, 2, 26, 0, 0, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.time
         assertEquals("26/03/2023", date.toDateString())
+    }
+
+    // Custom formatter for toDateString
+    @Test
+    fun testToDateStringWithCustomFormatter() {
+        val date = Calendar.getInstance().apply {
+            set(2023, 2, 26, 0, 0, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.time
+        assertEquals("2023-03-26", date.toDateString("yyyy-MM-dd"))
     }
 
     @Test
     fun testParseDateString() {
         val dateString = "26/03/2023"
-        val calendar = Calendar.getInstance()
-        calendar.set(2023, 2, 26)
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        val expectedDate = calendar.time
+        val expectedDate = Calendar.getInstance().apply {
+            set(2023, 2, 26, 0, 0, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.time
         assertEquals(expectedDate, dateString.parseDateString())
     }
 
+    // Custom formatter for parseDateString
+    @Test
+    fun testParseDateStringWithCustomFormatter() {
+        val dateString = "2023-03-26"
+        val expectedDate = Calendar.getInstance().apply {
+            set(2023, 2, 26, 0, 0, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.time
+        assertEquals(expectedDate, dateString.parseDateString("yyyy-MM-dd"))
+    }
+
+    // Test hashmap conversion extension for WashData data class
     @Test
     fun testAsHashMap_WashData() {
         val washData = WashData(
@@ -75,6 +95,7 @@ class ExtensionFunctionsUnitTest {
         assertEquals(washData.DoneBy, hashMap["DoneBy"])
     }
 
+    // Test hashmap conversion extension for ResultData data class
     @Test
     fun testAsHashMap_ResultData() {
         val resultData = ResultData(
@@ -120,6 +141,8 @@ class ExtensionFunctionsUnitTest {
         assertEquals(false, "NO".mapYesNoToBoolean())
         assertEquals(false, "No".mapYesNoToBoolean())
         assertEquals(false, "no".mapYesNoToBoolean())
+        assertEquals(false, "".mapYesNoToBoolean())
+        assertEquals(false, "random".mapYesNoToBoolean())
     }
 
     @Test
@@ -130,5 +153,7 @@ class ExtensionFunctionsUnitTest {
         assertEquals(false, "NEGATIVE".mapPositiveNegativeToBoolean())
         assertEquals(false, "Negative".mapPositiveNegativeToBoolean())
         assertEquals(false, "negative".mapPositiveNegativeToBoolean())
+        assertEquals(false, "".mapPositiveNegativeToBoolean())
+        assertEquals(false, "random".mapPositiveNegativeToBoolean())
     }
 }
