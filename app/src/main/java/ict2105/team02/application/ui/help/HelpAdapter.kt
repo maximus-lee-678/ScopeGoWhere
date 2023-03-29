@@ -34,19 +34,19 @@ class HelpAdapter(private val dataset: List<HelpData>,
         val TAG_FRAGMENT = "HelpPage"
         val item = dataset[position]
         holder.helpTitle.text = item.Title
+	    helpFragment = HelpPageFragment()
         holder.helpImageButton.setImageResource(getImageResourceId(item))
         holder.helpImageButton.setOnClickListener{
 	        val result = Bundle().apply {
 		        putString("videoId", item.VideoID)
 		        putInt("stringArrayID", item.stringArrayID)
 	        }
-        helpFragment = HelpPageFragment()
-        parentFragment.setFragmentResult("helpPage",result)
-        val transaction = parentFragment.parentFragmentManager.beginTransaction().apply{
-            replace(R.id.fragmentFrameLayout, helpFragment ,TAG_FRAGMENT)
-            addToBackStack(null)
-            commit()
-        }
+	        parentFragment.setFragmentResult("helpPage",result)
+	        parentFragment.parentFragmentManager.beginTransaction().apply{
+	            replace(R.id.fragmentFrameLayout, helpFragment ,TAG_FRAGMENT)
+	            addToBackStack(null)
+	            commit()
+	        }
         }
     }
     private fun getImageResourceId(item : HelpData) : Int {
