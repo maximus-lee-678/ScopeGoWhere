@@ -87,17 +87,14 @@ class WashActivity : AppCompatActivity() {
                 // Hide previous button on first page
                 binding.buttonWashPreviousStep.visibility = View.INVISIBLE
             }
-            1 -> {
-                // No longer first page, enable previous button
-                binding.buttonWashPreviousStep.visibility = View.VISIBLE
-            }
-            TOTAL_STEPS - 2 -> {
-                // No longer last page, enable next button
-                binding.buttonWashNextStep.visibility = View.VISIBLE
-            }
             TOTAL_STEPS - 1 -> {
                 // Hide next button on last page
                 binding.buttonWashNextStep.visibility = View.INVISIBLE
+            }
+            else -> {
+                // Show both on any other page
+                binding.buttonWashPreviousStep.visibility = View.VISIBLE
+                binding.buttonWashNextStep.visibility = View.VISIBLE
             }
         }
     }

@@ -94,17 +94,14 @@ class SampleActivity : AppCompatActivity() {
                 // Hide previous button on first page
                 binding.buttonSamplePreviousStep.visibility = View.INVISIBLE
             }
-            1 -> {
-                // No longer first page, enable previous button
-                binding.buttonSamplePreviousStep.visibility = View.VISIBLE
-            }
-            TOTAL_STEPS - 2 -> {
-                // No longer last page, enable next button
-                binding.buttonSampleNextStep.visibility = View.VISIBLE
-            }
             TOTAL_STEPS - 1 -> {
                 // Hide next button on last page
                 binding.buttonSampleNextStep.visibility = View.INVISIBLE
+            }
+            else -> {
+                // Show both on any other page
+                binding.buttonSamplePreviousStep.visibility = View.VISIBLE
+                binding.buttonSampleNextStep.visibility = View.VISIBLE
             }
         }
     }
