@@ -20,7 +20,7 @@
 
 The application is built in Kotlin and Android Studio
 ## <b>Our Video Demostration</b>
-<font size="3">🎞️ [Video Demo](https://www.youtube.com/watch?v=osqsvystBO8&ab_channel=BennyLim)</font>
+<font size="3">🎞️ [Video Demo](https://www.youtube.com/watch?v=-C7oLeMbBQY&ab_channel=BennyLim)</font>
 ## <b>Our Documentation</b>
 <font size="3">📄 [Documentation](https://github.com/ict2105-csc2007/ict2105-team02-2023-docs)</font>
 ## <b>Objectives</b>
