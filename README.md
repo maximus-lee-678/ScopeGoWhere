@@ -19,14 +19,16 @@
 <hr>
 
 The application is built in Kotlin and Android Studio
-
+## <b>Our Video Demostration</b>
+<font size="3">🎞️ [Video Demo](https://www.youtube.com/watch?v=osqsvystBO8&ab_channel=BennyLim)</font>
+## <b>Our Documentation</b>
+<font size="3">📄 [Documentation](https://github.com/ict2105-csc2007/ict2105-team02-2023-docs)</font>
 ## <b>Objectives</b>
 
 > 1. Reduce Manual Entry for scope tracking  
 > 2. Informative and Detailed dashboard
 > 3. Single point of data entry 
-## <b>Our Documents</b>
-<font size="3">📄 [Documentation](https://github.com/ict2105-csc2007/ict2105-team02-2023-docs)</font>
+
 ## <b>Installation</b>
 To install MyAndroidApp on your Android device, follow these simple steps:
 
@@ -48,8 +50,6 @@ git clone https://github.com/ict2105-csc2007/ict2105-team02-2023
 - Endoscope Tutorials
 - Endoscope Management
 - Image to Text
-
-
 
 ## <b>Contributors</b>
 
