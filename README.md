@@ -36,7 +36,7 @@ To install MyAndroidApp on your Android device, follow these simple steps:
 2. Open a terminal or command prompt.
 3. Clone the repository using the following command:
 ```bash
-git clone https://github.com/maximus-lee-678/scope-go-where.git
+git clone https://github.com/maximus-lee-678/ScopeGoWhere.git
 ```
 4. Open Android Studio, and select "Open an Existing Project."
 5. Navigate to the directory where you cloned the repository, and select the "ScopeGoWhere" folder.
